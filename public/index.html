@@ -6,6 +6,7 @@
   <meta name="description" content="Yogesh Sahu — Founder of CryptoPrism, Data Engineer, Full-Stack Developer & AI/ML practitioner building crypto data infrastructure." />
   <meta property="og:title" content="Yogesh Sahu // yogeshsahu.xyz" />
   <meta property="og:description" content="Founder · Data Engineer · Full-Stack Dev · AI/ML" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <title>Yogesh Sahu // yogeshsahu.xyz</title>
   <link rel="canonical" href="https://yogeshsahu.xyz" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -166,20 +167,22 @@
     /* ── HERO ─────────────────────────────────────────── */
     #hero {
       position: relative;
-      min-height: 100vh;
+      min-height: 92vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: calc(var(--nav-h) + 2rem) 2rem 4rem;
+      padding: calc(var(--nav-h) + 2rem) 2rem 2rem;
       overflow: hidden;
     }
 
     #matrix-canvas {
       position: absolute;
       inset: 0;
-      opacity: 0.12;
+      opacity: 0.22;
       z-index: 0;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%);
     }
 
     .hero-content {
@@ -307,9 +310,37 @@
       100% { transform: scaleY(0); transform-origin: bottom; }
     }
 
+    /* ── SECTION DIVIDER ──────────────────────────────── */
+    .section-divider {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+      height: 1px;
+      position: relative;
+    }
+    .section-divider::before {
+      content: '';
+      display: block;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-bright) 20%, var(--green) 50%, var(--border-bright) 80%, transparent);
+      opacity: 0.6;
+    }
+    .section-divider::after {
+      content: '◆';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--bg);
+      color: var(--green-faint);
+      padding: 0 1rem;
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+    }
+
     /* ── SECTION COMMON ───────────────────────────────── */
     section {
-      padding: 7rem 2.5rem;
+      padding: 6rem 2.5rem;
       max-width: 1100px;
       margin: 0 auto;
     }
@@ -466,6 +497,133 @@
     }
     .stat-sub { font-size: 0.75rem; color: var(--text-dim); }
 
+    /* ── FEATURED PROJECTS ────────────────────────────── */
+    .featured-projects {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .featured-card {
+      background: var(--surface);
+      border: 1px solid var(--border-bright);
+      border-radius: 6px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .featured-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+    }
+    .featured-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,255,136,0.04), transparent 60%);
+      pointer-events: none;
+    }
+    .featured-card:hover {
+      border-color: var(--green);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0,255,136,0.12), 0 0 0 1px var(--green);
+    }
+
+    .featured-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green);
+      background: var(--green-faint);
+      border: 1px solid var(--border-bright);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .featured-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    .featured-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+    }
+
+    .featured-desc {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .featured-metrics {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .featured-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .featured-metric-value {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .featured-metric-label {
+      font-size: 0.62rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .featured-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .featured-links {
+      display: flex;
+      gap: 1rem;
+      padding-top: 0.75rem;
+    }
+
+    @media (max-width: 768px) {
+      .featured-projects { grid-template-columns: 1fr; }
+    }
+
+    .projects-rest-label {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
     /* ── PROJECTS ─────────────────────────────────────── */
     .projects-grid {
       display: grid;
@@ -495,11 +653,13 @@
       transition: opacity 0.25s;
     }
     .project-card:hover {
-      border-color: var(--border-bright);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px var(--border-bright);
+      border-color: var(--green);
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(0,255,136,0.08), 0 0 0 1px var(--green);
     }
     .project-card:hover::after { opacity: 1; }
+    .project-card:hover .project-name { color: var(--green); }
+    .project-card:hover .project-icon { transform: scale(1.15); transition: transform 0.3s; }
 
     .project-id {
       font-size: 0.65rem;
@@ -517,9 +677,15 @@
     }
 
     .project-icon {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       line-height: 1;
+      filter: drop-shadow(0 0 6px currentColor);
     }
+    .project-icon.icon-cyan { color: var(--cyan); }
+    .project-icon.icon-amber { color: var(--amber); }
+    .project-icon.icon-green { color: var(--green); }
+    .project-icon.icon-red { color: var(--red); }
+    .project-icon.icon-purple { color: #c084fc; }
 
     .project-name {
       font-family: var(--font-display);
@@ -666,7 +832,7 @@
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      gap: 3rem;
       align-items: start;
     }
 
@@ -876,6 +1042,8 @@
     <div class="hero-scroll">scroll_down</div>
   </section>
 
+  <div class="section-divider"></div>
+
   <!-- ABOUT -->
   <section id="about">
     <div class="section-header reveal">
@@ -947,6 +1115,8 @@
     </div>
   </section>
 
+  <div class="section-divider"></div>
+
   <!-- PROJECTS -->
   <section id="projects">
     <div class="section-header reveal">
@@ -954,17 +1124,33 @@
       <h2>projects</h2>
       <div class="section-line"></div>
     </div>
-    <div class="projects-grid">
-
-      <!-- CryptoPrism DB -->
-      <div class="project-card reveal reveal-delay-1" onclick="location.href='/projects/cryptoprism-db.html'" style="cursor:pointer;">
-        <div class="project-id">PROJ_001</div>
-        <div class="project-icon">⬡</div>
-        <div class="project-name">CRYPTOPRISM-DB</div>
-        <div class="project-desc">
-          Production crypto technical analysis system — v4.4.0. Tracks 1,000+ coins with 100+ indicators across 2.26M+ records. ETL pipelines, Streamlit dashboard, Gemini-powered QA, Telegram alerts. 99.9% uptime.
+    <!-- FEATURED PROJECTS -->
+    <div class="featured-projects">
+      <div class="featured-card reveal reveal-delay-1" onclick="location.href='/projects/cryptoprism-db.html'">
+        <div class="featured-badge">flagship project</div>
+        <div class="featured-name">CRYPTOPRISM-DB</div>
+        <div class="featured-desc">
+          Production crypto technical analysis system — v4.4.0. Four-stage ETL pipeline tracking 1,000+ coins with 100+ indicators, Gemini-powered QA, Streamlit dashboard, and Telegram alerts.
         </div>
-        <div class="project-tags">
+        <div class="featured-metrics">
+          <div class="featured-metric">
+            <span class="featured-metric-value">2.26M+</span>
+            <span class="featured-metric-label">Records</span>
+          </div>
+          <div class="featured-metric">
+            <span class="featured-metric-value">1,000+</span>
+            <span class="featured-metric-label">Coins</span>
+          </div>
+          <div class="featured-metric">
+            <span class="featured-metric-value">100+</span>
+            <span class="featured-metric-label">Indicators</span>
+          </div>
+          <div class="featured-metric">
+            <span class="featured-metric-value">99.9%</span>
+            <span class="featured-metric-label">Uptime</span>
+          </div>
+        </div>
+        <div class="featured-tags">
           <span class="ptag lang">Python</span>
           <span class="ptag lang">R</span>
           <span class="ptag lang">PostgreSQL</span>
@@ -972,7 +1158,7 @@
           <span class="ptag">GitHub Actions</span>
           <span class="ptag">Docker</span>
         </div>
-        <div class="project-links">
+        <div class="featured-links">
           <a href="https://github.com/CryptoPrism-io" target="_blank" rel="noopener" class="project-link" onclick="event.stopPropagation()">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
             [github]
@@ -981,10 +1167,56 @@
         </div>
       </div>
 
+      <div class="featured-card reveal reveal-delay-2" onclick="location.href='/projects/cryptoprism-screener.html'">
+        <div class="featured-badge">live saas</div>
+        <div class="featured-name">CRYPTOPRISM SCREENER</div>
+        <div class="featured-desc">
+          Institutional-grade crypto screening SaaS. React + TypeScript frontend, FastAPI backend. Real-time screening via WebSockets with subscription tiers.
+        </div>
+        <div class="featured-metrics">
+          <div class="featured-metric">
+            <span class="featured-metric-value">1,000+</span>
+            <span class="featured-metric-label">Coins</span>
+          </div>
+          <div class="featured-metric">
+            <span class="featured-metric-value">100+</span>
+            <span class="featured-metric-label">Indicators</span>
+          </div>
+          <div class="featured-metric">
+            <span class="featured-metric-value">$29/mo</span>
+            <span class="featured-metric-label">Pro Tier</span>
+          </div>
+          <div class="featured-metric">
+            <span class="featured-metric-value">$99/mo</span>
+            <span class="featured-metric-label">Enterprise</span>
+          </div>
+        </div>
+        <div class="featured-tags">
+          <span class="ptag lang">TypeScript</span>
+          <span class="ptag lang">Python</span>
+          <span class="ptag">React</span>
+          <span class="ptag">FastAPI</span>
+          <span class="ptag">WebSockets</span>
+          <span class="ptag">SaaS</span>
+        </div>
+        <div class="featured-links">
+          <a href="https://github.com/CryptoPrism-io" target="_blank" rel="noopener" class="project-link" onclick="event.stopPropagation()">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            [github]
+          </a>
+          <a href="/projects/cryptoprism-screener.html" class="project-link" style="color:var(--green); margin-left:auto;" onclick="event.stopPropagation()">[case_study →]</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- REST OF PROJECTS -->
+    <div class="projects-rest-label">// more_projects</div>
+    <div class="projects-grid">
+
       <!-- Pratyaksha -->
-      <div class="project-card reveal reveal-delay-2" onclick="location.href='/projects/pratyaksha.html'" style="cursor:pointer;">
+      <div class="project-card reveal reveal-delay-1" onclick="location.href='/projects/pratyaksha.html'" style="cursor:pointer;">
         <div class="project-id">PROJ_002</div>
-        <div class="project-icon">◈</div>
+        <div class="project-icon icon-purple">◈</div>
         <div class="project-name">PRATYAKSHA</div>
         <div class="project-desc">
           Cognitive journaling dashboard with AI-powered insights. Users log thoughts and receive pattern analysis, emotional trend visualization, and reflective prompts powered by LLMs.
@@ -1009,9 +1241,9 @@
       </div>
 
       <!-- Backtesting Engine -->
-      <div class="project-card reveal reveal-delay-3" onclick="location.href='/projects/backtest.html'" style="cursor:pointer;">
+      <div class="project-card reveal reveal-delay-2" onclick="location.href='/projects/backtest.html'" style="cursor:pointer;">
         <div class="project-id">PROJ_003</div>
-        <div class="project-icon">⟁</div>
+        <div class="project-icon icon-amber">⟁</div>
         <div class="project-name">SENTIMENT BACKTEST ENGINE</div>
         <div class="project-desc">
           Sentiment-driven long/short crypto backtesting framework built on vectorbt. Ingests social sentiment signals to generate trade signals, with comprehensive performance analytics.
@@ -1032,9 +1264,9 @@
       </div>
 
       <!-- Forex Pipeline -->
-      <div class="project-card reveal reveal-delay-1" onclick="location.href='/projects/forex-pipeline.html'" style="cursor:pointer;">
+      <div class="project-card reveal reveal-delay-3" onclick="location.href='/projects/forex-pipeline.html'" style="cursor:pointer;">
         <div class="project-id">PROJ_004</div>
-        <div class="project-icon">⧖</div>
+        <div class="project-icon icon-cyan">⧖</div>
         <div class="project-name">FOREX DATA PIPELINE</div>
         <div class="project-desc">
           Production FX market data pipeline with ForexFactory calendar scraping, session-based dashboards, and automated data ingestion. Built for real-time forex market analysis.
@@ -1057,7 +1289,7 @@
       <!-- CryptoPrism Socials -->
       <div class="project-card reveal reveal-delay-2" onclick="location.href='/projects/cryptoprism-socials.html'" style="cursor:pointer;">
         <div class="project-id">PROJ_005</div>
-        <div class="project-icon">⬡</div>
+        <div class="project-icon icon-green">⬡</div>
         <div class="project-name">CRYPTOPRISM SOCIALS</div>
         <div class="project-desc">
           Automated customer acquisition engine that drives traction to sales funnels through intelligent social media automation. Programmatic outreach at scale with engagement tracking.
@@ -1077,35 +1309,10 @@
         </div>
       </div>
 
-      <!-- CryptoPrism Screener -->
-      <div class="project-card reveal reveal-delay-3" onclick="location.href='/projects/cryptoprism-screener.html'" style="cursor:pointer;">
-        <div class="project-id">PROJ_006</div>
-        <div class="project-icon">◉</div>
-        <div class="project-name">CRYPTOPRISM SCREENER</div>
-        <div class="project-desc">
-          Institutional-grade crypto screening SaaS. React + TypeScript frontend, FastAPI backend. Screens 1,000+ coins with 100+ indicators in real-time via WebSockets. Subscription tiers: Free / Pro ($29/mo) / Enterprise ($99/mo).
-        </div>
-        <div class="project-tags">
-          <span class="ptag lang">TypeScript</span>
-          <span class="ptag lang">Python</span>
-          <span class="ptag">React</span>
-          <span class="ptag">FastAPI</span>
-          <span class="ptag">WebSockets</span>
-          <span class="ptag">SaaS</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/CryptoPrism-io" target="_blank" rel="noopener" class="project-link" onclick="event.stopPropagation()">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-            [github]
-          </a>
-          <a href="/projects/cryptoprism-screener.html" class="project-link" style="color:var(--green); margin-left:auto;" onclick="event.stopPropagation()">[case_study →]</a>
-        </div>
-      </div>
-
       <!-- CryptoPrism DB-H -->
       <div class="project-card reveal reveal-delay-1" onclick="location.href='/projects/cryptoprism-db-h.html'" style="cursor:pointer;">
         <div class="project-id">PROJ_007</div>
-        <div class="project-icon">⧗</div>
+        <div class="project-icon icon-cyan">⧗</div>
         <div class="project-name">CRYPTOPRISM-DB-H</div>
         <div class="project-desc">
           Hourly companion to CryptoPrism-DB. Tracks top 250 coins on a 5-day rolling window — OHLCV fetched every hour via R, DMV signals computed via Python, all auto-stored in cp_backtest_h for backtesting.
@@ -1129,7 +1336,7 @@
       <!-- News Fetcher -->
       <div class="project-card reveal reveal-delay-2" onclick="location.href='/projects/news-fetcher.html'" style="cursor:pointer;">
         <div class="project-id">PROJ_008</div>
-        <div class="project-icon">◫</div>
+        <div class="project-icon icon-red">◫</div>
         <div class="project-name">CRYPTOPRISM NEWS FETCHER</div>
         <div class="project-desc">
           500+ crypto articles/hour from 44+ verified publishers (CoinDesk + CryptoCompare). Full NLP/ML pipeline: sentiment scoring, entity extraction, 182+ topic categories. 55.8% positive sentiment baseline tracked.
@@ -1153,7 +1360,7 @@
       <!-- ForexFactory Scraper -->
       <div class="project-card reveal reveal-delay-3" onclick="location.href='/projects/forexfactory-scraper.html'" style="cursor:pointer;">
         <div class="project-id">PROJ_009</div>
-        <div class="project-icon">⬦</div>
+        <div class="project-icon icon-amber">⬦</div>
         <div class="project-name">FOREXFACTORY CALENDAR SCRAPER</div>
         <div class="project-desc">
           Production economic calendar pipeline — scrapes ForexFactory every 15 minutes, normalises timezones to UTC, UPSERTs to PostgreSQL with full audit trail. 3 automated workflows: realtime, daily, monthly backfill.
@@ -1177,6 +1384,8 @@
     </div>
   </section>
 
+  <div class="section-divider"></div>
+
   <!-- BLOG -->
   <section id="blog">
     <div class="section-header reveal">
@@ -1186,7 +1395,7 @@
     </div>
     <div class="blog-list">
 
-      <a href="#" class="blog-post reveal">
+      <div class="blog-post reveal" style="cursor:default;">
         <div class="blog-meta">
           <span class="blog-date">Jan 15, 2025</span>
           <span class="blog-read-time">⏱ 8 min read</span>
@@ -1197,11 +1406,11 @@
           <div class="blog-excerpt">
             How I built a vectorbt-based backtesting framework that uses NLP-extracted social sentiment signals to drive long/short crypto strategies. Covers signal pipeline design, avoiding lookahead bias, and the surprising things that actually worked in production.
           </div>
-          <div class="blog-cta">read_post</div>
+          <div class="blog-cta" style="color:var(--text-dim); opacity:0.5;">coming_soon</div>
         </div>
-      </a>
+      </div>
 
-      <a href="#" class="blog-post reveal reveal-delay-1">
+      <div class="blog-post reveal reveal-delay-1" style="cursor:default;">
         <div class="blog-meta">
           <span class="blog-date">Nov 28, 2024</span>
           <span class="blog-read-time">⏱ 6 min read</span>
@@ -1212,11 +1421,11 @@
           <div class="blog-excerpt">
             Building an automated QA system that uses AI to monitor our crypto PostgreSQL databases — catching anomalies before they become incidents, running nightly test suites, and firing real-time Slack alerts. What we learned after 6 months in production.
           </div>
-          <div class="blog-cta">read_post</div>
+          <div class="blog-cta" style="color:var(--text-dim); opacity:0.5;">coming_soon</div>
         </div>
-      </a>
+      </div>
 
-      <a href="#" class="blog-post reveal reveal-delay-2">
+      <div class="blog-post reveal reveal-delay-2" style="cursor:default;">
         <div class="blog-meta">
           <span class="blog-date">Feb 2026</span>
           <span class="blog-read-time">⏱ 12 min read</span>
@@ -1227,12 +1436,14 @@
           <div class="blog-excerpt">
             Comprehensive February 2026 research: GPU benchmarks across RTX 4090 to H100, per-million-token pricing for GPT-4/Gemini/Claude, Docker framework comparisons (Ollama vs vLLM vs LocalAI), and real cost scenarios from 100 to 10,000 requests/day. When does self-hosting actually win?
           </div>
-          <div class="blog-cta">read_post</div>
+          <div class="blog-cta" style="color:var(--text-dim); opacity:0.5;">coming_soon</div>
         </div>
-      </a>
+      </div>
 
     </div>
   </section>
+
+  <div class="section-divider"></div>
 
   <!-- CONTACT -->
   <section id="contact">
@@ -1292,6 +1503,7 @@
   <footer>
     <div class="footer-brand"><a href="https://yogeshsahu.xyz" style="color:inherit;text-decoration:none;"><span>//</span> yogeshsahu.xyz</a></div>
     <div class="footer-copy">&copy; 2026 Yogesh Sahu &mdash; built in the terminal</div>
+    <a href="#hero" class="footer-top" style="font-size:0.68rem; color:var(--text-dim); text-decoration:none; letter-spacing:0.1em; transition:color 0.2s;" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='var(--text-dim)'">[back_to_top ↑]</a>
   </footer>
 
   <script>
