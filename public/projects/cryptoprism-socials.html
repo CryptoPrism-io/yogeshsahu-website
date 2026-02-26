@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CryptoPrism Socials // yogeshsahu.xyz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/project.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">// yogeshsahu.xyz</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/#about">about</a></li>
+        <li><a href="/#projects">projects</a></li>
+        <li><a href="/#blog">blog</a></li>
+        <li><a href="/#contact">contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="project-hero reveal">
+    <a href="/" class="back-link">← back_to_portfolio</a>
+    <div class="hero-tag">CASE STUDY // CONTENT AUTOMATION</div>
+    <h1 class="project-title">CRYPTOPRISM SOCIALS</h1>
+    <p class="project-tagline">7 AI-generated Instagram posts daily — fully automated from database to publish</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="stat-value">7</span>
+        <span class="stat-label">Posts / Day</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-value">GPT-4o</span>
+        <span class="stat-label">mini Captions</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-value">99.5%</span>
+        <span class="stat-label">Uptime</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-value">Zero</span>
+        <span class="stat-label">Manual Work</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAYOUT -->
+  <div class="project-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="project-sidebar">
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-card-title">// stack</div>
+        <ul class="stack-list">
+          <li>Python</li>
+          <li>Playwright (Chromium)</li>
+          <li>Jinja2 Templates</li>
+          <li>GPT-4o-mini (OpenRouter)</li>
+          <li>instagrapi</li>
+          <li>PostgreSQL + SQLAlchemy</li>
+          <li>Google Sheets API</li>
+          <li>GitHub Actions</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-card-title">// content schedule</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <span class="tl-dot"></span>
+            <span class="tl-text">02:00 UTC — 3 carousels</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot"></span>
+            <span class="tl-text">02:30 UTC — Daily Teaser story</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot"></span>
+            <span class="tl-text">03:00 UTC — BTC Intelligence story</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot"></span>
+            <span class="tl-text">04:00 UTC — Long Calls story</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot"></span>
+            <span class="tl-text">05:30 UTC — Short Calls story</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-card-title">// content types</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <span class="tl-dot tl-dot--cyan"></span>
+            <span class="tl-text">Stories: 1080x1920</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot tl-dot--cyan"></span>
+            <span class="tl-text">Carousels: 1080x1080</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot"></span>
+            <span class="tl-text">11 total templates</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot"></span>
+            <span class="tl-text">JPEG @ 95% quality</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-card-title">// version</div>
+        <div class="version-badge">v2.6.5</div>
+      </div>
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-card-title">// links</div>
+        <div class="sidebar-links">
+          <a href="https://github.com/CryptoPrism-io/CryptoPrism-Socials" class="sidebar-link" target="_blank" rel="noopener">
+            <span class="link-icon">⌥</span> GitHub Repo
+          </a>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="project-main">
+
+      <!-- THE PROBLEM -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; the_problem</h2>
+        <p class="doc-p">
+          CryptoPrism had already solved the hard part: 1000+ coins tracked, sentiment signals generated,
+          indicators computed, long/short calls surfaced. The data pipeline was working. The problem was
+          distribution.
+        </p>
+        <div class="callout">
+          Manual social posting is unsustainable at any quality bar worth maintaining. The data existed —
+          it needed a publishing pipeline, not a person copying numbers into Canva at 6am.
+        </div>
+        <p class="doc-p">
+          The specific constraints made this harder than a generic social automation project: post timing
+          had to match market open windows, images had to be pixel-perfect (not approximate), caption quality
+          needed to be consistent, and the system had to survive Instagram's session expiry logic and
+          GitHub Actions' ephemeral CI environment.
+        </p>
+      </section>
+
+      <!-- MY APPROACH -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; my_approach</h2>
+        <p class="doc-p">
+          The core design decision: separate content generation from publishing. Neither layer needs to
+          know about the other's implementation.
+        </p>
+        <ul class="approach-list">
+          <li class="challenge-item">
+            <span class="ci-label">Jinja2 as Design System</span>
+            <span class="ci-desc">Each of the 11 post formats has a Jinja2 HTML template. The template is the single source of truth for layout, typography, and brand consistency. Change the template — every future post changes. No code required for design updates.</span>
+          </li>
+          <li class="challenge-item">
+            <span class="ci-label">Playwright for Image Generation</span>
+            <span class="ci-desc">Playwright renders each Jinja2 template to a screenshot at exact pixel dimensions (1080x1920 for stories, 1080x1080 for carousels). This is the same engine Chrome DevTools uses for screenshots — pixel-perfect, CSS-consistent, no font rendering surprises.</span>
+          </li>
+          <li class="challenge-item">
+            <span class="ci-label">GPT-4o-mini for Captions</span>
+            <span class="ci-desc">120-150 character captions + 3-5 hashtags per post. GPT-4o-mini is fast enough (sub-2s) and cheap enough that running it 7x daily costs cents. OpenRouter provides multi-LLM fallback — if the primary endpoint is slow, it routes to an equivalent model.</span>
+          </li>
+          <li class="challenge-item">
+            <span class="ci-label">GitHub Actions as Scheduler</span>
+            <span class="ci-desc">7 separate CRON workflows, each triggering at its scheduled UTC time. No infrastructure to maintain, no always-on server costs, no monitoring overhead. The workflow logs are the audit trail.</span>
+          </li>
+          <li class="challenge-item">
+            <span class="ci-label">Google Sheets Content Calendar</span>
+            <span class="ci-desc">A Sheets-backed content calendar gives visibility into what's scheduled without requiring database access. Non-technical stakeholders can view — and if needed, flag — upcoming content.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ARCHITECTURE -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; architecture</h2>
+        <pre class="arch-block">
+   CRON TRIGGERS (GitHub Actions)
+   02:00 UTC ──── Carousels workflow
+   02:30–05:30 UTC ── Stories workflows (4x)
+           │
+           ▼
+┌──────────────────────────────────────────────────┐
+│              DATA FETCHER                         │
+│  PostgreSQL (SQLAlchemy) → crypto data           │
+│  Google Sheets API (gspread) → content calendar  │
+│  Fear & Greed Index → BTC intelligence story     │
+└──────────┬───────────────────────────────────────┘
+           │  structured data context
+           ▼
+┌──────────────────────────────────────────────────┐
+│           JINJA2 TEMPLATE RENDERER                │
+│  11 templates: stories (4) + carousel slides (7) │
+│  Fixed dimensions, strict CSS layout             │
+│  No fluid layouts — pixel precision required     │
+└──────────┬───────────────────────────────────────┘
+           │  rendered HTML
+           ▼
+┌──────────────────────────────────────────────────┐
+│           PLAYWRIGHT (Chromium)                   │
+│  Headless browser screenshot at exact px dims    │
+│  JPEG 95% quality output                         │
+│  Stories: 1080x1920 / Carousels: 1080x1080       │
+└──────────┬───────────────────────────────────────┘
+           │  image files
+           ▼
+┌──────────────────────────────────────────────────┐
+│           GPT-4o-mini CAPTIONS                    │
+│  OpenRouter API (multi-LLM fallback)             │
+│  120-150 chars + 3-5 hashtags per post           │
+│  Retry with exponential backoff                  │
+└──────────┬───────────────────────────────────────┘
+           │  images + captions
+           ▼
+┌──────────────────────────────────────────────────┐
+│           INSTAGRAPI PUBLISHER                    │
+│  30-day session management + refresh logic       │
+│  Story upload / carousel upload                  │
+│  Post metadata logged to PostgreSQL              │
+└──────────┬───────────────────────────────────────┘
+           │
+           ▼
+      INSTAGRAM PUBLISHED
+        </pre>
+      </section>
+
+      <!-- HARD CHALLENGES -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; hard_challenges</h2>
+
+        <div class="challenge-item">
+          <span class="ci-label">01 // Instagram session expiry — 30-day limit</span>
+          <span class="ci-desc">
+            instagrapi sessions expire after 30 days. An expired session causes a silent auth failure —
+            the publish call returns no error, but the post never appears. The fix: session age is checked
+            before every publish run. If it's within 5 days of expiry, the session is refreshed proactively.
+            If a publish call fails with an auth error, the session is invalidated and re-authenticated
+            immediately. The 30-day window is treated as a 25-day operational window.
+          </span>
+        </div>
+
+        <div class="challenge-item">
+          <span class="ci-label">02 // Playwright in GitHub Actions CI</span>
+          <span class="ci-desc">
+            Playwright running headless Chromium in a GitHub Actions Ubuntu runner requires specific
+            system dependencies that aren't installed by default: libglib2.0-0, libnss3, libnspr4,
+            and a handful of others. The workflow installs these explicitly before running Playwright.
+            Additionally, Chromium must run with --no-sandbox in the CI environment — standard practice
+            but not the default config. The workflow YAML has been stable across 6 months of daily runs.
+          </span>
+        </div>
+
+        <div class="challenge-item">
+          <span class="ci-label">03 // Image consistency across 11 templates</span>
+          <span class="ci-desc">
+            11 templates must produce consistent brand output — same fonts, same colour values, same
+            spacing rhythm — despite being independently rendered. The solution: a shared CSS file imported
+            by all templates, fixed px dimensions everywhere (no percentages, no viewport units), and a
+            font preload strategy that ensures JetBrains Mono and Orbitron are fully loaded before
+            Playwright takes the screenshot. A visual regression test suite compares current output
+            against approved reference images before publishing.
+          </span>
+        </div>
+
+        <div class="challenge-item">
+          <span class="ci-label">04 // OpenRouter LLM fallback and retry logic</span>
+          <span class="ci-desc">
+            The primary GPT-4o-mini endpoint occasionally returns 429s or 503s during high-traffic windows.
+            The caption generator uses exponential backoff: first retry at 2s, second at 4s, third at 8s.
+            If all retries fail on the primary model, OpenRouter's routing layer redirects to an equivalent
+            model (Haiku or similar). In practice, the fallback fires roughly once per 500 caption requests —
+            uptime impact is negligible.
+          </span>
+        </div>
+
+      </section>
+
+      <!-- RESULTS -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; results</h2>
+        <div class="result-grid">
+          <div class="result-card">
+            <span class="result-value">7</span>
+            <span class="result-metric">Posts / Day Automated</span>
+            <span class="result-note">3 carousels + 4 stories — zero manual steps</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">11</span>
+            <span class="result-metric">Content Templates</span>
+            <span class="result-note">Jinja2 — change once, affects every future post</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">GPT-4o</span>
+            <span class="result-metric">mini Captions</span>
+            <span class="result-note">120-150 chars + hashtags — fast and cost-effective</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">99.5%</span>
+            <span class="result-metric">Publish Uptime</span>
+            <span class="result-note">Measured across 6+ months of daily operation</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- LESSONS LEARNED -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; lessons_learned</h2>
+        <p class="doc-p">
+          Jinja2 + Playwright is an underrated stack for programmatic image generation. The alternative —
+          Pillow image drawing — requires writing layout logic in Python code. Every design change is a
+          code change. With Jinja2 + Playwright, design changes are HTML/CSS changes. The template is
+          the design document. Designers can contribute without touching Python.
+        </p>
+        <div class="callout">
+          Caption quality matters less than posting consistency. GPT-4o-mini captions at 120 characters
+          are good enough — and "good enough consistently" beats "excellent occasionally" on social media
+          growth metrics. The system running reliably every day is worth more than a perfect caption.
+        </div>
+        <p class="doc-p">
+          GitHub Actions CRON is surprisingly reliable for content scheduling at this scale. The main
+          failure modes are: (1) runner startup delay of 1-5 minutes past the scheduled time — acceptable,
+          and (2) scheduled workflows being paused after 60 days of repository inactivity — solved by
+          a weekly keep-alive workflow that makes a trivial commit.
+        </p>
+        <p class="doc-p">
+          Session management for instagrapi deserves more upfront investment than it seems. The 30-day
+          expiry is a hard constraint that Instagram won't negotiate, and silent auth failures are harder
+          to debug than explicit errors. Build the refresh logic before you need it.
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span class="footer-left">// yogeshsahu.xyz</span>
+    <span class="footer-right">© 2026 Yogesh Sahu — built in the terminal</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('nav-open');
+      hamburger.classList.toggle('ham-open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close menu on nav link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('nav-open');
+        hamburger.classList.remove('ham-open');
+      });
+    });
+  </script>
+
+</body>
+</html>

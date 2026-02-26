@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pratyaksha — 4-agent AI pipeline that transforms raw journal entries into actionable self-insight. 21 live visualizations, CBT-inspired, privacy-first." />
+  <meta property="og:title" content="Pratyaksha // yogeshsahu.xyz" />
+  <meta property="og:description" content="See Your Mind. Clearly. AI-powered cognitive journaling dashboard." />
+  <title>Pratyaksha // yogeshsahu.xyz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/project.css">
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a href="/" class="nav-brand">// <span>yogeshsahu.xyz</span></a>
+    <div class="nav-links">
+      <a href="/">about</a>
+      <a href="/">projects</a>
+      <a href="/">blog</a>
+      <a href="/">contact</a>
+    </div>
+    <div class="nav-status">
+      <div class="status-dot"></div>
+      open_to_work
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile-menu" id="mobileMenu">
+    <a href="/">about</a>
+    <a href="/">projects</a>
+    <a href="/">blog</a>
+    <a href="/">contact</a>
+  </div>
+
+  <!-- ── HERO ── -->
+  <section class="project-hero">
+    <div class="hero-id">project_02 <span>// ai · full-stack · design</span></div>
+    <h1>PRATYAKSHA</h1>
+    <p class="project-tagline">4-agent AI pipeline that transforms raw journal entries into actionable self-insight — with 21 live visualisations, a 3D reactive brain, and Apple-style scroll storytelling.</p>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="stat-value">4</div>
+        <div class="stat-label">AI Agents</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">21</div>
+        <div class="stat-label">Visualisations</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">Live</div>
+        <div class="stat-label">Real-Time Analysis</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">Cloud</div>
+        <div class="stat-label">Cloud Run Deploy</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BODY ── -->
+  <div class="project-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-title">Tech Stack</div>
+        <div class="stack-item"><span class="stack-dot"></span>Next.js 15 (App Router)</div>
+        <div class="stack-item"><span class="stack-dot"></span>React Three Fiber + drei</div>
+        <div class="stack-item"><span class="stack-dot"></span>GSAP ScrollTrigger</div>
+        <div class="stack-item"><span class="stack-dot"></span>Framer Motion</div>
+        <div class="stack-item"><span class="stack-dot"></span>Tailwind CSS v4</div>
+        <div class="stack-item"><span class="stack-dot"></span>shadcn/ui</div>
+        <div class="stack-item"><span class="stack-dot"></span>Lottie</div>
+        <div class="stack-item"><span class="stack-dot"></span>PostHog + GA4</div>
+        <div class="stack-item"><span class="stack-dot"></span>Resend</div>
+        <div class="stack-item"><span class="stack-dot"></span>Google Cloud Run</div>
+      </div>
+
+      <div class="sidebar-card reveal reveal-delay-1">
+        <div class="sidebar-title">Agent Pipeline</div>
+        <div class="stack-item"><span class="stack-dot"></span>01 — Intent Agent</div>
+        <div class="stack-item"><span class="stack-dot"></span>02 — Emotion Agent</div>
+        <div class="stack-item"><span class="stack-dot"></span>03 — Theme Agent</div>
+        <div class="stack-item"><span class="stack-dot"></span>04 — Insight Agent</div>
+      </div>
+
+      <div class="sidebar-card reveal reveal-delay-2">
+        <div class="sidebar-title">Visualisations (21)</div>
+        <div class="stack-item"><span class="stack-dot"></span>Emotional Timeline</div>
+        <div class="stack-item"><span class="stack-dot"></span>Energy Radar</div>
+        <div class="stack-item"><span class="stack-dot"></span>GitHub-Style Heatmap</div>
+        <div class="stack-item"><span class="stack-dot"></span>Sankey Flow</div>
+        <div class="stack-item"><span class="stack-dot"></span>Contradiction Tracker</div>
+        <div class="stack-item"><span class="stack-dot"></span>Mode Distribution</div>
+        <div class="stack-item"><span class="stack-dot"></span>+ 15 more charts</div>
+      </div>
+
+      <div class="sidebar-card reveal reveal-delay-3">
+        <div class="sidebar-title">Links</div>
+        <div class="sidebar-links">
+          <a href="https://github.com/CryptoPrism-io/pratyaksha" target="_blank" rel="noopener" class="sidebar-link">
+            <span class="link-icon">⌥</span> GitHub Repository
+          </a>
+          <a href="/" class="sidebar-link">← All Projects</a>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <a href="/" class="back-link">← back_to_portfolio</a>
+
+      <!-- THE PROBLEM -->
+      <section class="doc-section reveal">
+        <div class="section-title">The Problem</div>
+        <p class="doc-p">
+          Journaling apps are graveyards of text. Day One, Notion, even physical journals — they store your
+          thoughts with perfect fidelity and then do absolutely nothing with them. You can journal every day
+          for five years and have no clearer picture of your emotional patterns, cognitive loops, or recurring
+          themes than when you started. You're generating data with no analysis layer.
+        </p>
+        <p class="doc-p">
+          Therapists do the analysis — but they're expensive, available one hour a week, and work from the
+          tiny fraction of what you say out loud. The rest of the signal is lost.
+        </p>
+        <div class="callout">
+          What if every journal entry was automatically read by something with the pattern-recognition of a
+          therapist, the memory of a database, and the availability of software? What would that surface
+          about how you actually think?
+        </div>
+        <p class="doc-p">
+          Pratyaksha (Sanskrit: "direct perception" or "clear seeing") is my attempt to answer that.
+          Not a chatbot. Not a mood tracker. A multi-agent AI system that reads your entries the same way
+          a skilled analyst would — looking for intent, emotion, themes, and contradictions — and then
+          makes them visible.
+        </p>
+      </section>
+
+      <!-- MY APPROACH -->
+      <section class="doc-section reveal">
+        <div class="section-title">My Approach</div>
+        <p class="doc-p">
+          The central design decision was multi-agent over monolithic. A single LLM prompt like "analyse
+          this journal entry" produces shallow, generic output — it tries to do everything and does nothing
+          well. Instead, I decomposed the problem into four specialised concerns and gave each its own agent.
+        </p>
+        <p class="doc-p">
+          Critically, agents don't share state. Each agent receives the raw journal entry plus the structured
+          output of the previous agent — nothing else. This keeps the reasoning chain clean, traceable, and
+          debuggable. If the Emotion Agent produces a wrong classification, you can see exactly what it
+          received and why it concluded what it did.
+        </p>
+        <div class="callout cyan">
+          Design principle: agents should specialise, not generalise. The Intent Agent knows nothing about
+          emotions. The Insight Agent knows nothing about raw text. Each is maximally good at one thing.
+        </div>
+        <p class="doc-p">
+          The marketing site was built to be a portfolio piece in itself — an interactive 3D brain that
+          responds to emotional keywords typed in real-time (React Three Fiber), Apple-style scroll
+          storytelling that walks through each agent's function (GSAP ScrollTrigger), and a Bento Grid
+          displaying all 21 chart types with live sample data.
+        </p>
+      </section>
+
+      <!-- ARCHITECTURE -->
+      <section class="doc-section reveal">
+        <div class="section-title">Architecture</div>
+        <p class="doc-p">The 4-agent pipeline — each agent receives raw entry + previous agent's structured output:</p>
+        <pre class="arch-block">
+┌──────────────────────────────────────────────────────────────────┐
+│                    PRATYAKSHA AGENT PIPELINE                     │
+└──────────────────────────────────────────────────────────────────┘
+
+  INPUT: Raw journal entry text (free-form, any length)
+  │
+  ▼
+┌─────────────────────────────────────────────────────────────┐
+│  AGENT 01: INTENT AGENT                                     │
+│  Input:  raw entry                                          │
+│  Output: { type: "Emotional|Cognitive|Work|Health",         │
+│            confidence: 0.94,                                │
+│            primary_concern: "...",                          │
+│            context_tags: ["..."] }                          │
+└──────────────────────────┬──────────────────────────────────┘
+                           │ (raw entry + intent output)
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  AGENT 02: EMOTION AGENT                                    │
+│  Input:  raw entry + intent classification                  │
+│  Output: { mood: "Anxious|Calm|Hopeful|...",                │
+│            energy_level: 0-100,                             │
+│            patterns: ["avoidance", "catastrophising"],      │
+│            mode: "Anxious|Calm|Hopeful" }                   │
+└──────────────────────────┬──────────────────────────────────┘
+                           │ (raw entry + intent + emotion)
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  AGENT 03: THEME AGENT                                      │
+│  Input:  raw entry + intent + emotion + history             │
+│  Output: { recurring_themes: ["..."],                       │
+│            contradictions: ["..."],                         │
+│            cognitive_loops: ["..."],                        │
+│            narrative_shift: bool }                          │
+└──────────────────────────┬──────────────────────────────────┘
+                           │ (all above outputs)
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  AGENT 04: INSIGHT AGENT                                    │
+│  Input:  all previous outputs                               │
+│  Output: { summary: "...",                                  │
+│            recommendations: ["..."],                        │
+│            next_action: "...",                              │
+│            cbt_reframe: "..." }                             │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+  ┌─────────────────────────────────────────────────────┐
+  │  21 VISUALISATIONS (Next.js Dashboard)              │
+  │  React Query + aggressive caching + live data       │
+  │  Emotional Timeline · Energy Radar · Heatmap        │
+  │  Sankey Flow · Contradiction Tracker · + 15 more   │
+  └─────────────────────────────────────────────────────┘
+
+  Marketing: R3F 3D Brain + GSAP Scroll + Bento Grid</pre>
+      </section>
+
+      <!-- HARD CHALLENGES -->
+      <section class="doc-section reveal">
+        <div class="section-title">Hard Challenges</div>
+
+        <div class="challenge-item">
+          <div class="challenge-label">Challenge 01</div>
+          <div class="challenge-title">3D Brain in React Three Fiber responding to real-time typed keywords</div>
+          <p class="doc-p">
+            The marketing site hero has a 3D brain that reacts as a user types — activating different lobes,
+            changing glow intensity, and pulsing based on the emotional valence of detected keywords. The
+            challenge: keystrokes fire at human typing speed (6–12 chars/sec), WebGL is expensive, and a
+            naive approach causes visible jank on every keystroke.
+          </p>
+          <div class="callout amber">
+            Solution: 300ms debounce on keyword detection so analysis only runs when the user pauses.
+            Emotion-to-geometry mapping stored as a lookup table (not computed on every frame). Glow effects
+            driven by shader uniforms updated via useFrame — not React state — so no re-renders occur during
+            animation. Result: smooth 60fps even on mid-range mobile hardware.
+          </div>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-label">Challenge 02</div>
+          <div class="challenge-title">21 visualisations with live data — performance at dashboard scale</div>
+          <p class="doc-p">
+            21 charts on a single dashboard, each making independent data requests, with some requiring the
+            full history of journal entries — the naive implementation made 21 separate API calls on mount
+            and the dashboard was unusable for users with more than a few months of data.
+          </p>
+          <p class="doc-p">
+            Solution: React Query with a carefully designed cache key strategy. All charts that share a data
+            dependency use the same cache key — the first chart to mount fetches, every subsequent chart
+            reads from cache. Charts that don't need live data are rendered server-side in Next.js App Router
+            and hydrated statically.
+          </p>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-label">Challenge 03</div>
+          <div class="challenge-title">GSAP ScrollTrigger scroll storytelling without jank on mobile</div>
+          <p class="doc-p">
+            The marketing site's Apple-style scroll section pins a section and animates through the 4-agent
+            pipeline as you scroll. Desktop was smooth. Mobile was a disaster: pinned sections have known
+            interaction with iOS Safari's elastic bounce scroll, and touch event timing caused frames to
+            drop during fast swipes.
+          </p>
+          <p class="doc-p">
+            Solution: replaced the pin approach on mobile with a standard scroll-triggered opacity/translateY
+            animation (no pinning). Used GSAP's
+            <code style="color:var(--cyan)">ScrollTrigger.normalizeScroll(true)</code> to handle iOS
+            momentum scroll. Separate animation timelines for mobile vs desktop, detected via a media query
+            matcher at ScrollTrigger.create time.
+          </p>
+        </div>
+
+      </section>
+
+      <!-- RESULTS -->
+      <section class="doc-section reveal">
+        <div class="section-title">Results</div>
+        <p class="doc-p">Core product metrics at the end of the build:</p>
+        <div class="result-grid">
+          <div class="result-card">
+            <span class="result-value">4</span>
+            <span class="result-label">Specialised AI Agents</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">21</span>
+            <span class="result-label">Live Charts</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">60fps</span>
+            <span class="result-label">3D Brain Performance</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">SSR</span>
+            <span class="result-label">Next.js App Router</span>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:2rem;">
+          The marketing site's scroll storytelling section became the most-shared element. The 3D brain on
+          the hero converts better as a demo than any static screenshot or video walkthrough of the product.
+        </div>
+      </section>
+
+      <!-- LESSONS -->
+      <section class="doc-section reveal">
+        <div class="section-title">Lessons Learned</div>
+        <ul class="timeline">
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">Multi-agent pipelines are more maintainable than monolithic LLM prompts.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">When the Emotion Agent produces a wrong output,
+              I can test it in isolation with known inputs. With a monolithic prompt, a regression anywhere
+              in the reasoning chain is nearly impossible to localise.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">3D on the web is more accessible than expected with React Three Fiber.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">R3F's declarative model means you write 3D scenes
+              the way you write React components. The learning curve is the 3D geometry concepts — not the
+              WebGL API. The brain model went from concept to interactive in under a week.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">GSAP ScrollTrigger on mobile needs careful pinning configuration.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">Pin-based scroll storytelling is a desktop-first
+              pattern. Building mobile-first and treating the pinned version as a progressive enhancement
+              would have saved significant debugging time.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">React Query cache key design is architecture, not an implementation detail.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">Getting cache key strategy right from the beginning
+              is the difference between a dashboard that loads in 300ms and one that makes 21 API calls
+              every time a user switches tabs.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">The marketing site is part of the product.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">The interactive 3D brain demo communicates what
+              Pratyaksha does more effectively than any paragraph of copy. Time invested in the marketing
+              site experience directly converts to user trust.</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-brand">
+      <a href="/">// yogeshsahu.xyz</a> — Pratyaksha case study
+    </div>
+    <div class="footer-copy">CBT-inspired · Privacy-first · built by Yogesh Sahu</div>
+  </footer>
+
+  <script>
+    // Hamburger — Pattern A (.nav-hamburger + .nav-mobile-menu)
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', mobileMenu.classList.contains('open'));
+    });
+
+    // Scroll reveal — adds both .visible and .revealed for cross-pattern compatibility
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>

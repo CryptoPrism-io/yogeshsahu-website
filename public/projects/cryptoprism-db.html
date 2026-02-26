@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CryptoPrism-DB — Production cryptocurrency technical analysis database. 2.26M+ records, 100+ indicators, 99.9% uptime." />
+  <meta property="og:title" content="CryptoPrism-DB // yogeshsahu.xyz" />
+  <meta property="og:description" content="Production-grade crypto data infrastructure tracking 1,000+ coins at 99.9% uptime." />
+  <title>CryptoPrism-DB // yogeshsahu.xyz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/project.css">
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a href="/" class="nav-brand">// <span>yogeshsahu.xyz</span></a>
+    <div class="nav-links">
+      <a href="/">about</a>
+      <a href="/">projects</a>
+      <a href="/">blog</a>
+      <a href="/">contact</a>
+    </div>
+    <div class="nav-status">
+      <div class="status-dot"></div>
+      open_to_work
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile-menu" id="mobileMenu">
+    <a href="/">about</a>
+    <a href="/">projects</a>
+    <a href="/">blog</a>
+    <a href="/">contact</a>
+  </div>
+
+  <!-- ── HERO ── -->
+  <section class="project-hero">
+    <div class="hero-id">project_01 <span>// data-infrastructure</span></div>
+    <h1>CRYPTOPRISM-DB</h1>
+    <p class="project-tagline">Production-grade crypto data infrastructure tracking 1,000+ coins at 99.9% uptime — with 100+ pre-computed technical indicators, zero duplicates, and AI-powered QA.</p>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="stat-value">2.26M+</div>
+        <div class="stat-label">Records</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">1,000+</div>
+        <div class="stat-label">Coins Tracked</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">100+</div>
+        <div class="stat-label">Indicators</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">99.9%</div>
+        <div class="stat-label">Uptime</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BODY ── -->
+  <div class="project-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-title">Tech Stack</div>
+        <div class="stack-item"><span class="stack-dot"></span>Python 3.10+</div>
+        <div class="stack-item"><span class="stack-dot"></span>R (crypto2 package)</div>
+        <div class="stack-item"><span class="stack-dot"></span>PostgreSQL 15</div>
+        <div class="stack-item"><span class="stack-dot"></span>SQLAlchemy</div>
+        <div class="stack-item"><span class="stack-dot"></span>Pandas / NumPy</div>
+        <div class="stack-item"><span class="stack-dot"></span>Gemini AI</div>
+        <div class="stack-item"><span class="stack-dot"></span>Telegram Bot API</div>
+        <div class="stack-item"><span class="stack-dot"></span>GitHub Actions</div>
+        <div class="stack-item"><span class="stack-dot"></span>Docker</div>
+        <div class="stack-item"><span class="stack-dot"></span>CoinMarketCap API</div>
+      </div>
+
+      <div class="sidebar-card reveal reveal-delay-1">
+        <div class="sidebar-title">Version History</div>
+        <ul class="tl-list">
+          <li class="tl-item">
+            <div class="tl-dot"></div>
+            <div><span class="tl-version">v4.0</span> Initial ETL pipeline — R OHLCV ingestion + Python indicators</div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-dot"></div>
+            <div><span class="tl-version">v4.2</span> R optimisation — batch ingestion, reduced runtime 60%</div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-dot"></div>
+            <div><span class="tl-version">v4.2.2</span> Timestamp-based duplicate prevention at scale</div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-dot"></div>
+            <div><span class="tl-version">v4.3</span> README revamp, Gemini QA summaries, Telegram alerts</div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-dot"></div>
+            <div><span class="tl-version">v4.4</span> Production release — 100/100 health score, 0 duplicates</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card reveal reveal-delay-2">
+        <div class="sidebar-title">Links</div>
+        <div class="sidebar-links">
+          <a href="https://github.com/CryptoPrism-io/CryptoPrism-DB" target="_blank" rel="noopener" class="sidebar-link">
+            <span class="link-icon">⌥</span> GitHub Repository
+          </a>
+          <a href="/" class="sidebar-link">← All Projects</a>
+        </div>
+      </div>
+
+      <div class="sidebar-card reveal reveal-delay-3">
+        <div class="sidebar-title">Databases</div>
+        <div class="stack-item"><span class="stack-dot"></span>dbcp (production live)</div>
+        <div class="stack-item"><span class="stack-dot"></span>cp_ai (AI analysis)</div>
+        <div class="stack-item"><span class="stack-dot"></span>cp_backtest (weekly)</div>
+        <div class="stack-item"><span class="stack-dot"></span>cp_backtest_h (historical)</div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <a href="/" class="back-link">← back_to_portfolio</a>
+
+      <!-- THE PROBLEM -->
+      <section class="doc-section reveal">
+        <div class="section-title">The Problem</div>
+        <p class="doc-p">
+          When I started building crypto trading strategies, I hit the same wall everyone hits: getting clean,
+          pre-computed technical indicator data at scale is either prohibitively expensive or completely
+          unreliable. Bloomberg Terminal charges thousands per month. Glassnode and Santiment lock the good
+          data behind $500+/mo plans. Free APIs give you raw OHLCV with no indicators, no QA, and no guarantees.
+        </p>
+        <p class="doc-p">
+          What I actually needed was a production-quality data store I could query in seconds — with momentum
+          indicators, financial ratios, volume analysis, and fundamental metrics all pre-computed for every
+          coin, updated daily, free, and under my own control.
+        </p>
+        <div class="callout">
+          The insight: the compute for these indicators is cheap. The bottleneck is ingestion reliability
+          and duplicate-free storage. If I could nail those two things, I'd have a private Bloomberg terminal
+          for the cost of a VPS.
+        </div>
+      </section>
+
+      <!-- MY APPROACH -->
+      <section class="doc-section reveal">
+        <div class="section-title">My Approach</div>
+        <p class="doc-p">
+          I designed around separation of concerns from day one. Rather than a single monolithic database
+          that grows chaotic over time, I split into four purpose-specific databases:
+          <strong style="color:var(--text)">dbcp</strong> for live production data,
+          <strong style="color:var(--text)">cp_ai</strong> for AI-processed analysis outputs,
+          <strong style="color:var(--text)">cp_backtest</strong> for weekly backtesting runs, and
+          <strong style="color:var(--text)">cp_backtest_h</strong> for historical backtest snapshots.
+        </p>
+        <p class="doc-p">
+          For ingestion, I made an unconventional choice: use R instead of Python for the OHLCV layer. The
+          <code style="color:var(--cyan)">crypto2</code> R package handles 1,000+ coin requests with robust
+          pagination and rate-limit handling that would have taken weeks to replicate in Python. Python then
+          takes over for all indicator computation — vectorized Pandas/NumPy operations that process 100+
+          indicators per coin in a single DataFrame pass.
+        </p>
+        <p class="doc-p">
+          For QA, I didn't want to stare at raw log files. I pipe the QA report into Gemini AI, which
+          returns a plain-English summary of anomalies, and that summary goes straight to Telegram. GitHub
+          Actions runs the whole pipeline daily at 00:05 UTC and weekly backtests every Sunday.
+        </p>
+        <div class="callout cyan">
+          Key insight: use the best tool for each layer. R's financial data packages are genuinely superior
+          to Python's for this use case. Fighting that fact would have cost weeks of work.
+        </div>
+      </section>
+
+      <!-- ARCHITECTURE -->
+      <section class="doc-section reveal">
+        <div class="section-title">Architecture</div>
+        <p class="doc-p">The pipeline runs in four sequential stages, each gating the next:</p>
+        <pre class="arch-block">
+┌─────────────────────────────────────────────────────────────┐
+│                    CRYPTOPRISM-DB PIPELINE                  │
+│                    Daily @ 00:05 UTC (GitHub Actions)       │
+└─────────────────────────────────────────────────────────────┘
+
+  STAGE 1: LISTINGS
+  ─────────────────
+  CoinMarketCap API → Python → dbcp.listings
+  • Fetch top 1,000+ coins by market cap
+  • Update slugs, symbols, metadata
+  • Gate: must complete before OHLCV runs
+
+  STAGE 2: OHLCV  (R — crypto2 package)
+  ──────────────────────────────────────
+  R script → PostgreSQL (dbcp)
+  • Pull 1,000+ coin OHLCV via crypto2
+  • Timestamp-based dedup filter (pre-write)
+  • Batch upsert → dbcp.ohlcv_*
+  • Gate: must have 0 errors before DMV
+
+  STAGE 3: DMV  (Python — Pandas/NumPy)
+  ──────────────────────────────────────
+  dbcp.ohlcv_* → Python → dbcp + cp_ai
+  • 21 Momentum indicators (RSI×5, ROC, Williams %R...)
+  • 33 Oscillators (MACD, CCI, ADX, TRIX...)
+  • 23 Financial Ratios (Alpha/Beta vs BTC, Sharpe...)
+  • 15+ Fundamentals, 33 Volume indicators
+  • DMV Scores: D:19.8  M:-30.8  V:-24.4
+  • Output → cp_ai for AI analysis
+
+  STAGE 4: QA  (Python + Gemini AI + Telegram)
+  ─────────────────────────────────────────────
+  Run health checks → Gemini summary → Telegram
+  • Null ratio checks, range validation
+  • Duplicate detection sweep
+  • Gemini: plain-English anomaly summary
+  • Score: 100/100  Uptime: 99.9%
+  • Alert → Telegram channel
+
+  ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────────┐
+  │ LISTINGS │──▶│  OHLCV   │──▶│   DMV    │──▶│      QA      │
+  └──────────┘   └──────────┘   └──────────┘   └──────────────┘
+       │               │               │                │
+     dbcp           dbcp            dbcp            Telegram
+                                   cp_ai</pre>
+      </section>
+
+      <!-- HARD CHALLENGES -->
+      <section class="doc-section reveal">
+        <div class="section-title">Hard Challenges</div>
+
+        <div class="challenge-item">
+          <div class="challenge-label">Challenge 01</div>
+          <div class="challenge-title">Duplicate prevention at scale without per-row checks</div>
+          <p class="doc-p">
+            At 1,000+ coins with daily OHLCV inserts, naive per-row duplicate detection caused the pipeline
+            to run for 40+ minutes — sometimes timing out on GitHub Actions' 6-hour limit after weeks of
+            data accumulation. A <code style="color:var(--cyan)">SELECT EXISTS</code> per row is O(n)
+            database round trips.
+          </p>
+          <div class="callout amber">
+            Fix: timestamp-based pre-filtering. Before any write, fetch the max timestamp already stored
+            per coin in a single query. Then filter the incoming DataFrame to only rows newer than that
+            timestamp. Zero duplicates, O(1) database round trips per coin. Runtime dropped from 40+
+            minutes to under 8 minutes.
+          </div>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-label">Challenge 02</div>
+          <div class="challenge-title">Numeric-prefixed table names breaking SQL syntax</div>
+          <p class="doc-p">
+            Many cryptocurrency symbols start with numbers (e.g. <code style="color:var(--cyan)">1inch</code>,
+            <code style="color:var(--cyan)">3crv</code>). PostgreSQL table names cannot start with a digit
+            without being quoted. This caused silent failures when the ORM generated unquoted DDL statements.
+          </p>
+          <p class="doc-p">
+            Solution: prefix all coin-derived table names with <code style="color:var(--cyan)">c_</code>
+            and enforce double-quoting in all dynamic SQL generation. Added a validation step in the LISTINGS
+            stage that flags any symbol requiring special handling before the OHLCV stage runs.
+          </p>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-label">Challenge 03</div>
+          <div class="challenge-title">Multi-language orchestration — Python calling R at scale</div>
+          <p class="doc-p">
+            Python's <code style="color:var(--cyan)">subprocess</code> calling R scripts introduces failure
+            modes: R crashes don't propagate as Python exceptions by default, R output pollutes the Python
+            log stream, and environment differences between local and CI runners cause package version conflicts.
+          </p>
+          <p class="doc-p">
+            Solution: wrapped all R calls in a Python class that captures stdout/stderr separately, checks
+            return codes, and raises typed Python exceptions on failure. R environment pinned via
+            <code style="color:var(--cyan)">renv.lock</code>. GitHub Actions caches the renv library
+            between runs.
+          </p>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-label">Challenge 04</div>
+          <div class="challenge-title">Zero-downtime QA on a live production database</div>
+          <p class="doc-p">
+            Running health checks on <code style="color:var(--cyan)">dbcp</code> while the DMV stage is
+            still writing to it risks reading partial data and generating false-positive anomaly alerts.
+          </p>
+          <p class="doc-p">
+            Solution: QA stage uses PostgreSQL <code style="color:var(--cyan)">REPEATABLE READ</code>
+            transaction isolation. DMV writes continue in parallel without blocking. QA sees a stable
+            snapshot; no false positives.
+          </p>
+        </div>
+
+      </section>
+
+      <!-- RESULTS -->
+      <section class="doc-section reveal">
+        <div class="section-title">Results</div>
+        <p class="doc-p">After reaching v4.4.0 production release:</p>
+        <div class="result-grid">
+          <div class="result-card">
+            <span class="result-value">2.26M+</span>
+            <span class="result-label">Total Records</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">100/100</span>
+            <span class="result-label">QA Health Score</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">0</span>
+            <span class="result-label">Duplicate Rows</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">99.9%</span>
+            <span class="result-label">Pipeline Uptime</span>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:2rem;">
+          Average query response time: 2–3 seconds for full-coin scans. The 4-database architecture means
+          the production database is never locked by backtest workloads — they run entirely in
+          <code style="color:var(--cyan)">cp_backtest</code>.
+        </div>
+      </section>
+
+      <!-- LESSONS -->
+      <section class="doc-section reveal">
+        <div class="section-title">Lessons Learned</div>
+        <ul class="timeline">
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">R is genuinely better than Python for certain financial data ops.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">The crypto2 package's pagination logic saved weeks
+              of API client work. Pragmatic polyglot beats language purity every time.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">Gemini QA summaries beat raw logs for operational monitoring.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">A plain-English Telegram message is infinitely
+              more actionable than scrolling through 800-line log files at midnight.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">Timestamp filtering beats row-level duplicate detection at scale.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">Always know the high-water mark before writing,
+              not after. Applicable to any append-heavy pipeline.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">Separation of concerns in databases pays compound interest.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">Distinct databases for live, AI, and backtest
+              workloads prevented dozens of hours of query interference.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">GitHub Actions is a surprisingly capable free production scheduler.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">The 6-hour job timeout forced the pipeline
+              optimisation that ultimately made everything faster anyway.</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-brand">
+      <a href="/">// yogeshsahu.xyz</a> — CryptoPrism-DB case study
+    </div>
+    <div class="footer-copy">v4.4.0 · MIT License · built by Yogesh Sahu</div>
+  </footer>
+
+  <script>
+    // Hamburger — Pattern A (.nav-hamburger + .nav-mobile-menu)
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', mobileMenu.classList.contains('open'));
+    });
+
+    // Scroll reveal — adds both .visible and .revealed for cross-pattern compatibility
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>

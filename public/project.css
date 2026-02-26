@@ -1,0 +1,990 @@
+/* ═══════════════════════════════════════════════════════════
+   project.css — shared styles for all yogeshsahu.xyz project
+   pages. Covers both nav/layout patterns used across agents.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── RESET & ROOT ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:            #030a06;
+  --bg-alt:        #050e08;
+  --surface:       #081610;
+  --surface-hover: #0c2018;
+  --border:        #0c2e1c;
+  --border-bright: #185535;
+  --green:         #00ff88;
+  --green-dim:     #00cc6a;
+  --green-faint:   #003d1e;
+  --cyan:          #00ffd0;
+  --amber:         #ffc040;
+  --red:           #ff4d5e;
+  --text:          #b8f0cc;
+  --text-dim:      #4a7a60;
+  --text-faint:    #1c3828;
+  --font-mono:     'JetBrains Mono', 'Courier New', monospace;
+  --font-display:  'Orbitron', sans-serif;
+  --radius:        4px;
+  --nav-h:         64px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── SCANLINE OVERLAY ─────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanshift 8s linear infinite;
+}
+@keyframes scanshift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+/* ── NOISE TEXTURE ────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.4;
+}
+
+/* ── SCROLLBAR ────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+
+/* ── SELECTION ────────────────────────────────────── */
+::selection { background: var(--green); color: var(--bg); }
+
+/* ═══════════════════════════════════════════════════
+   NAV — two structural variants, one visual language
+   Pattern A: nav > .nav-brand  (pages: cryptoprism-db,
+              pratyaksha, cryptoprism-screener)
+   Pattern B: nav.nav > .nav-inner > .nav-logo  (pages:
+              backtest, forex-pipeline, cryptoprism-socials)
+   ═══════════════════════════════════════════════════ */
+
+/* Base nav element — shared by both patterns */
+nav,
+nav.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: rgba(3, 10, 6, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+}
+
+/* Pattern A inner alignment */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+}
+
+/* Pattern B inner wrapper */
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 2.5rem;
+}
+
+/* Pattern A logo */
+.nav-brand {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--green);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+.nav-brand span { color: var(--text-dim); }
+
+/* Pattern B logo */
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--green);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+
+/* Nav links — Pattern A: div with anchor children
+              Pattern B: ul with li > anchor children  */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+}
+.nav-links a,
+.nav-links li a {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius);
+  transition: color 0.2s, background 0.2s;
+  letter-spacing: 0.03em;
+}
+.nav-links a:hover,
+.nav-links li a:hover {
+  color: var(--green);
+  background: var(--green-faint);
+}
+
+/* Mobile open state for Pattern B ul */
+.nav-links.nav-open {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  background: rgba(3, 10, 6, 0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2.5rem;
+  gap: 0.25rem;
+  z-index: 999;
+}
+.nav-links.nav-open li { width: 100%; }
+.nav-links.nav-open li a {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+/* Status dot — Pattern A only */
+.nav-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+.status-dot {
+  width: 7px; height: 7px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(0,255,136,0.4); }
+  50%       { opacity: 0.8; transform: scale(1.1); box-shadow: 0 0 0 4px rgba(0,255,136,0); }
+}
+
+/* Hamburger — Pattern A: .nav-hamburger
+              Pattern B: .hamburger + .ham-open */
+.nav-hamburger,
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+.nav-hamburger span,
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--green);
+  transition: all 0.3s;
+}
+
+/* Pattern A open state */
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Pattern B open state */
+.hamburger.ham-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.ham-open span:nth-child(2) { opacity: 0; }
+.hamburger.ham-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile nav drawer — Pattern A only */
+.nav-mobile-menu {
+  display: none;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  background: rgba(3, 10, 6, 0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2.5rem;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 999;
+}
+.nav-mobile-menu.open { display: flex; }
+.nav-mobile-menu a {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius);
+  transition: color 0.2s, background 0.2s;
+}
+.nav-mobile-menu a:hover { color: var(--green); background: var(--green-faint); }
+
+/* ── BTN ──────────────────────────────────────────── */
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary {
+  background: var(--green);
+  color: var(--bg);
+  font-weight: 600;
+}
+.btn-primary:hover {
+  background: var(--cyan);
+  box-shadow: 0 0 24px rgba(0,255,136,0.3);
+  transform: translateY(-1px);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--green);
+  border: 1px solid var(--border-bright);
+}
+.btn-ghost:hover {
+  background: var(--green-faint);
+  border-color: var(--green);
+  transform: translateY(-1px);
+}
+
+/* ── REVEAL ANIMATION ─────────────────────────────── */
+/* Two classes used: .visible (Pattern A) and .revealed (Pattern B).
+   Both driven by IntersectionObserver on .reveal elements.          */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible,
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+@keyframes fadeup {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ═══════════════════════════════════════════════════
+   PROJECT HERO — two structural variants
+
+   Pattern A: section.project-hero > .hero-id + h1 + .project-tagline
+   Pattern B: section.project-hero > .back-link + .hero-tag +
+              h1.project-title + .project-tagline + .hero-stats >
+              .hero-stat > span.stat-value + span.stat-label
+   ═══════════════════════════════════════════════════ */
+
+.project-hero {
+  width: 100%;
+  text-align: center;
+  padding: 120px 2rem 80px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.project-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(0,255,136,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Pattern A eyebrow */
+.hero-id {
+  font-size: 0.72rem;
+  color: var(--green);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  animation: fadeup 0.6s 0.2s forwards;
+}
+.hero-id span { color: var(--text-dim); }
+
+/* Pattern B eyebrow */
+.hero-tag {
+  font-size: 0.72rem;
+  color: var(--green);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+/* Shared h1 styles — works for both bare h1 and h1.project-title */
+.project-hero h1,
+h1.project-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 7vw, 5rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(140deg, #ffffff 20%, var(--green) 60%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0;
+  animation: fadeup 0.7s 0.4s forwards;
+}
+
+.project-tagline {
+  font-size: clamp(0.85rem, 2vw, 1.05rem);
+  color: var(--text-dim);
+  max-width: 640px;
+  margin: 0 auto 3rem;
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeup 0.6s 0.6s forwards;
+}
+
+/* ── HERO STATS ───────────────────────────────────── */
+/* Pattern A: .hero-stats > .stat-box > .stat-value + .stat-label
+   Pattern B: .hero-stats > .hero-stat > span.stat-value + span.stat-label */
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  opacity: 0;
+  animation: fadeup 0.6s 0.8s forwards;
+}
+
+/* Pattern A stat box */
+.stat-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.5rem;
+  min-width: 140px;
+  text-align: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+.stat-box:hover {
+  border-color: var(--border-bright);
+  background: var(--surface-hover);
+}
+
+/* Pattern B stat box */
+.hero-stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.5rem;
+  min-width: 130px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+.hero-stat:hover {
+  border-color: var(--border-bright);
+  background: var(--surface-hover);
+}
+
+/* Shared stat value & label — work in both .stat-box and .hero-stat */
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--green);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+.stat-label {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: block;
+}
+/* When used as direct child spans inside .hero-stat, override margin */
+.hero-stat .stat-value { margin-bottom: 0; }
+
+/* ═══════════════════════════════════════════════════
+   PROJECT LAYOUT — two structural variants
+
+   Pattern A: .project-layout > aside.sidebar + main.main-content
+   Pattern B: .project-layout > aside.project-sidebar + main.project-main
+   ═══════════════════════════════════════════════════ */
+
+.project-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 4rem;
+  padding: 5rem 2.5rem;
+  align-items: start;
+}
+
+/* ── SIDEBAR ─────────────────────────────────────── */
+.sidebar,
+.project-sidebar {
+  position: sticky;
+  top: calc(var(--nav-h) + 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.25rem;
+  transition: border-color 0.2s;
+}
+.sidebar-card:hover { border-color: var(--border-bright); }
+
+/* Pattern A sidebar title */
+.sidebar-title {
+  font-size: 0.68rem;
+  color: var(--green);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+/* Pattern B sidebar title */
+.sidebar-card-title {
+  font-size: 0.68rem;
+  color: var(--green);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+/* ── STACK LIST ─────────────────────────────────── */
+/* Pattern A: .stack-item divs with .stack-dot
+   Pattern B: ul.stack-list > li                    */
+.stack-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+.stack-item:last-child { border-bottom: none; }
+.stack-item:hover { color: var(--text); }
+
+.stack-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.stack-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.stack-list li {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--border);
+  padding-left: 0.75rem;
+  position: relative;
+  transition: color 0.2s;
+}
+.stack-list li:last-child { border-bottom: none; }
+.stack-list li:hover { color: var(--text); }
+.stack-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+}
+
+/* ── SIDEBAR LINKS ──────────────────────────────── */
+.sidebar-links { display: flex; flex-direction: column; gap: 0.5rem; }
+.sidebar-link {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: var(--radius);
+  transition: color 0.2s, background 0.2s;
+}
+.sidebar-link:hover { color: var(--green); background: var(--green-faint); }
+
+/* Icon span inside sidebar links (Pattern B) */
+.link-icon {
+  font-size: 0.9rem;
+  color: var(--green);
+  line-height: 1;
+}
+
+/* ── VERSION BADGE ────────────────────────────── */
+.version-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--green);
+  background: var(--green-faint);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius);
+  padding: 0.3rem 0.75rem;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+/* ── TIMELINE (sidebar) ─────────────────────────── */
+/* Pattern A: ul.tl-list > li.tl-item > .tl-dot + div
+   Pattern B: .timeline > .timeline-item > span.tl-dot + span.tl-text */
+
+/* Pattern A */
+.tl-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.tl-item { display: flex; gap: 0.75rem; font-size: 0.75rem; color: var(--text-dim); }
+.tl-version { color: var(--green); margin-right: 0.3rem; }
+
+/* Pattern B */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  list-style: none;
+}
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+.tl-text {
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* Shared .tl-dot — default green, colour modifiers */
+.tl-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+}
+.tl-dot--cyan  { background: var(--cyan); }
+.tl-dot--amber { background: var(--amber); }
+.tl-dot--red   { background: var(--red); }
+
+/* ── MAIN CONTENT ───────────────────────────────── */
+/* Pattern A: main.main-content
+   Pattern B: main.project-main                        */
+.main-content,
+.project-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+/* ── BACK LINK ──────────────────────────────────── */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--green); }
+
+/* ── DOC SECTION ────────────────────────────────── */
+.doc-section { /* container only */ }
+
+/* Section title — used as h2 in Pattern B and div in Pattern A.
+   Pattern B uses literal "> " prefix in text content; Pattern A
+   uses ::before pseudo-element. Both share visual style.          */
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--green);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+/* Pattern A adds ">" via pseudo-element; Pattern B embeds it as text.
+   Only attach ::before when it's a div (not h2) — or just let both
+   have it, since h2 text already starts with "> " so the double
+   prefix needs to be avoided. We use the :not(h2) selector.        */
+.section-title:not(h2)::before {
+  content: ">";
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* ── DOC PARAGRAPH ──────────────────────────────── */
+.doc-p {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+.doc-p:last-child { margin-bottom: 0; }
+
+/* ── CALLOUT ────────────────────────────────────── */
+.callout {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  border-radius: 4px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.8;
+}
+.callout.amber { border-left-color: var(--amber); }
+.callout.cyan  { border-left-color: var(--cyan); }
+.callout.red   { border-left-color: var(--red); }
+
+/* ── ARCH BLOCK ─────────────────────────────────── */
+.arch-block {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  line-height: 2;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* ── CHALLENGE ITEMS ────────────────────────────── */
+/* Pattern A: .challenge-item > .challenge-label + .challenge-title + .doc-p
+   Pattern B: .challenge-item > span.ci-label + span.ci-desc
+              also used inside ul.approach-list as li.challenge-item  */
+
+.challenge-item {
+  margin-bottom: 2rem;
+  display: block;
+}
+.challenge-item:last-child { margin-bottom: 0; }
+
+/* Pattern A labels */
+.challenge-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--amber);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.challenge-title {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+/* Pattern B labels */
+.ci-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--amber);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.ci-desc {
+  display: block;
+  font-size: 0.83rem;
+  color: var(--text-dim);
+  line-height: 1.85;
+}
+
+/* Approach list (Pattern B) */
+.approach-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  margin-top: 1rem;
+}
+.approach-list li.challenge-item {
+  padding-left: 1rem;
+  border-left: 2px solid var(--border-bright);
+  margin-bottom: 0;
+}
+.approach-list li.challenge-item:hover {
+  border-left-color: var(--green);
+}
+
+/* ── RESULT GRID ────────────────────────────────── */
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Pattern A: .result-card > .result-value + .result-label
+   Pattern B: .result-card > span.result-value + span.result-metric + span.result-note */
+.result-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  border-radius: 6px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+.result-card:hover {
+  border-color: var(--border-bright);
+  border-left-color: var(--green);
+  background: var(--surface-hover);
+}
+
+.result-value {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--green);
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+}
+
+/* Pattern A: .result-label */
+.result-label {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+  display: block;
+}
+
+/* Pattern B: span.result-metric (primary label) */
+.result-metric {
+  font-size: 0.78rem;
+  color: var(--text);
+  font-weight: 500;
+  display: block;
+  margin-top: 0.2rem;
+}
+
+/* Pattern B: span.result-note (secondary description) */
+.result-note {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  display: block;
+}
+
+/* ── TIMELINE (main content) ────────────────────── */
+/* Used in Pattern A main content as ul.timeline > li > .timeline-dot + div */
+ul.timeline {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+ul.timeline li {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+.timeline-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  margin-top: 0.4rem;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER — two structural variants
+
+   Pattern A: footer > .footer-brand + .footer-copy
+              (max-width centered with border-top)
+   Pattern B: footer.footer > span.footer-left + span.footer-right
+   ═══════════════════════════════════════════════════ */
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+footer.footer {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Pattern A */
+.footer-brand {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+.footer-brand a {
+  color: var(--green);
+  text-decoration: none;
+}
+.footer-copy {
+  font-size: 0.72rem;
+  color: var(--text-faint);
+}
+
+/* Pattern B */
+.footer-left {
+  font-size: 0.8rem;
+  color: var(--green);
+  font-family: var(--font-mono);
+}
+.footer-right {
+  font-size: 0.72rem;
+  color: var(--text-faint);
+}
+
+/* ═══════════════════════════════════════════════════
+   MOBILE RESPONSIVE
+   ═══════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Nav */
+  nav { padding: 0 1.25rem; }
+  .nav-inner { padding: 0 1.25rem; }
+  .nav-status { display: none; }
+  .nav-hamburger,
+  .hamburger { display: flex; }
+
+  /* Hide desktop nav links by default on mobile;
+     Pattern A uses .nav-mobile-menu, Pattern B toggles .nav-open on ul */
+  nav > .nav-links { display: none; }
+  .nav-inner > .nav-links { display: none; }
+  .nav-links.nav-open { display: flex; }
+
+  /* Hero */
+  .project-hero { padding: 100px 1.5rem 60px; }
+  .hero-stats { gap: 0.75rem; }
+  .stat-box,
+  .hero-stat { min-width: 110px; padding: 0.75rem 1rem; }
+
+  /* Layout: stack sidebar above main */
+  .project-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 3rem 1.5rem;
+  }
+
+  .sidebar,
+  .project-sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  .sidebar-card { min-width: 220px; flex: 1; }
+
+  .main-content,
+  .project-main { gap: 3rem; }
+
+  footer { padding: 2rem 1.5rem; }
+  footer.footer { padding: 2rem 1.5rem; }
+
+  .result-grid { grid-template-columns: 1fr 1fr; }
+  .arch-block { font-size: 0.68rem; padding: 1rem; }
+}
+
+@media (max-width: 480px) {
+  .project-hero h1,
+  h1.project-title { font-size: 2rem; }
+  .result-grid { grid-template-columns: 1fr; }
+  .stat-value { font-size: 1rem; }
+  .result-value { font-size: 1.4rem; }
+}

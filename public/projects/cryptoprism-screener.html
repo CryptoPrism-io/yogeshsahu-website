@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CryptoPrism Screener — Institutional-grade crypto screening SaaS. 1,000+ coins, 100+ indicators, real-time WebSockets, $29-99/mo subscription tiers." />
+  <meta property="og:title" content="CryptoPrism Screener // yogeshsahu.xyz" />
+  <meta property="og:description" content="Institutional crypto screening SaaS — 1,000+ coins, 100+ indicators, real-time WebSockets." />
+  <title>CryptoPrism Screener // yogeshsahu.xyz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/project.css">
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a href="/" class="nav-brand">// <span>yogeshsahu.xyz</span></a>
+    <div class="nav-links">
+      <a href="/">about</a>
+      <a href="/">projects</a>
+      <a href="/">blog</a>
+      <a href="/">contact</a>
+    </div>
+    <div class="nav-status">
+      <div class="status-dot"></div>
+      open_to_work
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile-menu" id="mobileMenu">
+    <a href="/">about</a>
+    <a href="/">projects</a>
+    <a href="/">blog</a>
+    <a href="/">contact</a>
+  </div>
+
+  <!-- ── HERO ── -->
+  <section class="project-hero">
+    <div class="hero-id">project_03 <span>// saas · full-stack · fintech</span></div>
+    <h1>CRYPTOPRISM SCREENER</h1>
+    <p class="project-tagline">Institutional crypto screening SaaS built on 9 months of pre-computed CryptoPrism data — 1,000+ coins, 100+ indicators, real-time WebSockets, and subscription tier monetisation baked in from day one.</p>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="stat-value">1,000+</div>
+        <div class="stat-label">Coins</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">100+</div>
+        <div class="stat-label">Indicators</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">$29–99</div>
+        <div class="stat-label">SaaS / Month</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">WS</div>
+        <div class="stat-label">WebSocket Live</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BODY ── -->
+  <div class="project-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-title">Tech Stack</div>
+        <div class="stack-item"><span class="stack-dot"></span>React 18 + TypeScript</div>
+        <div class="stack-item"><span class="stack-dot"></span>Tailwind CSS</div>
+        <div class="stack-item"><span class="stack-dot"></span>React Query</div>
+        <div class="stack-item"><span class="stack-dot"></span>FastAPI (Python 3.10+)</div>
+        <div class="stack-item"><span class="stack-dot"></span>PostgreSQL 15</div>
+        <div class="stack-item"><span class="stack-dot"></span>WebSocket</div>
+        <div class="stack-item"><span class="stack-dot"></span>JWT Authentication</div>
+        <div class="stack-item"><span class="stack-dot"></span>Docker Compose</div>
+        <div class="stack-item"><span class="stack-dot"></span>Swagger UI / ReDoc</div>
+      </div>
+
+      <div class="sidebar-card reveal reveal-delay-1">
+        <div class="sidebar-title">Subscription Tiers</div>
+        <div class="stack-item"><span class="stack-dot"></span>Free — limited filters</div>
+        <div class="stack-item"><span class="stack-dot"></span>Professional — $29/mo</div>
+        <div class="stack-item"><span class="stack-dot"></span>Enterprise — $99/mo</div>
+      </div>
+
+      <div class="sidebar-card reveal reveal-delay-2">
+        <div class="sidebar-title">Key Endpoints</div>
+        <div class="stack-item" style="font-size:0.73rem;"><span class="stack-dot"></span>GET /api/v1/cryptocurrencies</div>
+        <div class="stack-item" style="font-size:0.73rem;"><span class="stack-dot"></span>POST /api/v1/screening/filter</div>
+        <div class="stack-item" style="font-size:0.73rem;"><span class="stack-dot"></span>WS /ws/market-data</div>
+        <div class="stack-item" style="font-size:0.73rem;"><span class="stack-dot"></span>GET /api/v1/watchlists</div>
+        <div class="stack-item" style="font-size:0.73rem;"><span class="stack-dot"></span>POST /api/v1/alerts</div>
+      </div>
+
+      <div class="sidebar-card reveal reveal-delay-3">
+        <div class="sidebar-title">Links</div>
+        <div class="sidebar-links">
+          <a href="https://github.com/CryptoPrism-io/CryptoPrism-Screener" target="_blank" rel="noopener" class="sidebar-link">
+            <span class="link-icon">⌥</span> GitHub Repository
+          </a>
+          <a href="/" class="sidebar-link">← All Projects</a>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <a href="/" class="back-link">← back_to_portfolio</a>
+
+      <!-- THE PROBLEM -->
+      <section class="doc-section reveal">
+        <div class="section-title">The Problem</div>
+        <p class="doc-p">
+          After building CryptoPrism-DB, I had something genuinely valuable sitting in PostgreSQL: 9 months
+          of pre-computed technical indicators for 1,000+ cryptocurrencies, updated daily, with financial
+          ratios that most retail tools don't even expose. The Sharpe ratio, Sortino ratio, Alpha and Beta
+          relative to Bitcoin — indicators that institutional desks use but retail platforms either hide or
+          charge for.
+        </p>
+        <p class="doc-p">
+          TradingView's screener charges $60+/mo and doesn't expose raw ratio data. Coinigy is $18.66/mo
+          for a screener with no financial ratio layer. I already had the data — I was missing the product
+          layer that would let people query it.
+        </p>
+        <div class="callout">
+          The insight: the screener is not a data problem. It's a product design problem. The data was
+          already there. The question was: what's the minimal, well-designed API + UI that turns a PostgreSQL
+          database into something a professional trader would actually pay for?
+        </div>
+        <p class="doc-p">
+          The screener also needed to be the second CryptoPrism product, which meant monetisation
+          architecture had to be a first-class design constraint — not an afterthought bolted on after the
+          data model was locked.
+        </p>
+      </section>
+
+      <!-- MY APPROACH -->
+      <section class="doc-section reveal">
+        <div class="section-title">My Approach</div>
+        <p class="doc-p">
+          I designed backward from the core value proposition: the advanced filter endpoint.
+          <code style="color:var(--cyan)">POST /api/v1/screening/filter</code> is where the product lives —
+          the ability to say "give me all coins where RSI-14 is below 30, Sharpe ratio is above 1.5, and
+          OBV is trending up over 7 days." Everything else is infrastructure around that query.
+        </p>
+        <p class="doc-p">
+          FastAPI was the obvious choice as the thin API layer: it speaks directly to PostgreSQL via
+          SQLAlchemy, auto-generates Swagger UI documentation, handles async WebSocket connections natively,
+          and its type hints double as API documentation. I did not write a single line of API docs manually.
+        </p>
+        <div class="callout cyan">
+          Design principle: JWT auth + subscription tier system on day one. Not after the first user. Not
+          in v2. Building monetisation into the data model from the start means tier checks are O(1)
+          database lookups, not sprawling middleware added later.
+        </div>
+        <p class="doc-p">
+          On the frontend, React Query handles the REST/WebSocket data boundary. The screener results table
+          subscribes to WebSocket price updates for live overlays without re-fetching indicator data (which
+          changes daily, not by the second). This separation — slow data via REST, fast data via WebSocket
+          — keeps the UI performant and the data model clean.
+        </p>
+      </section>
+
+      <!-- ARCHITECTURE -->
+      <section class="doc-section reveal">
+        <div class="section-title">Architecture</div>
+        <p class="doc-p">Three-tier architecture: React frontend, FastAPI middleware, CryptoPrism PostgreSQL backend:</p>
+        <pre class="arch-block">
+┌──────────────────────────────────────────────────────────────────┐
+│                  CRYPTOPRISM SCREENER STACK                      │
+└──────────────────────────────────────────────────────────────────┘
+
+  FRONTEND  (React 18 + TypeScript + Tailwind)
+  ─────────────────────────────────────────────
+  ┌────────────────────────────────────────────┐
+  │  Screener Table  │  Watchlists  │  Alerts  │
+  │  Filter Builder  │  Chart View  │  Auth UI │
+  └──────────┬───────────────┬─────────────────┘
+             │ REST           │ WebSocket
+             │                │
+  ─────────────────────────────────────────────
+  FASTAPI BACKEND  (Python 3.10+)
+  ─────────────────────────────────────────────
+  ┌────────────────────────────────────────────┐
+  │  JWT Auth Layer + Subscription Tier Check  │
+  ├────────────────────────────────────────────┤
+  │  GET  /api/v1/cryptocurrencies             │
+  │  POST /api/v1/screening/filter  ← core     │
+  │  GET  /api/v1/watchlists                   │
+  │  POST /api/v1/alerts                       │
+  │  WS   /ws/market-data           ← live     │
+  ├────────────────────────────────────────────┤
+  │  Rate Limiter (per subscription tier)      │
+  │  Query Builder (100+ indicator combos)     │
+  │  Swagger UI / ReDoc (auto-generated)       │
+  └──────────┬─────────────────────────────────┘
+             │ SQLAlchemy (async)
+             │
+  ─────────────────────────────────────────────
+  POSTGRESQL DATABASES
+  ─────────────────────────────────────────────
+  ┌──────────────────────┐  ┌──────────────────┐
+  │  dbcp (production)   │  │  cp_ai (analysis)│
+  │  • OHLCV tables      │  │  • DMV scores    │
+  │  • Listings          │  │  • AI summaries  │
+  │  • Volume indicators │  │  • QA reports    │
+  └──────────────────────┘  └──────────────────┘
+    9 months pre-computed data · 2.26M+ records
+
+  DEPLOYMENT: Docker Compose · Nginx · SSL</pre>
+
+        <p class="doc-p" style="margin-top:1.5rem;">Indicator categories available in the filter builder:</p>
+        <pre class="arch-block">
+  MOMENTUM    RSI (14), ROC, Williams %R, Stochastic %K/%D
+  OSCILLATORS MACD, CCI, ADX, Bollinger Bands width/position
+  RATIOS      Sharpe, Sortino, Alpha vs BTC, Beta vs BTC
+  VOLUME      OBV, VWAP, Volume channel position, CMF
+  METRICS     Market cap, ATH/ATL distance, coin age, dominance</pre>
+      </section>
+
+      <!-- HARD CHALLENGES -->
+      <section class="doc-section reveal">
+        <div class="section-title">Hard Challenges</div>
+
+        <div class="challenge-item">
+          <div class="challenge-label">Challenge 01</div>
+          <div class="challenge-title">Real-time WebSocket + REST data without state conflicts in React Query</div>
+          <p class="doc-p">
+            The screener table shows indicator values (from REST, updated daily) alongside live price and
+            volume overlays (from WebSocket, updated per-second). The naive implementation cached everything
+            in React Query — but WebSocket price updates were overwriting the cached indicator rows, causing
+            stale re-renders where RSI values would flicker and reset every time a price tick came in.
+          </p>
+          <div class="callout amber">
+            Solution: strict data source segregation. React Query only caches slow data (indicators,
+            metadata, watchlists). WebSocket data goes into a Zustand store with a separate update cycle.
+            The screener table reads from both stores independently and merges at the render layer —
+            no shared cache keys, no state conflicts.
+          </div>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-label">Challenge 02</div>
+          <div class="challenge-title">Designing the filter query builder — 100+ indicator combinations</div>
+          <p class="doc-p">
+            The filter endpoint needs to accept arbitrary combinations of conditions: "RSI below 30 AND
+            Sharpe above 1.5 AND market cap above $100M". The naive approach is a massive switch statement
+            that generates SQL fragments — unmaintainable after more than a handful of indicators, and an
+            injection risk if not carefully escaped.
+          </p>
+          <p class="doc-p">
+            Solution: a typed filter schema where each indicator's valid ranges, SQL column name, table
+            source, and comparison operators are defined in a central registry. The query builder reads from
+            this registry to generate parameterised SQLAlchemy queries — no string interpolation, no injection
+            risk. Adding a new indicator means one registry entry, not a code change in the query builder.
+          </p>
+          <div class="callout">
+            The registry pattern also made the Swagger UI documentation accurate automatically — FastAPI
+            derives the filter schema from the same typed registry that the query builder uses.
+          </div>
+        </div>
+
+        <div class="challenge-item">
+          <div class="challenge-label">Challenge 03</div>
+          <div class="challenge-title">Rate limiting per subscription tier without Redis</div>
+          <p class="doc-p">
+            Enterprise-grade rate limiting typically requires Redis — a shared in-memory store that all
+            API instances can hit to count requests. Running Redis in a Docker Compose stack for a solo-built
+            SaaS felt like premature infrastructure, but per-process in-memory rate limiting breaks the
+            moment you run more than one FastAPI worker.
+          </p>
+          <p class="doc-p">
+            Solution: a hybrid approach. Rate limit counters are stored in PostgreSQL with a TTL-based
+            cleanup job running every hour. The FastAPI middleware checks PostgreSQL for the count,
+            increments it, and returns 429 if the tier limit is hit. It's slightly slower than Redis
+            (2–5ms overhead per request) but perfectly correct across multiple workers and requires zero
+            additional infrastructure. At the scale of a new SaaS product, this is the right trade-off.
+          </p>
+        </div>
+
+      </section>
+
+      <!-- RESULTS -->
+      <section class="doc-section reveal">
+        <div class="section-title">Results</div>
+        <p class="doc-p">Core product metrics at the end of the build:</p>
+        <div class="result-grid">
+          <div class="result-card">
+            <span class="result-value">9mo</span>
+            <span class="result-label">Historical Data</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">&lt;100ms</span>
+            <span class="result-label">Filter Response</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">3</span>
+            <span class="result-label">Subscription Tiers</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">Docker</span>
+            <span class="result-label">Production-Ready</span>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:2rem;">
+          The <code style="color:var(--cyan)">POST /screening/filter</code> endpoint consistently returns
+          results in under 100ms for standard filter combinations against 2.26M+ records, due to
+          pre-computed indicator columns and targeted PostgreSQL indexes on the most commonly filtered
+          fields (RSI, Sharpe, market cap).
+        </div>
+      </section>
+
+      <!-- LESSONS -->
+      <section class="doc-section reveal">
+        <div class="section-title">Lessons Learned</div>
+        <ul class="timeline">
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">Monetisation architecture should be designed before the first line of code.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">Adding subscription tiers to an existing system
+              means retrofitting auth checks into every endpoint and migrating the user table schema.
+              Designing it in from the start — JWT claims carrying tier information checked at the
+              middleware layer — meant zero retrofitting.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">WebSocket + REST data sources need a single source of truth on the client.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">Mixing them in the same React Query cache is a
+              mistake. Segregate by update frequency: slow data in React Query, fast data in a separate
+              event-driven store. The merge happens at the render layer, not the data layer.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">FastAPI's auto-generated Swagger docs saved hours of documentation time.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">Every endpoint has accurate, interactive
+              documentation with no additional work. The Pydantic type system that drives FastAPI's
+              validation also drives the Swagger schema — they're the same source.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">A registry pattern for complex query builders is worth the initial investment.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">The indicator registry pattern meant that adding
+              the 50th indicator was identical in effort to adding the 5th. The alternative — a growing
+              switch statement — would have been a maintenance liability with every new indicator added.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-dot"></div>
+            <div>
+              <strong style="color:var(--text)">The right infrastructure is the least infrastructure that solves the problem correctly.</strong>
+              <p class="doc-p" style="margin-top:0.4rem;">Choosing PostgreSQL over Redis for rate limiting
+              adds 2–5ms per request. At the scale of a new SaaS product, that's an acceptable trade-off
+              for zero additional infrastructure. Decisions should be driven by actual constraints, not
+              anticipated ones.</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-brand">
+      <a href="/">// yogeshsahu.xyz</a> — CryptoPrism Screener case study
+    </div>
+    <div class="footer-copy">React 18 · FastAPI · PostgreSQL · Docker · built by Yogesh Sahu</div>
+  </footer>
+
+  <script>
+    // Hamburger — Pattern A (.nav-hamburger + .nav-mobile-menu)
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', mobileMenu.classList.contains('open'));
+    });
+
+    // Scroll reveal — adds both .visible and .revealed for cross-pattern compatibility
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
