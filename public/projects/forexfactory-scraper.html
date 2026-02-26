@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ForexFactory Calendar Scraper — production economic calendar pipeline with 15-min realtime updates, UPSERT logic, and full audit trail." />
+  <title>ForexFactory Calendar Scraper // Yogesh Sahu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/project.css">
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">// yogeshsahu.xyz</a>
+  <div class="nav-links" id="nav-links">
+    <a href="/#about">[about]</a>
+    <a href="/#projects">[projects]</a>
+    <a href="/#blog">[blog]</a>
+    <a href="/#contact">[contact]</a>
+  </div>
+  <div class="nav-hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="project-hero">
+  <div class="hero-eyebrow">PROJ_009 &nbsp;·&nbsp; SCRAPING · DATA ENGINEERING</div>
+  <h1 class="hero-title">FOREXFACTORY CALENDAR SCRAPER</h1>
+  <p class="project-tagline">Production economic calendar pipeline — scraping ForexFactory every 15 minutes, UPSERT to PostgreSQL, zero duplicates, full audit trail.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-value">15 min</div>
+      <div class="hero-stat-label">Realtime Update Cadence</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">3</div>
+      <div class="hero-stat-label">Automated Workflows</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">0</div>
+      <div class="hero-stat-label">Duplicate Events</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">v2.2</div>
+      <div class="hero-stat-label">Production Version</div>
+    </div>
+  </div>
+</div>
+
+<div class="project-layout">
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">Stack</div>
+      <div class="stack-item"><span class="stack-dot"></span>Python 3.x</div>
+      <div class="stack-item"><span class="stack-dot"></span>PostgreSQL</div>
+      <div class="stack-item"><span class="stack-dot"></span>BeautifulSoup / lxml</div>
+      <div class="stack-item"><span class="stack-dot"></span>requests + retry logic</div>
+      <div class="stack-item"><span class="stack-dot"></span>GitHub Actions (3 workflows)</div>
+      <div class="stack-item"><span class="stack-dot"></span>pytz (timezone)</div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">Automation Schedule</div>
+      <div class="stack-item"><span class="stack-dot" style="background:var(--green)"></span>Every 15 min — realtime</div>
+      <div class="stack-item"><span class="stack-dot" style="background:var(--amber)"></span>02:00 UTC daily — sync</div>
+      <div class="stack-item"><span class="stack-dot" style="background:var(--cyan)"></span>Manual — monthly backfill</div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">DB Tables</div>
+      <div class="stack-item"><span class="stack-dot"></span>Economic_Calendar_FF</div>
+      <div class="stack-item"><span class="stack-dot"></span>sync_log (audit trail)</div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">GitHub</div>
+      <a href="https://github.com/CryptoPrism-io/ForexFactory-Calendar-Scraper" target="_blank" rel="noopener" class="sidebar-link">[ForexFactory-Calendar-Scraper →]</a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <a href="/" class="back-link">← back_to_portfolio</a>
+
+    <div class="doc-section reveal">
+      <div class="section-title">the_problem</div>
+      <p class="doc-p">
+        Every forex and macro trader knows ForexFactory's economic calendar — it's the industry standard for tracking high-impact events (NFP, CPI, FOMC, etc). But it has no official API. The data exists only as HTML rendered by their website, with actual vs forecast vs previous values updating in real-time as events release.
+      </p>
+      <p class="doc-p">
+        We needed this data in PostgreSQL — structured, clean, timestamped, and historically preserved — to feed into the Forex Data Pipeline and correlate economic events with price action. Buying a third-party calendar API would cost $200–500/mo and lock us into their schema.
+      </p>
+      <div class="callout amber">
+        ForexFactory is the most important economic data source for retail forex traders. The fact that it has no API is both the problem and the opportunity.
+      </div>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">my_approach</div>
+      <p class="doc-p">
+        Built a semantic HTML parser specifically for ForexFactory's calendar structure. ForexFactory renders events in a consistent table format across day/week/month views — the semantic parser extracts events as structured objects regardless of which view is scraped.
+      </p>
+      <ul class="approach-list">
+        <li><strong>Three scraping modes:</strong> day (realtime, lightweight), week (daily sync, broader coverage), month (backfill, historical reconstruction).</li>
+        <li><strong>UPSERT, not INSERT:</strong> Every event has a unique event_uid. If an event already exists, only update if actual/forecast/previous values have changed — this handles ForexFactory's live updates as events release.</li>
+        <li><strong>Timezone-first design:</strong> ForexFactory displays in US/Eastern. All times are converted to UTC on ingest. A timezone field is stored alongside UTC timestamp for auditability.</li>
+        <li><strong>Full audit trail:</strong> sync_log records every scrape operation — what was fetched, what was upserted, what was skipped, duration, and any errors. Debugging a missed event means querying sync_log, not trawling server logs.</li>
+      </ul>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">architecture</div>
+      <div class="arch-block">
+GitHub Actions — 3 Automated Workflows
+  ├── forexfactory-realtime-15min.yml  → every 15 min
+  ├── forexfactory-daily-sync.yml      → 02:00 UTC daily
+  └── forexfactory-monthly-backfill.yml → manual trigger
+
+                    ↓
+scraper_2.2/
+  ├── src/scraper.py     → semantic HTML parser (day/week/month)
+  ├── src/database.py    → UPSERT logic + connection pooling
+  └── src/config.py      → env vars, impact levels, currency map
+
+                    ↓
+Event Normalization
+  ├── Parse: event name, currency, impact (High/Med/Low/Holiday)
+  ├── Values: actual, forecast, previous (handle "—" and null)
+  ├── Timezone: US/Eastern → UTC conversion + DST handling
+  └── Dedup: event_uid = hash(date + time + currency + event_name)
+
+                    ↓
+PostgreSQL
+  ├── Economic_Calendar_FF
+  │     currency, event, impact, actual, forecast, previous,
+  │     event_time_utc, event_uid (UNIQUE), created_at, updated_at
+  └── sync_log
+        run_id, mode, rows_fetched, rows_upserted, rows_skipped,
+        duration_ms, error, run_at
+
+                    ↓
+CSV Export (parallel output alongside DB)
+      </div>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">hard_parts</div>
+
+      <div class="challenge-item">
+        <div class="challenge-label">Challenge 01</div>
+        <div class="challenge-title">ForexFactory's anti-scraping measures</div>
+        <p class="doc-p">ForexFactory blocks aggressive scrapers. Solution: respectful rate limiting (1 request per 15 minutes in realtime mode), proper User-Agent headers, and session reuse. We've never been blocked — the key is mimicking a human browsing pattern, not hammering the endpoint.</p>
+      </div>
+
+      <div class="challenge-item">
+        <div class="challenge-label">Challenge 02</div>
+        <div class="challenge-title">Timezone and DST hell</div>
+        <p class="doc-p">ForexFactory times are US/Eastern — which means UTC-5 in winter and UTC-4 during DST. Storing as-is and converting later is a mistake: you lose information about whether DST was active. Solution: convert to UTC at parse time using pytz with the original Eastern timestamp preserved in a separate column. This makes historical comparison unambiguous.</p>
+      </div>
+
+      <div class="challenge-item">
+        <div class="challenge-label">Challenge 03</div>
+        <div class="challenge-title">Live event updates after initial scrape</div>
+        <p class="doc-p">ForexFactory updates actual values as events release throughout the day. A naive scraper would miss these updates since the event row already exists. The UPSERT logic checks if actual/forecast/previous differ from stored values — if they do, it updates and logs the change in sync_log. This means you always have the latest actual values without duplicates.</p>
+      </div>
+
+      <div class="challenge-item">
+        <div class="challenge-label">Challenge 04</div>
+        <div class="challenge-title">Parsing across 3 view modes</div>
+        <p class="doc-p">ForexFactory's day, week, and month HTML templates are structurally different — different table layouts, different date rendering, different row structures for multi-day events. Built a semantic parser that understands each view's structure and normalises into the same event object. This is the core intellectual work of the project — 80% of the complexity lives here.</p>
+      </div>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">results</div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="result-value">15 min</div>
+          <div class="result-label">Realtime update cadence</div>
+        </div>
+        <div class="result-card">
+          <div class="result-value">0</div>
+          <div class="result-label">Duplicate events (UPSERT)</div>
+        </div>
+        <div class="result-card">
+          <div class="result-value">100%</div>
+          <div class="result-label">UTC-normalised timestamps</div>
+        </div>
+        <div class="result-card">
+          <div class="result-value">Full</div>
+          <div class="result-label">Audit trail in sync_log</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">lessons_learned</div>
+      <p class="doc-p">
+        Building the semantic parser to understand ForexFactory's HTML structure deeply — rather than CSS selector hacking — is what makes v2.2 resilient. When ForexFactory tweaks their template, the semantic parser adapts with minimal changes. CSS selectors break silently.
+      </p>
+      <p class="doc-p">
+        The sync_log audit table is the most valuable debugging tool in the whole system. When a trader asks "why is the NFP event showing the wrong actual value?", the answer is always in sync_log within 30 seconds.
+      </p>
+      <p class="doc-p">
+        UPSERT over INSERT is the correct default for any scraping pipeline that touches data that can change after initial publish. Write the UPSERT logic once and never think about data freshness again.
+      </p>
+      <div class="callout cyan">
+        The three-workflow architecture (15-min / daily / monthly) maps directly to the three use cases: live trading alerts, daily analysis, and historical research. One scraper, three deployment modes.
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div class="footer-brand">// yogeshsahu.xyz</div>
+  <div class="footer-copy">&copy; 2026 Yogesh Sahu &mdash; built in the terminal</div>
+</footer>
+
+<script>
+  document.getElementById('hamburger').addEventListener('click', function() {
+    document.getElementById('nav-links').classList.toggle('open');
+  });
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

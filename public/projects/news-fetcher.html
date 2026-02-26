@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CryptoPrism News Fetcher — 500+ articles/hour from 44+ sources with sentiment analysis and ML pipeline." />
+  <title>CryptoPrism News Fetcher // Yogesh Sahu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/project.css">
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">// yogeshsahu.xyz</a>
+  <div class="nav-links" id="nav-links">
+    <a href="/#about">[about]</a>
+    <a href="/#projects">[projects]</a>
+    <a href="/#blog">[blog]</a>
+    <a href="/#contact">[contact]</a>
+  </div>
+  <div class="nav-hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="project-hero">
+  <div class="hero-eyebrow">PROJ_008 &nbsp;·&nbsp; AI · DATA PIPELINE</div>
+  <h1 class="hero-title">CRYPTOPRISM NEWS FETCHER</h1>
+  <p class="project-tagline">500+ crypto articles per hour from 44+ sources — fetched, categorised, sentiment-scored, and stored in PostgreSQL automatically.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-value">500+</div>
+      <div class="hero-stat-label">Articles / Hour</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">44+</div>
+      <div class="hero-stat-label">News Sources</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">182+</div>
+      <div class="hero-stat-label">Categories</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">55.8%</div>
+      <div class="hero-stat-label">Market Sentiment Positive</div>
+    </div>
+  </div>
+</div>
+
+<div class="project-layout">
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">Stack</div>
+      <div class="stack-item"><span class="stack-dot"></span>Python 3.11+</div>
+      <div class="stack-item"><span class="stack-dot"></span>PostgreSQL 12+</div>
+      <div class="stack-item"><span class="stack-dot"></span>GitHub Actions (CRON)</div>
+      <div class="stack-item"><span class="stack-dot"></span>CoinDesk API</div>
+      <div class="stack-item"><span class="stack-dot"></span>CryptoCompare API</div>
+      <div class="stack-item"><span class="stack-dot"></span>scikit-learn / NLP</div>
+      <div class="stack-item"><span class="stack-dot"></span>black (code style)</div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">DB Tables</div>
+      <div class="stack-item"><span class="stack-dot" style="background:var(--cyan)"></span>news_headlines</div>
+      <div class="stack-item"><span class="stack-dot" style="background:var(--green)"></span>articles</div>
+      <div class="stack-item"><span class="stack-dot" style="background:var(--amber)"></span>sources</div>
+      <div class="stack-item"><span class="stack-dot" style="background:var(--green)"></span>categories</div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">ML Pipeline</div>
+      <div class="stack-item"><span class="stack-dot"></span>src/features/</div>
+      <div class="stack-item"><span class="stack-dot"></span>src/inference/</div>
+      <div class="stack-item"><span class="stack-dot"></span>src/models/</div>
+      <div class="stack-item"><span class="stack-dot"></span>src/nlp/</div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">GitHub</div>
+      <a href="https://github.com/CryptoPrism-io/CryptoPrism-News-Fetcher" target="_blank" rel="noopener" class="sidebar-link">[CryptoPrism-News-Fetcher →]</a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <a href="/" class="back-link">← back_to_portfolio</a>
+
+    <div class="doc-section reveal">
+      <div class="section-title">the_problem</div>
+      <p class="doc-p">
+        Crypto markets are narrative-driven. Price moves often follow news by minutes, not hours. We had excellent technical data (CryptoPrism-DB) and sentiment indicators — but no structured news feed to explain why signals fired or to validate them with real-world events.
+      </p>
+      <p class="doc-p">
+        The obvious solution — use a third-party news API directly — hits two problems: (1) they're expensive at production volume, and (2) they don't let you build custom ML on top. We needed our own pipeline: fetch, normalise, deduplicate, and expose to the ML layer.
+      </p>
+      <div class="callout">
+        44 verified crypto publishers. 500+ articles every hour. All flowing into a PostgreSQL schema we own and can query however we want.
+      </div>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">my_approach</div>
+      <p class="doc-p">
+        Two API sources chosen for complementary coverage: CoinDesk (editorial, authoritative) and CryptoCompare (breadth, global aggregation). The pipeline is a clean four-stage process:
+      </p>
+      <ul class="approach-list">
+        <li><strong>API Connector</strong> — HTTP client with retry logic, rate limiting, and pagination handling for both sources.</li>
+        <li><strong>Feature Extractor</strong> — Parses and transforms raw JSON into normalised schema: title, body, source, categories, published_at, tickers mentioned.</li>
+        <li><strong>Data Organizer</strong> — Deduplication by content hash, category normalisation across 182+ tags, source verification.</li>
+        <li><strong>DB Connector</strong> — PostgreSQL UPSERT — never creates duplicates, always updates if content changes.</li>
+      </ul>
+      <p class="doc-p">
+        On top of the fetch pipeline sits an ML layer (features → inference → models → nlp) that runs sentiment classification, entity extraction, and topic modelling on stored articles. The 55.8% positive sentiment figure comes from this layer running against the full historical corpus.
+      </p>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">architecture</div>
+      <div class="arch-block">
+GitHub Actions (hourly CRON :00)
+  └── trigger fetch workflow
+
+Data Sources
+  ├── CoinDesk API    (44 verified publishers, editorial)
+  └── CryptoCompare   (global aggregation, breadth)
+          │
+          ▼
+NewsFetcher Core (src/news_fetcher/)
+  ├── API Connector      → HTTP + retry + rate-limit
+  ├── Feature Extractor  → parse, normalise, tag tickers
+  ├── Data Organizer     → dedupe by hash, 182+ categories
+  └── DB Connector       → PostgreSQL UPSERT
+          │
+          ▼
+PostgreSQL Database
+  ├── news_headlines  (fast read for dashboards)
+  ├── articles        (full body, metadata)
+  ├── sources         (publisher registry, 44+)
+  └── categories      (182+ topic tags)
+          │
+          ▼
+ML Pipeline (src/)
+  ├── features/   → TF-IDF, embeddings, ticker mentions
+  ├── nlp/        → sentiment, entity extraction, NER
+  ├── models/     → trained classifiers
+  └── inference/  → batch scoring + live scoring API
+
+Export
+  ├── CSV (500+ articles snapshot)
+  └── JSON (structured data for downstream)
+      </div>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">hard_parts</div>
+
+      <div class="challenge-item">
+        <div class="challenge-label">Challenge 01</div>
+        <div class="challenge-title">Deduplication across two different APIs</div>
+        <p class="doc-p">CoinDesk and CryptoCompare often publish the same story (one originates, one aggregates). Deduplication by URL fails — different canonical URLs for the same article. Solution: content hash on normalised title + first 200 chars of body. Catches ~15% duplicates that URL matching would miss.</p>
+      </div>
+
+      <div class="challenge-item">
+        <div class="challenge-label">Challenge 02</div>
+        <div class="challenge-title">Category normalisation at 182+ tags</div>
+        <p class="doc-p">Both APIs have their own taxonomy. CoinDesk has "DeFi", CryptoCompare has "decentralized-finance" and "defi". Mapping 182 normalised categories across two inconsistent source schemas required building a translation table and fuzzy matching for edge cases.</p>
+      </div>
+
+      <div class="challenge-item">
+        <div class="challenge-label">Challenge 03</div>
+        <div class="challenge-title">Sentiment drift over time</div>
+        <p class="doc-p">The sentiment model trained on 2023 data performed poorly on 2025 articles — crypto vocabulary evolves fast ("restaking", "AI agents", "RWA" had no representation). Solution: quarterly retraining pipeline with the latest 90 days of articles as ground truth. The 55.8% positive figure reflects the retrained model.</p>
+      </div>
+
+      <div class="challenge-item">
+        <div class="challenge-label">Challenge 04</div>
+        <div class="challenge-title">ML layer latency vs freshness</div>
+        <p class="doc-p">Running full NLP inference on 500 articles per hour synchronously would block the fetch pipeline. Solution: decoupled fetch and inference — fetch writes raw articles immediately, inference runs as a separate job on a 15-minute delay, scoring batches of unprocessed articles.</p>
+      </div>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">results</div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="result-value">500+</div>
+          <div class="result-label">Articles ingested/hour</div>
+        </div>
+        <div class="result-card">
+          <div class="result-value">44+</div>
+          <div class="result-label">Verified publishers</div>
+        </div>
+        <div class="result-card">
+          <div class="result-value">182+</div>
+          <div class="result-label">Normalised categories</div>
+        </div>
+        <div class="result-card">
+          <div class="result-value">55.8%</div>
+          <div class="result-label">Positive sentiment baseline</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">lessons_learned</div>
+      <p class="doc-p">
+        Content hash deduplication is far more robust than URL deduplication for news aggregation. This seems obvious in retrospect but we tried URL-first and had to migrate.
+      </p>
+      <p class="doc-p">
+        Decoupling fetch from ML inference was the right architecture from day one — but we didn't do it initially. Running inference synchronously in the fetch pipeline caused timeouts during high-volume hours. Splitting them into independent jobs fixed latency and made each independently scalable.
+      </p>
+      <p class="doc-p">
+        Crypto NLP models need quarterly retraining at minimum. The vocabulary shifts faster than any other domain I've worked in.
+      </p>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div class="footer-brand">// yogeshsahu.xyz</div>
+  <div class="footer-copy">&copy; 2026 Yogesh Sahu &mdash; built in the terminal</div>
+</footer>
+
+<script>
+  document.getElementById('hamburger').addEventListener('click', function() {
+    document.getElementById('nav-links').classList.toggle('open');
+  });
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

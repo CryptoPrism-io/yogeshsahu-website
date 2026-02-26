@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CryptoPrism-DB-H — Hourly cryptocurrency technical analysis pipeline tracking 250 coins every hour with DMV signals." />
+  <title>CryptoPrism-DB-H // Yogesh Sahu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/project.css">
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">// yogeshsahu.xyz</a>
+  <div class="nav-links" id="nav-links">
+    <a href="/#about">[about]</a>
+    <a href="/#projects">[projects]</a>
+    <a href="/#blog">[blog]</a>
+    <a href="/#contact">[contact]</a>
+  </div>
+  <div class="nav-hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="project-hero">
+  <div class="hero-eyebrow">PROJ_007 &nbsp;·&nbsp; DATA INFRASTRUCTURE</div>
+  <h1 class="hero-title">CRYPTOPRISM-DB-H</h1>
+  <p class="project-tagline">Hourly DMV signal pipeline for 250 cryptocurrencies — running every 60 minutes, zero maintenance, in production.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-value">250</div>
+      <div class="hero-stat-label">Coins / Hour</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">24×</div>
+      <div class="hero-stat-label">Daily Pipeline Runs</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">5-Day</div>
+      <div class="hero-stat-label">Rolling Window</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-value">~10 min</div>
+      <div class="hero-stat-label">Per Execution</div>
+    </div>
+  </div>
+</div>
+
+<div class="project-layout">
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">Stack</div>
+      <div class="stack-item"><span class="stack-dot"></span>Python 3.9+</div>
+      <div class="stack-item"><span class="stack-dot"></span>R 4.0+</div>
+      <div class="stack-item"><span class="stack-dot"></span>PostgreSQL 13+</div>
+      <div class="stack-item"><span class="stack-dot"></span>SQLAlchemy</div>
+      <div class="stack-item"><span class="stack-dot"></span>GitHub Actions (CRON)</div>
+      <div class="stack-item"><span class="stack-dot"></span>CoinMarketCap API</div>
+      <div class="stack-item"><span class="stack-dot"></span>crypto2 (R package)</div>
+      <div class="stack-item"><span class="stack-dot"></span>pandas · numpy</div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">Databases</div>
+      <div class="stack-item"><span class="stack-dot"></span>dbcp — production listings</div>
+      <div class="stack-item"><span class="stack-dot"></span>cp_ai — hourly signals</div>
+      <div class="stack-item"><span class="stack-dot"></span>cp_backtest_h — historical</div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">Signal Tables</div>
+      <div class="stack-item"><span class="stack-dot" style="background:var(--cyan)"></span>FE_TVV (Volume/Value/Risk)</div>
+      <div class="stack-item"><span class="stack-dot" style="background:var(--amber)"></span>FE_OSC (Oscillators)</div>
+      <div class="stack-item"><span class="stack-dot" style="background:var(--green)"></span>FE_MOM (Momentum)</div>
+      <div class="stack-item"><span class="stack-dot" style="background:var(--green)"></span>FE_RAT (Ratios)</div>
+      <div class="stack-item"><span class="stack-dot" style="background:var(--cyan)"></span>FE_DMV_ALL (All signals)</div>
+      <div class="stack-item"><span class="stack-dot" style="background:var(--amber)"></span>FE_DMV_SCORES (D/M/V)</div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">GitHub</div>
+      <a href="https://github.com/CryptoPrism-io/CryptoPrism-DB-H" target="_blank" rel="noopener" class="sidebar-link">[CryptoPrism-DB-H →]</a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <a href="/" class="back-link">← back_to_portfolio</a>
+
+    <div class="doc-section reveal">
+      <div class="section-title">the_problem</div>
+      <p class="doc-p">
+        CryptoPrism-DB gave us a powerful daily view of 1,000 coins — but daily candles are too coarse for short-term trading signals. A coin can dump 30% and recover in hours without the daily chart showing anything alarming. We needed the same DMV signal quality, but on an hourly heartbeat.
+      </p>
+      <p class="doc-p">
+        The constraint: we couldn't just run the existing daily pipeline faster. The R data ingestion script was designed for 110-day lookbacks on 1,000 coins — at hourly frequency that would timeout and burn API quota. We needed a ground-up redesign scoped to 250 coins and a 5-day rolling window.
+      </p>
+      <div class="callout">
+        Daily pipeline = strategic positioning. Hourly pipeline = tactical entries and exits. You need both — one without the other is incomplete.
+      </div>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">my_approach</div>
+      <p class="doc-p">
+        Two separate GitHub Actions workflows, offset by 4 minutes to guarantee sequential execution without explicit dependencies:
+      </p>
+      <ul class="approach-list">
+        <li><strong>r_cron.yml runs at :01</strong> — R script fetches OHLCV for 250 coins from CoinMarketCap via the crypto2 package, writes into cp_ai. Takes ~6 minutes.</li>
+        <li><strong>py_cron.yml runs at :05</strong> — Python picks up fresh OHLCV and runs four parallel analysis scripts (TVV, OSC, MOM, RAT), then the DMV core aggregator joins them. Takes ~4 minutes.</li>
+      </ul>
+      <p class="doc-p">
+        The aggregator runs last — it's the only script that touches FE_DMV_ALL and FE_DMV_SCORES, and it JOINs the outputs of all four analysis scripts. This dependency ordering is enforced purely by script order in py_cron.yml, not by orchestration tooling.
+      </p>
+      <p class="doc-p">
+        Historical data appends to cp_backtest_h automatically — every hourly run is captured, so backtesting against hourly signals requires no extra work.
+      </p>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">architecture</div>
+      <div class="arch-block">
+GitHub Actions
+  :01 UTC  →  r_cron.yml
+  :05 UTC  →  py_cron.yml
+
+r_cron.yml
+  └── gcp_ohlcv_1h_250coins.R
+        ├── CoinMarketCap API (crypto2 pkg)
+        ├── 250 coins × 5-day OHLCV
+        └── WRITE → cp_ai
+
+py_cron.yml (sequential)
+  ├── gcp_dmv_tvv_pct_1h.py    → FE_TVV  (Volume/Value/Risk)
+  ├── gcp_dmv_osc_mom_rat_1h.py → FE_OSC, FE_MOM, FE_RAT
+  └── gcp_dmv_core_1h.py       → FE_DMV_ALL, FE_DMV_SCORES
+        (aggregator — JOINs all signal tables)
+
+PostgreSQL Databases (GCP)
+  ├── dbcp          → listings, top 1000 universe
+  ├── cp_ai         → live hourly signals (rolling 5-day)
+  └── cp_backtest_h → append-only historical (every hour preserved)
+      </div>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">hard_parts</div>
+
+      <div class="challenge-item">
+        <div class="challenge-label">Challenge 01</div>
+        <div class="challenge-title">Sequential execution without an orchestrator</div>
+        <p class="doc-p">Python needs fresh OHLCV data from R before it can run. We can't use depends-on between workflows in GitHub Actions. Solution: fixed 4-minute offset between cron schedules. R consistently finishes in under 4 minutes — tested across 200+ runs. Simple and reliable.</p>
+      </div>
+
+      <div class="challenge-item">
+        <div class="challenge-label">Challenge 02</div>
+        <div class="challenge-title">DMV aggregator ordering</div>
+        <p class="doc-p">The DMV core script JOINs FE_TVV, FE_OSC, FE_MOM, and FE_RAT. If any upstream script fails mid-run, the JOIN produces incomplete rows silently. Solution: the core aggregator checks row counts before joining — if any table has fewer rows than expected, it raises an alert and aborts instead of writing partial data.</p>
+      </div>
+
+      <div class="challenge-item">
+        <div class="challenge-label">Challenge 03</div>
+        <div class="challenge-title">Rolling window without unbounded growth</div>
+        <p class="doc-p">cp_ai stores the live rolling 5-day view. If we just appended every hour, it would grow forever. Solution: each run deletes rows older than 5 days before inserting new data. cp_backtest_h is the append-only historical store — never pruned.</p>
+      </div>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">results</div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="result-value">24×/day</div>
+          <div class="result-label">Pipeline executions</div>
+        </div>
+        <div class="result-card">
+          <div class="result-value">250</div>
+          <div class="result-label">Coins per run</div>
+        </div>
+        <div class="result-card">
+          <div class="result-value">6 tables</div>
+          <div class="result-label">Signal outputs per run</div>
+        </div>
+        <div class="result-card">
+          <div class="result-value">0</div>
+          <div class="result-label">Manual interventions needed</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">vs_daily_pipeline</div>
+      <div class="arch-block">
+Feature           │ CryptoPrism-DB (Daily) │ CryptoPrism-DB-H (Hourly)
+──────────────────┼────────────────────────┼──────────────────────────
+Frequency         │ Once daily             │ Every hour (24×/day)
+Universe          │ 1,000 coins            │ 250 coins (top)
+Lookback          │ 110 days               │ 5-day rolling
+Use case          │ Strategic positioning  │ Tactical entries/exits
+Historical store  │ cp_backtest            │ cp_backtest_h
+Exec time         │ ~15 min/day            │ ~10 min/hour
+      </div>
+    </div>
+
+    <div class="doc-section reveal">
+      <div class="section-title">lessons_learned</div>
+      <p class="doc-p">
+        Time offsets are a surprisingly effective poor-man's orchestrator for two-step pipelines. Formal orchestration tools (Airflow, Prefect) add significant complexity — for a two-step pipeline with predictable runtimes, a 4-minute cron offset is more reliable than it sounds.
+      </p>
+      <p class="doc-p">
+        The aggregator validation check (row count before JOIN) has caught three partial failures in production that would have silently written bad data. Worth the 10 lines of code.
+      </p>
+      <p class="doc-p">
+        Building cp_backtest_h as an append-only store from day one was the right call — retroactively trying to reconstruct hourly history would have been impossible.
+      </p>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div class="footer-brand">// yogeshsahu.xyz</div>
+  <div class="footer-copy">&copy; 2026 Yogesh Sahu &mdash; built in the terminal</div>
+</footer>
+
+<script>
+  document.getElementById('hamburger').addEventListener('click', function() {
+    document.getElementById('nav-links').classList.toggle('open');
+  });
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
