@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "yogeshsahu",
     "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "headers": [
