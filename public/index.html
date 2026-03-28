@@ -12,6 +12,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <!-- GSAP + ScrollTrigger + Lenis -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" defer></script>
   <style>
     /* ── RESET & ROOT ─────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -88,6 +92,82 @@
 
     /* ── SELECTION ────────────────────────────────────── */
     ::selection { background: var(--green); color: var(--bg); }
+
+    /* ── PRELOADER ────────────────────────────────────── */
+    .preloader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .preloader.done {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .preloader-terminal {
+      width: min(520px, 90vw);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 60px rgba(0,255,136,0.08);
+    }
+    .preloader-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
+    }
+    .preloader-titlebar .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .preloader-title {
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-left: 0.5rem;
+      font-family: var(--font-mono);
+    }
+    .preloader-body {
+      padding: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 2;
+      min-height: 220px;
+    }
+    .preloader-line {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    .preloader-line.show {
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .preloader-line .prompt { color: var(--green); }
+    .preloader-line .cmd { color: var(--amber); }
+    .preloader-line .ok { color: var(--green); }
+    .preloader-line .info { color: var(--text-dim); }
+    .preloader-line .val { color: var(--cyan); }
+    .preloader-progress {
+      margin-top: 0.75rem;
+      height: 2px;
+      background: var(--border);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .preloader-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+      transition: width 0.3s ease;
+    }
 
     /* ── NAV ──────────────────────────────────────────── */
     nav {
@@ -496,6 +576,139 @@
       margin-bottom: 0.3rem;
     }
     .stat-sub { font-size: 0.75rem; color: var(--text-dim); }
+
+    /* ── EXPERIENCE TIMELINE ─────────────────────────── */
+    .timeline-container {
+      position: relative;
+      padding-left: 2.5rem;
+    }
+    .timeline-line {
+      position: absolute;
+      left: 7px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline-line-fill {
+      position: absolute;
+      left: 7px;
+      top: 0;
+      width: 2px;
+      height: 0;
+      background: linear-gradient(180deg, var(--green), var(--cyan));
+      z-index: 1;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    .timeline-item.visible {
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .timeline-node {
+      position: absolute;
+      left: -2.5rem;
+      top: 0.2rem;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--border-bright);
+      z-index: 2;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .timeline-item.visible .timeline-node {
+      border-color: var(--green);
+      box-shadow: 0 0 12px rgba(0,255,136,0.3);
+    }
+    .timeline-node-inner {
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--green);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .timeline-item.visible .timeline-node-inner { opacity: 1; }
+
+    .timeline-year {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      color: var(--green);
+      letter-spacing: 0.15em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .timeline-year::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 120px;
+    }
+    .timeline-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .timeline-card:hover {
+      border-color: var(--border-bright);
+      transform: translateX(6px);
+    }
+    .timeline-role {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.03em;
+      margin-bottom: 0.25rem;
+    }
+    .timeline-org {
+      font-size: 0.75rem;
+      color: var(--cyan);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+    .timeline-desc {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      line-height: 1.8;
+      margin-bottom: 0.75rem;
+    }
+    .timeline-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .timeline-highlight {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.6rem;
+      background: var(--green-faint);
+      color: var(--green-dim);
+      border: 1px solid var(--border-bright);
+      border-radius: 3px;
+      letter-spacing: 0.04em;
+    }
+    .timeline-highlight.metric {
+      background: rgba(0,255,208,0.05);
+      color: var(--cyan);
+      border-color: rgba(0,255,208,0.2);
+    }
+
+    @media (max-width: 768px) {
+      .timeline-container { padding-left: 2rem; }
+      .timeline-node { left: -2rem; width: 14px; height: 14px; }
+      .timeline-line, .timeline-line-fill { left: 6px; }
+    }
 
     /* ── FEATURED PROJECTS ────────────────────────────── */
     .featured-projects {
@@ -976,15 +1189,54 @@
       .blog-meta { flex-direction: row; flex-wrap: wrap; gap: 0.75rem; }
       footer { padding: 2rem 1.25rem; }
     }
+
+    /* ── REDUCED MOTION ──────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .preloader { display: none; }
+    }
+
+    /* ── BODY LOCKED (during preloader) ──────────────── */
+    body.locked { overflow: hidden; }
   </style>
 </head>
-<body>
+<body class="locked">
+
+  <!-- PRELOADER -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-terminal">
+      <div class="preloader-titlebar">
+        <span class="t-dot t-dot-red"></span>
+        <span class="t-dot t-dot-amber"></span>
+        <span class="t-dot t-dot-green"></span>
+        <span class="preloader-title">boot_sequence.sh</span>
+      </div>
+      <div class="preloader-body">
+        <div class="preloader-line" data-delay="100"><span class="prompt">$</span> <span class="cmd">init</span> <span class="info">yogeshsahu.xyz</span></div>
+        <div class="preloader-line" data-delay="350"><span class="info">[sys]</span> <span class="ok">loading modules...</span></div>
+        <div class="preloader-line" data-delay="600"><span class="info">[ok]</span> <span class="val">matrix_renderer</span> <span class="ok">&#10003;</span></div>
+        <div class="preloader-line" data-delay="800"><span class="info">[ok]</span> <span class="val">scroll_engine</span> <span class="ok">&#10003;</span></div>
+        <div class="preloader-line" data-delay="1000"><span class="info">[ok]</span> <span class="val">animation_core</span> <span class="ok">&#10003;</span></div>
+        <div class="preloader-line" data-delay="1250"><span class="info">[ok]</span> <span class="val">portfolio_data</span> <span class="ok">&#10003;</span></div>
+        <div class="preloader-line" data-delay="1500"><span class="prompt">$</span> <span class="cmd">render</span> <span class="info">--mode=production</span></div>
+        <div class="preloader-line" data-delay="1800"><span class="ok">&#9608; system ready — launching interface</span></div>
+        <div class="preloader-progress">
+          <div class="preloader-progress-bar" id="preloader-bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- NAV -->
   <nav>
     <a href="#" class="nav-brand"><span>//</span> yogeshsahu.xyz</a>
     <div class="nav-links" id="nav-links">
       <a href="#about">[about]</a>
+      <a href="#experience">[experience]</a>
       <a href="#projects">[projects]</a>
       <a href="#blog">[blog]</a>
       <a href="#contact">[contact]</a>
@@ -1117,10 +1369,165 @@
 
   <div class="section-divider"></div>
 
+  <!-- EXPERIENCE TIMELINE -->
+  <section id="experience">
+    <div class="section-header reveal">
+      <span class="section-num">02.</span>
+      <h2>journey</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+      <div class="timeline-line-fill" id="timeline-fill"></div>
+
+      <!-- 2025-Present -->
+      <div class="timeline-item">
+        <div class="timeline-node"><div class="timeline-node-inner"></div></div>
+        <div class="timeline-year">2025 — PRESENT</div>
+        <div class="timeline-card">
+          <div class="timeline-role">Founder & Lead Engineer</div>
+          <div class="timeline-org">CryptoPrism // Production Era</div>
+          <div class="timeline-desc">
+            Scaled CryptoPrism into a full production ecosystem — 2.26M+ records, 1,000+ coins, AI-powered QA scoring 100/100, and a live SaaS screener with enterprise tier. Shipped 9+ interconnected systems running 24/7.
+          </div>
+          <div class="timeline-highlights">
+            <span class="timeline-highlight metric">2.26M+ records</span>
+            <span class="timeline-highlight metric">99.9% uptime</span>
+            <span class="timeline-highlight">SaaS Launch</span>
+            <span class="timeline-highlight">AI/ML QA</span>
+            <span class="timeline-highlight">Enterprise Tier</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2024 -->
+      <div class="timeline-item">
+        <div class="timeline-node"><div class="timeline-node-inner"></div></div>
+        <div class="timeline-year">2024</div>
+        <div class="timeline-card">
+          <div class="timeline-role">Product Builder & Architect</div>
+          <div class="timeline-org">CryptoPrism Screener // SaaS Launch</div>
+          <div class="timeline-desc">
+            Designed and launched CryptoPrism Screener — institutional-grade crypto screening SaaS. Built React + TypeScript frontend with FastAPI backend, real-time WebSocket feeds, and subscription billing. First paying customers.
+          </div>
+          <div class="timeline-highlights">
+            <span class="timeline-highlight metric">1,000+ coins</span>
+            <span class="timeline-highlight metric">100+ indicators</span>
+            <span class="timeline-highlight">React</span>
+            <span class="timeline-highlight">FastAPI</span>
+            <span class="timeline-highlight">WebSockets</span>
+            <span class="timeline-highlight">Stripe</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2023 -->
+      <div class="timeline-item">
+        <div class="timeline-node"><div class="timeline-node-inner"></div></div>
+        <div class="timeline-year">2023</div>
+        <div class="timeline-card">
+          <div class="timeline-role">Data Engineer & AI Practitioner</div>
+          <div class="timeline-org">CryptoPrism DB v4 // AI Integration</div>
+          <div class="timeline-desc">
+            Major architectural leap — integrated Gemini-powered QA monitoring, expanded to 100+ technical indicators per coin, built automated Telegram alerting, and reached production stability at scale. Also built Pratyaksha, an AI journaling platform with 4 LLM agents.
+          </div>
+          <div class="timeline-highlights">
+            <span class="timeline-highlight metric">100+ indicators</span>
+            <span class="timeline-highlight metric">4 AI agents</span>
+            <span class="timeline-highlight">Gemini API</span>
+            <span class="timeline-highlight">LangChain</span>
+            <span class="timeline-highlight">Pratyaksha</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2022 -->
+      <div class="timeline-item">
+        <div class="timeline-node"><div class="timeline-node-inner"></div></div>
+        <div class="timeline-year">2022</div>
+        <div class="timeline-card">
+          <div class="timeline-role">Full-Stack Developer & Data Builder</div>
+          <div class="timeline-org">CryptoPrism // Foundation Phase</div>
+          <div class="timeline-desc">
+            Started CryptoPrism from scratch — designed the four-stage ETL pipeline architecture, built the PostgreSQL data model, set up GitHub Actions CI/CD, and went from zero to tracking hundreds of coins with automated daily runs.
+          </div>
+          <div class="timeline-highlights">
+            <span class="timeline-highlight">ETL Pipeline</span>
+            <span class="timeline-highlight">PostgreSQL</span>
+            <span class="timeline-highlight">GitHub Actions</span>
+            <span class="timeline-highlight">Python</span>
+            <span class="timeline-highlight">R</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2020–2021 -->
+      <div class="timeline-item">
+        <div class="timeline-node"><div class="timeline-node-inner"></div></div>
+        <div class="timeline-year">2020 — 2021</div>
+        <div class="timeline-card">
+          <div class="timeline-role">Freelance Engineer & Consultant</div>
+          <div class="timeline-org">Fintech Clients // Data & Automation</div>
+          <div class="timeline-desc">
+            Delivered data engineering and full-stack solutions for fintech clients. Built scraping pipelines, market data dashboards, automated reporting systems, and custom web applications. Developed expertise in forex data infrastructure.
+          </div>
+          <div class="timeline-highlights">
+            <span class="timeline-highlight">Fintech</span>
+            <span class="timeline-highlight">Data Pipelines</span>
+            <span class="timeline-highlight">Web Scraping</span>
+            <span class="timeline-highlight">Dashboards</span>
+            <span class="timeline-highlight">Forex</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2018–2019 -->
+      <div class="timeline-item">
+        <div class="timeline-node"><div class="timeline-node-inner"></div></div>
+        <div class="timeline-year">2018 — 2019</div>
+        <div class="timeline-card">
+          <div class="timeline-role">Software Developer</div>
+          <div class="timeline-org">Early Career // Building the Stack</div>
+          <div class="timeline-desc">
+            Built the technical foundation — mastered Python, JavaScript, SQL, and cloud deployment. Shipped first production applications, learned the hard lessons about system design, database optimization, and writing code that survives production traffic.
+          </div>
+          <div class="timeline-highlights">
+            <span class="timeline-highlight">Python</span>
+            <span class="timeline-highlight">JavaScript</span>
+            <span class="timeline-highlight">SQL</span>
+            <span class="timeline-highlight">Cloud Deploy</span>
+            <span class="timeline-highlight">System Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2016–2017 -->
+      <div class="timeline-item">
+        <div class="timeline-node"><div class="timeline-node-inner"></div></div>
+        <div class="timeline-year">2016 — 2017</div>
+        <div class="timeline-card">
+          <div class="timeline-role">The Beginning</div>
+          <div class="timeline-org">First Code // Discovering the Craft</div>
+          <div class="timeline-desc">
+            Wrote my first lines of code and never looked back. Explored web development, data analysis, and programming fundamentals. The spark that ignited a decade of building — started with curiosity, stayed for the craft.
+          </div>
+          <div class="timeline-highlights">
+            <span class="timeline-highlight">HTML/CSS</span>
+            <span class="timeline-highlight">First Projects</span>
+            <span class="timeline-highlight">Curiosity</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
   <!-- PROJECTS -->
   <section id="projects">
     <div class="section-header reveal">
-      <span class="section-num">02.</span>
+      <span class="section-num">03.</span>
       <h2>projects</h2>
       <div class="section-line"></div>
     </div>
@@ -1389,7 +1796,7 @@
   <!-- BLOG -->
   <section id="blog">
     <div class="section-header reveal">
-      <span class="section-num">03.</span>
+      <span class="section-num">04.</span>
       <h2>writings</h2>
       <div class="section-line"></div>
     </div>
@@ -1448,7 +1855,7 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="section-header reveal">
-      <span class="section-num">04.</span>
+      <span class="section-num">05.</span>
       <h2>contact</h2>
       <div class="section-line"></div>
     </div>
@@ -1568,25 +1975,324 @@
       setTimeout(tick, 1200);
     })();
 
-    // ── SCROLL REVEAL ────────────────────────────────────
+    // ── PRELOADER ────────────────────────────────────────
     (function() {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+      var lines = document.querySelectorAll('.preloader-line');
+      var bar = document.getElementById('preloader-bar');
+      var preloader = document.getElementById('preloader');
+      var totalLines = lines.length;
+      var shown = 0;
+
+      lines.forEach(function(line) {
+        var delay = parseInt(line.getAttribute('data-delay')) || 0;
+        setTimeout(function() {
+          line.classList.add('show');
+          shown++;
+          if (bar) bar.style.width = Math.round((shown / totalLines) * 100) + '%';
+          if (shown === totalLines) {
+            setTimeout(function() {
+              preloader.classList.add('done');
+              document.body.classList.remove('locked');
+              initGSAP();
+            }, 500);
+          }
+        }, delay);
+      });
+
+      // Failsafe: remove preloader after 4s no matter what
+      setTimeout(function() {
+        if (!preloader.classList.contains('done')) {
+          preloader.classList.add('done');
+          document.body.classList.remove('locked');
+          initGSAP();
+        }
+      }, 4000);
     })();
 
-    // ── SMOOTH SCROLL + NAV CLOSE ON MOBILE ─────────────
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth' });
-          document.getElementById('nav-links').classList.remove('open');
+    // ── GSAP + SCROLLTRIGGER + LENIS ─────────────────────
+    var gsapInitialized = false;
+    function initGSAP() {
+      if (gsapInitialized) return;
+      gsapInitialized = true;
+
+      // Wait for GSAP to load (deferred scripts)
+      function waitForGSAP(cb) {
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+          cb();
+        } else {
+          setTimeout(function() { waitForGSAP(cb); }, 50);
         }
+      }
+
+      waitForGSAP(function() {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // ── LENIS SMOOTH SCROLL ──────────────────────────
+        if (typeof Lenis !== 'undefined') {
+          var lenis = new Lenis({
+            duration: 1.2,
+            easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+            smoothWheel: true,
+          });
+
+          lenis.on('scroll', ScrollTrigger.update);
+          gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
+          gsap.ticker.lagSmoothing(0);
+
+          // Nav smooth scroll with Lenis
+          document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+            a.addEventListener('click', function(e) {
+              var href = a.getAttribute('href');
+              var target = document.querySelector(href);
+              if (target) {
+                e.preventDefault();
+                lenis.scrollTo(target, { offset: 0 });
+                document.getElementById('nav-links').classList.remove('open');
+              }
+            });
+          });
+        } else {
+          // Fallback: native smooth scroll
+          document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+            a.addEventListener('click', function(e) {
+              var target = document.querySelector(a.getAttribute('href'));
+              if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('nav-links').classList.remove('open');
+              }
+            });
+          });
+        }
+
+        // ── SCROLL REVEAL (GSAP-powered) ─────────────────
+        document.querySelectorAll('.reveal').forEach(function(el, i) {
+          gsap.fromTo(el,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1, y: 0,
+              duration: 0.7,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 88%',
+                once: true,
+              },
+              delay: parseFloat(el.dataset.gsapDelay || 0),
+            }
+          );
+        });
+
+        // Stagger reveal for project cards
+        gsap.utils.toArray('.projects-grid .project-card').forEach(function(card, i) {
+          gsap.fromTo(card,
+            { opacity: 0, y: 40, scale: 0.97 },
+            {
+              opacity: 1, y: 0, scale: 1,
+              duration: 0.6,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 90%',
+                once: true,
+              },
+              delay: (i % 3) * 0.1,
+            }
+          );
+        });
+
+        // Featured cards
+        gsap.utils.toArray('.featured-card').forEach(function(card, i) {
+          gsap.fromTo(card,
+            { opacity: 0, y: 50 },
+            {
+              opacity: 1, y: 0,
+              duration: 0.8,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 85%',
+                once: true,
+              },
+              delay: i * 0.15,
+            }
+          );
+        });
+
+        // ── COUNT-UP ANIMATION FOR STATS ──────────────────
+        document.querySelectorAll('.stat-value').forEach(function(el) {
+          var text = el.textContent.trim();
+          var match = text.match(/^([\d,.]+)(\+?)(.*)$/);
+          if (!match) return;
+
+          var numStr = match[1].replace(/,/g, '');
+          var hasPlus = match[2];
+          var suffix = match[3];
+          var target = parseFloat(numStr);
+          var isDecimal = numStr.indexOf('.') !== -1;
+          var hasM = false;
+
+          // Handle "2.26M+" style
+          if (suffix.indexOf('M') === 0) {
+            hasM = true;
+            suffix = suffix.substring(1);
+          }
+
+          var obj = { val: 0 };
+          gsap.to(obj, {
+            val: target,
+            duration: 1.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              once: true,
+            },
+            onUpdate: function() {
+              var v = obj.val;
+              if (isDecimal) {
+                v = v.toFixed(2);
+              } else if (v >= 1000) {
+                v = Math.round(v).toLocaleString();
+              } else {
+                v = Math.round(v).toString();
+              }
+              el.textContent = v + (hasM ? 'M' : '') + hasPlus + suffix;
+            },
+          });
+        });
+
+        // Also count up featured metric values
+        document.querySelectorAll('.featured-metric-value').forEach(function(el) {
+          var text = el.textContent.trim();
+          var match = text.match(/^([\d,.]+)(\+?)(.*)$/);
+          if (!match) return;
+
+          var numStr = match[1].replace(/,/g, '');
+          var hasPlus = match[2];
+          var suffix = match[3];
+          var target = parseFloat(numStr);
+          var isDecimal = numStr.indexOf('.') !== -1;
+          var hasM = text.indexOf('M') !== -1 && text.indexOf('M') < text.indexOf('+');
+
+          if (hasM) {
+            suffix = suffix.replace('M', '');
+          }
+
+          var obj = { val: 0 };
+          gsap.to(obj, {
+            val: target,
+            duration: 1.5,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              once: true,
+            },
+            onUpdate: function() {
+              var v = obj.val;
+              if (isDecimal) {
+                v = v.toFixed(1);
+              } else if (v >= 1000) {
+                v = Math.round(v).toLocaleString();
+              } else {
+                v = Math.round(v).toString();
+              }
+              el.textContent = v + (hasM ? 'M' : '') + hasPlus + suffix;
+            },
+          });
+        });
+
+        // ── EXPERIENCE TIMELINE ANIMATIONS ────────────────
+        var timelineItems = gsap.utils.toArray('.timeline-item');
+        timelineItems.forEach(function(item, i) {
+          gsap.to(item, {
+            opacity: 1,
+            x: 0,
+            duration: 0.7,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 85%',
+              once: true,
+              onEnter: function() { item.classList.add('visible'); },
+            },
+          });
+        });
+
+        // Timeline line fill on scroll
+        var fill = document.getElementById('timeline-fill');
+        var container = document.querySelector('.timeline-container');
+        if (fill && container) {
+          gsap.to(fill, {
+            height: '100%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: container,
+              start: 'top 60%',
+              end: 'bottom 40%',
+              scrub: 0.5,
+            },
+          });
+        }
+
+        // ── SECTION HEADER LINE DRAW ──────────────────────
+        document.querySelectorAll('.section-line').forEach(function(line) {
+          gsap.fromTo(line,
+            { scaleX: 0, transformOrigin: 'left center' },
+            {
+              scaleX: 1,
+              duration: 0.8,
+              ease: 'power2.inOut',
+              scrollTrigger: {
+                trigger: line,
+                start: 'top 85%',
+                once: true,
+              },
+            }
+          );
+        });
+
+        // ── NAV ACTIVE SECTION HIGHLIGHT ──────────────────
+        document.querySelectorAll('section[id]').forEach(function(section) {
+          ScrollTrigger.create({
+            trigger: section,
+            start: 'top 40%',
+            end: 'bottom 40%',
+            onToggle: function(self) {
+              if (self.isActive) {
+                document.querySelectorAll('.nav-links a').forEach(function(a) {
+                  a.style.color = '';
+                  a.style.background = '';
+                });
+                var link = document.querySelector('.nav-links a[href="#' + section.id + '"]');
+                if (link) {
+                  link.style.color = 'var(--green)';
+                  link.style.background = 'var(--green-faint)';
+                }
+              }
+            },
+          });
+        });
+
       });
-    });
+    }
+
+    // ── FALLBACK: if GSAP doesn't load, use IntersectionObserver ──
+    setTimeout(function() {
+      if (!gsapInitialized) {
+        var obs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              obs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+        document.querySelectorAll('.timeline-item').forEach(function(el) { obs.observe(el); });
+      }
+    }, 5000);
   </script>
 </body>
 </html>
