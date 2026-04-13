@@ -9,12 +9,12 @@
 
 Rebuild yogeshsahu.xyz as a premium personal brand hub that serves four audiences simultaneously:
 
-1. **Investors / VCs** — CryptoPrism pre-seed targeting Q2 2026
-2. **Recruiters / employers** — career opportunities
-3. **Developer / builder community** — GitHub credibility, open source
+1. **Fractional CTO clients** — fintech, data infrastructure, AI/ML mandates (2–3 at a time)
+2. **Investors / VCs** — CryptoPrism pre-seed targeting Q2 2026
+3. **Developer / builder community** — GitHub credibility, technical depth
 4. **General public** — personal brand, human story
 
-The site must make an immediate, memorable first impression that communicates "serious founder + deep builder + interesting human" in a single scroll.
+The site must achieve three things on first view: **instant likeability** (human story, mental models), **instant trust** (credentials, scale numbers, DPIIT), **instant authority** (thought leadership framing, practitioner copy). It positions Yogesh as a Fractional CTO + Founder — not a developer looking for work.
 
 ---
 
@@ -72,15 +72,19 @@ Alternating dark/light sections for visual rhythm. Dark hero with scroll-driven 
 ### Section Contrast Pattern
 
 ```
-Nav       → Dark (sticky)
-Hero      → Dark + gold glow radial
-Marquee   → Solid gold background
-About     → Dark
-Projects  → Light
-Milestones→ Dark
-Blog      → Light
-Contact   → Dark
-Footer    → Near-black (#050505)
+Nav           → Dark (sticky)
+Hero          → Dark + gold glow radial
+Marquee 1     → Solid gold background (credentials ticker)
+About         → Dark
+Expertise     → Light (3 pillars)
+Work          → Dark (all 20 repos, filtered)
+Marquee 2     → Near-black (mental models ticker, gold-dim text)
+Mental OS     → Dark (6 mental model cards)
+Credentials   → Light (8 certification cards)
+Milestones    → Dark
+Blog          → Light
+Contact       → Dark
+Footer        → Near-black (#050505)
 ```
 
 ---
@@ -158,7 +162,7 @@ const { canvasRef, isLoading } = useScrollFrames({
 
 - Full-bleed gold background (`#fbbf24`)
 - White text, Cabinet Grotesk 700, 0.75rem, uppercase, letter-spacing 0.1em
-- Content: `CRYPTOPRISM · DPIIT FOUNDER · STRATHCLYDE MS FINTECH · 23 GITHUB REPOS · 2.26M DB RECORDS · 50K GAME DOWNLOADS · 110 COUNTRIES · 21 STATES RIDDEN · BANSURI PLAYER · UPSC TOP 2%`
+- Content: `CRYPTOPRISM · FRACTIONAL CTO · DPIIT FOUNDER · STRATHCLYDE MS FINTECH · 23 GITHUB REPOS · 1B+ DATA POINTS DAILY · 50K GAME DOWNLOADS · 110 COUNTRIES · 21 STATES RIDDEN · BANSURI PLAYER · ISHA SADHANA`
 - Two copies concatenated for seamless loop
 - Pure CSS `@keyframes` translateX — no JS
 - Pauses on `prefers-reduced-motion`
@@ -169,7 +173,7 @@ const { canvasRef, isLoading } = useScrollFrames({
 - Section label: `· About` in gold
 - Manifesto line: _"I build systems that move markets — and stories that move people."_ — Cabinet Grotesk italic, 1.4rem, white
 - 4 stat counters (animate up from 0 on viewport entry, Framer Motion, 1.5s ease-out):
-  - `2.26M` — DB Records
+  - `1B+` — Data Points Daily
   - `23` — GitHub Repos
   - `50K` — Game Downloads
   - `21` — States Ridden
@@ -187,7 +191,7 @@ const { canvasRef, isLoading } = useScrollFrames({
   - Category tag (e.g. `FINTECH · AI`) — gold-dim, uppercase, 0.65rem
   - Project title — weight 700, 1rem
   - 1-line description
-  - Key stat (e.g. "2.26M records · 130+ indicators")
+  - Key stat (e.g. "1B+ records · 130+ indicators")
   - Hover: gold border, 4px lift, subtle gold box-shadow (Framer Motion `whileHover`)
   - Links to existing `/projects/[slug]` case study pages
 - "View all projects →" link below grid
@@ -197,8 +201,7 @@ const { canvasRef, isLoading } = useScrollFrames({
 - Dark background (`#080808`)
 - Section label: `· Milestones` in gold
 - Heading: `Beyond the code.` — Cabinet Grotesk 800
-- 2×2 grid of achievement cards (dark surface, gold accent):
-  - 🏛 UPSC Civil Services Prelims — Top 2% of 500,000
+- 3-column grid of achievement cards (dark surface, gold accent):
   - 🎮 Kari & the Lost Shrines — Sadhguru appreciation, 50K downloads, 110 countries
   - 🏍 Solo motorbike ride — 21 states of India
   - 🎓 Strathclyde MS FinTech — Merit, AI/ML Dissertation Topper (82/100)
@@ -212,7 +215,7 @@ const { canvasRef, isLoading } = useScrollFrames({
 - 3 post previews, vertically stacked or 3-col on desktop
 - Each post: gold bullet, title, 1-line excerpt, date, "Read →" link
 - Placeholder posts at launch (real posts added in Phase 2):
-  1. "Building CryptoPrism: From Idea to 2.26M Records"
+  1. "Building CryptoPrism: From Idea to 1B+ Records"
   2. "What UPSC taught me about shipping products"
   3. "AI/ML in Fintech: Lessons from my Dissertation"
 - "Read all posts →" links to `/blog`
@@ -295,6 +298,105 @@ src/
 
 ---
 
+## 6b. New Sections (added in review)
+
+### 6b.1 Expertise Pillars (Light)
+
+Three-column grid. One card per pillar. Heading: `Three disciplines. One operator.`
+
+| Pillar | Claim | Tags |
+|---|---|---|
+| Infrastructure & Data | 1B+ data points daily. Three-database GCP, 99.9% uptime SLAs | GCP, PostgreSQL, Python, ETL, vectorbt, FastAPI |
+| Product & AI | Full-cycle delivery — problem definition to live deployment | React, TypeScript, Firebase, Gemini AI, Unity, Streamlit |
+| Business & Finance | Bloomberg-certified. PMI & CSPO qualified. Translates tech decisions into business outcomes | Bloomberg, PMI, CSPO, Power BI, FinTech, DPIIT |
+
+Each card: emoji icon, title, 2-sentence description, 6 tag pills. Hover: gold border + lift.
+
+### 6b.2 Work — All Repos, Filtered (Dark)
+
+All 20 GitHub repos shown. Filter tabs: **All · Fintech/Crypto · AI Products · Quant · Web · Automation**
+
+Repos by category:
+- **Fintech/Crypto:** CryptoPrism-DB, CryptoPrism-DB-H, CryptoPrism-DB-Backtest, CryptoPrism-DB-Monitor, CryptoPrism-DB-Utils, CryptoPrism-News-Fetcher, CryptoPrism-QA-System, CryptoPrism-Socials
+- **Quant:** DataPipeLine-FX-APP, ForexFactory-Calendar-Scraper, Forex-Session-Dashboard
+- **AI Products:** pratyaksha, pratyaksha-website, habit-tracker-aistudio
+- **Web:** cpio-website, cryptoprism-tech-website, puneglobalgroup-website, trinetryinfotech-website, yogeshsahu-website
+- **Tools:** CryptoPrism-DB-D
+
+Each card: repo name, 1-line description, primary language badge, GitHub link.
+
+### 6b.3 Marquee 2 (near-black background, gold-dim text)
+
+Mental models ticker: `FIRST PRINCIPLES · INVERSION · OODA LOOP · ANTIFRAGILITY · BARBELL STRATEGY · CIRCLE OF COMPETENCE · SECOND-ORDER THINKING · MARGIN OF SAFETY · PARETO PRINCIPLE · REGRET MINIMIZATION`
+
+### 6b.4 Mental OS (Dark)
+
+Heading: `How I approach hard problems.`  
+Sub: `The frameworks that shape how I diagnose, decide, and build. Applied daily in client work, product decisions, and system design.`
+
+6-card grid (3×2). Each card has: number (01–06), model name, 1-sentence definition, "Applied in client work" section with a concrete example, category tag.
+
+| # | Model | Client Application |
+|---|---|---|
+| 01 | First Principles | When a client says "we need X tool" — ask why five times. The real constraint is usually three layers deeper and half the cost. |
+| 02 | Inversion | Write the failure post-mortem before any architecture decision. Surfaces hidden risks before a line of code is written. |
+| 03 | OODA Loop | Structure sprints around the OODA loop. Faster internal decision cycles mean clients ship before competitors can respond. |
+| 04 | Antifragility | CryptoPrism DB was designed to handle 10× normal load. That redundancy became a feature, not a cost, during market spikes. |
+| 05 | Circle of Competence | Take fintech, data infrastructure, and AI mandates. Decline e-commerce and hardware. Saying no to the wrong mandate protects both parties. |
+| 06 | Second-Order Thinking | Migrating to microservices looks efficient (1st order). Increases operational complexity for a 10-person team (2nd order). Often the wrong call. |
+
+Hover state: gold left-border animates in (scaleY from bottom).
+
+### 6b.5 Credentials (Light)
+
+Heading: `The proof behind the pitch.`  
+8-card grid (4×2). Each card: logo initials, issuer, certification name, domain, category badge.
+
+| Credential | Issuer | Category |
+|---|---|---|
+| Bloomberg Market Concepts & ESG | Bloomberg | Finance |
+| Investment Banking Diploma | LIBF, London | Finance |
+| CSPO — Certified Scrum Product Owner | Scrum Alliance | Product |
+| Project Management Professional | PMI | Management |
+| Power BI PL-300 | Microsoft | Data |
+| Google Cloud Certified | Google | Cloud |
+| MS Financial Technology — Merit | Strathclyde Business School | FinTech |
+| DPIIT Recognised Startup | Govt. of India | Recognised |
+
+### 6b.6 Milestones (expanded to 5 cards, 2+3 grid)
+
+Add two milestones to existing three:
+- 🎮 Kari & the Lost Shrines — 21 days, 50K downloads, 110 countries, Sadhguru note
+- 🏍 Solo. 21 States. No Support.
+- 🎓 Strathclyde MS FinTech — Cohort topper, 82/100
+- 🎮 Ubisoft — Worked on Assassin's Creed, For Honor, Just Dance
+- 🏆 Gamerz Nation — Co-founded 7 e-sports franchises, first GeForce certified zone in India
+
+### 6b.7 Contact (updated)
+
+- Heading: `Available. Selectively.`
+- Sub: `Open to Fractional CTO engagements — fintech, data infrastructure, AI/ML. Two to three clients at a time. Simultaneously raising pre-seed for CryptoPrism, Q2 2026.`
+- 5 link cards: GitHub · LinkedIn · Email · CryptoPrism · **Book a Call** (Cal.com)
+- Availability badge: `● Accepting Fractional CTO mandates`
+
+---
+
+## 7b. Updated Component Structure
+
+Additional components for new sections:
+
+```
+src/components/
+  ExpertisePillars.tsx   — 3-col light section
+  WorkGrid.tsx           — filtered repo grid with tab state
+  MentalOS.tsx           — 6-card mental model grid
+  ModelCard.tsx          — individual mental model card
+  Credentials.tsx        — 8-card light credentials grid
+  CredentialCard.tsx     — individual credential card
+```
+
+---
+
 ## 10. Out of Scope (Phase 1)
 
 The following are explicitly deferred to Phase 2 to keep Phase 1 buildable and shippable:
@@ -311,10 +413,10 @@ The following are explicitly deferred to Phase 2 to keep Phase 1 buildable and s
 
 ## 11. Success Criteria
 
-A visitor landing on yogeshsahu.xyz should:
+A Fractional CTO prospect landing on yogeshsahu.xyz should:
 
-1. Immediately understand who Yogesh is from the hero alone (name, role, CTA visible within 2 seconds)
-2. Feel the Veo 3 animation is smooth and cinematic (no jank, no layout shift)
-3. Find CryptoPrism DB prominently featured in the projects section
-4. Leave knowing both the builder and the human (projects + milestones both visible without scrolling to a separate page)
-5. Have at least one frictionless contact path (GitHub, LinkedIn, or email)
+1. **Instant authority** — within 10 seconds: know Yogesh is a Fractional CTO + Founder with 1B+ data points and formal credentials
+2. **Instant trust** — before scrolling past the fold: Bloomberg + DPIIT + CSPO + PMI visible in marquee or hero eyebrow
+3. **Instant likeability** — Mental OS section makes them think "this person thinks differently from every other consultant I've talked to"
+4. **Technical proof** — all 20 repos visible and browsable, CryptoPrism DB architecture described at practitioner level
+5. **One clear action** — Book a Call link in contact section, zero friction to start a conversation
