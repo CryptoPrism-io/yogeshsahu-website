@@ -13,20 +13,20 @@ const MANDATE_TYPES = [
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 28 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-10% 0px" },
+  viewport: { once: true },
   transition: { duration: 0.6, delay, ease: EASE },
 });
 
 const slideUp = (delay = 0) => ({
   initial: { opacity: 0, y: 48 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-10% 0px" },
+  viewport: { once: true },
   transition: { duration: 0.7, delay, ease: EASE },
 });
 
 export default function Contact() {
   return (
-    <section id="contact" className="snap-section bg-[#f7f4ee] border-b-2 border-[#1a1a1a]">
+    <section id="contact" className="snap-section pt-[46px] bg-[#f7f4ee] border-b-2 border-[#1a1a1a]">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] h-full">
 
         {/* Left: engage block */}

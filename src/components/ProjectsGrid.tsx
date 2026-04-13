@@ -76,7 +76,7 @@ export default function ProjectsGrid() {
   const maxDrag = -(totalCards * (CARD_WIDTH + CARD_GAP) - (CARD_WIDTH + CARD_GAP));
 
   return (
-    <section id="work" className="snap-section bg-[#f7f4ee] border-b-2 border-[#1a1a1a] flex flex-col">
+    <section id="work" className="snap-section pt-[46px] bg-[#f7f4ee] border-b-2 border-[#1a1a1a] flex flex-col">
 
       {/* Header */}
       <motion.div
