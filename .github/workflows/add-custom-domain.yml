@@ -1,0 +1,46 @@
+name: Add Custom Domain to Firebase Hosting
+
+on:
+  workflow_dispatch:
+
+jobs:
+  add-domain:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/572096343805/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+          service_account: firebase-adminsdk-fbsvc@yogeshsahu.iam.gserviceaccount.com
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: yogeshsahu
+
+      - name: Check existing domains
+        run: |
+          TOKEN=$(gcloud auth print-access-token)
+          echo "=== Current domains ==="
+          curl -s "https://firebasehosting.googleapis.com/v1beta1/sites/yogeshsahu/domains" \
+            -H "Authorization: Bearer $TOKEN" | python3 -m json.tool
+
+      - name: Add yogeshsahu.xyz custom domain
+        run: |
+          TOKEN=$(gcloud auth print-access-token)
+          echo "=== Adding yogeshsahu.xyz ==="
+          curl -s -X POST "https://firebasehosting.googleapis.com/v1beta1/sites/yogeshsahu/domains" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"domainName":"yogeshsahu.xyz"}' | python3 -m json.tool
+
+      - name: Get domain status and DNS records
+        run: |
+          TOKEN=$(gcloud auth print-access-token)
+          echo "=== Domain details (DNS records needed) ==="
+          curl -s "https://firebasehosting.googleapis.com/v1beta1/sites/yogeshsahu/domains/yogeshsahu.xyz" \
+            -H "Authorization: Bearer $TOKEN" | python3 -m json.tool
