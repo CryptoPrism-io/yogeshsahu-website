@@ -71,3 +71,21 @@ body {
   .snap-container { height: 100vh; }
   .snap-section { height: 100vh; }
 }
+
+/* Smooth momentum scrolling on iOS */
+.snap-container {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent text selection while dragging carousel */
+.snap-section {
+  user-select: none;
+}
+/* Re-enable text selection for text content */
+.snap-section p,
+.snap-section h1,
+.snap-section h2,
+.snap-section h3,
+.snap-section a {
+  user-select: text;
+}
