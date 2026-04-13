@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yogesh Sahu | Writing</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700;800;900&amp;family=Inter:wght@400;500;700&amp;family=Playfair+Display:ital,wght@1,400..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: "#080808",
+                        "obsidian-soft": "#0d0d0d",
+                        gold: "#fbbf24",
+                        "gold-dim": "#d97706",
+                        light: "#fafafa",
+                        "text-muted": "#6b7280"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        headline: ["Space Grotesk"],
+                        body: ["Inter"],
+                        label: ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .text-shadow-gold {
+            text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-obsidian font-body text-white antialiased">
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 bg-transparent backdrop-blur-md dark:bg-neutral-950/80 border-b border-neutral-200 dark:border-neutral-800">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-20">
+<div class="text-xl font-black tracking-tighter text-neutral-900 dark:text-white">
+                Yogesh Sahu
+            </div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="font-['Space_Grotesk'] font-extrabold uppercase tracking-tighter text-neutral-600 dark:text-neutral-400 hover:text-amber-500 dark:hover:text-amber-300 transition-colors duration-300" href="#">Expertise</a>
+<a class="font-['Space_Grotesk'] font-extrabold uppercase tracking-tighter text-neutral-600 dark:text-neutral-400 hover:text-amber-500 dark:hover:text-amber-300 transition-colors duration-300" href="#">Work</a>
+<a class="font-['Space_Grotesk'] font-extrabold uppercase tracking-tighter text-neutral-600 dark:text-neutral-400 hover:text-amber-500 dark:hover:text-amber-300 transition-colors duration-300" href="#">OS</a>
+<a class="font-['Space_Grotesk'] font-extrabold uppercase tracking-tighter text-neutral-600 dark:text-neutral-400 hover:text-amber-500 dark:hover:text-amber-300 transition-colors duration-300" href="#">Credentials</a>
+<a class="font-['Space_Grotesk'] font-extrabold uppercase tracking-tighter text-amber-500 dark:text-amber-400 border-b-2 border-amber-400 pb-1" href="#">Blog</a>
+</nav>
+<button class="bg-amber-400 text-neutral-900 px-6 py-2 font-bold uppercase tracking-widest text-xs scale-95 active:scale-90 transition-transform">
+                Consult
+            </button>
+</div>
+</header>
+<main>
+<!-- Writing Section -->
+<section class="bg-white py-32 px-6">
+<div class="max-w-7xl mx-auto">
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="w-2 h-2 rounded-full bg-[#d97706]"></span>
+<span class="font-label text-[10px] font-bold uppercase tracking-[0.2em] text-[#d97706]">WRITING</span>
+</div>
+<h2 class="font-headline font-[900] text-[#111111] text-4xl md:text-[2.8rem] leading-tight tracking-[-0.02em]">
+                            Thinking out <span class="font-['Playfair_Display'] italic font-normal">loud.</span>
+</h2>
+</div>
+<div class="pb-2">
+<a class="font-label text-sm font-bold text-[#d97706] hover:translate-x-1 transition-transform inline-flex items-center gap-2" href="#">
+                            All posts <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- 3-Column Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
+<!-- Post 1 -->
+<article class="group cursor-pointer">
+<div class="border-t-2 border-[#d97706] pt-8 group-hover:border-[#fbbf24] transition-colors duration-300">
+<header>
+<time class="block font-label text-[10px] font-bold uppercase tracking-[0.08em] text-[#9ca3af] mb-4">MAR 2026</time>
+<h3 class="font-headline font-extrabold text-base md:text-lg text-[#111] leading-tight mb-4">
+                                    Why I Used Three Databases Instead of One
+                                </h3>
+</header>
+<p class="text-sm leading-[1.7] text-[#6b7280] mb-6">
+                                The architecture decision behind CryptoPrism DB — tradeoffs, costs, and what I'd do differently at scale.
+                            </p>
+<footer>
+<a class="font-label text-[10px] font-bold text-[#d97706] uppercase tracking-widest inline-flex items-center gap-1 group-hover:gap-2 transition-all" href="#">
+                                    Read <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</a>
+</footer>
+</div>
+</article>
+<!-- Post 2 -->
+<article class="group cursor-pointer">
+<div class="border-t-2 border-[#d97706] pt-8 group-hover:border-[#fbbf24] transition-colors duration-300">
+<header>
+<time class="block font-label text-[10px] font-bold uppercase tracking-[0.08em] text-[#9ca3af] mb-4">FEB 2026</time>
+<h3 class="font-headline font-extrabold text-base md:text-lg text-[#111] leading-tight mb-4">
+                                    TimesFM on Live Crypto: Honest Results
+                                </h3>
+</header>
+<p class="text-sm leading-[1.7] text-[#6b7280] mb-6">
+                                Google's foundation model applied to price forecasting. The numbers, the caveats, and where it actually outperforms baselines.
+                            </p>
+<footer>
+<a class="font-label text-[10px] font-bold text-[#d97706] uppercase tracking-widest inline-flex items-center gap-1 group-hover:gap-2 transition-all" href="#">
+                                    Read <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</a>
+</footer>
+</div>
+</article>
+<!-- Post 3 -->
+<article class="group cursor-pointer">
+<div class="border-t-2 border-[#d97706] pt-8 group-hover:border-[#fbbf24] transition-colors duration-300">
+<header>
+<time class="block font-label text-[10px] font-bold uppercase tracking-[0.08em] text-[#9ca3af] mb-4">JAN 2026</time>
+<h3 class="font-headline font-extrabold text-base md:text-lg text-[#111] leading-tight mb-4">
+                                    Retail Crypto Doesn't Have a Signal Problem. It Has a Data Problem.
+                                </h3>
+</header>
+<p class="text-sm leading-[1.7] text-[#6b7280] mb-6">
+                                Most platforms pile on indicators. The actual constraint is data quality and latency.
+                            </p>
+<footer>
+<a class="font-label text-[10px] font-bold text-[#d97706] uppercase tracking-widest inline-flex items-center gap-1 group-hover:gap-2 transition-all" href="#">
+                                    Read <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</a>
+</footer>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- Newsletter / Contact Callout (Dark Tonal Shift) -->
+<section class="bg-[#0d0d0d] py-24 px-6 border-t border-white/5">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="max-w-xl">
+<h2 class="font-headline font-black text-3xl mb-4 tracking-tighter">Stay <span class="text-gold">current.</span></h2>
+<p class="text-text-muted">Direct dispatch on architecture, fractional leadership, and the messy reality of building production AI systems.</p>
+</div>
+<div class="w-full md:w-auto">
+<div class="flex gap-2">
+<input class="bg-white/5 border border-white/10 px-4 py-3 text-sm focus:outline-none focus:border-gold w-full md:w-64 transition-colors" placeholder="email@provider.com" type="email"/>
+<button class="bg-gold text-obsidian px-8 py-3 font-bold text-sm hover:bg-amber-500 transition-colors">Join</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full border-t border-neutral-800 bg-neutral-950">
+<div class="flex flex-col md:flex-row justify-between items-center py-12 px-8 max-w-7xl mx-auto border-t border-amber-400/20">
+<div class="text-lg font-black text-white mb-6 md:mb-0">
+                Yogesh Sahu
+            </div>
+<div class="flex gap-8 mb-6 md:mb-0">
+<a class="font-['Inter'] text-sm tracking-widest uppercase font-bold text-neutral-500 hover:text-amber-400 hover:translate-x-1 transition-all" href="#">LinkedIn</a>
+<a class="font-['Inter'] text-sm tracking-widest uppercase font-bold text-neutral-500 hover:text-amber-400 hover:translate-x-1 transition-all" href="#">Twitter</a>
+<a class="font-['Inter'] text-sm tracking-widest uppercase font-bold text-neutral-500 hover:text-amber-400 hover:translate-x-1 transition-all" href="#">Email</a>
+<a class="font-['Inter'] text-sm tracking-widest uppercase font-bold text-neutral-500 hover:text-amber-400 hover:translate-x-1 transition-all" href="#">RSS</a>
+</div>
+<div class="font-['Inter'] text-xs tracking-widest uppercase font-bold text-neutral-500">
+                © 2024 Yogesh Sahu. Built. Running.
+            </div>
+</div>
+</footer>
+</body></html>

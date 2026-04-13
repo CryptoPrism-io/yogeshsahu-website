@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian: #080808;
+  --color-obsidian-soft: #0d0d0d;
+  --color-obsidian-card: #111111;
+  --color-gold: #fbbf24;
+  --color-gold-dim: #d97706;
+  /* font vars are set by next/font via html className vars */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: #080808;
+  color: #ffffff;
+  font-family: var(--font-body, "Inter", sans-serif);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: #fbbf24; color: #080808; }
+
+.gold-glow-bg {
+  background: radial-gradient(circle at 50% 55%, rgba(251,191,36,0.15) 0%, transparent 70%);
+}
+.gold-radial {
+  background: radial-gradient(circle at center top, rgba(251,191,36,0.06) 0%, transparent 70%);
+}
+.card-left-glow:hover {
+  box-shadow: -4px 0 0 0 #fbbf24;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+  white-space: nowrap;
+}
+.animate-marquee:hover { animation-play-state: paused; }

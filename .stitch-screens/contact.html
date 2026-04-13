@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..900&amp;family=Inter:wght@400;700;800&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: "#080808",
+                        "obsidian-soft": "#0d0d0d",
+                        gold: "#fbbf24",
+                        "gold-dim": "#d97706",
+                        light: "#fafafa",
+                        "text-muted": "#6b7280"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        headline: ["Space Grotesk", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                        label: ["Inter", "sans-serif"],
+                        serif: ["Playfair Display", "serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        @keyframes pulse-glow {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
+        .animate-pulse-glow {
+            animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="bg-obsidian font-body text-white antialiased">
+<!-- TopAppBar Shared Component -->
+<header class="bg-[#080808]/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-white/10">
+<nav class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-black text-white tracking-tighter font-['Space_Grotesk'] uppercase tracking-tight">
+                Yogesh Sahu
+            </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-zinc-400 hover:text-white transition-colors font-['Inter'] text-[10px] font-bold uppercase tracking-[0.2em]" href="#">Expertise</a>
+<a class="text-zinc-400 hover:text-white transition-colors font-['Inter'] text-[10px] font-bold uppercase tracking-[0.2em]" href="#">Work</a>
+<a class="text-zinc-400 hover:text-white transition-colors font-['Inter'] text-[10px] font-bold uppercase tracking-[0.2em]" href="#">Mental OS</a>
+<a class="text-zinc-400 hover:text-white transition-colors font-['Inter'] text-[10px] font-bold uppercase tracking-[0.2em]" href="#">Blog</a>
+</div>
+<div class="text-amber-400 font-['Space_Grotesk'] font-extrabold uppercase tracking-tight text-sm">
+                Available. Selectively.
+            </div>
+</nav>
+</header>
+<main class="pt-24">
+<!-- Contact Section -->
+<section class="bg-[#0d0d0d] py-24 px-6 md:px-12 relative overflow-hidden">
+<!-- Background Radial Glow -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-400/5 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start relative z-10">
+<!-- Left Content: Messaging -->
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-gold"></span>
+<span class="font-label text-[10px] font-bold uppercase tracking-[0.2em] text-gold">CONTACT</span>
+</div>
+<h2 class="text-6xl md:text-8xl font-headline font-black leading-[0.9] tracking-tighter">
+                        Available.<br/>
+<span class="font-serif italic text-gold font-normal">Selectively.</span>
+</h2>
+<p class="text-text-muted text-lg max-w-[480px] leading-relaxed">
+                        Open to Fractional CTO engagements — fintech, data infrastructure, AI/ML. I take on two to three clients at a time. Simultaneously raising pre-seed for CryptoPrism, Q2 2026.
+                    </p>
+<!-- Availability Badge -->
+<div class="inline-flex items-center gap-3 px-4 py-2 bg-[#4ade80]/5 border border-[#4ade80]/20 rounded-full self-start shadow-[0_0_20px_rgba(74,222,128,0.05)]">
+<span class="w-2 h-2 rounded-full bg-[#4ade80] animate-pulse-glow"></span>
+<span class="text-[#4ade80] text-[10px] font-bold uppercase tracking-[0.08em]">Accepting Fractional CTO mandates</span>
+</div>
+</div>
+<!-- Right Content: Contact Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-[560px] lg:ml-auto w-full">
+<!-- GitHub -->
+<a class="group flex flex-col p-5 bg-white/5 border border-white/10 rounded-lg hover:border-gold/40 hover:translate-x-1 transition-all duration-300" href="#">
+<div class="w-10 h-10 flex items-center justify-center bg-gold/10 border border-gold/20 rounded mb-4">
+<span class="material-symbols-outlined text-gold text-xl">code</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-1">GitHub</span>
+<span class="text-sm font-bold text-white">CryptoPrism-io</span>
+</a>
+<!-- LinkedIn -->
+<a class="group flex flex-col p-5 bg-white/5 border border-white/10 rounded-lg hover:border-gold/40 hover:translate-x-1 transition-all duration-300" href="#">
+<div class="w-10 h-10 flex items-center justify-center bg-gold/10 border border-gold/20 rounded mb-4">
+<span class="material-symbols-outlined text-gold text-xl">person</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-1">LinkedIn</span>
+<span class="text-sm font-bold text-white">yogeshsahu-</span>
+</a>
+<!-- Email -->
+<a class="group flex flex-col p-5 bg-white/5 border border-white/10 rounded-lg hover:border-gold/40 hover:translate-x-1 transition-all duration-300 sm:col-span-2" href="#">
+<div class="w-10 h-10 flex items-center justify-center bg-gold/10 border border-gold/20 rounded mb-4">
+<span class="material-symbols-outlined text-gold text-xl">mail</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-1">Email</span>
+<span class="text-sm font-bold text-white">yogesh.sahu@cryptoprism.io</span>
+</a>
+<!-- CryptoPrism -->
+<a class="group flex flex-col p-5 bg-white/5 border border-white/10 rounded-lg hover:border-gold/40 hover:translate-x-1 transition-all duration-300" href="#">
+<div class="w-10 h-10 flex items-center justify-center bg-gold/10 border border-gold/20 rounded mb-4">
+<span class="material-symbols-outlined text-gold text-xl">layers</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-1">CryptoPrism</span>
+<span class="text-sm font-bold text-white">cryptoprism.io</span>
+</a>
+<!-- Book a Call -->
+<a class="group flex flex-col p-5 bg-white/5 border border-white/10 rounded-lg hover:border-gold/40 hover:translate-x-1 transition-all duration-300" href="#">
+<div class="w-10 h-10 flex items-center justify-center bg-gold/10 border border-gold/20 rounded mb-4">
+<span class="material-symbols-outlined text-gold text-xl">calendar_today</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-1">Book a Call</span>
+<span class="text-sm font-bold text-white">30-min intro · Cal.com</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Signature Space -->
+<section class="bg-obsidian py-12 px-6 flex justify-center border-t border-white/5">
+<div class="w-full max-w-7xl">
+<img alt="Cinematic macro shot of glowing server motherboards and golden electrical circuitry" class="w-full h-[200px] object-cover rounded shadow-2xl opacity-40 grayscale hover:grayscale-0 transition-all duration-700" data-alt="cinematic close-up of a high-tech circuit board with glowing golden light paths and obsidian surfaces in a dark ambient setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFltGWekyDuTX7GjYRyMWj1JqTs_tlyqdKdiTBwPemQE6IIM7Jni9J3mkv2xrDYD0jLUUlu_o3bGSThjEg5VxnizMKHO8TjrTXyj46L3mrh9GzxB0BodbEu5ilFBS1Ys3Lohhobx0LNaM4OJwbX4CqMQVS4aDI6cLKk2-vunRnkotv6Wj0IffHcTau_IXG3uuVqwKNTA2Rf-umK-AWDi2J-U4okikT90ebFv6HLjTfJsBzuXKTi1p7tFWVeuW0_dZYoczcp4lZjatW"/>
+</div>
+</section>
+</main>
+<!-- Footer Shared Component -->
+<footer class="bg-[#050505] py-12 border-t border-amber-400/20">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 w-full max-w-7xl mx-auto gap-8">
+<!-- Left Branding -->
+<div class="flex flex-col gap-2 text-center md:text-left">
+<div class="text-lg font-black text-white italic font-['Inter']">
+                    yogeshsahu.xyz
+                </div>
+<p class="font-['Inter'] text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500">
+                    © 2026 YOGESH SAHU. BUILT. RUNNING.
+                </p>
+</div>
+<!-- Right Links -->
+<div class="flex items-center gap-6">
+<a class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-amber-400 transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined text-zinc-500 group-hover:text-amber-400 text-lg">public</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-amber-400 transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined text-zinc-500 group-hover:text-amber-400 text-lg">alternate_email</span>
+</a>
+<a class="group transition-transform hover:translate-x-1 duration-300" href="#">
+<span class="font-['Inter'] text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 group-hover:text-amber-400">LinkedIn</span>
+</a>
+<a class="group transition-transform hover:translate-x-1 duration-300" href="#">
+<span class="font-['Inter'] text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 group-hover:text-amber-400">GitHub</span>
+</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yogesh Sahu — Fractional CTO</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;800;900&amp;family=Inter:wght@400;500;700&amp;family=Playfair+Display:ital,wght@1,700;1,900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              'obsidian': '#080808',
+              'obsidian-soft': '#0d0d0d',
+              'gold': '#fbbf24',
+              'gold-dim': '#d97706',
+              'text-muted': '#6b7280',
+              'text-body': '#d1d5db'
+            },
+            borderRadius: {
+              "DEFAULT": "0.125rem",
+              "lg": "0.25rem",
+              "xl": "0.5rem",
+              "full": "0.75rem"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"],
+              "serif": ["Playfair Display", "serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #080808;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        .gold-glow-bg {
+            background: radial-gradient(circle at 50% 55%, rgba(251,191,36,0.18) 0%, rgba(8,8,8,0) 70%);
+        }
+        .panel-glow {
+            box-shadow: 0 0 60px rgba(251,191,36,0.25);
+        }
+        .avatar-glow {
+            box-shadow: 0 0 40px rgba(251,191,36,0.4);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-obsidian selection:bg-gold selection:text-obsidian overflow-x-hidden">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 bg-neutral-950/80 backdrop-blur-md border-b border-white/5">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-black uppercase tracking-widest text-white font-headline">
+                Yogesh Sahu
+            </div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-neutral-400 hover:text-white transition-colors font-headline font-bold text-sm uppercase tracking-wider" href="#">Expertise</a>
+<a class="text-neutral-400 hover:text-white transition-colors font-headline font-bold text-sm uppercase tracking-wider" href="#">Work</a>
+<a class="text-neutral-400 hover:text-white transition-colors font-headline font-bold text-sm uppercase tracking-wider" href="#">Mental OS</a>
+<a class="text-neutral-400 hover:text-white transition-colors font-headline font-bold text-sm uppercase tracking-wider" href="#">Blog</a>
+<button class="bg-gold text-obsidian px-6 py-2 rounded-[4px] font-bold text-sm tracking-wide active:scale-95 transition-all duration-200">
+                    Connect
+                </button>
+</div>
+<!-- Mobile Menu Toggle (simplified for layout) -->
+<div class="md:hidden">
+<span class="material-symbols-outlined text-gold">menu</span>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<main class="relative min-h-screen w-full flex flex-col items-center justify-center gold-glow-bg px-6 pt-20">
+<!-- Cinematic Panel (Item 1) -->
+<div class="relative w-[340px] h-[340px] rounded-xl border border-gold/30 panel-glow bg-obsidian-soft/50 flex flex-col items-center justify-center overflow-hidden mb-12">
+<!-- Background Texture for Panel -->
+<div class="absolute inset-0 opacity-20 pointer-events-none" data-alt="Subtle dark carbon fiber texture for high-end cinematic panel background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDRS6DtFp68D7OJe_kPtusnv6WcnIes43AUzPC5s_M4BDwaYVNGAJ7KhImLBrIiQSOETiZZxYEymtDyHGj3S5wRanvr-tLmoHlRHFm-JWYbAJyjyimn6U6pXyYh5ziBRxMnk67t6qUSSq-BUrDHPH0w-t8bMkLMRW3H6nAGRzvPvQ4mAovwkw1a8BmQ3Qsc4FfmBBJR5wPNgxif7aaafrqEf1djGsnKNi9WvDk8gmIQXaQF8KZFBPux9SyxGwjoeYJCu4yGjnDM3Jho');"></div>
+<!-- Circular Avatar -->
+<div class="relative w-[120px] h-[120px] rounded-full border-2 border-gold avatar-glow flex items-center justify-center bg-obsidian z-10">
+<span class="font-headline font-black text-4xl text-gold tracking-tighter">Y</span>
+</div>
+<!-- Panel Label -->
+<div class="absolute bottom-4 left-0 w-full text-center">
+<span class="font-label text-[10px] uppercase tracking-[0.2em] text-text-muted font-bold opacity-60">
+                    Veo 3 · 180 frames
+                </span>
+</div>
+</div>
+<!-- Hero Content (Item 2) -->
+<div class="text-center z-10">
+<!-- Eyebrow -->
+<p class="font-label text-gold font-bold uppercase tracking-[0.22em] text-[0.68rem] mb-6">
+                FRACTIONAL CTO  ·  FOUNDER, CRYPTOPRISM  ·  PRE-SEED Q2 2026
+            </p>
+<!-- Headline -->
+<h1 class="font-headline font-black leading-[0.9] tracking-[-0.03em] flex flex-col items-center mb-8">
+<span class="text-white text-[clamp(2.8rem,8vw,5.5rem)] uppercase">YOGESH</span>
+<span class="font-serif italic text-gold text-[clamp(2.8rem,8vw,5.5rem)] normal-case -mt-4">Sahu</span>
+</h1>
+<!-- Role Line -->
+<p class="font-label text-gold font-bold uppercase tracking-[0.3em] text-[0.65rem] mb-12 opacity-80">
+                FINTECH INFRASTRUCTURE · AI · DATA ENGINEERING
+            </p>
+<!-- CTA -->
+<div class="flex flex-col items-center gap-4">
+<button class="group relative px-10 py-4 bg-gold text-obsidian font-bold text-sm tracking-[0.1em] rounded-[4px] hover:bg-gold-dim transition-all duration-300 active:scale-95">
+                    THE WORK →
+                </button>
+<!-- Scroll Hint -->
+<div class="mt-8 flex flex-col items-center gap-2 opacity-50">
+<span class="font-label text-[0.6rem] uppercase tracking-widest text-text-muted">↓ scroll</span>
+</div>
+</div>
+</div>
+<!-- Availability Badge -->
+<div class="fixed bottom-10 right-10 flex items-center gap-3 bg-obsidian-soft/80 backdrop-blur-sm border border-white/5 py-2 px-4 rounded-full">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+</span>
+<span class="font-label text-[10px] text-white/70 uppercase tracking-widest font-bold">Accepting mandates</span>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-neutral-950 full-width py-12 border-t border-white/5">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto space-y-6 md:space-y-0">
+<div class="text-amber-400 font-black font-headline uppercase tracking-widest text-sm">
+                Yogesh Sahu
+            </div>
+<div class="font-['Inter'] text-[10px] uppercase tracking-[0.2em] font-bold text-neutral-500">
+                © 2024 Yogesh Sahu. Built. Running.
+            </div>
+<div class="flex gap-8">
+<a class="text-neutral-500 hover:text-amber-400 hover:translate-x-1 transition-all duration-300 font-['Inter'] text-[10px] uppercase tracking-[0.2em] font-bold" href="#">LinkedIn</a>
+<a class="text-neutral-500 hover:text-amber-400 hover:translate-x-1 transition-all duration-300 font-['Inter'] text-[10px] uppercase tracking-[0.2em] font-bold" href="#">Twitter</a>
+<a class="text-neutral-500 hover:text-amber-400 hover:translate-x-1 transition-all duration-300 font-['Inter'] text-[10px] uppercase tracking-[0.2em] font-bold" href="#">Email</a>
+</div>
+</div>
+</footer>
+</body></html>

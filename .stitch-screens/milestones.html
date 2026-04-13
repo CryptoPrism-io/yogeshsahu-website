@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Milestones | YOGESH SAHU</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Space+Grotesk:wght@800;900&amp;family=Playfair+Display:ital@1&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: "#080808",
+                        "obsidian-soft": "#0d0d0d",
+                        gold: "#fbbf24",
+                        "gold-dim": "#d97706",
+                        "gold-faint": "rgba(251, 191, 36, 0.08)",
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        headline: ["Space Grotesk", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                        label: ["Inter", "sans-serif"],
+                        serif: ["Playfair Display", "serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .milestone-card {
+            background-color: rgba(251, 191, 36, 0.04);
+            border: 1px solid rgba(251, 191, 36, 0.12);
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+        .milestone-card:hover {
+            background-color: rgba(251, 191, 36, 0.07);
+            border-color: rgba(251, 191, 36, 0.3);
+            transform: translateY(-4px);
+        }
+        .badge {
+            font-size: 10px;
+            background-color: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-obsidian text-white font-body antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 border-b border-white/10 bg-transparent backdrop-blur-md">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-black tracking-tighter text-white uppercase font-headline">
+                YOGESH SAHU
+            </div>
+<div class="hidden md:flex space-x-8 items-center">
+<a class="font-['Space_Grotesk'] font-extrabold tracking-tighter uppercase text-gray-400 hover:text-amber-400 transition-all duration-300" href="#">Expertise</a>
+<a class="font-['Space_Grotesk'] font-extrabold tracking-tighter uppercase text-gray-400 hover:text-white transition-colors" href="#">Work</a>
+<a class="font-['Space_Grotesk'] font-extrabold tracking-tighter uppercase text-gray-400 hover:text-white transition-colors" href="#">Mental OS</a>
+<a class="font-['Space_Grotesk'] font-extrabold tracking-tighter uppercase text-gray-400 hover:text-white transition-colors" href="#">Blog</a>
+<button class="bg-gold text-obsidian px-6 py-2 font-bold uppercase tracking-widest text-xs rounded hover:bg-gold-dim transition-all scale-95 active:scale-90">
+                    Connect
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Content Section -->
+<main class="pt-32 pb-24">
+<section class="max-w-7xl mx-auto px-8">
+<!-- Header -->
+<div class="mb-20">
+<div class="flex items-center gap-2 mb-4">
+<span class="w-2 h-2 rounded-full bg-gold"></span>
+<span class="font-label text-[10px] font-bold uppercase tracking-[0.2em] text-gold">MILESTONES</span>
+</div>
+<h2 class="font-headline text-5xl md:text-7xl font-black tracking-tighter text-white">
+                    Not just <span class="font-serif italic text-gold">code.</span>
+</h2>
+</div>
+<!-- Milestones Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="milestone-card p-6 flex flex-row items-start gap-4 h-full">
+<div class="w-11 h-11 min-w-[44px] flex items-center justify-center rounded-lg bg-gold-faint text-xl">
+                        🎮
+                    </div>
+<div class="flex flex-col h-full">
+<h3 class="font-headline text-lg font-bold text-white mb-2 tracking-tight">Kari &amp; the Lost Shrines</h3>
+<p class="text-sm text-gray-400 leading-relaxed mb-4">21 days. Zero marketing. 50K downloads across 110 countries — and a personal note from Sadhguru.</p>
+<div class="mt-auto flex">
+<span class="badge px-2 py-1 text-gold font-bold uppercase tracking-widest">Sadhguru Appreciation</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="milestone-card p-6 flex flex-row items-start gap-4 h-full">
+<div class="w-11 h-11 min-w-[44px] flex items-center justify-center rounded-lg bg-gold-faint text-xl">
+                        🏍
+                    </div>
+<div class="flex flex-col h-full">
+<h3 class="font-headline text-lg font-bold text-white mb-2 tracking-tight">Solo. 21 States. No Support.</h3>
+<p class="text-sm text-gray-400 leading-relaxed mb-4">Crossed 21 Indian states on a motorbike, alone. What most people plan for years — executed.</p>
+<div class="mt-auto flex">
+<span class="badge px-2 py-1 text-gold font-bold uppercase tracking-widest">21 States · Solo</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="milestone-card p-6 flex flex-row items-start gap-4 h-full">
+<div class="w-11 h-11 min-w-[44px] flex items-center justify-center rounded-lg bg-gold-faint text-xl">
+                        🎓
+                    </div>
+<div class="flex flex-col h-full">
+<h3 class="font-headline text-lg font-bold text-white mb-2 tracking-tight">Strathclyde MS FinTech</h3>
+<p class="text-sm text-gray-400 leading-relaxed mb-4">Dissertation topper — 82/100. Applied Google's TimesFM to live crypto price forecasting. Cohort first.</p>
+<div class="mt-auto flex">
+<span class="badge px-2 py-1 text-gold font-bold uppercase tracking-widest">Merit · Cohort Topper</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="milestone-card p-6 flex flex-row items-start gap-4 h-full">
+<div class="w-11 h-11 min-w-[44px] flex items-center justify-center rounded-lg bg-gold-faint text-xl">
+                        🎮
+                    </div>
+<div class="flex flex-col h-full">
+<h3 class="font-headline text-lg font-bold text-white mb-2 tracking-tight">Ubisoft</h3>
+<p class="text-sm text-gray-400 leading-relaxed mb-4">Worked across Assassin's Creed, For Honor, and Just Dance. Consumer gaming at global scale.</p>
+<div class="mt-auto flex">
+<span class="badge px-2 py-1 text-gold font-bold uppercase tracking-widest">AAA Titles</span>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="milestone-card p-6 flex flex-row items-start gap-4 h-full">
+<div class="w-11 h-11 min-w-[44px] flex items-center justify-center rounded-lg bg-gold-faint text-xl">
+                        🏆
+                    </div>
+<div class="flex flex-col h-full">
+<h3 class="font-headline text-lg font-bold text-white mb-2 tracking-tight">Gamerz Nation</h3>
+<p class="text-sm text-gray-400 leading-relaxed mb-4">Co-founded 7 e-sports franchises. Built the first GeForce-certified gaming zone in India.</p>
+<div class="mt-auto flex">
+<span class="badge px-2 py-1 text-gold font-bold uppercase tracking-widest">First in India</span>
+</div>
+</div>
+</div>
+<!-- Decorative Card for Visual Weight -->
+<div class="relative hidden lg:flex milestone-card overflow-hidden group">
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 grayscale transition-all duration-700 group-hover:scale-110 group-hover:grayscale-0" data-alt="dramatic wide shot of a motorcycle headlight cutting through fog on a desolate mountain highway at dawn with gold ambient light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ0rjCSGGuYUu9TDEaO1JqLJNH4ekpLp8zPtIjvcJmH6WmnQfHOE8rBTMjqD4pNNIBxQUHY8LuiEAFSxI_J814f-YKgu1dPk1YDM-Lboew1UY9UqT1j5HWMURZwIGbX1rFjw32onaleqJn2k_6eYwwqY6T9tAH-V2S6SrmiIfRjegTsT5pB8x5cpxRfPEWXgRZeFGso73eAx_05Fzzq5UUnqo5Ll-dWx_FwNKsIpI5pYkdEEuaoxVzP9CoVB2t9Xz21JrrpVZR6EEK"/>
+<div class="relative z-10 p-6 flex flex-col justify-end h-full">
+<p class="font-headline text-3xl font-black uppercase tracking-tighter text-white/10 leading-none">THE<br/>JOURNEY<br/>IS THE<br/>CODE.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-white/5 bg-[#080808]">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-8 py-12 max-w-7xl mx-auto border-t border-amber-400/20">
+<div class="text-lg font-black text-white mb-8 md:mb-0 uppercase tracking-tighter">
+                YOGESH SAHU
+            </div>
+<div class="flex space-x-8">
+<a class="font-['Inter'] text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-amber-400 hover:translate-x-1 transition-all" href="#">LinkedIn</a>
+<a class="font-['Inter'] text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-amber-400 hover:translate-x-1 transition-all" href="#">Twitter</a>
+<a class="font-['Inter'] text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-amber-400 hover:translate-x-1 transition-all" href="#">GitHub</a>
+<a class="font-['Inter'] text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-amber-400 hover:translate-x-1 transition-all" href="#">Email</a>
+</div>
+<div class="mt-8 md:mt-0 font-['Inter'] text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
+                © 2024 YOGESH SAHU. BUILT. RUNNING.
+            </div>
+</div>
+</footer>
+</body></html>

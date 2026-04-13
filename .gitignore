@@ -1,0 +1,33 @@
+# Next.js
+.next/
+out/
+
+# Dependencies
+node_modules/
+
+# Build artifacts
+.vercel
+
+# Environment
+.env
+.env.local
+.env.production
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing artifacts
+.playwright-mcp/
+test-portfolios.py
+screenshots/
+
+# Dev screenshots (kept in .stitch-screens instead)
+*.png
+!public/**/*.png
+
+# Old portfolio HTML files (in public/ — committed as reference)
+
+# Logs
+npm-debug.log*

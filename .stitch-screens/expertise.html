@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Expertise Pillars | Modern Archivist</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital,wght@1,700&amp;family=Space+Grotesk:wght@700;900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#96ccff",
+                    "secondary": "#82542c",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "on-error": "#ffffff",
+                    "outline": "#887364",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed": "#001d32",
+                    "on-secondary-fixed": "#2f1500",
+                    "on-primary-fixed": "#2f1500",
+                    "surface-container": "#eeeeee",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#f9f9f9",
+                    "secondary-fixed-dim": "#f7ba8a",
+                    "on-primary-fixed-variant": "#6e3900",
+                    "outline-variant": "#dbc2b0",
+                    "primary-fixed": "#ffdcc3",
+                    "on-background": "#1a1c1c",
+                    "surface-dim": "#dadada",
+                    "surface-tint": "#904d00",
+                    "on-tertiary-container": "#fdfcff",
+                    "on-surface": "#1a1c1c",
+                    "primary-fixed-dim": "#ffb77d",
+                    "on-surface-variant": "#554336",
+                    "primary-container": "#b15f00",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#004a75",
+                    "tertiary-fixed": "#cee5ff",
+                    "surface-variant": "#e2e2e2",
+                    "primary": "#8d4b00",
+                    "tertiary": "#006096",
+                    "surface-container-highest": "#e2e2e2",
+                    "on-primary-container": "#fffbff",
+                    "surface-container-high": "#e8e8e8",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#784c25",
+                    "secondary-fixed": "#ffdcc3",
+                    "secondary-container": "#fdbf8f",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#673d17",
+                    "tertiary-container": "#007abd",
+                    "inverse-on-surface": "#f0f1f1",
+                    "surface": "#f9f9f9",
+                    "surface-container-low": "#f3f3f3",
+                    "background": "#f9f9f9",
+                    "inverse-primary": "#ffb77d",
+                    "inverse-surface": "#2f3131"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "12px",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk", "sans-serif"],
+                    "body": ["Inter", "sans-serif"],
+                    "label": ["Inter", "sans-serif"],
+                    "serif": ["Playfair Display", "serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 12px 40px -12px rgba(136, 115, 100, 0.05);
+        }
+        .ghost-border {
+            border: 1px solid rgba(219, 194, 176, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-[#f9f9f9]/80 dark:bg-stone-900/80 backdrop-blur-xl">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-bold tracking-tighter text-stone-900 dark:text-stone-50 font-headline">Modern Archivist</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-amber-900 dark:text-amber-500 font-bold border-b-2 border-amber-900 dark:border-amber-500 pb-1 font-['Space_Grotesk'] font-medium tracking-tight" href="#">Expertise</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors font-['Space_Grotesk'] font-medium tracking-tight" href="#">Work</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors font-['Space_Grotesk'] font-medium tracking-tight" href="#">Mental OS</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors font-['Space_Grotesk'] font-medium tracking-tight" href="#">Blog</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-headline font-medium hover:opacity-80 transition-opacity active:scale-95 duration-200">Contact</button>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+<!-- Expertise Pillars Header -->
+<header class="mb-16 md:mb-24 text-left max-w-4xl">
+<div class="flex items-center gap-3 mb-6">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="text-[10px] md:text-[12px] font-label font-bold uppercase tracking-[0.2em] text-primary">WHAT I BRING</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-headline font-black text-[#111] leading-tight mb-4">
+                Three disciplines. <br/>
+<span class="font-serif italic font-bold text-primary">One operator.</span>
+</h1>
+<p class="text-stone-500 text-lg md:text-xl font-body leading-relaxed max-w-2xl">
+                Most technical consultants own one of these. Fractional CTO mandates require all three.
+            </p>
+</header>
+<!-- 3-Column Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1: Infrastructure & Data -->
+<article class="group relative bg-surface-container-lowest p-8 rounded-lg ghost-border editorial-shadow transition-all duration-300 hover:border-primary">
+<div class="w-14 h-14 bg-[#fef3c7] rounded-lg flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-[#111] text-3xl" data-icon="settings">settings</span>
+</div>
+<h3 class="text-2xl font-headline font-black text-[#111] mb-4">Infrastructure &amp; Data</h3>
+<p class="text-on-surface-variant font-body leading-relaxed mb-8">
+                    Production systems at scale. 1B+ data points daily. Three-database GCP architectures, real-time pipelines, PostgreSQL optimisation, 99.9% uptime SLAs.
+                </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">GCP</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">PostgreSQL</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">Python</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">ETL</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">vectorbt</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">FastAPI</span>
+</div>
+</article>
+<!-- Card 2: Product & AI -->
+<article class="group relative bg-surface-container-lowest p-8 rounded-lg ghost-border editorial-shadow transition-all duration-300 hover:border-primary">
+<div class="w-14 h-14 bg-[#dbeafe] rounded-lg flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-[#111] text-3xl" data-icon="psychology">psychology</span>
+</div>
+<h3 class="text-2xl font-headline font-black text-[#111] mb-4">Product &amp; AI</h3>
+<p class="text-on-surface-variant font-body leading-relaxed mb-8">
+                    Full-cycle product delivery — from problem definition to live deployment. AI integration, cognitive apps, React frontends, Firebase backends, mobile games.
+                </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">React</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">TypeScript</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">Firebase</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">Gemini AI</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">Unity</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">Streamlit</span>
+</div>
+</article>
+<!-- Card 3: Business & Finance -->
+<article class="group relative bg-surface-container-lowest p-8 rounded-lg ghost-border editorial-shadow transition-all duration-300 hover:border-primary">
+<div class="w-14 h-14 bg-[#dcfce7] rounded-lg flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-[#111] text-3xl" data-icon="bar_chart">bar_chart</span>
+</div>
+<h3 class="text-2xl font-headline font-black text-[#111] mb-4">Business &amp; Finance</h3>
+<p class="text-on-surface-variant font-body leading-relaxed mb-8">
+                    Bloomberg-certified. Investment banking trained. PMI &amp; CSPO qualified. Translates technical decisions into business outcomes — not just code reviews.
+                </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">Bloomberg</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">PMI</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">CSPO</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">Power BI</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">FinTech</span>
+<span class="px-3 py-1 bg-surface-container rounded-full text-xs font-label font-medium text-on-surface-variant">DPIIT</span>
+</div>
+</article>
+</div>
+<!-- Decorative Image Section -->
+<section class="mt-32 relative overflow-hidden rounded-lg ghost-border h-[400px]">
+<img alt="Technology and Data abstraction" class="w-full h-full object-cover grayscale opacity-50" data-alt="abstract close-up of computer circuit board with glowing golden microchips and sophisticated technical details in a moody dark room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASyzfxkBe6sviylreg41WdLIAXATQrW1b30QhmXJeFkk5F9cgCjkfJsK6hFh7pk60KbjeKcHddEycAkQsGYrSKoIpxyCJtgFIn6Y8K10Ze98kd9mVUJT4GwJE_hX0lZVP-jSfdsnvKfLvgku-3sAfno2ORfaWM4r6Sq-0HrbYM4B23h7y7Aey4KTxIfRFP5So3AFfBcvB6Q0LpCv025urJFqMbx5l1u_Cio73bfF5xP71H_EtTXrn6dkF1tFvm35-2QKEKuSCgvBnR"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-12 left-12 max-w-lg">
+<h2 class="text-3xl font-headline font-black text-[#111] mb-2 uppercase tracking-tighter">Engineered for Resilience</h2>
+<p class="text-on-surface-variant text-sm font-label uppercase tracking-widest">Global delivery standards / 2024 Protocol</p>
+</div>
+</section>
+</main>
+<!-- Footer Section -->
+<footer class="w-full py-12 mt-20 bg-[#f3f3f3] dark:bg-stone-950">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 max-w-7xl mx-auto gap-6 md:gap-0">
+<div class="text-stone-500 dark:text-stone-400 font-['Inter'] text-sm tracking-wide uppercase">© 2024 Modern Archivist. All rights reserved.</div>
+<div class="flex gap-8">
+<a class="text-stone-500 dark:text-stone-400 hover:text-amber-700 dark:hover:text-amber-400 underline decoration-1 underline-offset-4 transition-all duration-300 font-['Inter'] text-sm tracking-wide uppercase" href="#">LinkedIn</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-amber-700 dark:hover:text-amber-400 underline decoration-1 underline-offset-4 transition-all duration-300 font-['Inter'] text-sm tracking-wide uppercase" href="#">Twitter</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-amber-700 dark:hover:text-amber-400 underline decoration-1 underline-offset-4 transition-all duration-300 font-['Inter'] text-sm tracking-wide uppercase" href="#">Email</a>
+</div>
+</div>
+</footer>
+</body></html>

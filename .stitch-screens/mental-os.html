@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..900&amp;family=Inter:wght@400;500;700;800&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              obsidian: "#080808",
+              "obsidian-soft": "#0d0d0d",
+              gold: "#fbbf24",
+              "gold-dim": "#d97706",
+              "gold-faint": "rgba(251,191,36,0.08)",
+            },
+            borderRadius: {
+              "DEFAULT": "0.125rem",
+              "lg": "0.25rem",
+              "xl": "0.5rem",
+              "full": "0.75rem"
+            },
+            fontFamily: {
+              headline: ["Space Grotesk", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+              label: ["Inter", "sans-serif"],
+              serif: ["Playfair Display", "serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .card-glow:hover {
+        box-shadow: -4px 0 0 0 #fbbf24;
+      }
+      .gold-radial-glow {
+        background: radial-gradient(circle at center top, rgba(251,191,36,0.06) 0%, transparent 70%);
+      }
+    </style>
+</head>
+<body class="bg-obsidian text-white font-body selection:bg-gold selection:text-obsidian">
+<!-- TopNavBar from Shared Components JSON -->
+<nav class="fixed top-0 w-full z-50 bg-transparent backdrop-blur-md border-b border-white/10">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<a class="text-xl font-black text-white uppercase tracking-widest font-['Space_Grotesk']" href="#">Yogesh Sahu</a>
+<div class="hidden md:flex items-center space-x-8 font-['Space_Grotesk'] font-black uppercase tracking-tighter">
+<a class="text-gray-400 font-medium hover:text-amber-400 transition-colors duration-300" href="#">Expertise</a>
+<a class="text-gray-400 font-medium hover:text-amber-400 transition-colors duration-300" href="#">Work</a>
+<a class="text-amber-400 border-b-2 border-amber-400 pb-1" href="#">Mental OS</a>
+<a class="text-gray-400 font-medium hover:text-amber-400 transition-colors duration-300" href="#">Blog</a>
+</div>
+<button class="bg-gold text-obsidian px-6 py-2 rounded font-bold uppercase tracking-widest text-xs hover:bg-gold-dim transition-all scale-95 duration-200">
+                Hire Me
+            </button>
+</div>
+</nav>
+<!-- Mental OS Section -->
+<main class="relative pt-32 pb-24 px-6 md:px-12 overflow-hidden gold-radial-glow">
+<!-- Header Section -->
+<header class="max-w-7xl mx-auto mb-20">
+<div class="flex items-center gap-2 mb-6">
+<span class="w-2 h-2 rounded-full bg-gold"></span>
+<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-gold">MENTAL OS</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-headline font-[900] leading-[1.1] tracking-[-0.02em] max-w-3xl mb-8">
+                How I approach <br/>
+<span class="text-gold italic font-serif font-medium">hard problems.</span>
+</h1>
+<p class="text-[#9ca3af] text-sm md:text-base max-w-xl leading-relaxed">
+                The frameworks that shape how I diagnose, decide, and build. Applied daily in client work, product decisions, and system design.
+            </p>
+</header>
+<!-- 3x2 Grid -->
+<section class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 01 -->
+<article class="bg-obsidian p-7 border border-white/5 rounded-xl relative overflow-hidden group transition-all duration-500 hover:bg-obsidian-soft card-glow">
+<div class="mb-6 flex justify-between items-start">
+<span class="text-[10px] font-bold text-[#4b5563] tracking-widest uppercase">01</span>
+<span class="text-[9px] font-bold py-1 px-2 bg-gold-faint border border-gold-dim/30 text-gold-dim uppercase tracking-wider rounded">Decision-making</span>
+</div>
+<h3 class="text-lg font-headline font-extrabold text-white mb-2">First Principles</h3>
+<p class="text-[#9ca3af] text-[13px] leading-relaxed mb-6 font-medium italic">
+                    "Strip away assumptions until you reach foundational truths."
+                </p>
+<div class="h-[1px] w-full bg-white/5 mb-6"></div>
+<span class="text-[9px] font-bold text-[#6b7280] uppercase tracking-widest block mb-3">Applied in client work</span>
+<p class="text-gold text-[13px] leading-relaxed">
+                    When a client says 'we need X tool' — ask why five times. The real constraint is usually three layers deeper and half the cost.
+                </p>
+</article>
+<!-- Card 02 -->
+<article class="bg-obsidian p-7 border border-white/5 rounded-xl relative overflow-hidden group transition-all duration-500 hover:bg-obsidian-soft card-glow">
+<div class="mb-6 flex justify-between items-start">
+<span class="text-[10px] font-bold text-[#4b5563] tracking-widest uppercase">02</span>
+<span class="text-[9px] font-bold py-1 px-2 bg-gold-faint border border-gold-dim/30 text-gold-dim uppercase tracking-wider rounded">Risk</span>
+</div>
+<h3 class="text-lg font-headline font-extrabold text-white mb-2">Inversion</h3>
+<p class="text-[#9ca3af] text-[13px] leading-relaxed mb-6 font-medium italic">
+                    "Solve problems backwards. Ask what would guarantee failure — then avoid it."
+                </p>
+<div class="h-[1px] w-full bg-white/5 mb-6"></div>
+<span class="text-[9px] font-bold text-[#6b7280] uppercase tracking-widest block mb-3">Applied in client work</span>
+<p class="text-gold text-[13px] leading-relaxed">
+                    Write the failure post-mortem before any architecture decision. Surfaces hidden risks before a line of code is written.
+                </p>
+</article>
+<!-- Card 03 -->
+<article class="bg-obsidian p-7 border border-white/5 rounded-xl relative overflow-hidden group transition-all duration-500 hover:bg-obsidian-soft card-glow">
+<div class="mb-6 flex justify-between items-start">
+<span class="text-[10px] font-bold text-[#4b5563] tracking-widest uppercase">03</span>
+<span class="text-[9px] font-bold py-1 px-2 bg-gold-faint border border-gold-dim/30 text-gold-dim uppercase tracking-wider rounded">Execution</span>
+</div>
+<h3 class="text-lg font-headline font-extrabold text-white mb-2">OODA Loop</h3>
+<p class="text-[#9ca3af] text-[13px] leading-relaxed mb-6 font-medium italic">
+                    "Observe, Orient, Decide, Act — then repeat faster than the environment changes."
+                </p>
+<div class="h-[1px] w-full bg-white/5 mb-6"></div>
+<span class="text-[9px] font-bold text-[#6b7280] uppercase tracking-widest block mb-3">Applied in client work</span>
+<p class="text-gold text-[13px] leading-relaxed">
+                    Structure sprints around OODA. Faster internal decision cycles mean clients ship before competitors can respond.
+                </p>
+</article>
+<!-- Card 04 -->
+<article class="bg-obsidian p-7 border border-white/5 rounded-xl relative overflow-hidden group transition-all duration-500 hover:bg-obsidian-soft card-glow">
+<div class="mb-6 flex justify-between items-start">
+<span class="text-[10px] font-bold text-[#4b5563] tracking-widest uppercase">04</span>
+<span class="text-[9px] font-bold py-1 px-2 bg-gold-faint border border-gold-dim/30 text-gold-dim uppercase tracking-wider rounded">Systems</span>
+</div>
+<h3 class="text-lg font-headline font-extrabold text-white mb-2">Antifragility</h3>
+<p class="text-[#9ca3af] text-[13px] leading-relaxed mb-6 font-medium italic">
+                    "Systems that gain from disorder rather than merely surviving stress."
+                </p>
+<div class="h-[1px] w-full bg-white/5 mb-6"></div>
+<span class="text-[9px] font-bold text-[#6b7280] uppercase tracking-widest block mb-3">Applied in client work</span>
+<p class="text-gold text-[13px] leading-relaxed">
+                    CryptoPrism DB was designed to handle 10× normal load. That redundancy became a feature during market spikes.
+                </p>
+</article>
+<!-- Card 05 -->
+<article class="bg-obsidian p-7 border border-white/5 rounded-xl relative overflow-hidden group transition-all duration-500 hover:bg-obsidian-soft card-glow">
+<div class="mb-6 flex justify-between items-start">
+<span class="text-[10px] font-bold text-[#4b5563] tracking-widest uppercase">05</span>
+<span class="text-[9px] font-bold py-1 px-2 bg-gold-faint border border-gold-dim/30 text-gold-dim uppercase tracking-wider rounded">Positioning</span>
+</div>
+<h3 class="text-lg font-headline font-extrabold text-white mb-2">Circle of Competence</h3>
+<p class="text-[#9ca3af] text-[13px] leading-relaxed mb-6 font-medium italic">
+                    "Know precisely what you know. Act within it; be honest about the rest."
+                </p>
+<div class="h-[1px] w-full bg-white/5 mb-6"></div>
+<span class="text-[9px] font-bold text-[#6b7280] uppercase tracking-widest block mb-3">Applied in client work</span>
+<p class="text-gold text-[13px] leading-relaxed">
+                    Take fintech, data, AI mandates. Decline e-commerce and hardware. Saying no protects both parties.
+                </p>
+</article>
+<!-- Card 06 -->
+<article class="bg-obsidian p-7 border border-white/5 rounded-xl relative overflow-hidden group transition-all duration-500 hover:bg-obsidian-soft card-glow">
+<div class="mb-6 flex justify-between items-start">
+<span class="text-[10px] font-bold text-[#4b5563] tracking-widest uppercase">06</span>
+<span class="text-[9px] font-bold py-1 px-2 bg-gold-faint border border-gold-dim/30 text-gold-dim uppercase tracking-wider rounded">Architecture</span>
+</div>
+<h3 class="text-lg font-headline font-extrabold text-white mb-2">Second-Order Thinking</h3>
+<p class="text-[#9ca3af] text-[13px] leading-relaxed mb-6 font-medium italic">
+                    "Ask: 'and then what?' First-order consequences are obvious. Second-order is where decisions are won or lost."
+                </p>
+<div class="h-[1px] w-full bg-white/5 mb-6"></div>
+<span class="text-[9px] font-bold text-[#6b7280] uppercase tracking-widest block mb-3">Applied in client work</span>
+<p class="text-gold text-[13px] leading-relaxed">
+                    Migrating to microservices looks efficient (1st order). Increases operational complexity for a 10-person team (2nd order). Often the wrong call.
+                </p>
+</article>
+</section>
+<!-- Decorators -->
+<div class="absolute bottom-0 right-0 w-96 h-96 bg-gold/5 blur-[120px] rounded-full -mr-48 -mb-48 pointer-events-none"></div>
+</main>
+<!-- Footer from Shared Components JSON -->
+<footer class="w-full py-12 border-t border-amber-400/20 bg-[#080808]">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 w-full">
+<div class="mb-6 md:mb-0">
+<span class="text-lg font-black text-white uppercase tracking-widest font-['Space_Grotesk']">Yogesh Sahu</span>
+<p class="text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em] mt-2 font-['Inter']">© 2024 Yogesh Sahu. All rights reserved.</p>
+</div>
+<div class="flex gap-8 items-center font-['Inter'] text-xs font-bold uppercase tracking-widest">
+<a class="text-gray-500 hover:translate-x-1 hover:text-amber-400 transition-all ease-in-out" href="#">LinkedIn</a>
+<a class="text-gray-500 hover:translate-x-1 hover:text-amber-400 transition-all ease-in-out" href="#">Twitter</a>
+<a class="text-gray-500 hover:translate-x-1 hover:text-amber-400 transition-all ease-in-out" href="#">GitHub</a>
+</div>
+</div>
+</footer>
+</body></html>
