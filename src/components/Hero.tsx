@@ -1,146 +1,136 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-
 export default function Hero() {
+  const stats = [
+    { label: "DATA PROCESSED", value: "1B+",   sub: "points / day",           color: "#b8960a", bg: "white"   },
+    { label: "UPTIME SLA",     value: "99.9%",  sub: "production system",      color: "#2a7a2a", bg: "white"   },
+    { label: "REPOS LIVE",     value: "23",     sub: "github · public",        color: "#1a1a1a", bg: "white"   },
+    { label: "GAME DOWNLOADS", value: "50K",    sub: "kari · 21 days · 110 countries", color: "#c8f59a", bg: "#1a1a1a" },
+  ];
+
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen w-full flex flex-col items-center justify-center gold-glow-bg px-6 pt-20 overflow-hidden"
-    >
-      {/* Subtle grid overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(251,191,36,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(251,191,36,0.6) 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
-        }}
-      />
+    <section id="hero" className="pt-[46px] bg-[#f7f4ee]">
+      {/* Main hero grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1px_300px] min-h-[calc(100svh-46px)] border-b-2 border-[#1a1a1a]">
 
-      {/* Cinematic panel / avatar placeholder */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.94 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-xl border border-[rgba(251,191,36,0.3)] bg-[#0d0d0d]/60 flex flex-col items-center justify-center overflow-hidden mb-12"
-        style={{ boxShadow: "0 0 60px rgba(251,191,36,0.2)" }}
-      >
-        {/* Carbon-texture overlay */}
-        <div
-          className="absolute inset-0 opacity-15"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 12px)",
-          }}
-        />
-        {/* Monogram */}
-        <div
-          className="relative w-[110px] h-[110px] rounded-full border-2 border-[#fbbf24] flex items-center justify-center bg-[#080808] z-10"
-          style={{ boxShadow: "0 0 32px rgba(251,191,36,0.35)" }}
-        >
-          <span
-            className="text-[2.8rem] font-black text-[#fbbf24] leading-none"
-            style={{ fontFamily: "var(--font-headline)" }}
-          >
-            Y
-          </span>
+        {/* Left: editorial copy */}
+        <div className="flex flex-col justify-between p-8 md:p-12 py-14">
+          <div>
+            <p
+              className="text-[7px] font-bold uppercase tracking-[0.35em] text-[#aaa] mb-8"
+              style={{ fontFamily: "var(--font-headline)" }}
+            >
+              FRACTIONAL CTO · FOUNDER · CRYPTOPRISM · DPIIT
+            </p>
+
+            <h1 className="leading-[0.85] tracking-[-0.04em] mb-6">
+              <span
+                className="block text-[clamp(3.6rem,9vw,6.5rem)] font-black italic text-[#b8960a]"
+                style={{ fontFamily: "var(--font-serif-display)" }}
+              >
+                Yogesh
+              </span>
+              <span
+                className="block text-[clamp(3.2rem,8vw,6rem)] font-black text-[#1a1a1a] uppercase"
+                style={{ fontFamily: "var(--font-headline)" }}
+              >
+                SAHU
+              </span>
+            </h1>
+
+            <div className="w-12 h-[3px] bg-[#1a1a1a] mb-5" />
+
+            <p
+              className="text-[9px] font-bold uppercase tracking-[0.12em] text-[#888] leading-[2.2]"
+              style={{ fontFamily: "var(--font-headline)" }}
+            >
+              Fintech Infrastructure · AI · Data Engineering<br />
+              Pre-seed Q2 2026 · Strathclyde MS FinTech
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3 mt-12">
+            <a
+              href="#contact"
+              className="text-[8px] font-black uppercase tracking-[0.15em] text-[#1a1a1a] border-2 border-[#1a1a1a] px-5 py-3 hover:bg-[#1a1a1a] hover:text-white transition-colors"
+              style={{ fontFamily: "var(--font-headline)" }}
+            >
+              Open to mandates ↗
+            </a>
+            <a
+              href="#work"
+              className="text-[8px] font-black uppercase tracking-[0.15em] text-[#999] border border-[#ddd] px-5 py-3 hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors"
+              style={{ fontFamily: "var(--font-headline)" }}
+            >
+              View Work
+            </a>
+          </div>
         </div>
 
-        <div className="absolute bottom-4 left-0 w-full text-center">
-          <span className="text-[9px] uppercase tracking-[0.22em] text-neutral-500 font-bold">
-            Veo 3 · scroll activated
-          </span>
+        {/* Vertical divider */}
+        <div className="hidden lg:block bg-[#e0ddd6]" />
+
+        {/* Right: stat column — desktop */}
+        <div className="hidden lg:flex flex-col bg-white">
+          {stats.map((s) => (
+            <div
+              key={s.label}
+              className="flex-1 p-6 border-b border-[#f0f0f0] last:border-b-0"
+              style={{ background: s.bg }}
+            >
+              <p
+                className="text-[7px] font-bold uppercase tracking-[0.25em] mb-2"
+                style={{
+                  color: s.bg === "#1a1a1a" ? "#555" : "#bbb",
+                  fontFamily: "var(--font-headline)",
+                }}
+              >
+                {s.label}
+              </p>
+              <p
+                className="text-[2.4rem] font-black leading-none tracking-[-0.03em]"
+                style={{ color: s.color, fontFamily: "var(--font-headline)" }}
+              >
+                {s.value}
+              </p>
+              <p
+                className="text-[7px] uppercase tracking-[0.12em] mt-1"
+                style={{
+                  color: s.bg === "#1a1a1a" ? "#555" : "#ccc",
+                  fontFamily: "var(--font-headline)",
+                }}
+              >
+                {s.sub}
+              </p>
+            </div>
+          ))}
         </div>
-      </motion.div>
+      </div>
 
-      {/* Hero copy */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.7 }}
-        className="text-center z-10 max-w-3xl"
-      >
-        {/* Eyebrow */}
-        <p
-          className="text-[#fbbf24] font-bold uppercase tracking-[0.22em] text-[0.65rem] mb-6"
-          style={{ fontFamily: "var(--font-headline)" }}
-        >
-          Fractional CTO · Founder, CryptoPrism · Pre-Seed Q2 2026
-        </p>
-
-        {/* Main headline */}
-        <h1
-          className="font-black leading-[0.88] tracking-[-0.03em] flex flex-col items-center mb-6"
-          style={{ fontFamily: "var(--font-headline)" }}
-        >
-          <span className="text-white text-[clamp(3.2rem,10vw,7rem)] uppercase">
-            YOGESH
-          </span>
-          <span
-            className="text-[#fbbf24] text-[clamp(3.2rem,10vw,7rem)] -mt-3"
-            style={{
-              fontFamily: "var(--font-serif-display)",
-              fontStyle: "italic",
-              fontWeight: 900,
-            }}
+      {/* Mobile: 2×2 stat grid */}
+      <div className="lg:hidden grid grid-cols-2 border-t-2 border-[#1a1a1a]">
+        {stats.map((s, i) => (
+          <div
+            key={s.label}
+            className={`p-5 ${i % 2 === 0 ? "border-r border-[#e0e0e0]" : ""} ${i < 2 ? "border-b border-[#e0e0e0]" : ""}`}
+            style={{ background: s.bg }}
           >
-            Sahu
-          </span>
-        </h1>
-
-        {/* Sub-role */}
-        <p
-          className="text-[#fbbf24]/70 font-bold uppercase tracking-[0.28em] text-[0.6rem] mb-12"
-          style={{ fontFamily: "var(--font-headline)" }}
-        >
-          Fintech Infrastructure · AI · Data Engineering
-        </p>
-
-        {/* CTA */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href="#work"
-            className="group flex items-center gap-2 bg-[#fbbf24] text-[#080808] px-8 py-3.5 font-bold text-[0.78rem] uppercase tracking-[0.12em] hover:bg-[#d97706] transition-colors active:scale-95"
-          >
-            The Work
-            <ArrowRight
-              size={15}
-              className="group-hover:translate-x-1 transition-transform"
-            />
-          </a>
-          <a
-            href="#contact"
-            className="flex items-center gap-2 border border-white/15 text-white/70 px-8 py-3.5 font-bold text-[0.78rem] uppercase tracking-[0.12em] hover:border-[#fbbf24]/40 hover:text-white transition-colors"
-          >
-            Book a Call
-          </a>
-        </div>
-
-        {/* Scroll hint */}
-        <div className="mt-12 flex flex-col items-center gap-1.5 opacity-40">
-          <span className="text-[0.58rem] uppercase tracking-[0.22em] text-neutral-400">
-            ↓ scroll
-          </span>
-        </div>
-      </motion.div>
-
-      {/* Availability badge */}
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.9, duration: 0.5 }}
-        className="fixed bottom-8 right-8 flex items-center gap-2.5 bg-[#0d0d0d]/90 backdrop-blur-sm border border-white/8 py-2 px-4 rounded-full z-50"
-      >
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-        </span>
-        <span className="text-[9px] text-white/65 uppercase tracking-[0.18em] font-bold">
-          Accepting mandates
-        </span>
-      </motion.div>
+            <p
+              className="text-[6px] font-bold uppercase tracking-[0.2em] mb-1"
+              style={{
+                color: s.bg === "#1a1a1a" ? "#555" : "#bbb",
+                fontFamily: "var(--font-headline)",
+              }}
+            >
+              {s.label}
+            </p>
+            <p
+              className="text-[1.8rem] font-black leading-none"
+              style={{ color: s.color, fontFamily: "var(--font-headline)" }}
+            >
+              {s.value}
+            </p>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

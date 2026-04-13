@@ -1,43 +1,40 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian: #080808;
-  --color-obsidian-soft: #0d0d0d;
-  --color-obsidian-card: #111111;
-  --color-gold: #fbbf24;
-  --color-gold-dim: #d97706;
-  /* font vars are set by next/font via html className vars */
+  --color-cream: #f7f4ee;
+  --color-ink: #1a1a1a;
+  --color-gold: #b8960a;
+  --color-lime: #c8f59a;
+  --color-card: #ffffff;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
 body {
-  background: #080808;
-  color: #ffffff;
-  font-family: var(--font-body, "Inter", sans-serif);
+  background: #f7f4ee;
+  color: #1a1a1a;
+  font-family: var(--font-body, "Work Sans", sans-serif);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-::selection { background: #fbbf24; color: #080808; }
-
-.gold-glow-bg {
-  background: radial-gradient(circle at 50% 55%, rgba(251,191,36,0.15) 0%, transparent 70%);
-}
-.gold-radial {
-  background: radial-gradient(circle at center top, rgba(251,191,36,0.06) 0%, transparent 70%);
-}
-.card-left-glow:hover {
-  box-shadow: -4px 0 0 0 #fbbf24;
-}
+::selection { background: #b8960a; color: #ffffff; }
 
 @keyframes marquee {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 .animate-marquee {
-  animation: marquee 28s linear infinite;
+  animation: marquee 32s linear infinite;
   white-space: nowrap;
 }
 .animate-marquee:hover { animation-play-state: paused; }
+
+@keyframes heartbeat {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.animate-heartbeat {
+  animation: heartbeat 1s step-end infinite;
+}

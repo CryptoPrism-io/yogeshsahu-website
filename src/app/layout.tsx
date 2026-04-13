@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, Playfair_Display } from "next/font/google";
+import { Newsreader, Space_Grotesk, Work_Sans } from "next/font/google";
 import "./globals.css";
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  style: ["italic"],
+  weight: ["700", "800"],
+  variable: "--font-serif-display",
+});
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["300","400","500","700"],
+  weight: ["400", "500", "700"],
   variable: "--font-headline",
 });
 
-const inter = Inter({
+const workSans = Work_Sans({
   subsets: ["latin"],
-  weight: ["400","500","600","700"],
+  weight: ["400", "500", "600"],
   variable: "--font-body",
-});
-
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  style: ["italic"],
-  weight: ["700","900"],
-  variable: "--font-serif-display",
 });
 
 export const metadata: Metadata = {
@@ -41,9 +41,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable} ${playfairDisplay.variable}`}
+      className={`${newsreader.variable} ${spaceGrotesk.variable} ${workSans.variable}`}
     >
-      <body className="bg-obsidian text-white antialiased overflow-x-hidden">
+      <body className="bg-[#f7f4ee] text-[#1a1a1a] antialiased overflow-x-hidden">
         {children}
       </body>
     </html>
