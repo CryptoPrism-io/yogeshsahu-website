@@ -1,0 +1,2182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yogesh Sahu — Founder, CryptoPrism. Building institutional-grade crypto intelligence infrastructure.">
+    <meta name="theme-color" content="#ffffff">
+    <title>Yogesh Sahu — Founder, CryptoPrism</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           RESET & FOUNDATIONS
+           ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 400;
+            line-height: 1.7;
+            color: #111111;
+            background-color: #ffffff;
+            overflow-x: hidden;
+            /* FIX #3: Body visible by default. JS will manage fade-in via overlay only. */
+            opacity: 1;
+        }
+
+        ::selection {
+            background-color: #0066ff;
+            color: #ffffff;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ============================================================
+           TYPOGRAPHY SYSTEM
+           ============================================================ */
+        .font-display {
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+        }
+
+        .font-mono {
+            font-family: 'IBM Plex Mono', 'SF Mono', 'Fira Code', monospace;
+        }
+
+        .font-body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* ============================================================
+           LAYOUT
+           ============================================================ */
+        .container {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .container--wide {
+            max-width: 960px;
+        }
+
+        .container--full {
+            max-width: 100%;
+            padding: 0;
+        }
+
+        /* ============================================================
+           SECTION SPACING
+           ============================================================ */
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section--large {
+            padding: 200px 0;
+        }
+
+        .section--dark {
+            background-color: #111111;
+            color: #ffffff;
+        }
+
+        .section--surface {
+            background-color: #fafafa;
+        }
+
+        /* ============================================================
+           SCROLL INDICATOR
+           ============================================================ */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 0%;
+            background-color: #0066ff;
+            z-index: 1000;
+            transition: none;
+        }
+
+        /* FIX #11: CSS-only scroll progress fallback using scroll-driven animation.
+           Works in Chrome 115+ / Edge 115+. Falls back to JS for others.
+           The JS version takes over when available. */
+        @supports (animation-timeline: scroll()) {
+            .scroll-indicator {
+                height: 100%;
+                transform-origin: top;
+                transform: scaleY(0);
+                animation: scrollProgress linear;
+                animation-timeline: scroll();
+            }
+
+            @keyframes scrollProgress {
+                to {
+                    transform: scaleY(1);
+                }
+            }
+        }
+
+        /* ============================================================
+           NAVIGATION
+           ============================================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 28px 0;
+            background-color: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.4s ease, padding 0.4s ease, background-color 0.4s ease;
+        }
+
+        .nav--scrolled {
+            padding: 18px 0;
+            border-bottom-color: #eeeeee;
+        }
+
+        .nav__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .nav__name {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #111111;
+            transition: color 0.4s ease;
+        }
+
+        .nav__links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav__link {
+            font-size: 13px;
+            font-weight: 400;
+            color: #888888;
+            letter-spacing: 0.01em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav__link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #0066ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav__link:hover {
+            color: #111111;
+        }
+
+        .nav__link:hover::after {
+            width: 100%;
+        }
+
+        /* ============================================================
+           HERO — PINNED SECTION
+           ============================================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero__name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            color: #111111;
+            margin-bottom: 24px;
+            will-change: transform;
+            /* FIX #4: Default non-pinned, normal-size styles.
+               scale:1 and opacity:1 are the natural defaults —
+               if ScrollTrigger fails, hero stays normal. */
+        }
+
+        .hero__role {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #888888;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .hero__tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+            color: #666666;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .hero__scroll-cue {
+            position: absolute;
+            bottom: 48px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero__scroll-line {
+            width: 1px;
+            height: 48px;
+            background: linear-gradient(to bottom, #cccccc, transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.4; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.2); }
+        }
+
+        .hero__scroll-text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 10px;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #cccccc;
+        }
+
+        /* ============================================================
+           SECTION NUMBERS (WATERMARKS)
+           ============================================================ */
+        .section-number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(120px, 20vw, 200px);
+            font-weight: 400;
+            color: #fafafa;
+            position: absolute;
+            top: 60px;
+            right: -20px;
+            line-height: 1;
+            z-index: 0;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .section--dark .section-number {
+            color: #1a1a1a;
+        }
+
+        /* ============================================================
+           SECTION HEADERS
+           ============================================================ */
+        .section-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #888888;
+            margin-bottom: 48px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .section-label::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background-color: #cccccc;
+        }
+
+        .section--dark .section-label::before {
+            background-color: #444444;
+        }
+
+        .section--dark .section-label {
+            color: #666666;
+        }
+
+        /* ============================================================
+           HORIZONTAL RULE — ANIMATED
+           ============================================================ */
+        .hr {
+            width: 100%;
+            height: 1px;
+            background-color: #eeeeee;
+            border: none;
+            margin: 0;
+            /* FIX #3: HR visible by default. JS will animate from scaleX(0). */
+            transform: scaleX(1);
+            transform-origin: center;
+        }
+
+        .section--dark .hr {
+            background-color: #333333;
+        }
+
+        /* ============================================================
+           ABOUT SECTION
+           ============================================================ */
+        .about__text {
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.85;
+            color: #333333;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about__text p {
+            margin-bottom: 28px;
+        }
+
+        .about__text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .about__text strong {
+            font-weight: 500;
+            color: #111111;
+        }
+
+        /* ============================================================
+           NUMBERS / STATS
+           ============================================================ */
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 40px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat {
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .stat__number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 400;
+            color: #0066ff;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat__label {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #888888;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .stats__separator {
+            width: 1px;
+            height: 32px;
+            background-color: #eeeeee;
+            flex: none;
+        }
+
+        /* ============================================================
+           PROJECTS
+           ============================================================ */
+        .project {
+            padding: 40px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project__name {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            color: #111111;
+            letter-spacing: -0.01em;
+        }
+
+        .project__arrow {
+            font-size: 14px;
+            color: #cccccc;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .project:hover .project__arrow {
+            color: #0066ff;
+            transform: translateX(4px);
+        }
+
+        .project__description {
+            font-size: 15px;
+            font-weight: 300;
+            color: #888888;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .project__tech {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 300;
+            color: #cccccc;
+            letter-spacing: 0.02em;
+        }
+
+        .project__image-block {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%);
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project__image-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            font-weight: 300;
+            color: #cccccc;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .project-card {
+            cursor: default;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+           EXPERIENCE
+           ============================================================ */
+        .experience-item {
+            display: grid;
+            grid-template-columns: 100px 1fr 1fr auto;
+            gap: 16px;
+            align-items: baseline;
+            padding: 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .experience-item__year {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            font-weight: 400;
+            color: #888888;
+        }
+
+        .experience-item__role {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: #111111;
+        }
+
+        .experience-item__company {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 300;
+            color: #888888;
+        }
+
+        .experience-item__metric {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 300;
+            color: #cccccc;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        /* ============================================================
+           PULL QUOTE (DARK SECTION)
+           ============================================================ */
+        .pull-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 400;
+            line-height: 1.5;
+            color: #ffffff;
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pull-quote__attribution {
+            display: block;
+            margin-top: 32px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-style: normal;
+            font-size: 12px;
+            font-weight: 300;
+            color: #666666;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* ============================================================
+           CONTACT
+           ============================================================ */
+        .contact__email {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 400;
+            color: #111111;
+            text-align: center;
+            display: block;
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+
+        .contact__email:hover {
+            color: #0066ff;
+        }
+
+        .contact__links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact__link {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #888888;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .contact__link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #0066ff;
+            transition: width 0.3s ease;
+        }
+
+        .contact__link:hover {
+            color: #111111;
+        }
+
+        .contact__link:hover::after {
+            width: 100%;
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            padding: 48px 0;
+            text-align: center;
+        }
+
+        .footer__text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 12px;
+            font-weight: 300;
+            color: #cccccc;
+            letter-spacing: 0.04em;
+        }
+
+        /* ============================================================
+           REVEAL ANIMATIONS
+           FIX #3: Content fully visible by default.
+           The .reveal class has NO opacity:0 in CSS.
+           JS sets opacity:0 inline before animating.
+           If JS fails, content is fully visible.
+           ============================================================ */
+        /* Intentionally empty — JS handles reveal animation setup */
+
+        /* ============================================================
+           MOBILE NAV TOGGLE
+           ============================================================ */
+        .nav__toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            position: relative;
+            width: 32px;
+            height: 32px;
+        }
+
+        .nav__toggle-line {
+            display: block;
+            width: 20px;
+            height: 1px;
+            background-color: #111111;
+            position: absolute;
+            left: 6px;
+            transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.4s ease;
+        }
+
+        .nav__toggle-line:nth-child(1) {
+            top: 11px;
+        }
+
+        .nav__toggle-line:nth-child(2) {
+            top: 20px;
+        }
+
+        .nav__toggle--open .nav__toggle-line:nth-child(1) {
+            top: 15px;
+            transform: rotate(45deg);
+        }
+
+        .nav__toggle--open .nav__toggle-line:nth-child(2) {
+            top: 15px;
+            transform: rotate(-45deg);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 768px) {
+            .section {
+                padding: 80px 0;
+            }
+
+            .section--large {
+                padding: 120px 0;
+            }
+
+            .container {
+                padding: 0 24px;
+            }
+
+            .nav__toggle {
+                display: block;
+            }
+
+            .nav__links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 32px;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.4s ease;
+                z-index: 99;
+            }
+
+            .nav__links--open {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .nav__links--open .nav__link {
+                font-size: 18px;
+                color: #111111;
+            }
+
+            .experience-item {
+                grid-template-columns: 1fr;
+                gap: 4px;
+                padding: 16px 0;
+            }
+
+            .experience-item__metric {
+                text-align: left;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 32px;
+                align-items: center;
+            }
+
+            .stats__separator {
+                width: 32px;
+                height: 1px;
+            }
+
+            .section-number {
+                font-size: 100px;
+                top: 20px;
+                right: -10px;
+            }
+
+            .about__text {
+                font-size: 16px;
+            }
+
+            .hero__tagline {
+                font-size: 16px;
+            }
+
+            .project__image-block {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero__name {
+                font-size: 40px;
+            }
+
+            .hero__role {
+                font-size: 14px;
+            }
+
+            .pull-quote {
+                font-size: 22px;
+            }
+
+            .contact__email {
+                font-size: 22px;
+            }
+
+            .section-label {
+                margin-bottom: 32px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .section {
+                padding: 200px 0;
+            }
+
+            .section--large {
+                padding: 280px 0;
+            }
+        }
+
+        /* ============================================================
+           FEATURED PROJECT IMAGE BLOCKS
+           ============================================================ */
+        .featured-block {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(145deg, #f8f8f8 0%, #f0f0f0 50%, #e8e8e8 100%);
+            margin: 48px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-block::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(0, 102, 255, 0.02) 100%);
+        }
+
+        .featured-block__title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 14px;
+            font-weight: 500;
+            color: #bbbbbb;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-block__subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            color: #cccccc;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================================
+           CURSOR DOT (desktop only, hidden on touch)
+           FIX #8: Only show on hover+fine pointer devices
+           ============================================================ */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #0066ff;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            mix-blend-mode: difference;
+            /* Hidden by default — only enabled for non-touch devices */
+            display: none;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .cursor-dot {
+                display: block;
+                opacity: 1;
+            }
+        }
+
+        /* ============================================================
+           SKILL BAR (minimal)
+           ============================================================ */
+        .skill-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #eeeeee;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-row:last-child {
+            border-bottom: none;
+        }
+
+        .skill-row__name {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #111111;
+        }
+
+        .skill-row__level {
+            display: flex;
+            gap: 4px;
+        }
+
+        .skill-row__dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #eeeeee;
+        }
+
+        .skill-row__dot--filled {
+            background-color: #0066ff;
+        }
+
+        /* ============================================================
+           PAGE TRANSITION OVERLAY
+           FIX #2: CSS-only fallback — overlay fades away even if JS fails.
+           JS will take over when GSAP loads and cancel the CSS animation.
+           ============================================================ */
+        @keyframes overlayFadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; pointer-events: none; }
+        }
+
+        .page-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            z-index: 10000;
+            pointer-events: none;
+            animation: overlayFadeOut 1s 2s forwards;
+        }
+
+        /* When JS has loaded and taken control, it adds this class
+           to cancel the CSS animation and manage everything itself. */
+        .page-overlay--js-controlled {
+            animation: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Page load overlay -->
+    <div class="page-overlay" id="pageOverlay"></div>
+
+    <!-- Scroll progress indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Custom cursor dot -->
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <!-- ============================================================
+         NAVIGATION
+         ============================================================ -->
+    <nav class="nav" id="nav">
+        <div class="nav__inner">
+            <a href="#hero" class="nav__name">Yogesh Sahu</a>
+
+            <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="nav__toggle-line"></span>
+                <span class="nav__toggle-line"></span>
+            </button>
+
+            <ul class="nav__links" id="navLinks">
+                <li><a href="#about" class="nav__link">About</a></li>
+                <li><a href="#work" class="nav__link">Work</a></li>
+                <li><a href="#experience" class="nav__link">Experience</a></li>
+                <li><a href="#contact" class="nav__link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+         HERO — PINNED, SCALES ON SCROLL
+         ============================================================ -->
+    <section class="hero" id="hero">
+        <div class="hero__content">
+            <h1 class="hero__name" id="heroName">Yogesh Sahu</h1>
+            <p class="hero__role">Founder, CryptoPrism</p>
+            <p class="hero__tagline">Building institutional-grade crypto intelligence infrastructure.</p>
+        </div>
+
+        <div class="hero__scroll-cue">
+            <div class="hero__scroll-line"></div>
+            <span class="hero__scroll-text font-mono">Scroll</span>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 01 — ABOUT
+         ============================================================ -->
+    <section class="section" id="about">
+        <div class="container">
+            <span class="section-number" aria-hidden="true">01</span>
+
+            <div class="section-label reveal">
+                <span>About</span>
+            </div>
+
+            <div class="about__text">
+                <p class="reveal">
+                    I build production data infrastructure for financial markets. My platform,
+                    <strong>CryptoPrism</strong>, processes 2.26 million records daily, monitors
+                    1,000+ cryptocurrencies, and computes 130+ technical indicators &mdash; all
+                    running on a three-database PostgreSQL architecture at 99.9% uptime.
+                </p>
+
+                <p class="reveal">
+                    I hold an <strong>MS in Financial Technology</strong> from Strathclyde Business
+                    School, where I topped my cohort in AI/ML (82/100). Before that, I cleared the
+                    <strong>UPSC Civil Services Preliminary Examination</strong> &mdash; placing in
+                    the top 2% of half a million candidates. I chose to build instead.
+                </p>
+
+                <p class="reveal">
+                    Previously: Quality assurance at <strong>Ubisoft</strong>. Co-founder of an
+                    e-sports chain. Product owner at <strong>Isha Foundation</strong>. Each role
+                    refined a different edge.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="container">
+        <hr class="hr" />
+    </div>
+
+    <!-- ============================================================
+         SECTION 02 — NUMBERS
+         FIX #5: Final values shown in HTML. JS animates FROM 0.
+         ============================================================ -->
+    <section class="section" id="numbers">
+        <div class="container container--wide">
+            <span class="section-number" aria-hidden="true">02</span>
+
+            <div class="section-label reveal">
+                <span>Numbers</span>
+            </div>
+
+            <div class="stats">
+                <div class="stat reveal">
+                    <div class="stat__number" data-target="2.26" data-suffix="M+" data-decimal="true">2.26M+</div>
+                    <div class="stat__label">Records Daily</div>
+                </div>
+
+                <div class="stats__separator reveal" aria-hidden="true"></div>
+
+                <div class="stat reveal">
+                    <div class="stat__number" data-target="1000" data-suffix="+">1,000+</div>
+                    <div class="stat__label">Assets Tracked</div>
+                </div>
+
+                <div class="stats__separator reveal" aria-hidden="true"></div>
+
+                <div class="stat reveal">
+                    <div class="stat__number" data-target="130" data-suffix="+">130+</div>
+                    <div class="stat__label">Indicators</div>
+                </div>
+
+                <div class="stats__separator reveal" aria-hidden="true"></div>
+
+                <div class="stat reveal">
+                    <div class="stat__number" data-target="99.9" data-suffix="%" data-decimal="true">99.9%</div>
+                    <div class="stat__label">Uptime</div>
+                </div>
+
+                <div class="stats__separator reveal" aria-hidden="true"></div>
+
+                <div class="stat reveal">
+                    <div class="stat__number" data-target="23" data-suffix="">23</div>
+                    <div class="stat__label">Repositories</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="container">
+        <hr class="hr" />
+    </div>
+
+    <!-- ============================================================
+         SECTION 03 — SELECTED WORK
+         ============================================================ -->
+    <section class="section" id="work">
+        <div class="container">
+            <span class="section-number" aria-hidden="true">03</span>
+
+            <div class="section-label reveal">
+                <span>Selected Work</span>
+            </div>
+
+            <!-- Featured project image block -->
+            <div class="featured-block reveal">
+                <span class="featured-block__title">CryptoPrism</span>
+                <span class="featured-block__subtitle">Production Data Infrastructure</span>
+            </div>
+
+            <!-- Project 1 -->
+            <div class="project-card">
+                <hr class="hr" />
+                <div class="project reveal">
+                    <div class="project__header">
+                        <span class="project__name">CryptoPrism-DB</span>
+                        <span class="project__arrow">&rarr;</span>
+                    </div>
+                    <p class="project__description">Production crypto data infrastructure processing millions of records daily</p>
+                    <span class="project__tech">Python, R, PostgreSQL, GCP</span>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <hr class="hr" />
+                <div class="project reveal">
+                    <div class="project__header">
+                        <span class="project__name">CryptoPrism Screener</span>
+                        <span class="project__arrow">&rarr;</span>
+                    </div>
+                    <p class="project__description">Institutional-grade cryptocurrency screening platform</p>
+                    <span class="project__tech">React, TypeScript, FastAPI</span>
+                </div>
+            </div>
+
+            <!-- Featured project image block -->
+            <div class="featured-block reveal" style="margin-top: 64px;">
+                <span class="featured-block__title">Pratyaksha</span>
+                <span class="featured-block__subtitle">AI-Powered Cognitive Journaling</span>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <hr class="hr" />
+                <div class="project reveal">
+                    <div class="project__header">
+                        <span class="project__name">Pratyaksha</span>
+                        <span class="project__arrow">&rarr;</span>
+                    </div>
+                    <p class="project__description">AI-powered cognitive journaling for structured self-reflection</p>
+                    <span class="project__tech">TypeScript, React</span>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card">
+                <hr class="hr" />
+                <div class="project reveal">
+                    <div class="project__header">
+                        <span class="project__name">TimesFM 100-Coin Bot</span>
+                        <span class="project__arrow">&rarr;</span>
+                    </div>
+                    <p class="project__description">ML-powered trading research using Google TimesFM foundation model</p>
+                    <span class="project__tech">Python, TimesFM</span>
+                </div>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-card">
+                <hr class="hr" />
+                <div class="project reveal">
+                    <div class="project__header">
+                        <span class="project__name">Kari &amp; The Lost Shrines</span>
+                        <span class="project__arrow">&rarr;</span>
+                    </div>
+                    <p class="project__description">Mobile game achieving 50,000 downloads in 21 days</p>
+                    <span class="project__tech">Unity, C#</span>
+                </div>
+            </div>
+
+            <!-- Project 6 -->
+            <div class="project-card">
+                <hr class="hr" />
+                <div class="project reveal">
+                    <div class="project__header">
+                        <span class="project__name">Forex Session Dashboard</span>
+                        <span class="project__arrow">&rarr;</span>
+                    </div>
+                    <p class="project__description">ICT strategy analysis for institutional forex trading sessions</p>
+                    <span class="project__tech">TypeScript, React</span>
+                </div>
+            </div>
+
+            <!-- Project 7 -->
+            <div class="project-card">
+                <hr class="hr" />
+                <div class="project reveal">
+                    <div class="project__header">
+                        <span class="project__name">Gyanmarg</span>
+                        <span class="project__arrow">&rarr;</span>
+                    </div>
+                    <p class="project__description">Gamified self-improvement and structured learning platform</p>
+                    <span class="project__tech">TypeScript, React</span>
+                </div>
+            </div>
+
+            <!-- Project 8 -->
+            <div class="project-card">
+                <hr class="hr" />
+                <div class="project reveal">
+                    <div class="project__header">
+                        <span class="project__name">CryptoPrism News Fetcher</span>
+                        <span class="project__arrow">&rarr;</span>
+                    </div>
+                    <p class="project__description">NLP-powered news pipeline processing 500+ articles per hour</p>
+                    <span class="project__tech">Python, NLP, PostgreSQL</span>
+                </div>
+            </div>
+
+            <hr class="hr" />
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 04 — EXPERIENCE
+         ============================================================ -->
+    <section class="section section--surface" id="experience">
+        <div class="container container--wide">
+            <span class="section-number" aria-hidden="true">04</span>
+
+            <div class="section-label reveal">
+                <span>Experience</span>
+            </div>
+
+            <div class="experience-item reveal">
+                <span class="experience-item__year font-mono">2024&ndash;</span>
+                <span class="experience-item__role">Founder &amp; CEO</span>
+                <span class="experience-item__company">CryptoPrism</span>
+                <span class="experience-item__metric">DPIIT Recognized</span>
+            </div>
+            <hr class="hr" />
+
+            <div class="experience-item reveal">
+                <span class="experience-item__year font-mono">2023&ndash;</span>
+                <span class="experience-item__role">Credit Analyst</span>
+                <span class="experience-item__company">Tesco Bank</span>
+                <span class="experience-item__metric">1,600+ monthly</span>
+            </div>
+            <hr class="hr" />
+
+            <div class="experience-item reveal">
+                <span class="experience-item__year font-mono">2022&ndash;23</span>
+                <span class="experience-item__role">MS FinTech</span>
+                <span class="experience-item__company">Strathclyde</span>
+                <span class="experience-item__metric">Merit, AI/ML top</span>
+            </div>
+            <hr class="hr" />
+
+            <div class="experience-item reveal">
+                <span class="experience-item__year font-mono">2021&ndash;22</span>
+                <span class="experience-item__role">Sr. Business Analyst</span>
+                <span class="experience-item__company">Pune Global</span>
+                <span class="experience-item__metric">95% defect reduction</span>
+            </div>
+            <hr class="hr" />
+
+            <div class="experience-item reveal">
+                <span class="experience-item__year font-mono">2020&ndash;21</span>
+                <span class="experience-item__role">Product Owner</span>
+                <span class="experience-item__company">Isha Foundation</span>
+                <span class="experience-item__metric">50K downloads</span>
+            </div>
+            <hr class="hr" />
+
+            <div class="experience-item reveal">
+                <span class="experience-item__year font-mono">2017&ndash;20</span>
+                <span class="experience-item__role">Co-Founder</span>
+                <span class="experience-item__company">Gamerz Nation</span>
+                <span class="experience-item__metric">7 franchises</span>
+            </div>
+            <hr class="hr" />
+
+            <div class="experience-item reveal">
+                <span class="experience-item__year font-mono">2016&ndash;17</span>
+                <span class="experience-item__role">QA Specialist</span>
+                <span class="experience-item__company">Ubisoft</span>
+                <span class="experience-item__metric">AC, For Honor</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 05 — SKILLS
+         ============================================================ -->
+    <section class="section" id="skills">
+        <div class="container">
+            <span class="section-number" aria-hidden="true">05</span>
+
+            <div class="section-label reveal">
+                <span>Expertise</span>
+            </div>
+
+            <div class="skill-row reveal">
+                <span class="skill-row__name">Python / Data Engineering</span>
+                <div class="skill-row__level">
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                </div>
+            </div>
+            <div class="skill-row reveal">
+                <span class="skill-row__name">PostgreSQL / Database Architecture</span>
+                <div class="skill-row__level">
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                </div>
+            </div>
+            <div class="skill-row reveal">
+                <span class="skill-row__name">React / TypeScript</span>
+                <div class="skill-row__level">
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot"></span>
+                </div>
+            </div>
+            <div class="skill-row reveal">
+                <span class="skill-row__name">Machine Learning / AI</span>
+                <div class="skill-row__level">
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot"></span>
+                </div>
+            </div>
+            <div class="skill-row reveal">
+                <span class="skill-row__name">Google Cloud Platform</span>
+                <div class="skill-row__level">
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot"></span>
+                </div>
+            </div>
+            <div class="skill-row reveal">
+                <span class="skill-row__name">Financial Technology</span>
+                <div class="skill-row__level">
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                </div>
+            </div>
+            <div class="skill-row reveal">
+                <span class="skill-row__name">R / Statistical Computing</span>
+                <div class="skill-row__level">
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot"></span>
+                </div>
+            </div>
+            <div class="skill-row reveal">
+                <span class="skill-row__name">Product Strategy</span>
+                <div class="skill-row__level">
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                    <span class="skill-row__dot skill-row__dot--filled"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 06 — DARK PULL QUOTE
+         ============================================================ -->
+    <section class="section section--large section--dark" id="quote">
+        <div class="container">
+            <p class="pull-quote reveal">
+                &ldquo;The question is not whether Yogesh Sahu can build. The evidence is substantial.
+                The question is whether the world is ready for what he is building next.&rdquo;
+                <span class="pull-quote__attribution">&mdash; Portfolio, 2026</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 07 — CONTACT
+         FIX #10: All contact links have proper hrefs.
+         ============================================================ -->
+    <section class="section section--large" id="contact">
+        <div class="container">
+            <span class="section-number" aria-hidden="true">07</span>
+
+            <div class="section-label reveal" style="justify-content: center;">
+                <span>Get in Touch</span>
+            </div>
+
+            <a href="mailto:yogesh.sahu@cryptoprism.io" class="contact__email reveal">
+                yogesh.sahu@cryptoprism.io
+            </a>
+
+            <div class="contact__links reveal">
+                <a href="https://github.com/yogeshsahu" class="contact__link" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://linkedin.com/in/yogeshsahu" class="contact__link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://cryptoprism.io" class="contact__link" target="_blank" rel="noopener noreferrer">CryptoPrism</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <hr class="hr" style="margin-bottom: 48px;" />
+            <p class="footer__text">&copy; 2026 Yogesh Sahu</p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+         SCRIPTS — CDN before </body>
+         FIX #6: Script order correct, CDN scripts load before inline.
+         ============================================================ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+    /* ============================================================
+       FIX #1: Guard ALL GSAP usage. If CDN fails, page still works.
+       FIX #7: try/catch around each animation block.
+       FIX #6: DOMContentLoaded wrapper.
+       ============================================================ */
+    document.addEventListener('DOMContentLoaded', function() {
+        'use strict';
+
+        /* ============================================================
+           NON-GSAP: MOBILE NAV TOGGLE (works without GSAP)
+           ============================================================ */
+        try {
+            var navToggle = document.getElementById('navToggle');
+            var navLinks = document.getElementById('navLinks');
+
+            if (navToggle && navLinks) {
+                navToggle.addEventListener('click', function() {
+                    navToggle.classList.toggle('nav__toggle--open');
+                    navLinks.classList.toggle('nav__links--open');
+                });
+
+                navLinks.querySelectorAll('.nav__link').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        navToggle.classList.remove('nav__toggle--open');
+                        navLinks.classList.remove('nav__links--open');
+                    });
+                });
+            }
+        } catch (e) {
+            console.warn('Nav toggle init failed:', e);
+        }
+
+        /* ============================================================
+           NON-GSAP: NAVIGATION SCROLL EFFECT (works without GSAP)
+           ============================================================ */
+        try {
+            var nav = document.getElementById('nav');
+
+            window.addEventListener('scroll', function() {
+                var currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+                if (currentScrollY > 80) {
+                    nav.classList.add('nav--scrolled');
+                } else {
+                    nav.classList.remove('nav--scrolled');
+                }
+            }, { passive: true });
+        } catch (e) {
+            console.warn('Nav scroll effect failed:', e);
+        }
+
+        /* ============================================================
+           NON-GSAP: SCROLL PROGRESS INDICATOR (JS fallback for
+           browsers without scroll-driven animations)
+           ============================================================ */
+        try {
+            var scrollIndicator = document.getElementById('scrollIndicator');
+
+            // Only use JS scroll tracking if CSS scroll-driven animations
+            // are NOT supported (to avoid double-driving the indicator)
+            if (!CSS.supports('animation-timeline', 'scroll()')) {
+                window.addEventListener('scroll', function() {
+                    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    var scrollPercent = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+                    scrollIndicator.style.height = scrollPercent + '%';
+                }, { passive: true });
+            }
+        } catch (e) {
+            // Fallback: always use JS version if CSS.supports check fails
+            try {
+                window.addEventListener('scroll', function() {
+                    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    var scrollPercent = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+                    document.getElementById('scrollIndicator').style.height = scrollPercent + '%';
+                }, { passive: true });
+            } catch (e2) {
+                console.warn('Scroll indicator failed:', e2);
+            }
+        }
+
+        /* ============================================================
+           NON-GSAP: CUSTOM CURSOR DOT (works without GSAP)
+           FIX #8: Only runs on non-touch devices (CSS hides it too)
+           ============================================================ */
+        try {
+            var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+            if (!isTouchDevice) {
+                var cursorDot = document.getElementById('cursorDot');
+                var cursorX = 0;
+                var cursorY = 0;
+                var dotX = 0;
+                var dotY = 0;
+
+                document.addEventListener('mousemove', function(e) {
+                    cursorX = e.clientX;
+                    cursorY = e.clientY;
+                });
+
+                function animateCursor() {
+                    dotX += (cursorX - dotX) * 0.15;
+                    dotY += (cursorY - dotY) * 0.15;
+                    cursorDot.style.transform = 'translate(' + (dotX - 4) + 'px, ' + (dotY - 4) + 'px)';
+                    requestAnimationFrame(animateCursor);
+                }
+
+                animateCursor();
+            }
+        } catch (e) {
+            console.warn('Custom cursor failed:', e);
+        }
+
+        /* ============================================================
+           NON-GSAP: SMOOTH ANCHOR SCROLLING (native fallback)
+           ============================================================ */
+        try {
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var targetEl = document.querySelector(this.getAttribute('href'));
+                    if (targetEl) {
+                        var targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - 80;
+
+                        // Use GSAP ScrollTo if available, otherwise native smooth scroll
+                        if (typeof gsap !== 'undefined' && gsap.plugins && gsap.plugins.scrollTo) {
+                            gsap.to(window, {
+                                scrollTo: { y: targetPosition },
+                                duration: 1,
+                                ease: 'power3.inOut'
+                            });
+                        } else {
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        } catch (e) {
+            console.warn('Smooth scroll init failed:', e);
+        }
+
+        /* ============================================================
+           GSAP GUARD: Everything below requires GSAP + ScrollTrigger
+           FIX #1: If GSAP didn't load, all content is already visible.
+           ============================================================ */
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+            // GSAP not available — make sure overlay is gone
+            var overlay = document.getElementById('pageOverlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+            }
+            console.warn('GSAP or ScrollTrigger not loaded. Animations disabled; content remains visible.');
+            return;
+        }
+
+        /* ============================================================
+           GSAP SETUP
+           ============================================================ */
+        try {
+            gsap.registerPlugin(ScrollTrigger);
+        } catch (e) {
+            console.warn('GSAP registerPlugin failed:', e);
+            var overlay2 = document.getElementById('pageOverlay');
+            if (overlay2) overlay2.style.display = 'none';
+            return;
+        }
+
+        /* ============================================================
+           PAGE LOAD FADE-IN
+           FIX #2: Cancel CSS animation, let GSAP handle it.
+           ============================================================ */
+        try {
+            var pageOverlay = document.getElementById('pageOverlay');
+
+            // Take control from CSS animation
+            pageOverlay.classList.add('page-overlay--js-controlled');
+
+            window.addEventListener('load', function() {
+                gsap.to(pageOverlay, {
+                    opacity: 0,
+                    duration: 1,
+                    ease: 'power2.out',
+                    delay: 0.2,
+                    onComplete: function() {
+                        pageOverlay.style.display = 'none';
+                    }
+                });
+            });
+
+            // Safety net: if load event already fired, run immediately
+            if (document.readyState === 'complete') {
+                gsap.to(pageOverlay, {
+                    opacity: 0,
+                    duration: 1,
+                    ease: 'power2.out',
+                    onComplete: function() {
+                        pageOverlay.style.display = 'none';
+                    }
+                });
+            }
+        } catch (e) {
+            console.warn('Page overlay animation failed:', e);
+            var po = document.getElementById('pageOverlay');
+            if (po) po.style.display = 'none';
+        }
+
+        /* ============================================================
+           HERO SCALE ON SCROLL
+           FIX #4: No pin. Default styles are normal size. If this
+           fails, hero is just a normal static section.
+           ============================================================ */
+        try {
+            var heroName = document.getElementById('heroName');
+
+            gsap.to(heroName, {
+                scale: 1.4,
+                opacity: 0.15,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 0.6,
+                    pin: false
+                }
+            });
+
+            gsap.to('.hero__role', {
+                y: -40,
+                opacity: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: '60% center',
+                    end: 'bottom top',
+                    scrub: 0.4
+                }
+            });
+
+            gsap.to('.hero__tagline', {
+                y: -30,
+                opacity: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: '60% center',
+                    end: 'bottom top',
+                    scrub: 0.4
+                }
+            });
+
+            gsap.to('.hero__scroll-cue', {
+                opacity: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: '20% top',
+                    end: '40% top',
+                    scrub: true
+                }
+            });
+        } catch (e) {
+            console.warn('Hero animation failed:', e);
+        }
+
+        /* ============================================================
+           REVEAL ANIMATIONS
+           FIX #3: Elements are visible by default in CSS.
+           JS sets them to opacity:0 first, then animates in.
+           If JS fails at any point, elements stay visible.
+           ============================================================ */
+        try {
+            var reveals = document.querySelectorAll('.reveal');
+
+            reveals.forEach(function(el) {
+                gsap.fromTo(el,
+                    {
+                        opacity: 0,
+                        y: 20
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        ease: 'power2.out',
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 88%',
+                            toggleActions: 'play none none none',
+                            once: true
+                        }
+                    }
+                );
+            });
+        } catch (e) {
+            console.warn('Reveal animations failed:', e);
+            // Ensure all reveals are visible
+            document.querySelectorAll('.reveal').forEach(function(el) {
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+            });
+        }
+
+        /* ============================================================
+           HORIZONTAL RULES — GROW FROM CENTER
+           ============================================================ */
+        try {
+            var hrs = document.querySelectorAll('.hr');
+
+            hrs.forEach(function(hr) {
+                // Set to scaleX(0) for animation start, then animate to 1
+                gsap.fromTo(hr,
+                    { scaleX: 0 },
+                    {
+                        scaleX: 1,
+                        duration: 0.8,
+                        ease: 'power2.out',
+                        scrollTrigger: {
+                            trigger: hr,
+                            start: 'top 90%',
+                            toggleActions: 'play none none none',
+                            once: true
+                        }
+                    }
+                );
+            });
+        } catch (e) {
+            console.warn('HR animations failed:', e);
+            // HRs are scaleX(1) by default in CSS, so they're already visible
+        }
+
+        /* ============================================================
+           NUMBER COUNTERS — LINEAR, PRECISE
+           FIX #5: HTML shows final values. JS resets to 0, then
+           animates up. If JS fails, final values are already shown.
+           ============================================================ */
+        try {
+            var statNumbers = document.querySelectorAll('.stat__number');
+
+            statNumbers.forEach(function(stat) {
+                var target = parseFloat(stat.getAttribute('data-target'));
+                var suffix = stat.getAttribute('data-suffix') || '';
+                var isDecimal = stat.getAttribute('data-decimal') === 'true';
+
+                // Store final text, then reset to 0 for animation
+                var obj = { val: 0 };
+
+                // Reset display to 0 — animation will count up
+                stat.textContent = '0';
+
+                gsap.to(obj, {
+                    val: target,
+                    duration: 2,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: stat,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none',
+                        once: true
+                    },
+                    onUpdate: function() {
+                        if (isDecimal) {
+                            stat.textContent = obj.val.toFixed(target < 10 ? 2 : 1) + suffix;
+                        } else {
+                            stat.textContent = Math.round(obj.val).toLocaleString() + suffix;
+                        }
+                    },
+                    onComplete: function() {
+                        // Ensure final value is exact
+                        if (isDecimal) {
+                            stat.textContent = target.toFixed(target < 10 ? 2 : 1) + suffix;
+                        } else {
+                            stat.textContent = Math.round(target).toLocaleString() + suffix;
+                        }
+                    }
+                });
+            });
+        } catch (e) {
+            console.warn('Number counter animation failed:', e);
+            // Restore final values from data attributes
+            document.querySelectorAll('.stat__number').forEach(function(stat) {
+                var target = stat.getAttribute('data-target');
+                var suffix = stat.getAttribute('data-suffix') || '';
+                var isDecimal = stat.getAttribute('data-decimal') === 'true';
+                if (isDecimal) {
+                    stat.textContent = parseFloat(target).toFixed(parseFloat(target) < 10 ? 2 : 1) + suffix;
+                } else {
+                    stat.textContent = Math.round(parseFloat(target)).toLocaleString() + suffix;
+                }
+            });
+        }
+
+        /* ============================================================
+           SECTION NUMBER WATERMARKS — PARALLAX
+           ============================================================ */
+        try {
+            var sectionNumbers = document.querySelectorAll('.section-number');
+
+            sectionNumbers.forEach(function(num) {
+                gsap.to(num, {
+                    y: -80,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: num.parentElement,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 0.3
+                    }
+                });
+            });
+        } catch (e) {
+            console.warn('Section number parallax failed:', e);
+        }
+
+        /* ============================================================
+           FEATURED BLOCKS — SUBTLE PARALLAX
+           ============================================================ */
+        try {
+            var featuredBlocks = document.querySelectorAll('.featured-block');
+
+            featuredBlocks.forEach(function(block) {
+                gsap.to(block, {
+                    y: -30,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: block,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 0.4
+                    }
+                });
+            });
+        } catch (e) {
+            console.warn('Featured blocks parallax failed:', e);
+        }
+
+        /* ============================================================
+           PULL QUOTE — SPECIAL REVEAL
+           ============================================================ */
+        try {
+            var pullQuote = document.querySelector('.pull-quote');
+
+            if (pullQuote) {
+                gsap.fromTo(pullQuote,
+                    {
+                        opacity: 0,
+                        y: 40,
+                        scale: 0.96
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        duration: 1.2,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: pullQuote,
+                            start: 'top 80%',
+                            toggleActions: 'play none none none',
+                            once: true
+                        }
+                    }
+                );
+            }
+        } catch (e) {
+            console.warn('Pull quote animation failed:', e);
+            var pq = document.querySelector('.pull-quote');
+            if (pq) { pq.style.opacity = '1'; pq.style.transform = 'none'; }
+        }
+
+        /* ============================================================
+           EXPERIENCE ITEMS — STAGGERED REVEAL
+           ============================================================ */
+        try {
+            var experienceItems = document.querySelectorAll('.experience-item');
+
+            experienceItems.forEach(function(item, index) {
+                gsap.fromTo(item,
+                    {
+                        opacity: 0,
+                        x: -10
+                    },
+                    {
+                        opacity: 1,
+                        x: 0,
+                        duration: 0.6,
+                        ease: 'power2.out',
+                        delay: index * 0.05,
+                        scrollTrigger: {
+                            trigger: item,
+                            start: 'top 88%',
+                            toggleActions: 'play none none none',
+                            once: true
+                        }
+                    }
+                );
+            });
+        } catch (e) {
+            console.warn('Experience item animations failed:', e);
+            document.querySelectorAll('.experience-item').forEach(function(item) {
+                item.style.opacity = '1';
+                item.style.transform = 'none';
+            });
+        }
+
+        /* ============================================================
+           SKILL ROWS — STAGGERED
+           ============================================================ */
+        try {
+            var skillRows = document.querySelectorAll('.skill-row');
+
+            skillRows.forEach(function(row, index) {
+                gsap.fromTo(row,
+                    {
+                        opacity: 0,
+                        y: 12
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.5,
+                        ease: 'power2.out',
+                        delay: index * 0.04,
+                        scrollTrigger: {
+                            trigger: row,
+                            start: 'top 90%',
+                            toggleActions: 'play none none none',
+                            once: true
+                        }
+                    }
+                );
+
+                // Animate the skill dots
+                var dots = row.querySelectorAll('.skill-row__dot--filled');
+                dots.forEach(function(dot, dotIndex) {
+                    gsap.fromTo(dot,
+                        { scale: 0 },
+                        {
+                            scale: 1,
+                            duration: 0.3,
+                            ease: 'back.out(2)',
+                            delay: index * 0.04 + dotIndex * 0.06 + 0.3,
+                            scrollTrigger: {
+                                trigger: row,
+                                start: 'top 90%',
+                                toggleActions: 'play none none none',
+                                once: true
+                            }
+                        }
+                    );
+                });
+            });
+        } catch (e) {
+            console.warn('Skill row animations failed:', e);
+            document.querySelectorAll('.skill-row').forEach(function(row) {
+                row.style.opacity = '1';
+                row.style.transform = 'none';
+            });
+        }
+
+        /* ============================================================
+           PROJECT CARDS — HOVER SHADOW
+           ============================================================ */
+        try {
+            var projectCards = document.querySelectorAll('.project-card');
+
+            projectCards.forEach(function(card) {
+                card.addEventListener('mouseenter', function() {
+                    gsap.to(card, {
+                        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.04)',
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    gsap.to(card, {
+                        boxShadow: '0 0px 0px rgba(0, 0, 0, 0)',
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+            });
+        } catch (e) {
+            console.warn('Project card hover failed:', e);
+        }
+
+        /* ============================================================
+           CONTACT EMAIL — LETTER SPACING ANIMATION
+           ============================================================ */
+        try {
+            var contactEmail = document.querySelector('.contact__email');
+
+            if (contactEmail) {
+                contactEmail.addEventListener('mouseenter', function() {
+                    gsap.to(contactEmail, {
+                        letterSpacing: '2px',
+                        duration: 0.4,
+                        ease: 'power2.out'
+                    });
+                });
+
+                contactEmail.addEventListener('mouseleave', function() {
+                    gsap.to(contactEmail, {
+                        letterSpacing: '0px',
+                        duration: 0.4,
+                        ease: 'power2.out'
+                    });
+                });
+            }
+        } catch (e) {
+            console.warn('Contact email animation failed:', e);
+        }
+
+        /* ============================================================
+           DARK SECTION — NAV STYLE SWAP
+           FIX #9: Nav is readable by default (dark text on light bg).
+           This JS enhancement inverts colors over the dark quote section.
+           ============================================================ */
+        try {
+            ScrollTrigger.create({
+                trigger: '#quote',
+                start: 'top 60px',
+                end: 'bottom 60px',
+                onEnter: function() { setDarkNav(); },
+                onLeave: function() { resetNavStyles(); },
+                onEnterBack: function() { setDarkNav(); },
+                onLeaveBack: function() { resetNavStyles(); }
+            });
+
+            function setDarkNav() {
+                nav.style.backgroundColor = 'rgba(17, 17, 17, 0.92)';
+                nav.querySelector('.nav__name').style.color = '#ffffff';
+                nav.querySelectorAll('.nav__link').forEach(function(l) {
+                    l.style.color = '#999999';
+                });
+                nav.querySelectorAll('.nav__toggle-line').forEach(function(l) {
+                    l.style.backgroundColor = '#ffffff';
+                });
+                // Update scrolled border color for dark mode
+                if (nav.classList.contains('nav--scrolled')) {
+                    nav.style.borderBottomColor = '#333333';
+                }
+            }
+
+            function resetNavStyles() {
+                nav.style.backgroundColor = 'rgba(255, 255, 255, 0.92)';
+                nav.querySelector('.nav__name').style.color = '#111111';
+                nav.querySelectorAll('.nav__link').forEach(function(l) {
+                    l.style.color = '#888888';
+                });
+                nav.querySelectorAll('.nav__toggle-line').forEach(function(l) {
+                    l.style.backgroundColor = '#111111';
+                });
+                nav.style.borderBottomColor = '';
+            }
+        } catch (e) {
+            console.warn('Dark section nav swap failed:', e);
+        }
+
+        /* ============================================================
+           FOOTER DIVIDER — FINAL GROW
+           ============================================================ */
+        try {
+            var footerHr = document.querySelector('.footer .hr');
+            if (footerHr) {
+                gsap.fromTo(footerHr,
+                    { scaleX: 0 },
+                    {
+                        scaleX: 1,
+                        duration: 1,
+                        ease: 'power2.out',
+                        scrollTrigger: {
+                            trigger: footerHr,
+                            start: 'top 92%',
+                            toggleActions: 'play none none none',
+                            once: true
+                        }
+                    }
+                );
+            }
+        } catch (e) {
+            console.warn('Footer HR animation failed:', e);
+        }
+
+        /* ============================================================
+           PERFORMANCE — REFRESH ON RESIZE
+           ============================================================ */
+        try {
+            var resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function() {
+                    ScrollTrigger.refresh();
+                }, 250);
+            });
+        } catch (e) {
+            console.warn('Resize handler failed:', e);
+        }
+
+    });
+    </script>
+
+</body>
+</html>

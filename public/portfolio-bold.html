@@ -1,0 +1,3174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yogesh Sahu — VELOCITY Portfolio</title>
+<meta name="description" content="Yogesh Sahu — Founder, Builder, Engineer. DPIIT-recognized founder building CryptoPrism.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-dark: #0d0d0d;
+  --bg-light: #f5f5f0;
+  --accent: #ff4d00;
+  --white: #ffffff;
+  --dark: #0d0d0d;
+  --muted: #666666;
+  --border-dark: #2a2a2a;
+  --border-light: #d4d4d0;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+html {
+  scroll-behavior: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg-dark);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-dark);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ============================================================
+   FORCE-VISIBLE FALLBACK (fix #3)
+   If JS animations fail, after 5s body gets this class
+   ensuring all content is visible and usable.
+   ============================================================ */
+body.force-visible * {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+body.force-visible .preloader {
+  display: none !important;
+}
+body.force-visible {
+  overflow: auto !important;
+}
+
+/* ============================================================
+   SCROLL VELOCITY BAR
+   ============================================================ */
+.scroll-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--accent);
+  z-index: 10000;
+  transform-origin: left;
+  transform: scaleX(0);
+  width: 100%;
+  transition: height 0.15s ease;
+}
+
+/* ============================================================
+   PRELOADER
+   ============================================================ */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-dark);
+}
+
+.preloader-count {
+  font-family: var(--font-display);
+  font-size: clamp(120px, 25vw, 300px);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.preloader-bar-track {
+  width: 200px;
+  height: 2px;
+  background: var(--border-dark);
+  margin-top: 30px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.preloader-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.preloader-top,
+.preloader-bottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: var(--bg-dark);
+  z-index: 1;
+}
+
+.preloader-top {
+  top: 0;
+}
+
+.preloader-bottom {
+  bottom: 0;
+}
+
+/* CSS-only preloader fallback (fix #2):
+   If GSAP fails, animate preloader away with pure CSS after 3s */
+@keyframes preloaderFadeOut {
+  0%, 85% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+.preloader.css-fallback-active {
+  animation: preloaderFadeOut 3.5s ease forwards;
+  pointer-events: none;
+}
+
+/* CSS fallback: animate bar fill with pure CSS */
+@keyframes preloaderBarFill {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.preloader.css-fallback-active .preloader-bar-fill {
+  animation: preloaderBarFill 2.5s ease-in-out forwards;
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9000;
+  padding: 24px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  mix-blend-mode: difference;
+  transition: border-bottom 0.3s ease;
+}
+
+.nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.nav.scrolled::after {
+  transform: scaleX(1);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--white);
+}
+
+.nav-menu {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--white);
+  cursor: pointer;
+  position: relative;
+}
+
+.magnetic-wrap {
+  display: inline-block;
+  position: relative;
+}
+
+/* ============================================================
+   MOBILE NAV OVERLAY
+   ============================================================ */
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 8999;
+  background: var(--bg-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.mobile-nav-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-nav-overlay a {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 6vw, 48px);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--white);
+  transition: color 0.3s ease;
+}
+
+.mobile-nav-overlay a:hover {
+  color: var(--accent);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 40px 80px;
+  overflow: hidden;
+  background: var(--bg-dark);
+}
+
+.hero-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+}
+
+.hero-title .line {
+  display: block;
+  font-size: clamp(48px, 14vw, 15vw);
+  overflow: hidden;
+}
+
+.hero-title .line-inner {
+  display: block;
+  transform: translateY(110%);
+}
+
+/* CSS fallback: ensure hero text visible even without JS animation */
+body.force-visible .hero-title .line-inner {
+  transform: none !important;
+}
+
+.hero-title .line:nth-child(1) {
+  text-align: right;
+  color: var(--white);
+}
+
+.hero-title .line:nth-child(2) {
+  text-align: left;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--accent);
+  text-stroke: 2px var(--accent);
+}
+
+.hero-title .line:nth-child(3) {
+  text-align: right;
+  color: var(--white);
+}
+
+.hero-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 60px;
+  gap: 40px;
+}
+
+.hero-description {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1.2vw, 16px);
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 500px;
+}
+
+.hero-scroll {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.hero-scroll-arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+}
+
+.hero-scroll-arrow svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 2;
+}
+
+.hero-scroll-text {
+  position: absolute;
+  inset: 0;
+  animation: spinText 8s linear infinite;
+}
+
+.hero-scroll-text svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-scroll-text svg text {
+  fill: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+@keyframes spinText {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* HERO MARQUEE */
+.hero-marquee {
+  position: absolute;
+  bottom: 15%;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.06;
+}
+
+.hero-marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marqueeLeft 25s linear infinite;
+  will-change: transform;
+}
+
+.hero-marquee-track span {
+  font-family: var(--font-display);
+  font-size: clamp(60px, 10vw, 140px);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--white);
+  padding-right: 60px;
+  flex-shrink: 0;
+}
+
+@keyframes marqueeLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* ============================================================
+   SECTION COMMON
+   ============================================================ */
+.section-dark {
+  background: var(--bg-dark);
+  color: var(--white);
+}
+
+.section-light {
+  background: var(--bg-light);
+  color: var(--dark);
+}
+
+/* ============================================================
+   ABOUT SPLIT
+   ============================================================ */
+.about {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.about-left {
+  width: 40%;
+  background: var(--bg-dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 40px;
+  position: relative;
+}
+
+.about-left-num {
+  font-family: var(--font-display);
+  font-size: clamp(100px, 15vw, 200px);
+  font-weight: 800;
+  color: var(--border-dark);
+  line-height: 1;
+}
+
+.about-left-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  margin-top: -40px;
+}
+
+.about-right {
+  width: 60%;
+  background: var(--bg-light);
+  display: flex;
+  align-items: center;
+  padding: 80px 60px;
+}
+
+.about-text {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.4vw, 19px);
+  line-height: 1.85;
+  color: var(--dark);
+  max-width: 650px;
+}
+
+.about-text p {
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* STATS MARQUEE */
+.stats-marquee {
+  padding: 30px 0;
+  background: var(--bg-dark);
+  overflow: hidden;
+  border-top: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.stats-marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marqueeRight 30s linear infinite;
+  will-change: transform;
+}
+
+.stats-marquee-track span {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-right: 60px;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   PROJECTS HORIZONTAL SCROLL
+   ============================================================ */
+.projects-section {
+  position: relative;
+  background: var(--bg-dark);
+  padding-top: 100px;
+}
+
+.projects-header {
+  padding: 0 40px 60px;
+}
+
+.projects-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(50px, 10vw, 140px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--white);
+  text-stroke: 2px var(--white);
+  line-height: 1;
+}
+
+.projects-wrap {
+  overflow: hidden;
+}
+
+.projects-track {
+  display: flex;
+  width: fit-content;
+}
+
+/* CSS fallback for projects (fix #4):
+   When no JS / ScrollTrigger, display as vertical grid */
+.no-js .projects-track,
+body.force-visible .projects-track {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 500px), 1fr)) !important;
+  width: 100% !important;
+  gap: 24px !important;
+  padding: 0 40px 60px !important;
+  transform: none !important;
+}
+
+.no-js .projects-wrap,
+body.force-visible .projects-wrap {
+  overflow: visible !important;
+}
+
+.no-js .project-card,
+body.force-visible .project-card {
+  width: 100% !important;
+  height: auto !important;
+  margin-right: 0 !important;
+}
+
+.project-card {
+  width: 85vw;
+  max-width: 1100px;
+  height: 70vh;
+  min-height: 500px;
+  flex-shrink: 0;
+  margin-right: 40px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at 20% 50%, rgba(255,77,0,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.project-num {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+.project-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 60px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-top: 20px;
+}
+
+.project-subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(14px, 1.5vw, 18px);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  margin-top: 10px;
+}
+
+.project-stats {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding: 15px 0;
+  border-top: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.project-stat {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.project-stat strong {
+  color: var(--white);
+  font-weight: 700;
+}
+
+.project-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.project-tech {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.project-tech span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--white);
+  padding: 6px 14px;
+  border: 1px solid var(--border-dark);
+  border-radius: 2px;
+}
+
+.project-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 30px;
+}
+
+.project-cta {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: gap 0.3s ease;
+}
+
+.project-cta:hover {
+  gap: 18px;
+}
+
+.project-cta-arrow {
+  display: inline-block;
+  width: 30px;
+  height: 1px;
+  background: var(--accent);
+  position: relative;
+  transition: width 0.3s ease;
+}
+
+.project-cta:hover .project-cta-arrow {
+  width: 50px;
+}
+
+.project-cta-arrow::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid var(--accent);
+  border-right: 1px solid var(--accent);
+  transform: rotate(45deg);
+}
+
+/* ============================================================
+   EXPERIENCE
+   ============================================================ */
+.experience-section {
+  padding-top: 120px;
+}
+
+.experience-header {
+  padding: 0 40px 60px;
+}
+
+.experience-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(50px, 10vw, 140px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--white);
+  text-stroke: 2px var(--white);
+  line-height: 1;
+}
+
+.exp-block {
+  padding: 60px 40px;
+  display: flex;
+  align-items: flex-start;
+  gap: 60px;
+  border-top: 1px solid var(--border-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.exp-block.light {
+  background: var(--bg-light);
+  color: var(--dark);
+  border-top-color: var(--border-light);
+}
+
+.exp-block.dark {
+  background: var(--bg-dark);
+  color: var(--white);
+}
+
+.exp-block-inner {
+  opacity: 0;
+  transform: translateX(-80px);
+  width: 100%;
+}
+
+.exp-block.light .exp-block-inner {
+  transform: translateX(80px);
+}
+
+.exp-date {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  min-width: 140px;
+  flex-shrink: 0;
+  padding-top: 6px;
+}
+
+.exp-content {
+  flex: 1;
+}
+
+.exp-role {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.exp-company {
+  font-family: var(--font-display);
+  font-size: clamp(14px, 1.5vw, 18px);
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 8px;
+}
+
+.exp-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-top: 15px;
+  max-width: 600px;
+}
+
+.exp-block.light .exp-desc {
+  color: #888;
+}
+
+/* ============================================================
+   CREDENTIALS
+   ============================================================ */
+.credentials-section {
+  padding: 120px 40px;
+  background: var(--bg-dark);
+}
+
+.credentials-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 8vw, 100px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 60px;
+}
+
+.credentials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.cred-card {
+  border: 1px solid var(--border-dark);
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+  transform: scale(0.85);
+  opacity: 0;
+}
+
+.cred-card:hover {
+  border-color: var(--accent);
+  transform: scale(1) !important;
+}
+
+.cred-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 0%;
+  background: var(--accent);
+  transition: height 0.4s ease;
+}
+
+.cred-card:hover::before {
+  height: 100%;
+}
+
+.cred-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--white);
+}
+
+.cred-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  margin-top: 8px;
+}
+
+.cred-badge {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-top: 12px;
+}
+
+/* ============================================================
+   THE HUMAN
+   ============================================================ */
+.human-section {
+  background: var(--accent);
+  padding: 120px 40px;
+  overflow: hidden;
+}
+
+.human-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 8vw, 110px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 60px;
+}
+
+.human-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.human-fact {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  padding: 24px;
+  border: 2px solid rgba(255,255,255,0.3);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: border-color 0.3s ease;
+}
+
+.human-fact:hover {
+  border-color: var(--white);
+}
+
+.human-fact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background 0.3s ease;
+}
+
+.human-fact:hover::before {
+  background: rgba(255,255,255,0.05);
+}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-section {
+  background: var(--bg-dark);
+  padding: 120px 40px 80px;
+}
+
+.contact-title {
+  font-family: var(--font-display);
+  font-size: clamp(60px, 15vw, 200px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  color: var(--white);
+  line-height: 0.9;
+  margin-bottom: 60px;
+}
+
+.contact-sub {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.3vw, 18px);
+  color: var(--muted);
+  margin-bottom: 50px;
+  max-width: 550px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border-dark);
+  cursor: pointer;
+  transition: padding-left 0.3s ease;
+}
+
+.contact-link:first-child {
+  border-top: 1px solid var(--border-dark);
+}
+
+.contact-link:hover {
+  padding-left: 20px;
+}
+
+.contact-link-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  width: 100px;
+}
+
+.contact-link-value {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 2.5vw, 28px);
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  flex: 1;
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover .contact-link-value {
+  color: var(--accent);
+}
+
+.contact-link-arrow {
+  width: 30px;
+  height: 1px;
+  background: var(--muted);
+  position: relative;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.contact-link:hover .contact-link-arrow {
+  width: 60px;
+  background: var(--accent);
+}
+
+.contact-link-arrow::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid var(--muted);
+  border-right: 1px solid var(--muted);
+  transform: rotate(45deg);
+  transition: border-color 0.3s ease;
+}
+
+.contact-link:hover .contact-link-arrow::after {
+  border-color: var(--accent);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  padding: 24px 40px;
+  background: var(--bg-dark);
+  border-top: 1px solid var(--border-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--accent);
+}
+
+.footer-left {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.footer-right {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--white);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.footer-right:hover {
+  color: var(--accent);
+}
+
+/* ============================================================
+   MARQUEE STRIP (reusable)
+   ============================================================ */
+.marquee-strip {
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.marquee-strip .marquee-inner {
+  display: flex;
+  white-space: nowrap;
+}
+
+.marquee-strip .marquee-inner span {
+  flex-shrink: 0;
+  padding-right: 60px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   KINETIC SECTION DIVIDER
+   ============================================================ */
+.kinetic-divider {
+  padding: 30px 0;
+  overflow: hidden;
+  background: var(--bg-dark);
+  border-top: 1px solid var(--border-dark);
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.kinetic-divider .kd-track {
+  display: flex;
+  white-space: nowrap;
+}
+
+.kinetic-divider .kd-track span {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 800;
+  text-transform: uppercase;
+  -webkit-text-stroke: 1px var(--border-dark);
+  text-stroke: 1px var(--border-dark);
+  color: transparent;
+  padding-right: 60px;
+  flex-shrink: 0;
+  letter-spacing: -0.02em;
+}
+
+/* CSS-only fallback marquee for kinetic dividers */
+@keyframes kdMarqueeLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.kinetic-divider .kd-track {
+  will-change: transform;
+}
+
+/* If GSAP never runs, these still animate via CSS */
+.no-js .kinetic-divider .kd-track {
+  animation: kdMarqueeLeft 20s linear infinite;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .nav {
+    padding: 18px 20px;
+  }
+
+  .hero {
+    padding: 100px 20px 60px;
+  }
+
+  .hero-bottom {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .hero-scroll {
+    align-self: flex-end;
+  }
+
+  .about {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .about-left {
+    width: 100%;
+    padding: 60px 20px;
+    min-height: 200px;
+  }
+
+  .about-right {
+    width: 100%;
+    padding: 60px 20px;
+  }
+
+  .about-left-label {
+    writing-mode: horizontal-tb;
+    transform: none;
+    position: relative;
+    left: 0;
+    top: 0;
+    margin-top: 10px;
+  }
+
+  .projects-header,
+  .experience-header {
+    padding: 0 20px 40px;
+  }
+
+  .project-card {
+    width: 90vw;
+    padding: 30px;
+    margin-right: 20px;
+    height: auto;
+    min-height: 450px;
+  }
+
+  .exp-block {
+    padding: 40px 20px;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .credentials-section {
+    padding: 80px 20px;
+  }
+
+  .credentials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .human-section {
+    padding: 80px 20px;
+  }
+
+  .human-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-section {
+    padding: 80px 20px 60px;
+  }
+
+  .contact-link {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .contact-link-label {
+    width: 100%;
+  }
+
+  .footer {
+    padding: 20px;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .project-stats {
+    gap: 15px;
+  }
+
+  /* Force-visible fallback on mobile for projects */
+  body.force-visible .projects-track {
+    padding: 0 20px 40px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title .line {
+    font-size: clamp(36px, 12vw, 60px);
+  }
+
+  .about-left-num {
+    font-size: 80px;
+  }
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+.reveal-line {
+  overflow: hidden;
+}
+
+.reveal-line-inner {
+  transform: translateY(100%);
+  display: block;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   CUSTOM CURSOR (desktop only, fix #6: hide on touch)
+   ============================================================ */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  display: none;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255,77,0,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99997;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease, border-color 0.4s ease;
+  display: none;
+}
+
+/* Only show cursor elements on devices that support hover (fix #6) */
+@media (hover: hover) and (pointer: fine) {
+  .cursor-dot,
+  .cursor-ring {
+    display: block;
+  }
+}
+
+.cursor-dot.hovering {
+  width: 50px;
+  height: 50px;
+  background: rgba(255,77,0,0.15);
+  mix-blend-mode: normal;
+}
+
+.cursor-ring.hovering {
+  width: 60px;
+  height: 60px;
+  border-color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}
+
+/* Touch device override (fix #6) */
+html.touch-device .cursor-dot,
+html.touch-device .cursor-ring {
+  display: none !important;
+}
+
+/* ============================================================
+   NOISE OVERLAY
+   ============================================================ */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* ============================================================
+   SECTION TRANSITION LINES
+   ============================================================ */
+.section-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+/* ============================================================
+   GLOWING ACCENT GRADIENT
+   ============================================================ */
+.glow-orb {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255,77,0,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================================
+   PROJECT CARD HOVER GLOW
+   ============================================================ */
+.project-card .card-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  border-radius: 4px;
+}
+
+.project-card:hover .card-glow {
+  opacity: 1;
+}
+
+/* ============================================================
+   EXTRA TYPOGRAPHY FX
+   ============================================================ */
+.text-glitch {
+  position: relative;
+}
+
+.text-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.text-glitch:hover::after {
+  opacity: 0.4;
+  animation: glitchShift 0.3s ease infinite alternate;
+}
+
+@keyframes glitchShift {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(-1px, 1px); }
+  50% { transform: translate(1px, -1px); }
+  75% { transform: translate(-1px, -1px); }
+  100% { transform: translate(1px, 1px); }
+}
+
+/* ============================================================
+   YEAR MARKERS IN EXP BLOCKS
+   ============================================================ */
+.exp-block::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 0%;
+  background: var(--accent);
+  transition: height 0.6s ease;
+}
+
+.exp-block:hover::after {
+  height: 100%;
+}
+
+.exp-block.light::after {
+  background: var(--dark);
+}
+
+/* ============================================================
+   PARALLAX GLOW BEHIND HERO
+   ============================================================ */
+.hero-glow {
+  position: absolute;
+  top: 30%;
+  right: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(255,77,0,0.06) 0%, transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-marquee {
+  z-index: 0;
+}
+
+/* ============================================================
+   CONTACT CTA PULSE
+   ============================================================ */
+.contact-title .accent-dot {
+  display: inline-block;
+  color: var(--accent);
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+/* ============================================================
+   DARK/LIGHT MODE TRANSITIONS FOR BLOCKS
+   ============================================================ */
+.exp-block {
+  transition: background 0.3s ease;
+}
+
+/* ============================================================
+   CREDENTIAL CARD NUMBER
+   ============================================================ */
+.cred-card-num {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-family: var(--font-display);
+  font-size: 60px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.03);
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ============================================================
+   LOADING FONT DISPLAY
+   ============================================================ */
+.font-loaded .preloader-count {
+  font-feature-settings: 'tnum';
+}
+</style>
+</head>
+<body class="no-js">
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NOISE OVERLAY -->
+<div class="noise-overlay"></div>
+
+<!-- SCROLL VELOCITY BAR -->
+<div class="scroll-bar" id="scrollBar"></div>
+
+<!-- PRELOADER -->
+<div class="preloader css-fallback-active" id="preloader">
+  <div class="preloader-count" id="preloaderCount">0</div>
+  <div class="preloader-bar-track">
+    <div class="preloader-bar-fill" id="preloaderBar"></div>
+  </div>
+  <div class="preloader-top" id="preloaderTop" style="opacity:0;"></div>
+  <div class="preloader-bottom" id="preloaderBottom" style="opacity:0;"></div>
+</div>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="mainNav">
+  <a href="#" class="nav-logo magnetic-wrap" data-magnetic>YOGESH SAHU</a>
+  <div class="nav-menu magnetic-wrap" data-magnetic id="navMenuBtn">MENU</div>
+</nav>
+
+<!-- MOBILE NAV OVERLAY -->
+<div class="mobile-nav-overlay" id="mobileNav">
+  <a href="#about" class="mobile-nav-link">About</a>
+  <a href="#projects" class="mobile-nav-link">Projects</a>
+  <a href="#experience" class="mobile-nav-link">Experience</a>
+  <a href="#credentials" class="mobile-nav-link">Credentials</a>
+  <a href="#human" class="mobile-nav-link">The Human</a>
+  <a href="#contact" class="mobile-nav-link">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-label">FOUNDER / 01</div>
+  <h1 class="hero-title">
+    <span class="line"><span class="line-inner">BUILDING</span></span>
+    <span class="line"><span class="line-inner">THE FUTURE</span></span>
+    <span class="line"><span class="line-inner">OF FINTECH</span></span>
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-description">
+      DPIIT-recognized founder building CryptoPrism — AI-powered crypto intelligence for independent traders. MS Financial Technology, Strathclyde Business School.
+    </p>
+    <div class="hero-scroll magnetic-wrap" data-magnetic>
+      <div class="hero-scroll-arrow">
+        <svg viewBox="0 0 24 24"><polyline points="12 5 12 19"></polyline><polyline points="5 12 12 19 19 12"></polyline></svg>
+      </div>
+      <div class="hero-scroll-text">
+        <svg viewBox="0 0 100 100">
+          <defs>
+            <path id="circlePath" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"/>
+          </defs>
+          <text>
+            <textPath href="#circlePath">SCROLL · SCROLL · SCROLL · SCROLL · </textPath>
+          </text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero marquee -->
+  <div class="hero-marquee">
+    <div class="hero-marquee-track">
+      <span>FOUNDER · BUILDER · ENGINEER · TRADER · PRACTITIONER ·</span>
+      <span>FOUNDER · BUILDER · ENGINEER · TRADER · PRACTITIONER ·</span>
+      <span>FOUNDER · BUILDER · ENGINEER · TRADER · PRACTITIONER ·</span>
+      <span>FOUNDER · BUILDER · ENGINEER · TRADER · PRACTITIONER ·</span>
+    </div>
+  </div>
+</section>
+
+<!-- KINETIC DIVIDER -->
+<div class="kinetic-divider">
+  <div class="kd-track" id="kdTrack1">
+    <span>VELOCITY ·</span><span>VELOCITY ·</span><span>VELOCITY ·</span><span>VELOCITY ·</span>
+    <span>VELOCITY ·</span><span>VELOCITY ·</span><span>VELOCITY ·</span><span>VELOCITY ·</span>
+    <span>VELOCITY ·</span><span>VELOCITY ·</span><span>VELOCITY ·</span><span>VELOCITY ·</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-left" id="aboutLeft">
+    <div class="about-left-label">ABOUT</div>
+    <div class="about-left-num">01</div>
+  </div>
+  <div class="about-right" id="aboutRight">
+    <div class="about-text">
+      <p>Yogesh Sahu doesn't fit in a single box — and that's the point.</p>
+      <p>UPSC Civil Services Prelims? Cleared it. Top 2% of 500,000. CA-CPT? All India Rank 42. MS in Financial Technology? Merit at Strathclyde Business School with highest AI/ML dissertation score.</p>
+      <p>He built a mobile game in 21 days with volunteers. 50,000 downloads. 110 countries. Sadhguru's appreciation.</p>
+      <p>He rode a motorbike solo across 21 states of India. He plays Bansuri at an advanced level. He practices Isha Sadhana every morning.</p>
+      <p>Now he's building CryptoPrism — institutional-grade crypto intelligence. 2.26 million records. 1,000+ coins. 130+ indicators. Solo founder. Real infrastructure.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS MARQUEE -->
+<div class="stats-marquee">
+  <div class="stats-marquee-track">
+    <span>2.26M+ RECORDS ·</span>
+    <span>1,000+ COINS ·</span>
+    <span>130+ INDICATORS ·</span>
+    <span>23 REPOS ·</span>
+    <span>50K+ DOWNLOADS ·</span>
+    <span>21 STATES ·</span>
+    <span>TOP 2% UPSC ·</span>
+    <span>2.26M+ RECORDS ·</span>
+    <span>1,000+ COINS ·</span>
+    <span>130+ INDICATORS ·</span>
+    <span>23 REPOS ·</span>
+    <span>50K+ DOWNLOADS ·</span>
+    <span>21 STATES ·</span>
+    <span>TOP 2% UPSC ·</span>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section class="projects-section" id="projects">
+  <div class="projects-header">
+    <h2>SELECTED WORK</h2>
+  </div>
+  <div class="projects-wrap" id="projectsWrap">
+    <div class="projects-track" id="projectsTrack">
+
+      <!-- Project 01 -->
+      <div class="project-card" data-card>
+        <div class="card-glow"></div>
+        <div>
+          <div class="project-num">01 / 06</div>
+          <h3 class="project-title">CRYPTOPRISM-DB</h3>
+          <div class="project-subtitle">PRODUCTION CRYPTO DATA INFRASTRUCTURE</div>
+          <div class="project-stats">
+            <div class="project-stat"><strong>2.26M+</strong> records</div>
+            <div class="project-stat"><strong>1,000+</strong> coins</div>
+            <div class="project-stat"><strong>130+</strong> indicators</div>
+            <div class="project-stat"><strong>99.9%</strong> uptime</div>
+          </div>
+          <p class="project-desc">AI-powered pipeline ingesting 1,000+ cryptocurrencies daily. Three-database PostgreSQL architecture on GCP. Automated at 00:05 UTC with AI QA monitoring.</p>
+        </div>
+        <div class="project-bottom">
+          <div class="project-tech">
+            <span>Python</span>
+            <span>R</span>
+            <span>PostgreSQL</span>
+            <span>GCP</span>
+            <span>GitHub Actions</span>
+          </div>
+          <div class="project-cta magnetic-wrap" data-magnetic>VIEW PROJECT <span class="project-cta-arrow"></span></div>
+        </div>
+      </div>
+
+      <!-- Project 02 -->
+      <div class="project-card" data-card>
+        <div class="card-glow"></div>
+        <div>
+          <div class="project-num">02 / 06</div>
+          <h3 class="project-title">CRYPTOPRISM SCREENER</h3>
+          <div class="project-subtitle">LIVE SAAS SCREENING PLATFORM</div>
+          <p class="project-desc">Institutional-grade crypto screening tool. Real-time filtering across 1,000+ coins using 130+ technical and fundamental indicators. Built for independent traders who refuse to compromise on data quality.</p>
+        </div>
+        <div class="project-bottom">
+          <div class="project-tech">
+            <span>React</span>
+            <span>TypeScript</span>
+            <span>FastAPI</span>
+          </div>
+          <div class="project-cta magnetic-wrap" data-magnetic>VIEW PROJECT <span class="project-cta-arrow"></span></div>
+        </div>
+      </div>
+
+      <!-- Project 03 -->
+      <div class="project-card" data-card>
+        <div class="card-glow"></div>
+        <div>
+          <div class="project-num">03 / 06</div>
+          <h3 class="project-title">PRATYAKSHA</h3>
+          <div class="project-subtitle">AI COGNITIVE JOURNALING</div>
+          <p class="project-desc">4 AI agents, 21 visualizations, deep cognitive analysis. An introspection tool that transforms journaling into a data-driven self-awareness practice. Pattern recognition across emotional and cognitive dimensions.</p>
+        </div>
+        <div class="project-bottom">
+          <div class="project-tech">
+            <span>TypeScript</span>
+            <span>React</span>
+          </div>
+          <div class="project-cta magnetic-wrap" data-magnetic>VIEW PROJECT <span class="project-cta-arrow"></span></div>
+        </div>
+      </div>
+
+      <!-- Project 04 -->
+      <div class="project-card" data-card>
+        <div class="card-glow"></div>
+        <div>
+          <div class="project-num">04 / 06</div>
+          <h3 class="project-title">TIMESFM BOT</h3>
+          <div class="project-subtitle">100-COIN AUTOMATED TRADING</div>
+          <p class="project-desc">Google TimesFM-powered backtesting and live inference across 100 cryptocurrencies. Automated signal generation, risk management, and execution pipeline for systematic crypto trading.</p>
+        </div>
+        <div class="project-bottom">
+          <div class="project-tech">
+            <span>Python</span>
+            <span>TimesFM</span>
+          </div>
+          <div class="project-cta magnetic-wrap" data-magnetic>VIEW PROJECT <span class="project-cta-arrow"></span></div>
+        </div>
+      </div>
+
+      <!-- Project 05 -->
+      <div class="project-card" data-card>
+        <div class="card-glow"></div>
+        <div>
+          <div class="project-num">05 / 06</div>
+          <h3 class="project-title">KARI & THE LOST SHRINES</h3>
+          <div class="project-subtitle">MOBILE GAME — 21 DAYS, 50K DOWNLOADS</div>
+          <p class="project-desc">Non-addictive platformer game built in just 21 days with a team of volunteers. 50,000+ downloads across 110 countries. Personal appreciation from Sadhguru. 2M social media impressions.</p>
+        </div>
+        <div class="project-bottom">
+          <div class="project-tech">
+            <span>Unity</span>
+            <span>Game Design</span>
+          </div>
+          <div class="project-cta magnetic-wrap" data-magnetic>VIEW PROJECT <span class="project-cta-arrow"></span></div>
+        </div>
+      </div>
+
+      <!-- Project 06 -->
+      <div class="project-card" data-card>
+        <div class="card-glow"></div>
+        <div>
+          <div class="project-num">06 / 06</div>
+          <h3 class="project-title">FOREX DASHBOARD</h3>
+          <div class="project-subtitle">ICT STRATEGY TRADING DASHBOARD</div>
+          <p class="project-desc">FVG detection, Killzone analysis, Fibonacci/RSI confluence scoring. A professional trading dashboard implementing ICT methodology for forex markets with real-time data integration.</p>
+        </div>
+        <div class="project-bottom">
+          <div class="project-tech">
+            <span>TypeScript</span>
+            <span>React</span>
+            <span>Python</span>
+          </div>
+          <div class="project-cta magnetic-wrap" data-magnetic>VIEW PROJECT <span class="project-cta-arrow"></span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- KINETIC DIVIDER 2 -->
+<div class="kinetic-divider" style="margin-top: 40px;">
+  <div class="kd-track" id="kdTrack2">
+    <span>BUILD · SHIP · ITERATE ·</span><span>BUILD · SHIP · ITERATE ·</span>
+    <span>BUILD · SHIP · ITERATE ·</span><span>BUILD · SHIP · ITERATE ·</span>
+    <span>BUILD · SHIP · ITERATE ·</span><span>BUILD · SHIP · ITERATE ·</span>
+    <span>BUILD · SHIP · ITERATE ·</span><span>BUILD · SHIP · ITERATE ·</span>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section class="experience-section" id="experience">
+  <div class="experience-header">
+    <h2>EXPERIENCE</h2>
+  </div>
+
+  <div class="exp-block dark">
+    <div class="exp-block-inner">
+      <div style="display:flex;align-items:flex-start;gap:60px;flex-wrap:wrap;">
+        <div class="exp-date">2024 — PRESENT</div>
+        <div class="exp-content">
+          <div class="exp-role">FOUNDER & CEO</div>
+          <div class="exp-company">CRYPTOPRISM</div>
+          <p class="exp-desc">DPIIT-recognized startup. AI-powered crypto intelligence platform with 2.26M+ records. Pre-seed raising Q2 2026. Solo founder building institutional-grade infrastructure.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-block light">
+    <div class="exp-block-inner">
+      <div style="display:flex;align-items:flex-start;gap:60px;flex-wrap:wrap;">
+        <div class="exp-date">2023 — PRESENT</div>
+        <div class="exp-content">
+          <div class="exp-role">CREDIT ANALYST</div>
+          <div class="exp-company">TESCO BANK</div>
+          <p class="exp-desc">KYC/AML compliance. Processing 1,600+ disputes monthly. Glasgow, UK. Financial crime detection and prevention in consumer banking.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-block dark">
+    <div class="exp-block-inner">
+      <div style="display:flex;align-items:flex-start;gap:60px;flex-wrap:wrap;">
+        <div class="exp-date">2022 — 2023</div>
+        <div class="exp-content">
+          <div class="exp-role">MS FINANCIAL TECHNOLOGY</div>
+          <div class="exp-company">STRATHCLYDE BUSINESS SCHOOL</div>
+          <p class="exp-desc">Merit. AI/ML Dissertation Topper with 82/100. Triple-accredited business school. Advanced quantitative finance and machine learning applications.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-block light">
+    <div class="exp-block-inner">
+      <div style="display:flex;align-items:flex-start;gap:60px;flex-wrap:wrap;">
+        <div class="exp-date">2020 — 2021</div>
+        <div class="exp-content">
+          <div class="exp-role">PRODUCT OWNER</div>
+          <div class="exp-company">ISHA FOUNDATION</div>
+          <p class="exp-desc">Kari & The Lost Shrines mobile game. 50K downloads in 110 countries. 2M social media impressions. Built and shipped in 21 days with volunteer team.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-block dark">
+    <div class="exp-block-inner">
+      <div style="display:flex;align-items:flex-start;gap:60px;flex-wrap:wrap;">
+        <div class="exp-date">2017 — 2020</div>
+        <div class="exp-content">
+          <div class="exp-role">CO-FOUNDER</div>
+          <div class="exp-company">GAMERZ NATION</div>
+          <p class="exp-desc">7 franchises across India. NVIDIA partnership. Established the first GeForce certified gaming zone in India. Esports infrastructure pioneer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-block light">
+    <div class="exp-block-inner">
+      <div style="display:flex;align-items:flex-start;gap:60px;flex-wrap:wrap;">
+        <div class="exp-date">2016 — 2017</div>
+        <div class="exp-content">
+          <div class="exp-role">QA SPECIALIST</div>
+          <div class="exp-company">UBISOFT</div>
+          <p class="exp-desc">Assassin's Creed (155M players). For Honor (30M). Just Dance (80M+ copies sold). AAA quality assurance across flagship franchises.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section class="credentials-section" id="credentials">
+  <div class="credentials-header">
+    <h2>CREDENTIALS</h2>
+  </div>
+  <div class="credentials-grid">
+    <div class="cred-card">
+      <div class="cred-title">MS FINTECH</div>
+      <div class="cred-sub">STRATHCLYDE BUSINESS SCHOOL</div>
+      <div class="cred-badge">MERIT</div>
+    </div>
+    <div class="cred-card">
+      <div class="cred-title">B.COM</div>
+      <div class="cred-sub">UNIVERSITY OF PUNE</div>
+      <div class="cred-badge">DISTINCTION</div>
+    </div>
+    <div class="cred-card">
+      <div class="cred-title">CA-CPT</div>
+      <div class="cred-sub">INSTITUTE OF CHARTERED ACCOUNTANTS</div>
+      <div class="cred-badge">AIR 42</div>
+    </div>
+    <div class="cred-card">
+      <div class="cred-title">UPSC PRELIMS</div>
+      <div class="cred-sub">CIVIL SERVICES EXAMINATION</div>
+      <div class="cred-badge">TOP 2% OF 500,000</div>
+    </div>
+    <div class="cred-card">
+      <div class="cred-title">GMAT</div>
+      <div class="cred-sub">GRADUATE MANAGEMENT ADMISSION</div>
+      <div class="cred-badge">690</div>
+    </div>
+    <div class="cred-card">
+      <div class="cred-title">BLOOMBERG BMC & ESG</div>
+      <div class="cred-sub">BLOOMBERG TERMINAL CERTIFICATION</div>
+      <div class="cred-badge">CERTIFIED</div>
+    </div>
+    <div class="cred-card">
+      <div class="cred-title">POWER BI PL-300</div>
+      <div class="cred-sub">MICROSOFT DATA ANALYTICS</div>
+      <div class="cred-badge">CERTIFIED</div>
+    </div>
+    <div class="cred-card">
+      <div class="cred-title">PMI PROJECT MGMT</div>
+      <div class="cred-sub">PROJECT MANAGEMENT INSTITUTE</div>
+      <div class="cred-badge">CERTIFIED</div>
+    </div>
+    <div class="cred-card">
+      <div class="cred-title">INVESTMENT BANKING</div>
+      <div class="cred-sub">PROFESSIONAL DIPLOMA</div>
+      <div class="cred-badge">COMPLETED</div>
+    </div>
+  </div>
+</section>
+
+<!-- THE HUMAN -->
+<section class="human-section" id="human">
+  <h2 class="human-title">NOT JUST<br>A DEVELOPER.</h2>
+  <div class="human-grid">
+    <div class="human-fact">21 STATES. ONE MOTORBIKE. ZERO SUPPORT CREW.</div>
+    <div class="human-fact">BANSURI. ADVANCED LEVEL. YEARS OF PRACTICE.</div>
+    <div class="human-fact">ISHA SADHANA. EVERY. SINGLE. MORNING.</div>
+    <div class="human-fact">STATE-LEVEL BASKETBALL. NATIONAL OPPONENTS.</div>
+    <div class="human-fact">14,000 FT. HIMALAYAN EXPEDITION LEADER.</div>
+    <div class="human-fact">UPSC. 500,000 CANDIDATES. TOP 2%.</div>
+  </div>
+</section>
+
+<!-- KINETIC DIVIDER 3 - before contact -->
+<div class="kinetic-divider">
+  <div class="kd-track" id="kdTrack3">
+    <span>LET'S TALK ·</span><span>LET'S TALK ·</span><span>LET'S TALK ·</span><span>LET'S TALK ·</span>
+    <span>LET'S TALK ·</span><span>LET'S TALK ·</span><span>LET'S TALK ·</span><span>LET'S TALK ·</span>
+    <span>LET'S TALK ·</span><span>LET'S TALK ·</span><span>LET'S TALK ·</span><span>LET'S TALK ·</span>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <h2 class="contact-title">LET'S<br>BUILD.</h2>
+  <p class="contact-sub">Available for founding roles, consulting, and ambitious projects.</p>
+  <div class="contact-links">
+    <a href="mailto:yogesh.sahu@cryptoprism.io" class="contact-link magnetic-wrap" data-magnetic>
+      <div class="contact-link-label">EMAIL</div>
+      <div class="contact-link-value">yogesh.sahu@cryptoprism.io</div>
+      <div class="contact-link-arrow"></div>
+    </a>
+    <a href="https://github.com/CryptoPrism-io" target="_blank" class="contact-link magnetic-wrap" data-magnetic>
+      <div class="contact-link-label">GITHUB</div>
+      <div class="contact-link-value">github.com/CryptoPrism-io</div>
+      <div class="contact-link-arrow"></div>
+    </a>
+    <a href="https://linkedin.com/in/yogeshsahu-" target="_blank" class="contact-link magnetic-wrap" data-magnetic>
+      <div class="contact-link-label">LINKEDIN</div>
+      <div class="contact-link-value">linkedin.com/in/yogeshsahu-</div>
+      <div class="contact-link-arrow"></div>
+    </a>
+    <a href="https://cryptoprism.io" target="_blank" class="contact-link magnetic-wrap" data-magnetic>
+      <div class="contact-link-label">WEB</div>
+      <div class="contact-link-value">cryptoprism.io</div>
+      <div class="contact-link-arrow"></div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left">&copy; 2026 YOGESH SAHU</div>
+  <div class="footer-right magnetic-wrap" data-magnetic id="backToTop">BACK TO TOP &uarr;</div>
+</footer>
+
+<!-- CDN SCRIPTS (before </body>, fix #7) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  'use strict';
+
+  // ============================================================
+  // TOUCH DEVICE DETECTION (fix #6)
+  // ============================================================
+  var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  if (isTouchDevice) {
+    document.documentElement.classList.add('touch-device');
+  }
+
+  // ============================================================
+  // DETECT CAPABILITIES
+  // ============================================================
+  var hasGSAP = (typeof gsap !== 'undefined');
+  var hasScrollTrigger = hasGSAP && (typeof ScrollTrigger !== 'undefined');
+  var hasHover = window.matchMedia('(hover: hover)').matches;
+  var isMobile = window.matchMedia('(max-width: 768px)').matches;
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Remove no-js class now that JS is running
+  document.body.classList.remove('no-js');
+
+  // ============================================================
+  // REGISTER GSAP PLUGINS (fix #1: guard)
+  // ============================================================
+  if (hasGSAP && hasScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+      // Prevent gsap.from() + ScrollTrigger from hiding content before trigger fires
+      var _origFrom = gsap.from.bind(gsap);
+      gsap.from = function(targets, vars) {
+        if (vars && vars.scrollTrigger && vars.immediateRender === undefined) {
+          vars.immediateRender = false;
+        }
+        return _origFrom(targets, vars);
+      };
+  }
+
+  // ============================================================
+  // FORCE-VISIBLE SAFETY NET (fix #3)
+  // After 5 seconds, forcibly reveal everything
+  // ============================================================
+  var forceVisibleTimer = setTimeout(function() {
+    document.body.classList.add('force-visible');
+  }, 5000);
+
+  // Cancel the force-visible timer if page loads normally
+  function cancelForceVisible() {
+    clearTimeout(forceVisibleTimer);
+  }
+
+  // ============================================================
+  // PRELOADER TIMEOUT SAFETY (fix #2)
+  // Force-remove preloader after 4s no matter what
+  // ============================================================
+  var preloaderForceTimer = setTimeout(function() {
+    var pl = document.getElementById('preloader');
+    if (pl && pl.style.display !== 'none') {
+      pl.style.display = 'none';
+      document.body.style.overflow = '';
+      initPageAnimations();
+    }
+  }, 4000);
+
+  // ============================================================
+  // CUSTOM CURSOR (fix #5, #6: only on hover-capable, non-touch)
+  // ============================================================
+  function initCustomCursor() {
+    if (isMobile || isTouchDevice || !hasHover) return;
+
+    var dot = document.getElementById('cursorDot');
+    var ring = document.getElementById('cursorRing');
+    if (!dot || !ring) return;
+
+    var mouseX = -100, mouseY = -100;
+    var ringX = -100, ringY = -100;
+
+    document.addEventListener('mousemove', function(e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (hasGSAP) {
+        gsap.to(dot, { x: mouseX, y: mouseY, duration: 0.1, ease: 'power2.out' });
+      } else {
+        dot.style.transform = 'translate(' + (mouseX - 4) + 'px, ' + (mouseY - 4) + 'px)';
+      }
+    });
+
+    // Smooth ring follow
+    var ringRAF;
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.transform = 'translate(' + (ringX - 20) + 'px, ' + (ringY - 20) + 'px)';
+      ringRAF = requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // Hover states
+    var hoverTargets = document.querySelectorAll('a, button, [data-magnetic], .project-card, .cred-card, .human-fact, .contact-link, .nav-menu, .footer-right');
+    hoverTargets.forEach(function(el) {
+      el.addEventListener('mouseenter', function() {
+        dot.classList.add('hovering');
+        ring.classList.add('hovering');
+      });
+      el.addEventListener('mouseleave', function() {
+        dot.classList.remove('hovering');
+        ring.classList.remove('hovering');
+      });
+    });
+
+    // Hide default cursor
+    document.body.style.cursor = 'none';
+    hoverTargets.forEach(function(el) { el.style.cursor = 'none'; });
+  }
+
+  // ============================================================
+  // PRELOADER (fix #1, #2: GSAP guard + CSS fallback)
+  // ============================================================
+  var preloader = document.getElementById('preloader');
+  var preloaderCount = document.getElementById('preloaderCount');
+  var preloaderBar = document.getElementById('preloaderBar');
+  var preloaderTop = document.getElementById('preloaderTop');
+  var preloaderBottom = document.getElementById('preloaderBottom');
+
+  // Prevent scroll during preloader
+  document.body.style.overflow = 'hidden';
+
+  function finishPreloader() {
+    clearTimeout(preloaderForceTimer);
+    if (preloader) preloader.style.display = 'none';
+    document.body.style.overflow = '';
+    initPageAnimations();
+  }
+
+  if (hasGSAP && preloader) {
+    // GSAP is available: remove CSS fallback class, use GSAP animation
+    preloader.classList.remove('css-fallback-active');
+
+    var preloaderTL = gsap.timeline({
+      onComplete: finishPreloader
+    });
+
+    // Count from 0 to 100
+    var countObj = { val: 0 };
+    preloaderTL.to(countObj, {
+      val: 100,
+      duration: 2.2,
+      ease: 'power2.inOut',
+      onUpdate: function() {
+        var v = Math.round(countObj.val);
+        if (preloaderCount) preloaderCount.textContent = v;
+        if (preloaderBar) preloaderBar.style.width = v + '%';
+      }
+    });
+
+    // Brief pause at 100
+    preloaderTL.to({}, { duration: 0.15 });
+
+    // Shrink and fade the counter with slight rotation
+    preloaderTL.to(preloaderCount, {
+      scale: 0.2,
+      opacity: 0,
+      rotationX: 30,
+      duration: 0.5,
+      ease: 'power3.in'
+    });
+
+    if (preloaderBar && preloaderBar.parentElement) {
+      preloaderTL.to(preloaderBar.parentElement, {
+        opacity: 0,
+        duration: 0.25
+      }, '<');
+    }
+
+    // Show the split panels and split them
+    preloaderTL.set([preloaderTop, preloaderBottom], { opacity: 1 });
+
+    preloaderTL.to(preloaderTop, {
+      yPercent: -100,
+      duration: 0.9,
+      ease: 'power4.inOut'
+    }, '-=0.1');
+
+    preloaderTL.to(preloaderBottom, {
+      yPercent: 100,
+      duration: 0.9,
+      ease: 'power4.inOut'
+    }, '<');
+  } else {
+    // No GSAP: CSS fallback animation will handle fade, then remove after 3.5s
+    setTimeout(finishPreloader, 3600);
+  }
+
+  // ============================================================
+  // MAGNETIC EFFECT (fix #5: guard for hover + non-touch)
+  // ============================================================
+  function initMagnetic() {
+    if (isMobile || isTouchDevice || !hasHover || !hasGSAP) return;
+
+    var magneticEls = document.querySelectorAll('[data-magnetic]');
+
+    magneticEls.forEach(function(el) {
+      var strength = parseFloat(el.getAttribute('data-strength')) || 0.3;
+
+      el.addEventListener('mousemove', function(e) {
+        var rect = el.getBoundingClientRect();
+        var x = e.clientX - rect.left - rect.width / 2;
+        var y = e.clientY - rect.top - rect.height / 2;
+        gsap.to(el, {
+          x: x * strength,
+          y: y * strength,
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+      });
+
+      el.addEventListener('mouseleave', function() {
+        gsap.to(el, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          duration: 0.7,
+          ease: 'elastic.out(1, 0.3)'
+        });
+      });
+
+      el.addEventListener('mouseenter', function() {
+        gsap.to(el, {
+          scale: 1.1,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      });
+    });
+  }
+
+  // ============================================================
+  // PROJECT CARD INTERACTIVE GLOW
+  // ============================================================
+  function initCardGlow() {
+    if (isMobile || isTouchDevice) return;
+
+    var cards = document.querySelectorAll('[data-card]');
+    cards.forEach(function(card) {
+      var glow = card.querySelector('.card-glow');
+      if (!glow) return;
+
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        glow.style.background = 'radial-gradient(circle 300px at ' + x + 'px ' + y + 'px, rgba(255,77,0,0.08), transparent)';
+      });
+
+      card.addEventListener('mouseenter', function() {
+        glow.style.opacity = '1';
+      });
+
+      card.addEventListener('mouseleave', function() {
+        glow.style.opacity = '0';
+      });
+    });
+  }
+
+  // ============================================================
+  // SCROLL VELOCITY BAR (fix #1: GSAP guard)
+  // ============================================================
+  function initScrollBar() {
+    var scrollBar = document.getElementById('scrollBar');
+    if (!scrollBar) return;
+
+    var lastScroll = 0;
+    var lastTime = Date.now();
+    var velocityTimeout;
+
+    function onScroll() {
+      var scrollTop = window.pageYOffset;
+      var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      var progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+
+      if (hasGSAP) {
+        gsap.to(scrollBar, {
+          scaleX: progress,
+          duration: 0.15,
+          ease: 'none',
+          overwrite: true
+        });
+      } else {
+        scrollBar.style.transform = 'scaleX(' + progress + ')';
+      }
+
+      // Velocity-based thickness
+      var now = Date.now();
+      var dt = Math.max(now - lastTime, 1);
+      var velocity = Math.abs(scrollTop - lastScroll) / dt * 16;
+      var thickness = Math.min(3 + velocity * 0.3, 14);
+      scrollBar.style.height = thickness + 'px';
+      lastScroll = scrollTop;
+      lastTime = now;
+
+      clearTimeout(velocityTimeout);
+      velocityTimeout = setTimeout(function() {
+        if (hasGSAP) {
+          gsap.to(scrollBar, { height: 3, duration: 0.3, ease: 'power2.out' });
+        } else {
+          scrollBar.style.height = '3px';
+        }
+      }, 150);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // ============================================================
+  // NAV SCROLL STATE
+  // ============================================================
+  function initNavScroll() {
+    var nav = document.getElementById('mainNav');
+    if (!nav) return;
+
+    var ticking = false;
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          if (window.pageYOffset > 80) {
+            nav.classList.add('scrolled');
+          } else {
+            nav.classList.remove('scrolled');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  // ============================================================
+  // MOBILE NAV (fix #9: robust open/close)
+  // ============================================================
+  function initMobileNav() {
+    var menuBtn = document.getElementById('navMenuBtn');
+    var mobileNav = document.getElementById('mobileNav');
+    if (!menuBtn || !mobileNav) return;
+
+    var isOpen = false;
+
+    function closeNav() {
+      isOpen = false;
+      mobileNav.classList.remove('active');
+      menuBtn.textContent = 'MENU';
+      document.body.style.overflow = '';
+    }
+
+    function openNav() {
+      isOpen = true;
+      mobileNav.classList.add('active');
+      menuBtn.textContent = 'CLOSE';
+      document.body.style.overflow = 'hidden';
+    }
+
+    menuBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (isOpen) {
+        closeNav();
+      } else {
+        openNav();
+      }
+    });
+
+    // Close on link click
+    var mobileLinks = mobileNav.querySelectorAll('a');
+    mobileLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        closeNav();
+      });
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && isOpen) {
+        closeNav();
+      }
+    });
+  }
+
+  // ============================================================
+  // HERO ANIMATIONS (fix #1: GSAP guard)
+  // ============================================================
+  function initHeroAnimations() {
+    if (!hasGSAP) {
+      // No GSAP: just show hero text immediately
+      var heroLines = document.querySelectorAll('.hero-title .line-inner');
+      heroLines.forEach(function(el) { el.style.transform = 'translateY(0)'; });
+      return;
+    }
+
+    var heroLines = document.querySelectorAll('.hero-title .line-inner');
+    var heroLabel = document.querySelector('.hero-label');
+    var heroDesc = document.querySelector('.hero-description');
+    var heroScroll = document.querySelector('.hero-scroll');
+
+    var heroTL = gsap.timeline({ delay: 0.3 });
+
+    // Label fade
+    if (heroLabel) {
+      heroTL.from(heroLabel, {
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        ease: 'power3.out'
+      });
+    }
+
+    // Title lines stagger from different directions
+    if (heroLines[0]) {
+      heroTL.to(heroLines[0], {
+        y: 0,
+        duration: 1.1,
+        ease: 'power4.out'
+      }, '-=0.2');
+    }
+
+    if (heroLines[1]) {
+      heroTL.to(heroLines[1], {
+        y: 0,
+        duration: 1.1,
+        ease: 'power4.out'
+      }, '-=0.8');
+    }
+
+    if (heroLines[2]) {
+      heroTL.to(heroLines[2], {
+        y: 0,
+        duration: 1.1,
+        ease: 'power4.out'
+      }, '-=0.8');
+    }
+
+    // Description
+    if (heroDesc) {
+      heroTL.from(heroDesc, {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        ease: 'power3.out'
+      }, '-=0.5');
+    }
+
+    // Scroll indicator
+    if (heroScroll) {
+      heroTL.from(heroScroll, {
+        opacity: 0,
+        scale: 0,
+        duration: 0.9,
+        ease: 'back.out(2.5)'
+      }, '-=0.6');
+    }
+
+    // Hero glow pulse
+    gsap.to('.hero-glow', {
+      scale: 1.2,
+      opacity: 0.8,
+      duration: 4,
+      ease: 'sine.inOut',
+      repeat: -1,
+      yoyo: true
+    });
+
+    // Kinetic scroll effect on hero title
+    if (!prefersReducedMotion && hasScrollTrigger) {
+      gsap.to('.hero-title .line:nth-child(1) .line-inner', {
+        x: '-15vw',
+        scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5
+        }
+      });
+
+      gsap.to('.hero-title .line:nth-child(2) .line-inner', {
+        x: '15vw',
+        scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5
+        }
+      });
+
+      gsap.to('.hero-title .line:nth-child(3) .line-inner', {
+        x: '-10vw',
+        scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5
+        }
+      });
+
+      // Hero fade out on scroll
+      gsap.to('.hero', {
+        opacity: 0.3,
+        scrollTrigger: {
+          trigger: '.hero',
+          start: '60% top',
+          end: 'bottom top',
+          scrub: 1
+        }
+      });
+    }
+  }
+
+  // ============================================================
+  // KINETIC DIVIDERS (fix #1: GSAP guard)
+  // ============================================================
+  function initKineticDividers() {
+    if (!hasGSAP) return;
+
+    var track1Tween = gsap.to('#kdTrack1', {
+      x: '-50%',
+      duration: 18,
+      ease: 'none',
+      repeat: -1
+    });
+
+    var track2Tween = gsap.fromTo('#kdTrack2',
+      { x: '-50%' },
+      { x: '0%', duration: 22, ease: 'none', repeat: -1 }
+    );
+
+    // Third divider
+    gsap.to('#kdTrack3', {
+      x: '-50%',
+      duration: 15,
+      ease: 'none',
+      repeat: -1
+    });
+
+    // Speed up based on scroll velocity
+    if (hasScrollTrigger) {
+      ScrollTrigger.create({
+        trigger: '.kinetic-divider',
+        start: 'top bottom',
+        end: 'bottom top',
+        onUpdate: function(self) {
+          var velocity = Math.abs(self.getVelocity()) / 800;
+          var newScale = 1 + Math.min(velocity * 0.5, 4);
+          gsap.to(track1Tween, { timeScale: newScale, duration: 0.5, overwrite: true });
+          gsap.to(track2Tween, { timeScale: newScale, duration: 0.5, overwrite: true });
+        }
+      });
+    }
+  }
+
+  // ============================================================
+  // ABOUT SPLIT ANIMATION (fix #1: GSAP + ScrollTrigger guard)
+  // ============================================================
+  function initAboutAnimation() {
+    if (!hasGSAP || !hasScrollTrigger) {
+      // Fallback: show about paragraphs
+      var paragraphs = document.querySelectorAll('.about-text p');
+      paragraphs.forEach(function(p) {
+        p.style.opacity = '1';
+        p.style.transform = 'none';
+      });
+      return;
+    }
+
+    // Left half slides in from left
+    gsap.from('#aboutLeft', {
+      x: '-100%',
+      duration: 1.4,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: '.about',
+        start: 'top 75%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    // Right half slides in from right
+    gsap.from('#aboutRight', {
+      x: '100%',
+      duration: 1.4,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: '.about',
+        start: 'top 75%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    // Large number counter animation
+    gsap.from('.about-left-num', {
+      scale: 3,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.about',
+        start: 'top 60%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    // Text paragraphs reveal line by line
+    var aboutParagraphs = document.querySelectorAll('.about-text p');
+    aboutParagraphs.forEach(function(p, i) {
+      gsap.to(p, {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: p,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        },
+        delay: i * 0.12
+      });
+    });
+
+    // Parallax on the "01" number
+    gsap.to('.about-left-num', {
+      y: -80,
+      scrollTrigger: {
+        trigger: '.about',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 2
+      }
+    });
+  }
+
+  // ============================================================
+  // HORIZONTAL SCROLL PROJECTS (fix #4: fallback to vertical)
+  // ============================================================
+  function initHorizontalScroll() {
+    if (!hasGSAP || !hasScrollTrigger) {
+      // No ScrollTrigger: display as vertical grid via CSS .no-js fallback
+      // The force-visible class handles this. Add it explicitly here.
+      document.body.classList.add('force-visible');
+      cancelForceVisible();
+      return;
+    }
+
+    var track = document.getElementById('projectsTrack');
+    var wrap = document.getElementById('projectsWrap');
+    if (!track || !wrap) return;
+
+    var cards = track.querySelectorAll('.project-card');
+    if (!cards.length) return;
+
+    // Calculate how far to scroll
+    var getScrollAmount = function() {
+      return track.scrollWidth - wrap.offsetWidth + 40;
+    };
+
+    var scrollTween = gsap.to(track, {
+      x: function() { return -getScrollAmount(); },
+      ease: 'none',
+      scrollTrigger: {
+        trigger: wrap,
+        start: 'top top',
+        end: function() { return '+=' + getScrollAmount(); },
+        pin: true,
+        scrub: 1.2,
+        invalidateOnRefresh: true,
+        anticipatePin: 1
+      }
+    });
+
+    // Stagger cards appearing with scale
+    cards.forEach(function(card, i) {
+      gsap.fromTo(card, {
+        scale: 0.85,
+        opacity: 0.2,
+        rotationY: 5
+      }, {
+        scale: 1,
+        opacity: 1,
+        rotationY: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: card,
+          containerAnimation: scrollTween,
+          start: 'left 90%',
+          end: 'left 60%',
+          scrub: true,
+        }
+      });
+
+      // Slight exit animation
+      gsap.to(card, {
+        scale: 0.92,
+        opacity: 0.5,
+        scrollTrigger: {
+          trigger: card,
+          containerAnimation: scrollTween,
+          start: 'right 40%',
+          end: 'right 10%',
+          scrub: true,
+        }
+      });
+    });
+  }
+
+  // ============================================================
+  // EXPERIENCE BLOCK ANIMATIONS (fix #1: guard)
+  // ============================================================
+  function initExperienceAnimations() {
+    if (!hasGSAP || !hasScrollTrigger) {
+      // Fallback: show all experience blocks
+      var inners = document.querySelectorAll('.exp-block-inner');
+      inners.forEach(function(inner) {
+        inner.style.opacity = '1';
+        inner.style.transform = 'none';
+      });
+      return;
+    }
+
+    var expBlocks = document.querySelectorAll('.exp-block');
+    expBlocks.forEach(function(block) {
+      var inner = block.querySelector('.exp-block-inner');
+      if (!inner) return;
+
+      gsap.to(inner, {
+        opacity: 1,
+        x: 0,
+        duration: 1.1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: block,
+          start: 'top 78%',
+          toggleActions: 'play none none none'
+        }
+      });
+
+      // Subtle background clip-path reveal
+      gsap.fromTo(block, {
+        clipPath: block.classList.contains('light')
+          ? 'inset(0 0 0 100%)'
+          : 'inset(0 100% 0 0)'
+      }, {
+        clipPath: 'inset(0 0% 0 0%)',
+        duration: 1,
+        ease: 'power3.inOut',
+        scrollTrigger: {
+          trigger: block,
+          start: 'top 80%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+  }
+
+  // ============================================================
+  // CREDENTIALS SCALE ANIMATION (fix #1: guard)
+  // ============================================================
+  function initCredentialsAnimation() {
+    var credCards = document.querySelectorAll('.cred-card');
+
+    if (!hasGSAP || !hasScrollTrigger) {
+      credCards.forEach(function(card) {
+        card.style.opacity = '1';
+        card.style.transform = 'scale(1)';
+      });
+      return;
+    }
+
+    gsap.fromTo(credCards, {
+      scale: 0.8,
+      opacity: 0,
+      y: 40
+    }, {
+      scale: 1,
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      ease: 'back.out(1.5)',
+      stagger: {
+        each: 0.08,
+        from: 'start'
+      },
+      scrollTrigger: {
+        trigger: '.credentials-grid',
+        start: 'top 80%',
+        toggleActions: 'play none none none'
+      }
+    });
+  }
+
+  // ============================================================
+  // HUMAN SECTION ANIMATIONS (fix #1: guard)
+  // ============================================================
+  function initHumanAnimations() {
+    var facts = document.querySelectorAll('.human-fact');
+
+    if (!hasGSAP || !hasScrollTrigger) {
+      facts.forEach(function(f) {
+        f.style.opacity = '1';
+        f.style.transform = 'none';
+      });
+      return;
+    }
+
+    // Title with split character effect
+    gsap.from('.human-title', {
+      y: 100,
+      opacity: 0,
+      skewY: 5,
+      duration: 1.2,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: '.human-section',
+        start: 'top 65%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    // Facts stagger with dramatic entrance
+    gsap.fromTo(facts, {
+      opacity: 0,
+      y: 60,
+      scale: 0.9
+    }, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.8,
+      ease: 'power3.out',
+      stagger: {
+        each: 0.1,
+        from: 'random'
+      },
+      scrollTrigger: {
+        trigger: '.human-grid',
+        start: 'top 75%',
+        toggleActions: 'play none none none'
+      }
+    });
+  }
+
+  // ============================================================
+  // CONTACT ANIMATIONS (fix #1: guard)
+  // ============================================================
+  function initContactAnimations() {
+    if (!hasGSAP || !hasScrollTrigger) return;
+
+    // Giant title with dramatic reveal
+    gsap.from('.contact-title', {
+      y: 120,
+      opacity: 0,
+      scale: 0.9,
+      duration: 1.4,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: '.contact-section',
+        start: 'top 65%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    gsap.from('.contact-sub', {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.contact-sub',
+        start: 'top 88%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    // Contact links cascade in
+    var contactLinks = document.querySelectorAll('.contact-link');
+    gsap.fromTo(contactLinks, {
+      x: -80,
+      opacity: 0
+    }, {
+      x: 0,
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power3.out',
+      stagger: 0.12,
+      scrollTrigger: {
+        trigger: '.contact-links',
+        start: 'top 85%',
+        toggleActions: 'play none none none'
+      }
+    });
+  }
+
+  // ============================================================
+  // SECTION HEADERS - OUTLINED TEXT PARALLAX (fix #1: guard)
+  // ============================================================
+  function initSectionHeaders() {
+    if (!hasGSAP || !hasScrollTrigger) return;
+
+    var headers = document.querySelectorAll('.projects-header h2, .experience-header h2');
+    headers.forEach(function(h) {
+      gsap.from(h, {
+        x: -200,
+        opacity: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: h,
+          start: 'top 82%',
+          toggleActions: 'play none none none'
+        }
+      });
+
+      // Parallax horizontal shift
+      if (!prefersReducedMotion) {
+        gsap.to(h, {
+          x: 120,
+          scrollTrigger: {
+            trigger: h.parentElement,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 2
+          }
+        });
+      }
+    });
+  }
+
+  // ============================================================
+  // CREDENTIALS HEADER (fix #1: guard)
+  // ============================================================
+  function initCredentialsHeader() {
+    if (!hasGSAP || !hasScrollTrigger) return;
+
+    gsap.from('.credentials-header h2', {
+      y: 80,
+      opacity: 0,
+      skewY: 3,
+      duration: 1,
+      ease: 'power4.out',
+      scrollTrigger: {
+        trigger: '.credentials-header',
+        start: 'top 75%',
+        toggleActions: 'play none none none'
+      }
+    });
+  }
+
+  // ============================================================
+  // SECTION TRANSITION LINES (fix #1: guard)
+  // ============================================================
+  function initSectionLines() {
+    if (!hasGSAP || !hasScrollTrigger) return;
+
+    var lines = document.querySelectorAll('.section-line');
+    lines.forEach(function(line) {
+      gsap.to(line, {
+        scaleX: 1,
+        opacity: 1,
+        duration: 1.2,
+        ease: 'power3.inOut',
+        scrollTrigger: {
+          trigger: line,
+          start: 'top 90%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+  }
+
+  // ============================================================
+  // STATS MARQUEE SPEED BOOST ON SCROLL (fix #1: guard)
+  // ============================================================
+  function initMarqueeScrollBoost() {
+    if (!hasGSAP || !hasScrollTrigger) return;
+
+    var statsTrack = document.querySelector('.stats-marquee-track');
+    if (!statsTrack) return;
+
+    ScrollTrigger.create({
+      trigger: '.stats-marquee',
+      start: 'top bottom',
+      end: 'bottom top',
+      onUpdate: function(self) {
+        var v = Math.abs(self.getVelocity()) / 1500;
+        var speed = Math.max(30 - v * 10, 8);
+        statsTrack.style.animationDuration = speed + 's';
+      }
+    });
+  }
+
+  // ============================================================
+  // BACK TO TOP
+  // ============================================================
+  function initBackToTop() {
+    var btn = document.getElementById('backToTop');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // ============================================================
+  // SMOOTH SCROLL FOR ANCHOR LINKS
+  // ============================================================
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        var href = a.getAttribute('href');
+        if (href === '#') return;
+        e.preventDefault();
+        var target = document.querySelector(href);
+        if (target) {
+          // Close mobile nav if open
+          var mobileNav = document.getElementById('mobileNav');
+          var menuBtn = document.getElementById('navMenuBtn');
+          if (mobileNav && mobileNav.classList.contains('active')) {
+            mobileNav.classList.remove('active');
+            if (menuBtn) menuBtn.textContent = 'MENU';
+            document.body.style.overflow = '';
+          }
+          var y = target.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      });
+    });
+  }
+
+  // ============================================================
+  // FOOTER REVEAL (fix #1: guard)
+  // ============================================================
+  function initFooterReveal() {
+    if (!hasGSAP || !hasScrollTrigger) return;
+
+    gsap.from('.footer', {
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.footer',
+        start: 'top 95%',
+        toggleActions: 'play none none none'
+      }
+    });
+  }
+
+  // ============================================================
+  // MASTER INIT (fix #8: each system in try/catch)
+  // ============================================================
+  function initPageAnimations() {
+    // Cancel the force-visible timer since we successfully loaded
+    cancelForceVisible();
+
+    try { initCustomCursor(); } catch(e) { console.warn('Cursor init failed:', e); }
+    try { initMagnetic(); } catch(e) { console.warn('Magnetic init failed:', e); }
+    try { initCardGlow(); } catch(e) { console.warn('CardGlow init failed:', e); }
+    try { initScrollBar(); } catch(e) { console.warn('ScrollBar init failed:', e); }
+    try { initNavScroll(); } catch(e) { console.warn('NavScroll init failed:', e); }
+    try { initMobileNav(); } catch(e) { console.warn('MobileNav init failed:', e); }
+    try { initHeroAnimations(); } catch(e) { console.warn('Hero init failed:', e); }
+    try { initKineticDividers(); } catch(e) { console.warn('KineticDividers init failed:', e); }
+    try { initAboutAnimation(); } catch(e) { console.warn('About init failed:', e); }
+    try { initHorizontalScroll(); } catch(e) { console.warn('HorizontalScroll init failed:', e); }
+    try { initExperienceAnimations(); } catch(e) { console.warn('Experience init failed:', e); }
+    try { initCredentialsAnimation(); } catch(e) { console.warn('Credentials init failed:', e); }
+    try { initCredentialsHeader(); } catch(e) { console.warn('CredentialsHeader init failed:', e); }
+    try { initHumanAnimations(); } catch(e) { console.warn('Human init failed:', e); }
+    try { initContactAnimations(); } catch(e) { console.warn('Contact init failed:', e); }
+    try { initSectionHeaders(); } catch(e) { console.warn('SectionHeaders init failed:', e); }
+    try { initSectionLines(); } catch(e) { console.warn('SectionLines init failed:', e); }
+    try { initMarqueeScrollBoost(); } catch(e) { console.warn('MarqueeBoost init failed:', e); }
+    try { initBackToTop(); } catch(e) { console.warn('BackToTop init failed:', e); }
+    try { initSmoothScroll(); } catch(e) { console.warn('SmoothScroll init failed:', e); }
+    try { initFooterReveal(); } catch(e) { console.warn('FooterReveal init failed:', e); }
+
+    // Refresh ScrollTrigger after all setup with a slight delay for layout
+    if (hasGSAP && hasScrollTrigger) {
+      requestAnimationFrame(function() {
+        try { ScrollTrigger.refresh(); } catch(e) { /* ignore */ }
+      });
+    }
+  }
+
+  // ============================================================
+  // WINDOW RESIZE HANDLER (fix #1: guard)
+  // ============================================================
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      if (hasGSAP && hasScrollTrigger) {
+        try { ScrollTrigger.refresh(); } catch(e) { /* ignore */ }
+      }
+    }, 300);
+  });
+
+  // ============================================================
+  // VISIBILITY CHANGE — pause animations when tab hidden (fix #1: guard)
+  // ============================================================
+  document.addEventListener('visibilitychange', function() {
+    if (!hasGSAP) return;
+    try {
+      if (document.hidden) {
+        gsap.globalTimeline.pause();
+      } else {
+        gsap.globalTimeline.resume();
+      }
+    } catch(e) { /* ignore */ }
+  });
+
+});
+</script>
+
+</body>
+</html>

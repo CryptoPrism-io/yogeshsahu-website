@@ -1,0 +1,2828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yogesh Sahu — PRISM | Founder & CEO, CryptoPrism</title>
+<meta name="description" content="Yogesh Sahu — Founder & CEO of CryptoPrism, a DPIIT-recognized startup. Building production-grade crypto data infrastructure processing 2.26M+ records daily.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ========================================
+   PRISM — Crystal Light Refraction Theme
+   Portfolio 6 for Yogesh Sahu
+   ======================================== */
+
+/* --- CSS Reset & Base --- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0c0c14;
+  --bg-deep: #08080e;
+  --surface: rgba(255,255,255,0.03);
+  --glass: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.08);
+  --text: #e8e8f2;
+  --text-muted: #6b6b80;
+  --primary: #00ff88;
+  --prism-1: #ff0080;
+  --prism-2: #ff8c00;
+  --prism-3: #ffd700;
+  --prism-4: #00ff88;
+  --prism-5: #00bfff;
+  --prism-6: #8b5cf6;
+  --rainbow: linear-gradient(135deg, #ff0080, #ff8c00, #ffd700, #00ff88, #00bfff, #8b5cf6, #ff0080);
+  --rainbow-conic: conic-gradient(from var(--border-angle, 0deg), #ff0080, #ff8c00, #ffd700, #00ff88, #00bfff, #8b5cf6, #ff0080);
+  --font-body: 'DM Sans', sans-serif;
+  --font-heading: 'Syne', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139,92,246,0.4) transparent;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.4); border-radius: 3px; }
+
+/* ==============================================
+   FIX #2 — Preloader with CSS auto-dismiss at 3s
+   ============================================== */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: preloaderDismiss 0.5s ease forwards 3s;
+  pointer-events: auto;
+}
+
+.preloader.dismissed {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.preloader-prism {
+  width: 60px;
+  height: 60px;
+  animation: preloaderSpin 1.5s ease-in-out infinite;
+}
+
+.preloader-text {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+}
+
+@keyframes preloaderSpin {
+  0% { transform: rotate(0deg) scale(1); opacity: 0.7; }
+  50% { transform: rotate(180deg) scale(1.1); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1); opacity: 0.7; }
+}
+
+@keyframes preloaderDismiss {
+  0% { opacity: 1; pointer-events: auto; visibility: visible; }
+  100% { opacity: 0; pointer-events: none; visibility: hidden; }
+}
+
+/* ==============================================
+   FIX #3 — Force-visible fallback at 5s
+   All section-reveal / animated elements become
+   visible even if GSAP never loads.
+   ============================================== */
+body.force-visible .section-reveal,
+body.force-visible .project-card,
+body.force-visible .exp-item,
+body.force-visible .trading-feature,
+body.force-visible .personal-card,
+body.force-visible .contact-link,
+body.force-visible .about-highlight-card,
+body.force-visible .hero-stat-value {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* --- Scroll Spectrum Bar --- */
+.scroll-spectrum {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--rainbow);
+  z-index: 10000;
+  transition: width 0.05s linear;
+}
+
+/* --- Floating Crystal Shapes --- */
+.crystal-field {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.crystal-shape {
+  position: absolute;
+  border: 1px solid;
+  opacity: 0;
+  animation: crystalFloat 20s ease-in-out infinite;
+}
+
+.crystal-shape.diamond {
+  width: 30px;
+  height: 30px;
+  transform: rotate(45deg);
+}
+
+.crystal-shape.hexagon {
+  width: 40px;
+  height: 23px;
+  position: absolute;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+.crystal-shape.triangle {
+  width: 0;
+  height: 0;
+  border: none;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 26px solid;
+}
+
+.crystal-shape:nth-child(1) { left: 5%; top: 15%; border-color: rgba(255,0,128,0.15); animation-delay: 0s; animation-duration: 22s; }
+.crystal-shape:nth-child(2) { left: 15%; top: 45%; border-color: rgba(255,140,0,0.12); animation-delay: -3s; animation-duration: 25s; }
+.crystal-shape:nth-child(3) { left: 25%; top: 75%; border-color: rgba(255,215,0,0.1); animation-delay: -6s; animation-duration: 20s; }
+.crystal-shape:nth-child(4) { left: 40%; top: 20%; border-color: rgba(0,255,136,0.12); animation-delay: -9s; animation-duration: 28s; }
+.crystal-shape:nth-child(5) { left: 55%; top: 60%; border-color: rgba(0,191,255,0.15); animation-delay: -12s; animation-duration: 23s; }
+.crystal-shape:nth-child(6) { left: 70%; top: 30%; border-color: rgba(139,92,246,0.12); animation-delay: -2s; animation-duration: 26s; }
+.crystal-shape:nth-child(7) { left: 80%; top: 70%; border-color: rgba(255,0,128,0.1); animation-delay: -5s; animation-duration: 21s; }
+.crystal-shape:nth-child(8) { left: 90%; top: 15%; border-color: rgba(0,255,136,0.15); animation-delay: -8s; animation-duration: 24s; }
+.crystal-shape:nth-child(9) { left: 35%; top: 85%; border-color: rgba(0,191,255,0.12); animation-delay: -11s; animation-duration: 27s; }
+.crystal-shape:nth-child(10) { left: 60%; top: 10%; border-color: rgba(255,215,0,0.1); animation-delay: -4s; animation-duration: 19s; }
+.crystal-shape:nth-child(11) { left: 10%; top: 55%; border-color: rgba(139,92,246,0.15); animation-delay: -7s; animation-duration: 22s; }
+.crystal-shape:nth-child(12) { left: 48%; top: 40%; border-color: rgba(255,140,0,0.1); animation-delay: -10s; animation-duration: 30s; }
+
+.crystal-shape.triangle:nth-child(3) { border-bottom-color: rgba(255,215,0,0.1); }
+.crystal-shape.triangle:nth-child(9) { border-bottom-color: rgba(0,191,255,0.12); }
+
+@keyframes crystalFloat {
+  0%, 100% {
+    transform: rotate(45deg) translateY(0px) scale(1);
+    opacity: 0.15;
+  }
+  25% {
+    transform: rotate(45deg) translateY(-30px) scale(1.1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: rotate(45deg) translateY(-15px) scale(0.95);
+    opacity: 0.2;
+  }
+  75% {
+    transform: rotate(45deg) translateY(-40px) scale(1.05);
+    opacity: 0.18;
+  }
+}
+
+/* --- Light Leak Overlays --- */
+/* FIX #7 — pointer-events: none on all light leaks */
+.light-leak {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: screen;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.04;
+}
+
+.light-leak-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255,0,128,0.5), transparent 70%);
+  top: -200px;
+  left: -200px;
+  animation: leakDrift1 30s ease-in-out infinite;
+}
+
+.light-leak-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0,191,255,0.5), transparent 70%);
+  bottom: -100px;
+  right: -100px;
+  animation: leakDrift2 25s ease-in-out infinite;
+}
+
+.light-leak-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(139,92,246,0.4), transparent 70%);
+  top: 40%;
+  left: 50%;
+  animation: leakDrift3 35s ease-in-out infinite;
+}
+
+@keyframes leakDrift1 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.04; }
+  33% { transform: translate(100px, 80px); opacity: 0.07; }
+  66% { transform: translate(-50px, 150px); opacity: 0.05; }
+}
+
+@keyframes leakDrift2 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.04; }
+  33% { transform: translate(-80px, -60px); opacity: 0.06; }
+  66% { transform: translate(60px, -100px); opacity: 0.05; }
+}
+
+@keyframes leakDrift3 {
+  0%, 100% { transform: translate(-50%, -50%); opacity: 0.03; }
+  50% { transform: translate(-30%, -60%); opacity: 0.06; }
+}
+
+/* --- Navigation --- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(12,12,20,0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: all 0.4s ease;
+}
+
+.nav.scrolled {
+  padding: 0.7rem 2rem;
+  background: rgba(12,12,20,0.95);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  background: var(--rainbow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  list-style: none;
+}
+
+.nav-links a {
+  position: relative;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.nav-links a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--rainbow);
+  opacity: 0;
+  border-radius: 8px;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.nav-links a:hover {
+  color: #fff;
+}
+
+.nav-links a:hover::before {
+  opacity: 0.1;
+}
+
+.nav-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 24px;
+  position: relative;
+  z-index: 1001;
+}
+
+.nav-mobile-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text);
+  position: absolute;
+  left: 0;
+  transition: all 0.3s ease;
+}
+
+.nav-mobile-toggle span:nth-child(1) { top: 0; }
+.nav-mobile-toggle span:nth-child(2) { top: 11px; }
+.nav-mobile-toggle span:nth-child(3) { top: 22px; }
+
+.nav-mobile-toggle.active span:nth-child(1) { top: 11px; transform: rotate(45deg); }
+.nav-mobile-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-mobile-toggle.active span:nth-child(3) { top: 11px; transform: rotate(-45deg); }
+
+/* --- Prismatic Gradient Text --- */
+.prismatic-text {
+  background: linear-gradient(135deg, #ff0080, #ff8c00, #ffd700, #00ff88, #00bfff, #8b5cf6, #ff0080);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: prismaticShift 8s ease-in-out infinite;
+}
+
+@keyframes prismaticShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* --- Rainbow Gradient Border Card --- */
+/* FIX #4 — @property with proper fallback for Firefox */
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.rainbow-border-card {
+  position: relative;
+  background: rgba(12,12,20,0.9);
+  border-radius: 16px;
+  overflow: hidden;
+  --border-angle: 0deg;
+}
+
+/* Animated conic border for browsers that support @property */
+.rainbow-border-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 16px;
+  background: conic-gradient(from var(--border-angle), #ff0080, #ff8c00, #ffd700, #00ff88, #00bfff, #8b5cf6, #ff0080);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: rotateBorder 4s linear infinite;
+}
+
+@keyframes rotateBorder {
+  to { --border-angle: 360deg; }
+}
+
+/* FIX #4 — Static fallback for browsers without @property (Firefox) */
+.rainbow-border-card.no-at-property::before {
+  background: linear-gradient(135deg, #ff0080, #ff8c00, #ffd700, #00ff88, #00bfff, #8b5cf6, #ff0080);
+  background-size: 300% 300%;
+  animation: rainbowShiftFallback 4s ease infinite;
+}
+
+@keyframes rainbowShiftFallback {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* --- Glass Card --- */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+}
+
+/* --- Section Styling --- */
+section {
+  position: relative;
+  z-index: 2;
+  padding: 8rem 2rem;
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--prism-6);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--prism-6);
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.8;
+}
+
+/* --- Section Reveal Flash --- */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.section-reveal.revealed {
+  animation: flashReveal 0.8s ease forwards;
+}
+
+@keyframes flashReveal {
+  0% { opacity: 0; transform: translateY(40px); filter: brightness(1); }
+  30% { opacity: 1; filter: brightness(2.5); }
+  100% { opacity: 1; transform: translateY(0); filter: brightness(1); }
+}
+
+/* --- SVG Parallax Illustrations --- */
+.section-svg {
+  position: absolute;
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 2rem 4rem;
+}
+
+.hero-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 0;
+}
+
+/* --- Prism Visual --- */
+.prism-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 600px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.prism-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* White light beam entering prism */
+.light-beam-in {
+  stroke: rgba(255,255,255,0.6);
+  stroke-width: 3;
+  filter: url(#prism-glow-white);
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: beamIn 2s ease forwards 0.5s;
+}
+
+@keyframes beamIn {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Refracted rays */
+.refracted-ray {
+  stroke-width: 2.5;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  opacity: 0;
+}
+
+.refracted-ray.active {
+  animation: rayOut 1.5s ease forwards;
+}
+
+@keyframes rayOut {
+  0% { stroke-dashoffset: 400; opacity: 0; }
+  20% { opacity: 0.8; }
+  100% { stroke-dashoffset: 0; opacity: 0.7; }
+}
+
+.ray-red { stroke: #ff0080; filter: url(#prism-glow-red); animation-delay: 1.5s; }
+.ray-orange { stroke: #ff8c00; filter: url(#prism-glow-orange); animation-delay: 1.7s; }
+.ray-yellow { stroke: #ffd700; filter: url(#prism-glow-yellow); animation-delay: 1.9s; }
+.ray-green { stroke: #00ff88; filter: url(#prism-glow-green); animation-delay: 2.1s; }
+.ray-blue { stroke: #00bfff; filter: url(#prism-glow-blue); animation-delay: 2.3s; }
+.ray-violet { stroke: #8b5cf6; filter: url(#prism-glow-violet); animation-delay: 2.5s; }
+
+/* Prism body */
+.prism-body {
+  fill: rgba(255,255,255,0.03);
+  stroke: rgba(255,255,255,0.15);
+  stroke-width: 1.5;
+  filter: url(#prism-glass);
+}
+
+.prism-highlight {
+  fill: none;
+  stroke: rgba(255,255,255,0.08);
+  stroke-width: 1;
+}
+
+/* --- Hero Content --- */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.3s;
+}
+
+.hero-name {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.6s;
+}
+
+.hero-tagline {
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  color: var(--text-muted);
+  max-width: 750px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.9s;
+}
+
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 1.2s;
+  flex-wrap: wrap;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Buttons --- */
+.btn-prism {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.btn-prism-primary {
+  background: var(--rainbow);
+  background-size: 200% 200%;
+  color: #0c0c14;
+  animation: prismaticShift 4s ease-in-out infinite;
+}
+
+.btn-prism-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(139,92,246,0.3), 0 0 60px rgba(0,255,136,0.1);
+}
+
+.btn-prism-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.btn-prism-outline:hover {
+  border-color: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-2px);
+}
+
+/* --- Hero Stats Bar --- */
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 4rem;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 1.5s;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat-value {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.hero-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.2rem;
+}
+
+/* ============================================
+   ABOUT SECTION
+   ============================================ */
+.about {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+  margin-top: 3rem;
+}
+
+.about-text p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+}
+
+.about-text strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.about-highlights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.about-highlight-card {
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.about-highlight-card:hover {
+  transform: translateY(-4px);
+}
+
+.about-highlight-value {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.about-highlight-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ============================================
+   PROJECTS SECTION
+   ============================================ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.project-card {
+  padding: 2rem;
+  transition: all 0.4s ease;
+  cursor: default;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  background: rgba(12,12,20,0.95);
+}
+
+.project-card:hover .project-card-icon {
+  transform: scale(1.1);
+}
+
+.project-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.project-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  transition: transform 0.3s ease;
+}
+
+.project-card-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.project-card-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.project-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+  letter-spacing: -0.01em;
+}
+
+.project-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+}
+
+.project-card-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.project-card-tech span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  background: rgba(139,92,246,0.08);
+  color: var(--prism-6);
+  border: 1px solid rgba(139,92,246,0.15);
+}
+
+/* ============================================
+   TRADING SECTION
+   ============================================ */
+.trading-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.trading-feature {
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.trading-feature:hover {
+  transform: translateY(-4px);
+}
+
+.trading-feature-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.2rem;
+  background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,191,255,0.1));
+  border: 1px solid rgba(0,255,136,0.15);
+}
+
+.trading-feature-icon svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--primary);
+}
+
+.trading-feature h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.trading-feature p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ============================================
+   EXPERIENCE SECTION
+   ============================================ */
+.experience-timeline {
+  position: relative;
+  margin-top: 3rem;
+  padding-left: 3rem;
+}
+
+.experience-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--prism-1), var(--prism-2), var(--prism-3), var(--prism-4), var(--prism-5), var(--prism-6));
+  border-radius: 1px;
+}
+
+.exp-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding: 1.8rem;
+  transition: transform 0.3s ease;
+}
+
+.exp-item:hover {
+  transform: translateX(6px);
+}
+
+.exp-item::before {
+  content: '';
+  position: absolute;
+  left: -3rem;
+  top: 2rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--prism-4);
+  background: var(--bg);
+  transform: translateX(-5px);
+}
+
+.exp-item:nth-child(1)::before { border-color: var(--prism-1); }
+.exp-item:nth-child(2)::before { border-color: var(--prism-2); }
+.exp-item:nth-child(3)::before { border-color: var(--prism-3); }
+.exp-item:nth-child(4)::before { border-color: var(--prism-4); }
+.exp-item:nth-child(5)::before { border-color: var(--prism-5); }
+.exp-item:nth-child(6)::before { border-color: var(--prism-6); }
+.exp-item:nth-child(7)::before { border-color: var(--prism-1); }
+
+.exp-date {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.exp-role {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.exp-company {
+  font-size: 0.9rem;
+  color: var(--prism-5);
+  margin-bottom: 0.5rem;
+}
+
+.exp-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ============================================
+   PERSONAL / BEYOND CODE SECTION
+   ============================================ */
+.personal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.personal-card {
+  padding: 2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.personal-card:hover {
+  transform: translateY(-4px);
+}
+
+.personal-card-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+}
+
+.personal-card-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.personal-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.personal-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ============================================
+   CONTACT SECTION
+   ============================================ */
+.contact {
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg) 100%);
+}
+
+.contact-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.5rem;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+  transform: translateY(-3px);
+  background: rgba(12,12,20,0.95);
+}
+
+.contact-link svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* --- Footer --- */
+.footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.footer p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer-prism {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 1rem;
+  opacity: 0.3;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 968px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .trading-features {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-stats {
+    gap: 2rem;
+  }
+
+  .prism-container {
+    width: 500px;
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 5rem 1.2rem;
+  }
+
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(12,12,20,0.98);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    font-size: 1.2rem;
+    padding: 0.8rem 2rem;
+  }
+
+  .nav-mobile-toggle {
+    display: block;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trading-features {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats {
+    gap: 1.2rem;
+  }
+
+  .hero-stat-value {
+    font-size: 1.4rem;
+  }
+
+  .prism-container {
+    width: 350px;
+    height: 280px;
+  }
+
+  .experience-timeline {
+    padding-left: 2rem;
+  }
+
+  .about-highlights {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .personal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* FIX #10 — Hide floating crystals on small screens */
+  .crystal-field {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-name {
+    font-size: 2.8rem;
+  }
+
+  .hero-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .prism-container {
+    width: 280px;
+    height: 220px;
+  }
+
+  .about-highlights {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* --- Utility animations for GSAP fallback --- */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Cursor glow (desktop only) --- */
+.cursor-glow {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139,92,246,0.06), transparent 70%);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+  mix-blend-mode: screen;
+}
+
+/* FIX #10 — Hide cursor effects on touch/mobile */
+@media (max-width: 768px) {
+  .cursor-glow { display: none; }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .cursor-glow { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- FIX #2 — Preloader with CSS auto-dismiss + JS fallback -->
+<div class="preloader" id="preloader">
+  <svg class="preloader-prism" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="30,5 55,50 5,50" stroke="url(#preloaderGrad)" stroke-width="1.5" fill="none"/>
+    <defs>
+      <linearGradient id="preloaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ff0080"/>
+        <stop offset="50%" stop-color="#00ff88"/>
+        <stop offset="100%" stop-color="#8b5cf6"/>
+      </linearGradient>
+    </defs>
+  </svg>
+  <span class="preloader-text">REFRACTING...</span>
+</div>
+
+<!-- Scroll Spectrum Bar -->
+<div class="scroll-spectrum" id="scrollSpectrum"></div>
+
+<!-- Cursor Glow -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- Light Leaks (FIX #7 — pointer-events: none applied in CSS) -->
+<div class="light-leak light-leak-1"></div>
+<div class="light-leak light-leak-2"></div>
+<div class="light-leak light-leak-3"></div>
+
+<!-- Floating Crystal Shapes (FIX #6 — overflow-x: hidden on html/body in CSS) -->
+<div class="crystal-field" id="crystalField">
+  <div class="crystal-shape diamond"></div>
+  <div class="crystal-shape hexagon"></div>
+  <div class="crystal-shape triangle"></div>
+  <div class="crystal-shape diamond"></div>
+  <div class="crystal-shape hexagon"></div>
+  <div class="crystal-shape diamond"></div>
+  <div class="crystal-shape triangle"></div>
+  <div class="crystal-shape hexagon"></div>
+  <div class="crystal-shape diamond"></div>
+  <div class="crystal-shape hexagon"></div>
+  <div class="crystal-shape diamond"></div>
+  <div class="crystal-shape triangle"></div>
+</div>
+
+<!-- Navigation -->
+<nav class="nav" id="mainNav">
+  <a href="#hero" class="nav-logo">PRISM</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#trading">Infrastructure</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#personal">Beyond</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-mobile-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ============================================
+     HERO SECTION
+     ============================================ -->
+<section class="hero" id="hero">
+  <div class="hero-bg-grid"></div>
+
+  <!-- FIX #5 — Prism SVG with unique prefixed filter IDs to avoid conflicts -->
+  <div class="prism-container" id="prismContainer">
+    <svg class="prism-svg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Glow filters — all IDs prefixed with "prism-" to avoid conflicts -->
+        <filter id="prism-glow-white" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="prism-glow-red" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feFlood flood-color="#ff0080" flood-opacity="0.4" result="color"/>
+          <feComposite in="color" in2="blur" operator="in" result="glow"/>
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="prism-glow-orange" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feFlood flood-color="#ff8c00" flood-opacity="0.4" result="color"/>
+          <feComposite in="color" in2="blur" operator="in" result="glow"/>
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="prism-glow-yellow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feFlood flood-color="#ffd700" flood-opacity="0.4" result="color"/>
+          <feComposite in="color" in2="blur" operator="in" result="glow"/>
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="prism-glow-green" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feFlood flood-color="#00ff88" flood-opacity="0.4" result="color"/>
+          <feComposite in="color" in2="blur" operator="in" result="glow"/>
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="prism-glow-blue" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feFlood flood-color="#00bfff" flood-opacity="0.4" result="color"/>
+          <feComposite in="color" in2="blur" operator="in" result="glow"/>
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="prism-glow-violet" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feFlood flood-color="#8b5cf6" flood-opacity="0.4" result="color"/>
+          <feComposite in="color" in2="blur" operator="in" result="glow"/>
+          <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="prism-glass" x="-10%" y="-10%" width="120%" height="120%">
+          <feGaussianBlur stdDeviation="1" result="blur"/>
+          <feSpecularLighting surfaceScale="2" specularConstant="1" specularExponent="50" lighting-color="#fff" result="spec" in="blur">
+            <fePointLight x="400" y="200" z="200"/>
+          </feSpecularLighting>
+          <feComposite in="spec" in2="SourceGraphic" operator="in" result="specOut"/>
+          <feComposite in="SourceGraphic" in2="specOut" operator="arithmetic" k1="0" k2="1" k3="0.3" k4="0"/>
+        </filter>
+
+        <!-- Gradient for prism fill -->
+        <linearGradient id="prismFill" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:rgba(255,255,255,0.06)"/>
+          <stop offset="50%" style="stop-color:rgba(255,255,255,0.02)"/>
+          <stop offset="100%" style="stop-color:rgba(255,255,255,0.08)"/>
+        </linearGradient>
+      </defs>
+
+      <!-- White light beam entering from the left -->
+      <line class="light-beam-in" x1="50" y1="300" x2="310" y2="300"/>
+
+      <!-- Additional subtle beam lines -->
+      <line class="light-beam-in" x1="50" y1="296" x2="310" y2="298" style="stroke:rgba(255,255,255,0.2); stroke-width:1; animation-delay:0.7s"/>
+      <line class="light-beam-in" x1="50" y1="304" x2="310" y2="302" style="stroke:rgba(255,255,255,0.2); stroke-width:1; animation-delay:0.9s"/>
+
+      <!-- Prism body (triangle) -->
+      <polygon class="prism-body" points="320,180 480,420 160,420" fill="url(#prismFill)"/>
+
+      <!-- Prism internal highlights -->
+      <line class="prism-highlight" x1="320" y1="185" x2="175" y2="415"/>
+      <line class="prism-highlight" x1="325" y1="185" x2="470" y2="415"/>
+
+      <!-- Refracted spectrum rays exiting right side of prism -->
+      <line class="refracted-ray ray-red active" x1="420" y1="280" x2="750" y2="140" style="animation-delay:1.5s"/>
+      <line class="refracted-ray ray-orange active" x1="425" y1="290" x2="750" y2="200" style="animation-delay:1.7s"/>
+      <line class="refracted-ray ray-yellow active" x1="428" y1="300" x2="750" y2="260" style="animation-delay:1.9s"/>
+      <line class="refracted-ray ray-green active" x1="430" y1="310" x2="750" y2="320" style="animation-delay:2.1s"/>
+      <line class="refracted-ray ray-blue active" x1="428" y1="320" x2="750" y2="380" style="animation-delay:2.3s"/>
+      <line class="refracted-ray ray-violet active" x1="425" y1="330" x2="750" y2="440" style="animation-delay:2.5s"/>
+
+      <!-- Small spectral particles along rays -->
+      <circle r="2" fill="#ff0080" opacity="0">
+        <animate attributeName="opacity" values="0;0.6;0" dur="3s" repeatCount="indefinite" begin="2s"/>
+        <animateMotion dur="4s" repeatCount="indefinite" begin="2s" path="M420,280 L750,140"/>
+      </circle>
+      <circle r="2" fill="#00ff88" opacity="0">
+        <animate attributeName="opacity" values="0;0.6;0" dur="3s" repeatCount="indefinite" begin="2.5s"/>
+        <animateMotion dur="4s" repeatCount="indefinite" begin="2.5s" path="M430,310 L750,320"/>
+      </circle>
+      <circle r="2" fill="#8b5cf6" opacity="0">
+        <animate attributeName="opacity" values="0;0.6;0" dur="3s" repeatCount="indefinite" begin="3s"/>
+        <animateMotion dur="4s" repeatCount="indefinite" begin="3s" path="M425,330 L750,440"/>
+      </circle>
+    </svg>
+  </div>
+
+  <!-- Hero Content -->
+  <div class="hero-content">
+    <p class="hero-eyebrow">Founder & CEO, CryptoPrism &mdash; DPIIT-Recognized Startup</p>
+    <h1 class="hero-name prismatic-text">YOGESH SAHU</h1>
+    <p class="hero-tagline">Transforming raw market data into actionable intelligence. I build the infrastructure that processes 2.26 million cryptocurrency records, monitors 1,000+ digital assets, and computes 130+ technical indicators &mdash; daily, automatically, at 99.9% uptime.</p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-prism btn-prism-primary">Explore the Spectrum</a>
+      <a href="#contact" class="btn-prism btn-prism-outline">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value prismatic-text">2.26M+</div>
+        <div class="hero-stat-label">Records</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value prismatic-text">1,000+</div>
+        <div class="hero-stat-label">Coins</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value prismatic-text">130+</div>
+        <div class="hero-stat-label">Indicators</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value prismatic-text">99.9%</div>
+        <div class="hero-stat-label">Uptime</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value prismatic-text">23</div>
+        <div class="hero-stat-label">Repos</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value prismatic-text">50K+</div>
+        <div class="hero-stat-label">Downloads</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     ABOUT SECTION
+     ============================================ -->
+<section class="about" id="about">
+  <!-- Section SVG: Geometric Brain Crystal -->
+  <svg class="section-svg" style="right: -40px; top: 60px; width: 280px; height: 280px;" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="100,10 170,50 170,130 100,170 30,130 30,50" stroke="rgba(139,92,246,0.2)" stroke-width="1" fill="none"/>
+    <polygon points="100,30 150,60 150,120 100,150 50,120 50,60" stroke="rgba(0,191,255,0.15)" stroke-width="0.8" fill="none"/>
+    <polygon points="100,50 130,70 130,110 100,130 70,110 70,70" stroke="rgba(0,255,136,0.12)" stroke-width="0.6" fill="none"/>
+    <line x1="100" y1="10" x2="100" y2="30" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+    <line x1="170" y1="50" x2="150" y2="60" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+    <line x1="170" y1="130" x2="150" y2="120" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+    <line x1="100" y1="170" x2="100" y2="150" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+    <line x1="30" y1="130" x2="50" y2="120" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+    <line x1="30" y1="50" x2="50" y2="60" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+    <!-- Brain connections inside -->
+    <circle cx="100" cy="80" r="3" fill="rgba(139,92,246,0.2)"/>
+    <circle cx="85" cy="95" r="2" fill="rgba(0,255,136,0.2)"/>
+    <circle cx="115" cy="95" r="2" fill="rgba(0,191,255,0.2)"/>
+    <circle cx="100" cy="110" r="2.5" fill="rgba(255,0,128,0.2)"/>
+    <line x1="100" y1="80" x2="85" y2="95" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+    <line x1="100" y1="80" x2="115" y2="95" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+    <line x1="85" y1="95" x2="100" y2="110" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+    <line x1="115" y1="95" x2="100" y2="110" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+  </svg>
+
+  <div class="section-container">
+    <div class="section-reveal">
+      <span class="section-label">01 / About</span>
+      <h2 class="section-title"><span class="prismatic-text">Through the Lens</span></h2>
+    </div>
+
+    <div class="about-grid section-reveal">
+      <div class="about-text">
+        <p>A <strong>DPIIT-recognized founder</strong> with an MS in Financial Technology from Strathclyde Business School (UK), I specialize in building production-grade data infrastructure for financial markets.</p>
+        <p>My path has been deliberately unconventional: from clearing the <strong>UPSC Civil Services Prelims</strong> (top 2% of 500,000) to shipping a mobile game in 21 days (<strong>50,000 downloads, 110 countries</strong>), to building AI-powered crypto intelligence as a solo technical founder.</p>
+        <p>I bring the analytical precision of a <strong>CA-CPT qualifier (All India Rank 42)</strong>, the creative execution of a former Ubisoft QA specialist, and the entrepreneurial edge of someone who scaled an e-sports venture to <strong>7 franchises with NVIDIA partnership</strong>.</p>
+      </div>
+
+      <div class="about-highlights">
+        <div class="about-highlight-card rainbow-border-card">
+          <div class="about-highlight-value prismatic-text">2.26M+</div>
+          <div class="about-highlight-label">Records Processed</div>
+        </div>
+        <div class="about-highlight-card rainbow-border-card">
+          <div class="about-highlight-value prismatic-text">1,000+</div>
+          <div class="about-highlight-label">Coins Tracked</div>
+        </div>
+        <div class="about-highlight-card rainbow-border-card">
+          <div class="about-highlight-value prismatic-text">130+</div>
+          <div class="about-highlight-label">Technical Indicators</div>
+        </div>
+        <div class="about-highlight-card rainbow-border-card">
+          <div class="about-highlight-value prismatic-text">99.9%</div>
+          <div class="about-highlight-label">System Uptime</div>
+        </div>
+        <div class="about-highlight-card rainbow-border-card">
+          <div class="about-highlight-value prismatic-text">23</div>
+          <div class="about-highlight-label">Repositories</div>
+        </div>
+        <div class="about-highlight-card rainbow-border-card">
+          <div class="about-highlight-value prismatic-text">50K+</div>
+          <div class="about-highlight-label">Downloads</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PROJECTS SECTION
+     ============================================ -->
+<section class="projects" id="projects">
+  <!-- Section SVG: Server/Database Crystal -->
+  <svg class="section-svg" style="left: -30px; top: 100px; width: 240px; height: 300px;" viewBox="0 0 160 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Crystal database structure -->
+    <rect x="40" y="20" width="80" height="30" rx="4" stroke="rgba(0,255,136,0.15)" stroke-width="0.8" fill="none"/>
+    <rect x="40" y="60" width="80" height="30" rx="4" stroke="rgba(0,191,255,0.15)" stroke-width="0.8" fill="none"/>
+    <rect x="40" y="100" width="80" height="30" rx="4" stroke="rgba(139,92,246,0.15)" stroke-width="0.8" fill="none"/>
+    <line x1="60" y1="50" x2="60" y2="60" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+    <line x1="100" y1="50" x2="100" y2="60" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+    <line x1="60" y1="90" x2="60" y2="100" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+    <line x1="100" y1="90" x2="100" y2="100" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+    <!-- Crystal points -->
+    <polygon points="80,140 100,160 80,180 60,160" stroke="rgba(255,215,0,0.15)" stroke-width="0.8" fill="none"/>
+    <line x1="80" y1="130" x2="80" y2="140" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+    <circle cx="55" cy="35" r="3" fill="rgba(0,255,136,0.15)"/>
+    <circle cx="55" cy="75" r="3" fill="rgba(0,191,255,0.15)"/>
+    <circle cx="55" cy="115" r="3" fill="rgba(139,92,246,0.15)"/>
+  </svg>
+
+  <div class="section-container">
+    <div class="section-reveal">
+      <span class="section-label">02 / Projects</span>
+      <h2 class="section-title"><span class="prismatic-text">Spectral Works</span></h2>
+      <p class="section-subtitle">Eight facets of engineering, each refracting a different wavelength of expertise.</p>
+    </div>
+
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <div class="project-card rainbow-border-card section-reveal">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round">
+              <path d="M4 7V4h16v3"/>
+              <path d="M9 20h6"/>
+              <path d="M12 4v16"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+          <span class="project-card-num">01</span>
+        </div>
+        <h3 class="project-card-title">CryptoPrism-DB</h3>
+        <p class="project-card-desc">Production crypto data pipeline. 3-database PostgreSQL architecture on GCP with AI-driven QA via Gemini for data integrity validation.</p>
+        <div class="project-card-tech">
+          <span>Python</span><span>R</span><span>PostgreSQL</span><span>GCP</span>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card rainbow-border-card section-reveal">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2" stroke-linecap="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18"/>
+              <path d="M9 21V9"/>
+            </svg>
+          </div>
+          <span class="project-card-num">02</span>
+        </div>
+        <h3 class="project-card-title">CryptoPrism Screener</h3>
+        <p class="project-card-desc">Institutional-grade cryptocurrency screening SaaS with advanced filtering, real-time data, and professional analytics dashboard.</p>
+        <div class="project-card-tech">
+          <span>React</span><span>TypeScript</span><span>FastAPI</span>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card rainbow-border-card section-reveal">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 8v4l2 2"/>
+              <path d="M8 3h8"/>
+            </svg>
+          </div>
+          <span class="project-card-num">03</span>
+        </div>
+        <h3 class="project-card-title">Pratyaksha</h3>
+        <p class="project-card-desc">AI cognitive journaling platform with 4 specialized agents and 21 interactive visualizations for mental wellness tracking.</p>
+        <div class="project-card-tech">
+          <span>TypeScript</span><span>React</span>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card rainbow-border-card section-reveal">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="2" stroke-linecap="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <span class="project-card-num">04</span>
+        </div>
+        <h3 class="project-card-title">TimesFM 100-Coin Bot</h3>
+        <p class="project-card-desc">Leveraging Google's TimesFM foundation model for systematic cryptocurrency trading research across 100 digital assets.</p>
+        <div class="project-card-tech">
+          <span>Python</span>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="project-card rainbow-border-card section-reveal">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ff0080" stroke-width="2" stroke-linecap="round">
+              <polygon points="12 2 15 8.5 22 9.5 17 14 18 21 12 17.5 6 21 7 14 2 9.5 9 8.5"/>
+            </svg>
+          </div>
+          <span class="project-card-num">05</span>
+        </div>
+        <h3 class="project-card-title">Kari & The Lost Shrines</h3>
+        <p class="project-card-desc">Mobile game built in 21 days, achieving 50,000 downloads across 110 countries. A testament to rapid creative execution.</p>
+        <div class="project-card-tech">
+          <span>Unity</span>
+        </div>
+      </div>
+
+      <!-- Project 6 -->
+      <div class="project-card rainbow-border-card section-reveal">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ff8c00" stroke-width="2" stroke-linecap="round">
+              <path d="M3 3v18h18"/>
+              <path d="M7 16l4-8 4 4 4-8"/>
+            </svg>
+          </div>
+          <span class="project-card-num">06</span>
+        </div>
+        <h3 class="project-card-title">Forex Session Dashboard</h3>
+        <p class="project-card-desc">ICT-strategy trading dashboard with Fair Value Gap detection and Killzone session overlays for institutional analysis.</p>
+        <div class="project-card-tech">
+          <span>TypeScript</span><span>React</span>
+        </div>
+      </div>
+
+      <!-- Project 7 -->
+      <div class="project-card rainbow-border-card section-reveal">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              <path d="M8 7h8"/>
+              <path d="M8 11h6"/>
+            </svg>
+          </div>
+          <span class="project-card-num">07</span>
+        </div>
+        <h3 class="project-card-title">Gyanmarg</h3>
+        <p class="project-card-desc">Duolingo-style gamified platform for self-improvement books, making personal development accessible and engaging.</p>
+        <div class="project-card-tech">
+          <span>TypeScript</span>
+        </div>
+      </div>
+
+      <!-- Project 8 -->
+      <div class="project-card rainbow-border-card section-reveal">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2" stroke-linecap="round">
+              <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/>
+              <path d="M18 14h-8"/>
+              <path d="M15 18h-5"/>
+              <path d="M10 6h8v4h-8V6z"/>
+            </svg>
+          </div>
+          <span class="project-card-num">08</span>
+        </div>
+        <h3 class="project-card-title">CryptoPrism News Fetcher</h3>
+        <p class="project-card-desc">Automated pipeline processing 500+ articles per hour with NLP-powered sentiment analysis for market intelligence.</p>
+        <div class="project-card-tech">
+          <span>Python</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     TRADING / INFRASTRUCTURE SECTION
+     ============================================ -->
+<section class="trading" id="trading" style="background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);">
+  <!-- Section SVG: Chart inside Diamond -->
+  <svg class="section-svg" style="right: -20px; top: 50%; transform: translateY(-50%); width: 260px; height: 260px;" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Diamond outline -->
+    <polygon points="100,10 190,100 100,190 10,100" stroke="rgba(0,255,136,0.12)" stroke-width="1" fill="none"/>
+    <polygon points="100,30 170,100 100,170 30,100" stroke="rgba(0,191,255,0.08)" stroke-width="0.6" fill="none"/>
+    <!-- Chart line inside -->
+    <polyline points="50,130 70,110 85,120 100,90 120,100 140,70 155,85" stroke="rgba(0,255,136,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <!-- Dots on chart -->
+    <circle cx="50" cy="130" r="2" fill="rgba(0,255,136,0.25)"/>
+    <circle cx="100" cy="90" r="2" fill="rgba(0,255,136,0.25)"/>
+    <circle cx="155" cy="85" r="2" fill="rgba(0,255,136,0.25)"/>
+    <!-- Candlesticks -->
+    <line x1="65" y1="100" x2="65" y2="125" stroke="rgba(255,0,128,0.15)" stroke-width="2"/>
+    <line x1="80" y1="95" x2="80" y2="115" stroke="rgba(0,255,136,0.15)" stroke-width="2"/>
+    <line x1="95" y1="105" x2="95" y2="130" stroke="rgba(255,0,128,0.15)" stroke-width="2"/>
+    <line x1="110" y1="85" x2="110" y2="110" stroke="rgba(0,255,136,0.15)" stroke-width="2"/>
+    <line x1="125" y1="80" x2="125" y2="105" stroke="rgba(0,255,136,0.15)" stroke-width="2"/>
+  </svg>
+
+  <div class="section-container">
+    <div class="section-reveal">
+      <span class="section-label">03 / Infrastructure</span>
+      <h2 class="section-title"><span class="prismatic-text">The Data Prism</span></h2>
+      <p class="section-subtitle">Production-grade cryptocurrency infrastructure that refracts raw market chaos into crystalline, actionable intelligence.</p>
+    </div>
+
+    <div class="trading-features">
+      <div class="trading-feature glass-card section-reveal">
+        <div class="trading-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+            <path d="M4 7V4h16v3"/>
+            <path d="M9 20h6"/>
+            <path d="M12 4v16"/>
+          </svg>
+        </div>
+        <h3>3-Database PostgreSQL</h3>
+        <p>Production, staging, and analytics databases running on Google Cloud Platform with automated failover and backup strategies.</p>
+      </div>
+
+      <div class="trading-feature glass-card section-reveal">
+        <div class="trading-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3>Daily Automated Pipeline</h3>
+        <p>Fully autonomous data collection, processing, and validation pipeline running 24/7 with intelligent error handling and recovery.</p>
+      </div>
+
+      <div class="trading-feature glass-card section-reveal">
+        <div class="trading-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3>130+ Technical Indicators</h3>
+        <p>RSI, MACD, Bollinger Bands, Fibonacci retracements, and 126+ more computed daily for 1,000+ cryptocurrency assets.</p>
+      </div>
+
+      <div class="trading-feature glass-card section-reveal">
+        <div class="trading-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <h3>AI QA via Gemini</h3>
+        <p>Google Gemini integration for intelligent data quality assurance, anomaly detection, and automated validation reporting.</p>
+      </div>
+
+      <div class="trading-feature glass-card section-reveal">
+        <div class="trading-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <h3>NLP Sentiment Analysis</h3>
+        <p>Processing 500+ articles per hour with natural language processing for market sentiment extraction and trend analysis.</p>
+      </div>
+
+      <div class="trading-feature glass-card section-reveal">
+        <div class="trading-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3>99.9% Uptime SLA</h3>
+        <p>Enterprise-grade reliability with comprehensive monitoring, alerting, and auto-recovery mechanisms across all systems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     EXPERIENCE SECTION
+     ============================================ -->
+<section class="experience" id="experience">
+  <!-- Section SVG: Ascending Crystal Staircase -->
+  <svg class="section-svg" style="right: 0; top: 80px; width: 220px; height: 320px;" viewBox="0 0 160 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Ascending steps as crystal shapes -->
+    <polygon points="20,200 50,200 50,180 20,180" stroke="rgba(255,0,128,0.12)" stroke-width="0.8" fill="none"/>
+    <polygon points="40,180 70,180 70,160 40,160" stroke="rgba(255,140,0,0.12)" stroke-width="0.8" fill="none"/>
+    <polygon points="60,160 90,160 90,140 60,140" stroke="rgba(255,215,0,0.12)" stroke-width="0.8" fill="none"/>
+    <polygon points="80,140 110,140 110,120 80,120" stroke="rgba(0,255,136,0.12)" stroke-width="0.8" fill="none"/>
+    <polygon points="100,120 130,120 130,100 100,100" stroke="rgba(0,191,255,0.12)" stroke-width="0.8" fill="none"/>
+    <polygon points="110,100 140,100 140,80 110,80" stroke="rgba(139,92,246,0.12)" stroke-width="0.8" fill="none"/>
+    <!-- Diamond at the top -->
+    <polygon points="130,50 140,65 130,80 120,65" stroke="rgba(255,215,0,0.2)" stroke-width="1" fill="none"/>
+    <!-- Connecting line -->
+    <polyline points="35,190 55,170 75,150 95,130 115,110 125,90 130,65" stroke="rgba(255,255,255,0.04)" stroke-width="0.5" fill="none"/>
+  </svg>
+
+  <div class="section-container">
+    <div class="section-reveal">
+      <span class="section-label">04 / Experience</span>
+      <h2 class="section-title"><span class="prismatic-text">Faceted Journey</span></h2>
+      <p class="section-subtitle">Seven facets of a career that refracts conventional boundaries.</p>
+    </div>
+
+    <div class="experience-timeline">
+      <!-- Exp 1 -->
+      <div class="exp-item rainbow-border-card section-reveal">
+        <div class="exp-date">2024 &mdash; Present</div>
+        <div class="exp-role">Founder & CEO</div>
+        <div class="exp-company">CryptoPrism</div>
+        <p class="exp-desc">DPIIT-recognized startup building production-grade crypto data infrastructure. Pre-seed funding targeted Q2 2026. Solo technical founder scaling to 2.26M+ records processed daily.</p>
+      </div>
+
+      <!-- Exp 2 -->
+      <div class="exp-item rainbow-border-card section-reveal">
+        <div class="exp-date">2023 &mdash; Present</div>
+        <div class="exp-role">Credit Cards Analyst</div>
+        <div class="exp-company">Tesco Bank</div>
+        <p class="exp-desc">KYC/AML compliance operations managing 1,600+ disputes per month. Streamlined processes for fraud detection and regulatory adherence across card portfolios.</p>
+      </div>
+
+      <!-- Exp 3 -->
+      <div class="exp-item rainbow-border-card section-reveal">
+        <div class="exp-date">2022 &mdash; 2023</div>
+        <div class="exp-role">MS Financial Technology</div>
+        <div class="exp-company">Strathclyde Business School, UK</div>
+        <p class="exp-desc">Merit distinction with AI/ML module topper (82/100). Specialized in quantitative finance, machine learning for trading, and financial data engineering.</p>
+      </div>
+
+      <!-- Exp 4 -->
+      <div class="exp-item rainbow-border-card section-reveal">
+        <div class="exp-date">2021 &mdash; 2022</div>
+        <div class="exp-role">Senior Business Analyst</div>
+        <div class="exp-company">Pune Global</div>
+        <p class="exp-desc">Achieved 95% breakage reduction through systematic process optimization and data-driven decision frameworks across operations.</p>
+      </div>
+
+      <!-- Exp 5 -->
+      <div class="exp-item rainbow-border-card section-reveal">
+        <div class="exp-date">2020 &mdash; 2021</div>
+        <div class="exp-role">Product Owner</div>
+        <div class="exp-company">Isha Foundation</div>
+        <p class="exp-desc">Led development of "Kari & The Lost Shrines" mobile game. Shipped in 21 days, reached 50,000 downloads across 110 countries. End-to-end product lifecycle management.</p>
+      </div>
+
+      <!-- Exp 6 -->
+      <div class="exp-item rainbow-border-card section-reveal">
+        <div class="exp-date">2017 &mdash; 2020</div>
+        <div class="exp-role">Co-Founder</div>
+        <div class="exp-company">Gamerz Nation E-Sports</div>
+        <p class="exp-desc">Scaled to 7 franchises with NVIDIA partnership. Built competitive gaming ecosystem from ground up with tournaments, streaming, and community management.</p>
+      </div>
+
+      <!-- Exp 7 -->
+      <div class="exp-item rainbow-border-card section-reveal">
+        <div class="exp-date">2016 &mdash; 2017</div>
+        <div class="exp-role">QA Specialist</div>
+        <div class="exp-company">Ubisoft</div>
+        <p class="exp-desc">Quality assurance for flagship titles including Assassin's Creed, For Honor, and Just Dance. Systematic testing, bug triaging, and cross-team coordination at AAA scale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PERSONAL / BEYOND CODE SECTION
+     ============================================ -->
+<section class="personal" id="personal" style="background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);">
+  <!-- Section SVG: Lotus Crystal Form -->
+  <svg class="section-svg" style="left: -20px; top: 50%; transform: translateY(-50%); width: 240px; height: 240px;" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Lotus petals as crystal shapes -->
+    <ellipse cx="100" cy="120" rx="20" ry="50" stroke="rgba(139,92,246,0.12)" stroke-width="0.8" fill="none" transform="rotate(-30 100 120)"/>
+    <ellipse cx="100" cy="120" rx="20" ry="50" stroke="rgba(0,191,255,0.12)" stroke-width="0.8" fill="none"/>
+    <ellipse cx="100" cy="120" rx="20" ry="50" stroke="rgba(0,255,136,0.12)" stroke-width="0.8" fill="none" transform="rotate(30 100 120)"/>
+    <ellipse cx="100" cy="120" rx="15" ry="40" stroke="rgba(255,215,0,0.1)" stroke-width="0.6" fill="none" transform="rotate(-15 100 120)"/>
+    <ellipse cx="100" cy="120" rx="15" ry="40" stroke="rgba(255,0,128,0.1)" stroke-width="0.6" fill="none" transform="rotate(15 100 120)"/>
+    <!-- Center crystal -->
+    <circle cx="100" cy="120" r="8" stroke="rgba(255,255,255,0.1)" stroke-width="0.8" fill="none"/>
+    <circle cx="100" cy="120" r="3" fill="rgba(255,215,0,0.15)"/>
+  </svg>
+
+  <div class="section-container">
+    <div class="section-reveal">
+      <span class="section-label">05 / Beyond Code</span>
+      <h2 class="section-title"><span class="prismatic-text">Hidden Wavelengths</span></h2>
+      <p class="section-subtitle">The spectrum extends far beyond the visible. These are the frequencies that define the full picture.</p>
+    </div>
+
+    <div class="personal-grid">
+      <div class="personal-card rainbow-border-card section-reveal">
+        <div class="personal-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ff8c00" stroke-width="2" stroke-linecap="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Solo Motorbike Odyssey</h3>
+          <p>Rode solo across 21 states of India, covering thousands of kilometers of diverse terrain, culture, and self-discovery.</p>
+        </div>
+      </div>
+
+      <div class="personal-card rainbow-border-card section-reveal">
+        <div class="personal-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round">
+            <path d="M9 18V5l12-2v13"/>
+            <circle cx="6" cy="18" r="3"/>
+            <circle cx="18" cy="16" r="3"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Advanced Bansuri Player</h3>
+          <p>Dedicated practitioner of the Indian bamboo flute, blending meditative practice with musical artistry.</p>
+        </div>
+      </div>
+
+      <div class="personal-card rainbow-border-card section-reveal">
+        <div class="personal-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00ff88" stroke-width="2" stroke-linecap="round">
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Isha Sadhana</h3>
+          <p>Daily practitioner of Isha yoga and meditation, cultivating inner clarity and discipline.</p>
+        </div>
+      </div>
+
+      <div class="personal-card rainbow-border-card section-reveal">
+        <div class="personal-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+            <line x1="9" y1="9" x2="9.01" y2="9"/>
+            <line x1="15" y1="9" x2="15.01" y2="9"/>
+          </svg>
+        </div>
+        <div>
+          <h3>State-level Basketball</h3>
+          <p>Competitive basketball player at the state level, bringing team dynamics and competitive spirit to every arena.</p>
+        </div>
+      </div>
+
+      <div class="personal-card rainbow-border-card section-reveal">
+        <div class="personal-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="2" stroke-linecap="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Himalayan Expedition Leader</h3>
+          <p>Led high-altitude expeditions reaching 14,000 ft in the Himalayas, testing endurance and leadership in extreme conditions.</p>
+        </div>
+      </div>
+
+      <div class="personal-card rainbow-border-card section-reveal">
+        <div class="personal-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ff0080" stroke-width="2" stroke-linecap="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div>
+          <h3>UPSC Prelims Top 2%</h3>
+          <p>Cleared India's most competitive civil services examination, ranking in the top 2% of 500,000 candidates.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     CONTACT SECTION
+     ============================================ -->
+<section class="contact" id="contact">
+  <!-- Section SVG: Broadcast/Signal Diamond -->
+  <svg class="section-svg" style="right: 20px; top: 50%; transform: translateY(-50%); width: 200px; height: 200px;" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Signal diamond -->
+    <polygon points="80,20 130,80 80,140 30,80" stroke="rgba(0,191,255,0.12)" stroke-width="1" fill="none"/>
+    <!-- Broadcast waves -->
+    <path d="M50 55 Q40 80 50 105" stroke="rgba(0,255,136,0.1)" stroke-width="0.8" fill="none"/>
+    <path d="M35 45 Q20 80 35 115" stroke="rgba(139,92,246,0.08)" stroke-width="0.6" fill="none"/>
+    <path d="M110 55 Q120 80 110 105" stroke="rgba(0,255,136,0.1)" stroke-width="0.8" fill="none"/>
+    <path d="M125 45 Q140 80 125 115" stroke="rgba(139,92,246,0.08)" stroke-width="0.6" fill="none"/>
+    <!-- Center dot -->
+    <circle cx="80" cy="80" r="4" fill="rgba(0,191,255,0.2)"/>
+    <circle cx="80" cy="80" r="8" stroke="rgba(0,191,255,0.1)" stroke-width="0.6" fill="none"/>
+  </svg>
+
+  <div class="section-container">
+    <div class="contact-content section-reveal">
+      <span class="section-label" style="justify-content: center;">06 / Contact</span>
+      <h2 class="section-title" style="text-align: center;"><span class="prismatic-text">Converge</span></h2>
+      <p class="section-subtitle" style="margin: 0 auto 2rem; text-align: center;">All wavelengths converge at a single point. Let us connect and build something brilliant together.</p>
+
+      <!-- FIX #12 — Contact links with proper hrefs -->
+      <div class="contact-links">
+        <a href="mailto:yogesh.sahu@cryptoprism.io" class="contact-link rainbow-border-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          yogesh.sahu@cryptoprism.io
+        </a>
+
+        <a href="https://github.com/CryptoPrism-io" target="_blank" rel="noopener noreferrer" class="contact-link rainbow-border-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+          github.com/CryptoPrism-io
+        </a>
+
+        <a href="https://linkedin.com/in/yogeshsahu-" target="_blank" rel="noopener noreferrer" class="contact-link rainbow-border-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+          linkedin.com/in/yogeshsahu-
+        </a>
+
+        <a href="https://cryptoprism.io" target="_blank" rel="noopener noreferrer" class="contact-link rainbow-border-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--text)" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          cryptoprism.io
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <svg class="footer-prism" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="20,4 36,32 4,32" stroke="rgba(255,255,255,0.2)" stroke-width="1" fill="none"/>
+  </svg>
+  <p>&copy; 2026 Yogesh Sahu. All wavelengths reserved.</p>
+</footer>
+
+<!-- FIX #8 — CDN scripts before </body>, with crossorigin for CORS error handling -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+
+<script>
+/* ============================================
+   PRISM — JavaScript Engine (Production)
+   FIX #1  — GSAP guard: all gsap/ScrollTrigger wrapped
+   FIX #2  — Preloader auto-dismiss via JS setTimeout
+   FIX #3  — body.force-visible fallback at 5s
+   FIX #4  — @property fallback detection
+   FIX #8  — DOMContentLoaded wrap
+   FIX #9  — Separate try/catch per animation system
+   FIX #10 — Touch device detection, hide cursor
+   FIX #11 — Card tilt guarded with hover media query
+   ============================================ */
+
+document.addEventListener('DOMContentLoaded', function() {
+  'use strict';
+
+  // --- Detect touch device ---
+  var isTouchDevice = ('ontouchstart' in window) ||
+    (navigator.maxTouchPoints > 0) ||
+    (navigator.msMaxTouchPoints > 0);
+
+  // --- Detect hover capability ---
+  var canHover = window.matchMedia('(hover: hover)').matches;
+
+  // --- FIX #1 — Check GSAP availability ---
+  var hasGSAP = (typeof gsap !== 'undefined');
+  var hasScrollTrigger = hasGSAP && (typeof ScrollTrigger !== 'undefined');
+
+  if (hasGSAP && hasScrollTrigger) {
+    try {
+      gsap.registerPlugin(ScrollTrigger);
+    } catch (e) {
+      console.warn('PRISM: Failed to register ScrollTrigger', e);
+      hasScrollTrigger = false;
+    }
+  }
+
+  // --- FIX #2 — Preloader dismiss ---
+  var preloader = document.getElementById('preloader');
+  function dismissPreloader() {
+    if (preloader && !preloader.classList.contains('dismissed')) {
+      preloader.classList.add('dismissed');
+      document.body.style.overflow = '';
+    }
+  }
+  // JS backup: dismiss after 3s (CSS animation already handles visual)
+  setTimeout(dismissPreloader, 3000);
+  // Also dismiss on window load if earlier
+  window.addEventListener('load', function() {
+    setTimeout(dismissPreloader, 500);
+  });
+
+  // --- FIX #3 — Force-visible fallback at 5s ---
+  setTimeout(function() {
+    document.body.classList.add('force-visible');
+  }, 5000);
+
+  // --- FIX #4 — @property support detection ---
+  var supportsAtProperty = false;
+  try {
+    if (CSS && CSS.registerProperty) {
+      supportsAtProperty = true;
+    }
+  } catch (e) {
+    supportsAtProperty = false;
+  }
+
+  if (!supportsAtProperty) {
+    document.querySelectorAll('.rainbow-border-card').forEach(function(card) {
+      card.classList.add('no-at-property');
+    });
+  }
+
+  // --- DOM References ---
+  var scrollSpectrum = document.getElementById('scrollSpectrum');
+  var cursorGlow = document.getElementById('cursorGlow');
+  var mainNav = document.getElementById('mainNav');
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  var crystalField = document.getElementById('crystalField');
+
+  // --- Scroll Spectrum Bar ---
+  function updateScrollSpectrum() {
+    if (!scrollSpectrum) return;
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollSpectrum.style.width = scrollPercent + '%';
+  }
+
+  // --- Nav Scroll State ---
+  function updateNavState() {
+    if (!mainNav) return;
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > 80) {
+      mainNav.classList.add('scrolled');
+    } else {
+      mainNav.classList.remove('scrolled');
+    }
+  }
+
+  // --- Mobile Nav Toggle ---
+  try {
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', function() {
+        navToggle.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+
+      // Close mobile nav on link click
+      navLinks.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          navToggle.classList.remove('active');
+          navLinks.classList.remove('open');
+        });
+      });
+    }
+  } catch (e) {
+    console.warn('PRISM: Nav toggle error', e);
+  }
+
+  // --- FIX #10 — Cursor Glow (desktop/non-touch only) ---
+  try {
+    if (cursorGlow && !isTouchDevice && canHover) {
+      var cursorX = 0, cursorY = 0;
+      var glowX = 0, glowY = 0;
+
+      document.addEventListener('mousemove', function(e) {
+        cursorX = e.clientX;
+        cursorY = e.clientY;
+      });
+
+      function animateCursorGlow() {
+        glowX += (cursorX - glowX) * 0.08;
+        glowY += (cursorY - glowY) * 0.08;
+        cursorGlow.style.left = glowX + 'px';
+        cursorGlow.style.top = glowY + 'px';
+        requestAnimationFrame(animateCursorGlow);
+      }
+      animateCursorGlow();
+    } else if (cursorGlow) {
+      cursorGlow.style.display = 'none';
+    }
+  } catch (e) {
+    console.warn('PRISM: Cursor glow error', e);
+  }
+
+  // --- Crystal Parallax on Scroll ---
+  function updateCrystalParallax() {
+    if (!crystalField) return;
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var crystals = crystalField.querySelectorAll('.crystal-shape');
+    crystals.forEach(function(crystal, i) {
+      var speed = 0.02 + (i % 5) * 0.01;
+      var yOffset = scrollTop * speed;
+      var xOffset = Math.sin(scrollTop * 0.001 + i) * 5;
+      crystal.style.transform = 'rotate(45deg) translateY(' + (-yOffset) + 'px) translateX(' + xOffset + 'px)';
+    });
+  }
+
+  // --- SVG Parallax on Scroll ---
+  function updateSVGParallax() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var svgs = document.querySelectorAll('.section-svg');
+    svgs.forEach(function(svg, i) {
+      var speed = 0.03 + (i % 3) * 0.015;
+      var yOffset = scrollTop * speed;
+      var currentTransform = svg.style.transform || '';
+      // Only apply translateY parallax, preserve other transforms
+      if (!currentTransform.includes('translateY(')) {
+        svg.style.marginTop = (-yOffset * 0.5) + 'px';
+      }
+    });
+  }
+
+  // --- Combined Scroll Handler ---
+  var ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        updateScrollSpectrum();
+        updateNavState();
+        updateCrystalParallax();
+        updateSVGParallax();
+        highlightActiveNav();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // --- FIX #9 — Section Reveal with Flash Effect (GSAP ScrollTrigger) ---
+  try {
+    if (hasGSAP && hasScrollTrigger) {
+      var revealElements = document.querySelectorAll('.section-reveal');
+
+      revealElements.forEach(function(el) {
+        gsap.fromTo(el,
+          {
+            opacity: 0,
+            y: 50,
+            filter: 'brightness(1)'
+          },
+          {
+            opacity: 1,
+            y: 0,
+            filter: 'brightness(1)',
+            duration: 0.9,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              end: 'top 50%',
+              toggleActions: 'play none none none'
+            },
+            onStart: function() {
+              // Brief light flash effect
+              gsap.to(el, {
+                filter: 'brightness(2)',
+                duration: 0.15,
+                yoyo: true,
+                repeat: 1,
+                ease: 'power2.inOut'
+              });
+            }
+          }
+        );
+      });
+    } else {
+      // Fallback: use IntersectionObserver for section reveals
+      if ('IntersectionObserver' in window) {
+        var revealObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.section-reveal').forEach(function(el) {
+          revealObserver.observe(el);
+        });
+      } else {
+        // Ultimate fallback: just show everything
+        document.body.classList.add('force-visible');
+      }
+    }
+  } catch (e) {
+    console.warn('PRISM: Section reveal error', e);
+    document.body.classList.add('force-visible');
+  }
+
+  // --- FIX #9 — Prism container subtle parallax (separate try/catch) ---
+  try {
+    if (hasGSAP && hasScrollTrigger) {
+      var prismContainer = document.getElementById('prismContainer');
+      if (prismContainer) {
+        gsap.to(prismContainer, {
+          y: -80,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1
+          }
+        });
+      }
+    }
+  } catch (e) {
+    console.warn('PRISM: Prism parallax error', e);
+  }
+
+  // --- FIX #9 — Hero Content Parallax (separate try/catch) ---
+  try {
+    if (hasGSAP && hasScrollTrigger) {
+      var heroContent = document.querySelector('.hero-content');
+      if (heroContent) {
+        gsap.to(heroContent, {
+          y: -40,
+          opacity: 0.3,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1
+          }
+        });
+      }
+    }
+  } catch (e) {
+    console.warn('PRISM: Hero parallax error', e);
+  }
+
+  // --- FIX #9 — Stagger animations (separate try/catch) ---
+  try {
+    if (hasGSAP && hasScrollTrigger) {
+      // Project cards stagger
+      gsap.utils.toArray('.project-card').forEach(function(card, i) {
+        gsap.fromTo(card,
+          { opacity: 0, y: 60, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.7,
+            delay: i * 0.08,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+
+      // Experience items stagger
+      gsap.utils.toArray('.exp-item').forEach(function(item, i) {
+        gsap.fromTo(item,
+          { opacity: 0, x: -40 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.7,
+            delay: i * 0.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+
+      // Trading feature stagger
+      gsap.utils.toArray('.trading-feature').forEach(function(feature, i) {
+        gsap.fromTo(feature,
+          { opacity: 0, y: 40, scale: 0.95 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            delay: i * 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: feature,
+              start: 'top 88%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+
+      // Personal cards stagger
+      gsap.utils.toArray('.personal-card').forEach(function(card, i) {
+        gsap.fromTo(card,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            delay: i * 0.08,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+
+      // Contact links stagger
+      gsap.utils.toArray('.contact-link').forEach(function(link, i) {
+        gsap.fromTo(link,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            delay: i * 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: link,
+              start: 'top 90%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+
+      // Stat counter animation
+      document.querySelectorAll('.hero-stat-value').forEach(function(stat) {
+        gsap.fromTo(stat,
+          { opacity: 0, scale: 0.8 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: 'back.out(1.7)',
+            scrollTrigger: {
+              trigger: stat,
+              start: 'top 90%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+
+      // About highlight cards entrance
+      gsap.utils.toArray('.about-highlight-card').forEach(function(card, i) {
+        gsap.fromTo(card,
+          { opacity: 0, scale: 0.9, y: 20 },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.6,
+            delay: i * 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+    }
+  } catch (e) {
+    console.warn('PRISM: Stagger animations error', e);
+  }
+
+  // --- FIX #9 — Prismatic text hue shift (separate try/catch) ---
+  try {
+    if (hasGSAP && hasScrollTrigger) {
+      document.querySelectorAll('.prismatic-text').forEach(function(text) {
+        gsap.to(text, {
+          backgroundPosition: '200% 50%',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: text,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 2
+          }
+        });
+      });
+    }
+  } catch (e) {
+    console.warn('PRISM: Prismatic text error', e);
+  }
+
+  // --- FIX #9 — Timeline line animation (separate try/catch) ---
+  try {
+    if (hasGSAP && hasScrollTrigger) {
+      var timelineLine = document.querySelector('.experience-timeline');
+      if (timelineLine) {
+        gsap.fromTo(timelineLine,
+          { '--line-height': '0%' },
+          {
+            '--line-height': '100%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: timelineLine,
+              start: 'top 80%',
+              end: 'bottom 20%',
+              scrub: 1
+            }
+          }
+        );
+      }
+    }
+  } catch (e) {
+    console.warn('PRISM: Timeline animation error', e);
+  }
+
+  // --- FIX #9 — Section SVG float animation (separate try/catch) ---
+  try {
+    if (hasGSAP) {
+      document.querySelectorAll('.section-svg').forEach(function(svg, i) {
+        gsap.to(svg, {
+          y: '+=20',
+          duration: 3 + i * 0.5,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+          delay: i * 0.3
+        });
+      });
+    }
+  } catch (e) {
+    console.warn('PRISM: SVG float error', e);
+  }
+
+  // --- Rainbow border animation fallback ---
+  try {
+    if (!supportsAtProperty) {
+      var cards = document.querySelectorAll('.rainbow-border-card');
+      var angle = 0;
+
+      function tickBorders() {
+        angle = (angle + 0.5) % 360;
+        cards.forEach(function(card) {
+          card.style.setProperty('--border-angle', angle + 'deg');
+        });
+        requestAnimationFrame(tickBorders);
+      }
+      tickBorders();
+    }
+  } catch (e) {
+    console.warn('PRISM: Rainbow border fallback error', e);
+  }
+
+  // --- Smooth scroll for anchor links ---
+  try {
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          var offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 80;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  } catch (e) {
+    console.warn('PRISM: Smooth scroll error', e);
+  }
+
+  // --- Initial state ---
+  updateScrollSpectrum();
+  updateNavState();
+
+  // --- Performance: reduce motion if preferred ---
+  try {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.crystal-shape').forEach(function(el) {
+        el.style.animation = 'none';
+        el.style.opacity = '0.1';
+      });
+      document.querySelectorAll('.light-leak').forEach(function(el) {
+        el.style.animation = 'none';
+      });
+      if (cursorGlow) cursorGlow.style.display = 'none';
+    }
+  } catch (e) {
+    console.warn('PRISM: Reduced motion check error', e);
+  }
+
+  // --- Resize handler for ScrollTrigger ---
+  try {
+    if (hasScrollTrigger) {
+      var resizeTimeout;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+          ScrollTrigger.refresh();
+        }, 250);
+      });
+    }
+  } catch (e) {
+    console.warn('PRISM: Resize handler error', e);
+  }
+
+  // --- Keyboard navigation for accessibility ---
+  try {
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && navToggle && navLinks) {
+        navToggle.classList.remove('active');
+        navLinks.classList.remove('open');
+      }
+    });
+  } catch (e) {
+    console.warn('PRISM: Keyboard nav error', e);
+  }
+
+  // --- Intersection Observer for section SVGs ---
+  try {
+    if ('IntersectionObserver' in window) {
+      var svgObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.style.transition = 'opacity 1s ease';
+            entry.target.style.opacity = '0.07';
+          } else {
+            entry.target.style.opacity = '0';
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.section-svg').forEach(function(svg) {
+        svg.style.opacity = '0';
+        svgObserver.observe(svg);
+      });
+    }
+  } catch (e) {
+    console.warn('PRISM: SVG observer error', e);
+  }
+
+  // --- Active nav link highlight on scroll ---
+  var sections = document.querySelectorAll('section[id]');
+  var navAnchors = document.querySelectorAll('.nav-links a');
+
+  function highlightActiveNav() {
+    var scrollPosition = window.pageYOffset + 150;
+
+    sections.forEach(function(section) {
+      var sectionTop = section.offsetTop;
+      var sectionHeight = section.offsetHeight;
+      var sectionId = section.getAttribute('id');
+
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        navAnchors.forEach(function(anchor) {
+          anchor.style.color = '';
+          if (anchor.getAttribute('href') === '#' + sectionId) {
+            anchor.style.color = '#e8e8f2';
+          }
+        });
+      }
+    });
+  }
+
+  // --- FIX #9 — Prism rays pulse animation (separate try/catch) ---
+  try {
+    if (hasGSAP) {
+      function animatePrismRays() {
+        var rays = document.querySelectorAll('.refracted-ray');
+        rays.forEach(function(ray, i) {
+          gsap.to(ray, {
+            opacity: 0.4 + Math.random() * 0.4,
+            strokeWidth: 2 + Math.random() * 1.5,
+            duration: 2 + Math.random() * 2,
+            ease: 'sine.inOut',
+            yoyo: true,
+            repeat: -1,
+            delay: i * 0.3
+          });
+        });
+      }
+
+      // Start ray animation after initial reveal
+      setTimeout(animatePrismRays, 3500);
+    }
+  } catch (e) {
+    console.warn('PRISM: Ray animation error', e);
+  }
+
+  // --- FIX #9 — Light beam subtle breathing (separate try/catch) ---
+  try {
+    if (hasGSAP) {
+      var beamIn = document.querySelector('.light-beam-in');
+      if (beamIn) {
+        gsap.to(beamIn, {
+          opacity: 0.4,
+          strokeWidth: 2,
+          duration: 3,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+          delay: 3
+        });
+      }
+    }
+  } catch (e) {
+    console.warn('PRISM: Beam breathing error', e);
+  }
+
+  // --- FIX #11 — Card tilt effect guarded with hover media query ---
+  try {
+    if (canHover && !isTouchDevice && window.innerWidth > 768) {
+      document.querySelectorAll('.project-card, .trading-feature, .personal-card').forEach(function(card) {
+        card.addEventListener('mousemove', function(e) {
+          var rect = card.getBoundingClientRect();
+          var x = e.clientX - rect.left;
+          var y = e.clientY - rect.top;
+          var centerX = rect.width / 2;
+          var centerY = rect.height / 2;
+          var rotateX = (y - centerY) / centerY * -3;
+          var rotateY = (x - centerX) / centerX * 3;
+
+          card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-4px)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+          card.style.transform = '';
+        });
+      });
+    }
+  } catch (e) {
+    console.warn('PRISM: Card tilt error', e);
+  }
+
+  console.log('%c PRISM %c Portfolio loaded successfully ',
+    'background: linear-gradient(135deg, #ff0080, #8b5cf6); color: white; padding: 4px 8px; border-radius: 4px 0 0 4px; font-weight: bold;',
+    'background: #1a1a2e; color: #e8e8f2; padding: 4px 8px; border-radius: 0 4px 4px 0;'
+  );
+
+});
+</script>
+
+</body>
+</html>
