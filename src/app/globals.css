@@ -38,3 +38,36 @@ body {
 .animate-heartbeat {
   animation: heartbeat 1s step-end infinite;
 }
+
+/* ── Scroll Snap Container ── */
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Main scroll container — defined in page.tsx via className */
+.snap-container {
+  height: 100svh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+/* Each full-screen section */
+.snap-section {
+  height: 100svh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Fallback for browsers without svh support */
+@supports not (height: 100svh) {
+  .snap-container { height: 100vh; }
+  .snap-section { height: 100vh; }
+}
