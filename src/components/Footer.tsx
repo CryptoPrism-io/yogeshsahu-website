@@ -3,7 +3,7 @@ export default function Footer() {
     <footer className="bg-[#f7f4ee] border-t border-[#e0e0e0] py-5 px-6 md:px-12">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <p
-          className="text-[8px] text-[#999] font-bold uppercase tracking-[0.12em]"
+          className="text-[11px] text-[#999] font-bold uppercase tracking-[0.12em]"
           style={{ fontFamily: "var(--font-headline)" }}
         >
           © 2026 Yogesh Sahu · All Rights Reserved
@@ -25,7 +25,7 @@ export default function Footer() {
               href={l.href}
               target={l.href.startsWith("http") ? "_blank" : undefined}
               rel="noreferrer"
-              className="text-[8px] font-bold uppercase tracking-[0.15em] text-[#bbb] hover:text-[#1a1a1a] transition-colors"
+              className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#bbb] hover:text-[#1a1a1a] transition-colors"
               style={{ fontFamily: "var(--font-headline)" }}
             >
               {l.label}
