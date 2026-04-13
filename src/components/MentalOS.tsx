@@ -104,7 +104,7 @@ export default function MentalOS() {
               key={m.num}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
+              viewport={{ once: true, amount: 0 }}
               transition={{ delay: i * 0.08, duration: 0.5 }}
               className="group bg-[#080808] p-7 border border-white/5 relative overflow-hidden transition-all duration-500 hover:bg-[#0d0d0d] card-left-glow"
             >

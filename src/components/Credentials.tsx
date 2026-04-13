@@ -130,7 +130,7 @@ export default function Credentials() {
               key={c.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
+              viewport={{ once: true, amount: 0 }}
               transition={{ delay: i * 0.06, duration: 0.4 }}
               className="group bg-[#fafafa] border border-neutral-200 p-6 flex flex-col justify-between min-h-[200px] hover:-translate-y-1 hover:border-[#d97706] transition-all duration-300"
             >

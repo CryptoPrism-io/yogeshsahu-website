@@ -51,7 +51,7 @@ export default function BlogPreview() {
               key={post.slug}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
+              viewport={{ once: true, amount: 0 }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
               className="group border border-neutral-200 p-7 flex flex-col gap-5 hover:border-[#d97706] transition-colors duration-300 cursor-pointer"
             >

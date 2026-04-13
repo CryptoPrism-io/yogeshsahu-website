@@ -2,6 +2,22 @@
 
 import { Server, Brain, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
+import {
+  RadarChart,
+  Radar,
+  PolarGrid,
+  PolarAngleAxis,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
+
+const radarData = [
+  { axis: "Infrastructure", value: 95 },
+  { axis: "Product", value: 88 },
+  { axis: "Finance", value: 82 },
+  { axis: "AI / ML", value: 85 },
+  { axis: "Architecture", value: 93 },
+];
 
 const pillars = [
   {
@@ -73,7 +89,7 @@ export default function ExpertisePillars() {
               key={p.title}
               initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
+              viewport={{ once: true, amount: 0 }}
               transition={{ delay: i * 0.12, duration: 0.5 }}
               className="group bg-white border border-neutral-200 p-8 hover:border-[#d97706] transition-colors duration-300"
             >
@@ -109,6 +125,78 @@ export default function ExpertisePillars() {
             </motion.article>
           ))}
         </div>
+        {/* Radar chart panel */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-0 border border-neutral-200"
+        >
+          {/* Left: radar */}
+          <div className="bg-[#111] p-8 flex flex-col justify-center">
+            <p className="text-[9px] uppercase tracking-[0.2em] text-neutral-500 font-bold mb-1"
+               style={{ fontFamily: "var(--font-headline)" }}>
+              Expertise Radar
+            </p>
+            <p className="text-[11px] text-neutral-600 mb-6">Self-assessed percentile vs. typical consultant</p>
+            <div className="h-56">
+              <ResponsiveContainer width="100%" height="100%">
+                <RadarChart data={radarData} margin={{ top: 8, right: 24, bottom: 8, left: 24 }}>
+                  <PolarGrid stroke="rgba(255,255,255,0.08)" />
+                  <PolarAngleAxis
+                    dataKey="axis"
+                    tick={{ fontSize: 10, fill: "#6b7280", fontFamily: "var(--font-headline)" }}
+                  />
+                  <Radar
+                    name="Yogesh"
+                    dataKey="value"
+                    stroke="#fbbf24"
+                    fill="#fbbf24"
+                    fillOpacity={0.15}
+                    strokeWidth={1.5}
+                    dot={{ fill: "#fbbf24", r: 3 }}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      background: "#0d0d0d",
+                      border: "1px solid rgba(251,191,36,0.2)",
+                      borderRadius: "2px",
+                      fontSize: "10px",
+                      color: "#fbbf24",
+                    }}
+                    formatter={(v) => [`${v}th percentile`]}
+                  />
+                </RadarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Right: context */}
+          <div className="bg-neutral-50 border-l border-neutral-200 p-8 flex flex-col justify-center gap-5">
+            {radarData.map((d) => (
+              <div key={d.axis} className="flex items-center gap-4">
+                <span className="text-[11px] font-bold text-neutral-500 w-28 flex-shrink-0"
+                      style={{ fontFamily: "var(--font-headline)" }}>
+                  {d.axis}
+                </span>
+                <div className="flex-1 h-1 bg-neutral-200 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[#d97706] rounded-full"
+                    style={{ width: `${d.value}%` }}
+                  />
+                </div>
+                <span className="text-[11px] font-black text-[#111] w-8 text-right"
+                      style={{ fontFamily: "var(--font-headline)" }}>
+                  {d.value}
+                </span>
+              </div>
+            ))}
+            <p className="text-[10px] text-neutral-400 mt-2 leading-relaxed">
+              Ratings are self-assessed based on professional engagements, certifications and measurable outcomes — not self-congratulation.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

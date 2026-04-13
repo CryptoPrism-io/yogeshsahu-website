@@ -7,6 +7,8 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
+  YAxis,
+  CartesianGrid,
 } from "recharts";
 
 const stats = [
@@ -17,13 +19,13 @@ const stats = [
 ];
 
 const dataVolumeChart = [
-  { month: "Jan", points: 120 },
-  { month: "Mar", points: 280 },
-  { month: "May", points: 450 },
-  { month: "Jul", points: 620 },
-  { month: "Sep", points: 810 },
-  { month: "Nov", points: 980 },
-  { month: "Dec", points: 1000 },
+  { month: "Jan", points: 120, coins: 400 },
+  { month: "Mar", points: 280, coins: 550 },
+  { month: "May", points: 450, coins: 700 },
+  { month: "Jul", points: 620, coins: 820 },
+  { month: "Sep", points: 810, coins: 920 },
+  { month: "Nov", points: 980, coins: 980 },
+  { month: "Dec", points: 1000, coins: 1000 },
 ];
 
 function useCounter(target: number, isVisible: boolean, duration = 1400) {
@@ -128,37 +130,75 @@ export default function About() {
               Strathclyde — dissertation topper, applied TimesFM to live crypto markets.
             </p>
 
-            {/* Recharts mini area chart */}
+            {/* Recharts area chart — dual series */}
             <div className="mb-8">
-              <p className="text-[9px] uppercase tracking-[0.18em] text-neutral-600 font-bold mb-3">
-                Data Points Processed (M/day) — 2025
-              </p>
-              <div className="h-20 w-full max-w-sm">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-[9px] uppercase tracking-[0.18em] text-neutral-600 font-bold">
+                  CryptoPrism Scale — 2025
+                </p>
+                <div className="flex items-center gap-4">
+                  <span className="flex items-center gap-1.5 text-[9px] text-neutral-600">
+                    <span className="w-2 h-0.5 bg-[#fbbf24] inline-block" /> Data Points (M/day)
+                  </span>
+                  <span className="flex items-center gap-1.5 text-[9px] text-neutral-600">
+                    <span className="w-2 h-0.5 bg-[#60a5fa] inline-block" /> Coins Tracked
+                  </span>
+                </div>
+              </div>
+              <div className="h-44 w-full border border-white/5 bg-[#080808]/40 p-3">
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={dataVolumeChart}>
+                  <AreaChart data={dataVolumeChart} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
                     <defs>
                       <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%"  stopColor="#fbbf24" stopOpacity={0.25} />
-                        <stop offset="95%" stopColor="#fbbf24" stopOpacity={0}    />
+                        <stop offset="5%"  stopColor="#fbbf24" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="#fbbf24" stopOpacity={0}   />
+                      </linearGradient>
+                      <linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%"  stopColor="#60a5fa" stopOpacity={0.2} />
+                        <stop offset="95%" stopColor="#60a5fa" stopOpacity={0}   />
                       </linearGradient>
                     </defs>
-                    <XAxis dataKey="month" hide />
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+                    <XAxis
+                      dataKey="month"
+                      tick={{ fontSize: 9, fill: "#4b5563", fontFamily: "var(--font-headline)" }}
+                      axisLine={false}
+                      tickLine={false}
+                    />
+                    <YAxis
+                      tick={{ fontSize: 9, fill: "#4b5563" }}
+                      axisLine={false}
+                      tickLine={false}
+                    />
                     <Tooltip
                       contentStyle={{
-                        background: "#111",
+                        background: "#0d0d0d",
                         border: "1px solid rgba(251,191,36,0.2)",
-                        borderRadius: "4px",
+                        borderRadius: "2px",
                         fontSize: "10px",
                         color: "#fbbf24",
                       }}
-                      formatter={(v) => [`${v}M`, "Data points"]}
+                      formatter={(v, name) =>
+                        name === "points"
+                          ? [`${v}M`, "Data points/day"]
+                          : [`${v}`, "Coins tracked"]
+                      }
+                    />
+                    <Area
+                      type="monotone"
+                      dataKey="coins"
+                      stroke="#60a5fa"
+                      strokeWidth={1.5}
+                      fill="url(#blueGrad)"
+                      dot={false}
                     />
                     <Area
                       type="monotone"
                       dataKey="points"
                       stroke="#fbbf24"
-                      strokeWidth={1.5}
+                      strokeWidth={2}
                       fill="url(#goldGrad)"
+                      dot={false}
                     />
                   </AreaChart>
                 </ResponsiveContainer>

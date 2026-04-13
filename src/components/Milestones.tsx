@@ -73,7 +73,7 @@ export default function Milestones() {
               key={m.title}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
+              viewport={{ once: true, amount: 0 }}
               transition={{ delay: i * 0.09, duration: 0.45 }}
               className="group flex flex-row items-start gap-4 p-6 bg-[rgba(251,191,36,0.04)] border border-[rgba(251,191,36,0.1)] hover:bg-[rgba(251,191,36,0.07)] hover:border-[rgba(251,191,36,0.28)] hover:-translate-y-1 transition-all duration-300"
             >
