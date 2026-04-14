@@ -30,7 +30,7 @@ export default function Contact() {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] h-full">
 
         {/* Left: engage block */}
-        <div className="p-8 md:p-16 border-b-2 lg:border-b-0 lg:border-r border-[#e0ddd6] flex flex-col justify-center overflow-hidden">
+        <div className="p-6 sm:p-8 md:p-16 border-b-2 lg:border-b-0 lg:border-r border-[#e0ddd6] flex flex-col justify-center overflow-hidden">
           <div className="border-t-[3px] border-[#1a1a1a] pt-5 mb-8">
             <motion.p
               className="text-[11px] font-bold uppercase tracking-[0.35em] text-[#bbb] mb-6"
@@ -56,7 +56,7 @@ export default function Contact() {
             </motion.p>
           </div>
 
-          <div className="flex flex-col gap-5 mb-10">
+          <div className="flex flex-col gap-4 sm:gap-5 mb-6 sm:mb-10">
             {MANDATE_TYPES.map((m, i) => (
               <motion.div
                 key={m.label}
@@ -89,7 +89,7 @@ export default function Contact() {
         </div>
 
         {/* Right: contact card */}
-        <div className="p-6 lg:p-12 flex items-center overflow-hidden">
+        <div className="p-4 sm:p-6 lg:p-12 flex items-center overflow-hidden">
           <motion.div
             className="w-full border-2 border-[#1a1a1a]"
             {...slideUp(0.2)}

@@ -84,7 +84,7 @@ function MobileStatBlock({ label, rawValue, suffix, dark = false, delay = 0, bor
         style={{ color: dark ? "#555" : "#bbb", fontFamily: "var(--font-headline)" }}>
         {label}
       </p>
-      <p className="text-[1.8rem] font-black leading-none"
+      <p className="text-[1.4rem] sm:text-[1.8rem] font-black leading-none"
         style={{ color: dark ? "#fff" : "#1a1a1a", fontFamily: "var(--font-headline)" }}>
         {count.toLocaleString()}{suffix}
       </p>
@@ -101,7 +101,7 @@ export default function Hero() {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_1px_300px] h-full border-b-2 border-[#1a1a1a]">
 
         {/* Left: editorial copy */}
-        <div className="flex flex-col justify-between p-8 md:p-14 py-10 overflow-hidden">
+        <div className="flex flex-col justify-between p-6 sm:p-8 md:p-14 py-8 sm:py-10 overflow-hidden">
           <div>
             <motion.p
               className="text-[12px] font-bold uppercase tracking-[0.3em] text-[#aaa] mb-8"
@@ -148,19 +148,19 @@ export default function Hero() {
           </div>
 
           <motion.div
-            className="flex flex-wrap gap-3 mt-8"
+            className="flex flex-wrap gap-2 sm:gap-3 mt-6 sm:mt-8"
             {...fadeUp(0.65)}
           >
             <a
               href="#contact"
-              className="text-[11px] font-black uppercase tracking-[0.12em] text-[#1a1a1a] border-2 border-[#1a1a1a] px-6 py-3 hover:bg-[#1a1a1a] hover:text-white transition-colors"
+              className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.12em] text-[#1a1a1a] border-2 border-[#1a1a1a] px-4 sm:px-6 py-2.5 sm:py-3 hover:bg-[#1a1a1a] hover:text-white transition-colors"
               style={{ fontFamily: "var(--font-headline)" }}
             >
               Open to mandates ↗
             </a>
             <a
               href="#work"
-              className="text-[11px] font-black uppercase tracking-[0.12em] text-[#999] border border-[#ddd] px-6 py-3 hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors"
+              className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.12em] text-[#999] border border-[#ddd] px-4 sm:px-6 py-2.5 sm:py-3 hover:border-[#1a1a1a] hover:text-[#1a1a1a] transition-colors"
               style={{ fontFamily: "var(--font-headline)" }}
             >
               View Work

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -74,6 +74,14 @@ const CARD_GAP = 16;
 export default function ProjectsGrid() {
   const totalCards = PROJECTS.length + 1; // +1 for GitHub card
   const maxDrag = -(totalCards * (CARD_WIDTH + CARD_GAP) - (CARD_WIDTH + CARD_GAP));
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
     <section id="work" className="snap-section pt-[46px] bg-[#f7f4ee] border-b-2 border-[#1a1a1a] flex flex-col">
@@ -95,30 +103,35 @@ export default function ProjectsGrid() {
              style={{ fontFamily: "var(--font-headline)" }}>
             ← drag to explore →
           </p>
+          <p className="text-[10px] text-[#bbb] md:hidden"
+             style={{ fontFamily: "var(--font-headline)" }}>
+            swipe →
+          </p>
           <a href="https://github.com/CryptoPrism-io" target="_blank" rel="noreferrer"
-             className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#888] hover:text-[#1a1a1a] transition-colors"
+             className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#888] hover:text-[#1a1a1a] transition-colors hidden sm:block"
              style={{ fontFamily: "var(--font-headline)" }}>
             View all 23 repos ↗
           </a>
         </div>
       </motion.div>
 
-      {/* Horizontal drag carousel */}
-      <div className="flex-1 overflow-hidden flex items-center px-6 lg:px-14">
+      {/* Horizontal carousel — native scroll on mobile, drag on desktop */}
+      <div className="flex-1 overflow-x-auto md:overflow-hidden flex items-center px-6 md:px-10 lg:px-14 scrollbar-hide">
         <motion.div
-          className="flex gap-4 cursor-grab active:cursor-grabbing"
-          drag="x"
-          dragConstraints={{ left: maxDrag, right: 0 }}
-          dragElastic={0.05}
-          dragTransition={{ bounceStiffness: 300, bounceDamping: 30 }}
-          whileDrag={{ cursor: "grabbing" }}
+          className="flex gap-4 md:cursor-grab md:active:cursor-grabbing"
+          {...(!isMobile && {
+            drag: "x",
+            dragConstraints: { left: maxDrag, right: 0 },
+            dragElastic: 0.05,
+            dragTransition: { bounceStiffness: 300, bounceDamping: 30 },
+            whileDrag: { cursor: "grabbing" },
+          })}
         >
           {PROJECTS.map((p, i) => (
             <motion.article
               key={p.id}
-              className="bg-white border border-[#e0e0e0] border-t-2 flex flex-col flex-shrink-0"
+              className="bg-white border border-[#e0e0e0] border-t-2 flex flex-col flex-shrink-0 w-[280px] sm:w-[300px] md:w-[320px]"
               style={{
-                width: CARD_WIDTH,
                 borderTopColor: i === 0 ? "#1a1a1a" : i < 3 ? "#555" : "#888",
               }}
               initial={{ opacity: 0, y: 40 }}
@@ -127,7 +140,7 @@ export default function ProjectsGrid() {
               transition={{ duration: 0.5, delay: i * 0.07, ease: EASE }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
             >
-              <div className="p-5 flex-1 flex flex-col">
+              <div className="p-4 sm:p-5 flex-1 flex flex-col">
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#bbb] mb-3"
                    style={{ fontFamily: "var(--font-headline)" }}>
                   {p.label}
@@ -177,8 +190,7 @@ export default function ProjectsGrid() {
 
           {/* GitHub card */}
           <motion.article
-            className="bg-[#1a1a1a] flex flex-col p-5 justify-between flex-shrink-0"
-            style={{ width: CARD_WIDTH, minHeight: 300 }}
+            className="bg-[#1a1a1a] flex flex-col p-4 sm:p-5 justify-between flex-shrink-0 w-[280px] sm:w-[300px] md:w-[320px] min-h-[280px] sm:min-h-[300px]"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
