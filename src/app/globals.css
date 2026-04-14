@@ -53,28 +53,46 @@ body {
 .snap-container {
   height: 100svh;
   overflow-y: scroll;
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Each full-screen section */
 .snap-section {
-  height: 100svh;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  overflow: hidden;
+  min-height: 100svh;
   position: relative;
+}
+
+/* Enable snap scrolling only on large screens where content fits */
+@media (min-width: 1024px) {
+  .snap-container {
+    scroll-snap-type: y mandatory;
+  }
+  .snap-section {
+    height: 100svh;
+    min-height: auto;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overflow: hidden;
+  }
 }
 
 /* Fallback for browsers without svh support */
 @supports not (height: 100svh) {
   .snap-container { height: 100vh; }
-  .snap-section { height: 100vh; }
+  @media (min-width: 1024px) {
+    .snap-section { height: 100vh; }
+  }
+  .snap-section { min-height: 100vh; }
 }
 
-/* Smooth momentum scrolling on iOS */
-.snap-container {
-  -webkit-overflow-scrolling: touch;
+/* Hide scrollbar for touch-scroll carousel on mobile */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
 /* Prevent text selection while dragging carousel */

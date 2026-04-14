@@ -43,7 +43,7 @@ export default function About() {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] h-full">
 
         {/* Left: editorial pull-quote */}
-        <div className="p-8 md:p-16 border-b-2 lg:border-b-0 lg:border-r border-[#e0ddd6] flex flex-col justify-center overflow-hidden">
+        <div className="p-6 md:p-16 lg:pb-20 border-b-2 lg:border-b-0 lg:border-r border-[#e0ddd6] flex flex-col justify-center overflow-hidden">
           <div className="border-t-[3px] border-[#1a1a1a] pt-5 mb-10">
             <motion.p
               className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#bbb] mb-5"
@@ -71,7 +71,7 @@ export default function About() {
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-8">
             {disciplines.map((d, i) => (
               <motion.div
                 key={d.label}
@@ -122,7 +122,7 @@ export default function About() {
       </div>
 
       {/* Availability ticker */}
-      <div className="bg-[#1a1a1a] overflow-hidden py-4 absolute bottom-0 left-0 right-0">
+      <div className="bg-[#1a1a1a] overflow-hidden py-4 lg:absolute lg:bottom-0 lg:left-0 lg:right-0">
         <div className="animate-marquee inline-block whitespace-nowrap">
           <span
             className="text-[11px] font-bold uppercase tracking-[0.25em] text-white mx-8"
