@@ -30,13 +30,6 @@ const fadeRight = (delay = 0) => ({
   transition: { duration: 0.7, delay, ease: EASE },
 });
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-10% 0px" },
-  transition: { duration: 0.6, delay, ease: EASE },
-});
-
 export default function About() {
   return (
     <section id="about" className="snap-section bg-[#f7f4ee] border-b-2 border-[#1a1a1a]">

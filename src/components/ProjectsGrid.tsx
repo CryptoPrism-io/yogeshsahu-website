@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -26,9 +26,9 @@ const PROJECTS = [
     metric: "50K",
     metricSub: "downloads · 21 days",
     tags: ["Unity", "C#", "Mobile"],
-    cta: "Play Store ↗",
+    cta: "App Store ↗",
     ctaDark: false,
-    href: "https://play.google.com/store",
+    href: "https://apps.apple.com/app/kari-and-the-lost-shrines",
   },
   {
     id: "cryptoprism-platform",

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Newsreader, Space_Grotesk, Work_Sans } from "next/font/google";
+import { JetBrains_Mono, Newsreader, Space_Grotesk, Work_Sans } from "next/font/google";
 import "./globals.css";
 
 const newsreader = Newsreader({
   subsets: ["latin"],
-  style: ["italic"],
-  weight: ["700", "800"],
+  style: ["italic", "normal"],
+  weight: ["400", "700", "800"],
   variable: "--font-serif-display",
 });
 
@@ -21,12 +21,18 @@ const workSans = Work_Sans({
   variable: "--font-body",
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-mono",
+});
+
 export const metadata: Metadata = {
-  title: "Yogesh Sahu — Fractional CTO · Founder · FinTech",
+  title: "YogeshOS - Yogesh Sahu",
   description:
-    "DPIIT-recognised founder, Fractional CTO, and FinTech infrastructure engineer. CryptoPrism: 1B+ data points daily. Pre-seed Q2 2026.",
+    "DPIIT-recognised founder, Fractional CTO, and FinTech infrastructure engineer. CryptoPrism: 1B+ data points daily.",
   openGraph: {
-    title: "Yogesh Sahu — Fractional CTO",
+    title: "YogeshOS - Yogesh Sahu",
     description:
       "1B+ data points. 23 repos. One operator. Fractional CTO mandates for fintech, AI, and data-intensive startups.",
     url: "https://yogeshsahu.xyz",
@@ -41,11 +47,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${newsreader.variable} ${spaceGrotesk.variable} ${workSans.variable}`}
+      className={`${newsreader.variable} ${spaceGrotesk.variable} ${workSans.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="bg-[#f7f4ee] text-[#1a1a1a] antialiased overflow-x-hidden">
-        {children}
-      </body>
+      <body className="antialiased overflow-hidden">{children}</body>
     </html>
   );
 }
