@@ -2,24 +2,28 @@
 
 const MANDATE_TYPES = [
   {
-    label: "FRACTIONAL CTO",
-    body: "Architecture decisions, execution planning, hiring support, and technical due diligence.",
+    label: "AI INTEGRATION",
+    body: "Move from level-zero experimentation to product and enterprise rollout without overbuilding the stack.",
     color: "var(--ys-accent)",
   },
   {
-    label: "DATA ENGINEERING",
-    body: "Pipeline design, warehouse strategy, reliability hardening, and production observability.",
+    label: "ARCHITECTURE CLARITY",
+    body: "Make the technical tradeoffs obvious so product pressure turns into execution instead of confusion.",
     color: "var(--ys-highlight)",
   },
   {
-    label: "AI PRODUCT",
-    body: "Model-assisted workflows, LLM integration, and finance-specific product shaping.",
+    label: "STAKEHOLDER ALIGNMENT",
+    body: "Bring product, engineering, and leadership onto one execution path even when authority is fragmented.",
     color: "var(--ys-text)",
   },
 ];
 
 const LINKS = [
-  { label: "EMAIL", content: "yogesh@cryptoprism.io", href: "mailto:yogesh@cryptoprism.io" },
+  {
+    label: "EMAIL",
+    content: "yogesh@cryptoprism.io",
+    href: "mailto:yogesh@cryptoprism.io?subject=5-day%20CTO%20Diagnostic&body=Hi%20Yogesh%2C%0A%0AI%20want%20to%20explore%20the%205-day%20CTO%20diagnostic.%20The%20main%20issue%20we%20are%20dealing%20with%20is%3A%20%0A%0ACompany%3A%20%0AStage%3A%20%0ACurrent%20pressure%3A%20",
+  },
   { label: "LINKEDIN", content: "linkedin.com/in/yogeshsahu", href: "https://linkedin.com/in/yogeshsahu" },
   { label: "GITHUB", content: "github.com/CryptoPrism-io", href: "https://github.com/CryptoPrism-io" },
 ];
@@ -32,16 +36,35 @@ export default function ContactWindow() {
           className="mb-3 text-[1.8rem] font-black italic leading-[1.1]"
           style={{ fontFamily: "var(--font-serif-display)", color: "var(--ys-text)" }}
         >
-          Build with an
+          Hands-on architecture
           <br />
-          operator mindset.
+          leadership without fixed-cost regret.
         </h2>
         <p
           className="text-[13px] leading-[1.9]"
           style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
         >
-          I take 2 to 3 mandates per quarter with a clear execution path: discovery, system plan, and delivery
-          milestones that tie to measurable outcomes.
+          Built for clients who need a hands-on chief solutions architect, not a slide-deck architect.
+          I step in when discovery, architecture, delivery, and stakeholder confidence all need to hold
+          together in the same engagement.
+        </p>
+      </div>
+
+      <div
+        className="mb-7 rounded-lg border p-4"
+        style={{
+          borderColor: "rgba(11, 141, 128, 0.24)",
+          background: "rgba(11, 141, 128, 0.08)",
+        }}
+      >
+        <p
+          className="mb-1 text-[10px] font-bold uppercase tracking-[0.18em]"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+        >
+          Entry Offer
+        </p>
+        <p className="text-[12px] leading-[1.8]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
+          5 business days. Fixed scope. Discovery, architecture review, delivery risks, and a practical 90-day execution plan.
         </p>
       </div>
 
@@ -109,17 +132,17 @@ export default function ContactWindow() {
               className="text-[11px] font-bold"
               style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
             >
-              Open for Q2 2026 mandates
+              Open for May 2026 architecture mandates
             </span>
           </div>
           <p className="mt-0.5 text-[10px]" style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}>
-            Typical response time: 24 to 48 hours.
+            Best fit: consulting, regulated, and fast-moving teams.
           </p>
         </div>
       </div>
 
       <a
-        href="mailto:yogesh@cryptoprism.io?subject=Fractional%20CTO%20Mandate"
+        href="mailto:yogesh@cryptoprism.io?subject=5-day%20CTO%20Diagnostic&body=Hi%20Yogesh%2C%0A%0AI%20want%20to%20explore%20the%205-day%20CTO%20diagnostic.%20The%20main%20issue%20we%20are%20dealing%20with%20is%3A%20%0A%0ACompany%3A%20%0AStage%3A%20%0ACurrent%20pressure%3A%20"
         className="block w-full rounded-lg py-3 text-center text-[11px] font-bold uppercase tracking-[0.08em] transition-colors"
         style={{
           fontFamily: "var(--font-headline)",
@@ -127,7 +150,7 @@ export default function ContactWindow() {
           color: "var(--ys-surface)",
         }}
       >
-        Start Discovery Call
+        Start architecture diagnostic
       </a>
     </div>
   );

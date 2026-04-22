@@ -46,19 +46,19 @@ export default function MenuBar() {
           className="hidden text-[10px] tracking-wider md:inline"
           style={{ fontFamily: "var(--font-mono)", color: "#d8b8a0" }}
         >
-          FRACTIONAL CTO | FINTECH | AI
+          CHIEF SOLUTIONS ARCHITECT | FRACTIONAL CTO
         </span>
       </div>
 
       <div className="flex items-center gap-5">
         <a
-          href="mailto:yogesh@cryptoprism.io"
+          href="mailto:yogesh@cryptoprism.io?subject=Fractional%20CTO%20Diagnostic"
           className="focus-ring hidden items-center gap-2 text-[10px] tracking-wider transition-colors md:flex hover:opacity-90"
           aria-label="Email Yogesh for mandates"
           style={{ fontFamily: "var(--font-mono)", color: "#d8b8a0" }}
         >
           <span className="h-1.5 w-1.5 rounded-full animate-heartbeat" style={{ background: "var(--ys-highlight)" }} />
-          OPEN TO MANDATES
+          OPEN TO ARCHITECTURE MANDATES
         </a>
         <span
           className="text-[11px]"

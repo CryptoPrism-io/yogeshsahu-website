@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solutions Architecture Diagnostic | Yogesh Sahu</title>
+  <style>
+    :root {
+      --bg: #f5efe7;
+      --paper: #fffaf4;
+      --ink: #1f1712;
+      --muted: #6f6157;
+      --accent: #b34e25;
+      --line: rgba(31, 23, 18, 0.16);
+      --highlight: #0f8b7d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(179, 78, 37, 0.08), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(15, 139, 125, 0.1), transparent 28%),
+        var(--bg);
+    }
+
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 16mm;
+      background: var(--paper);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: 34px;
+      line-height: 0.98;
+    }
+
+    .lede {
+      max-width: 640px;
+      margin: 0 0 20px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 18px;
+    }
+
+    .card {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+    }
+
+    .step {
+      padding: 10px 12px;
+      border-left: 3px solid var(--accent);
+      background: rgba(179, 78, 37, 0.06);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .step strong {
+      color: var(--ink);
+    }
+
+    .pricing {
+      border-left: 4px solid var(--highlight);
+      background: rgba(15, 139, 125, 0.08);
+    }
+
+    .price {
+      margin: 0 0 10px;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .small {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      gap: 16px;
+    }
+
+    .promise {
+      max-width: 520px;
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .cta {
+      text-align: right;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .cta strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .sheet {
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <p class="eyebrow">Yogesh Sahu | Fractional CTO</p>
+    <h1>5-day solutions architecture diagnostic for teams moving faster than their systems.</h1>
+    <p class="lede">
+      Built for clients who need a hands-on chief solutions architect / fractional CTO to shape discovery,
+      architecture, and delivery without locking into a full-time CTO hire too early.
+    </p>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Best Fit</h2>
+        <ul class="list">
+          <li>Product and engineering leaders in funded, regulated, or fast-moving environments</li>
+          <li>Teams under pressure to integrate AI without breaking product or architecture</li>
+          <li>Companies where discovery, architecture, and delivery are not yet aligned</li>
+          <li>Businesses that need CTO-level judgment without early fixed-cost commitment</li>
+        </ul>
+      </article>
+
+      <article class="card pricing">
+        <h2>Commercials</h2>
+        <p class="price">USD 5,000-7,500</p>
+        <p class="small">Fixed scope. 5 business days.</p>
+        <p class="small">50% upfront, 50% on delivery.</p>
+        <p class="small">Next step: ongoing CTO cadence, focused execution, or a sharper hiring brief.</p>
+      </article>
+
+      <article class="card">
+        <h2>What You Get</h2>
+        <ul class="list">
+          <li>Discovery summary and architecture decision memo</li>
+          <li>Product-engineering alignment risks</li>
+          <li>90-day execution plan</li>
+          <li>Priorities across system, team, and stakeholder flow</li>
+          <li>Executive debrief</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>What Happens In 5 Days</h2>
+        <div class="timeline">
+          <div class="step"><strong>Day 1:</strong> Context intake on business goals, AI ambition, technical landscape, stakeholder map, and discovery inputs.</div>
+          <div class="step"><strong>Day 2:</strong> Architecture review across tradeoffs, failure points, cost-risk decisions, and system shape.</div>
+          <div class="step"><strong>Day 3:</strong> Architecture and solution review across workflows, product fit, and what should stay lightweight versus enterprise-grade.</div>
+          <div class="step"><strong>Day 4:</strong> Alignment review on product, engineering, leadership friction, and what should not be pursued.</div>
+          <div class="step"><strong>Day 5:</strong> Executive synthesis with a decision memo and a 90-day execution plan.</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid" style="margin-top: 18px;">
+      <article class="card">
+        <h2>Why Fractional</h2>
+        <p class="small">
+          Markets are moving quickly, and the wrong full-time technical hire is expensive to unwind.
+          Fractional leadership gives the business senior judgment and flexibility before taking on fixed-cost regret.
+        </p>
+      </article>
+
+      <article class="card">
+        <h2>Proof Signals</h2>
+        <ul class="list">
+          <li>1B+ data points per day at 99.9% uptime in production systems</li>
+          <li>Roughly USD 100k avoided in early infrastructure setup through managed AI services and on-demand compute</li>
+          <li>Built on minimal budget through clarity, empathy, and influence without authority</li>
+        </ul>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <div class="promise">
+        <strong>Core promise:</strong> this is not a generic audit. It is a decision-making engagement designed
+        to make the next 90 days technically and organisationally obvious.
+      </div>
+      <div class="cta">
+        <strong>Contact</strong>
+        yogesh@cryptoprism.io<br />
+        linkedin.com/in/yogeshsahu<br />
+        yogeshsahu.xyz
+      </div>
+    </footer>
+  </main>
+</body>
+</html>

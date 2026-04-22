@@ -71,8 +71,9 @@ export default function ProjectsWindow() {
           className="text-[12px] leading-[1.7]"
           style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
         >
-          Each project links technical depth to a measurable result. If you need this level of ownership for a
-          fintech or data-heavy product, use the contact window to start a mandate conversation.
+          This is proof, not decoration. Each project shows the same pattern: hard constraints, technical pressure,
+          and decisions that had to survive real operating conditions. If you need CTO-level ownership without a
+          full-time CTO hire, start with the diagnostic.
         </p>
       </motion.div>
 

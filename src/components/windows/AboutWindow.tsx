@@ -1,15 +1,15 @@
 "use client";
 
 const disciplines = [
-  { label: "INFRA", color: "var(--ys-accent)", lines: ["GCP | PostgreSQL", "99.9% uptime SLA", "1B+ data points/day"] },
-  { label: "PRODUCT", color: "var(--ys-highlight)", lines: ["React | FastAPI", "Real-time feeds", "23 public repos"] },
-  { label: "FINANCE", color: "var(--ys-text)", lines: ["TimesFM | NLP", "Quant research", "MS FinTech"] },
+  { label: "AI", color: "var(--ys-accent)", lines: ["Vertex AI | Together.ai", "From workflow to enterprise rollout", "Cost-aware integration"] },
+  { label: "ARCHITECTURE", color: "var(--ys-highlight)", lines: ["GCP | PostgreSQL", "99.9% uptime SLA", "1B+ data points/day"] },
+  { label: "LEADERSHIP", color: "var(--ys-text)", lines: ["Product x engineering alignment", "Stakeholder management", "Founder empathy"] },
 ];
 
 const credentials = [
   { label: "STRATHCLYDE", body: "MS Financial Technology, merit, dissertation topper (82/100)." },
   { label: "UBISOFT", body: "Data engineering support for Assassin's Creed, For Honor, and Just Dance." },
-  { label: "DPIIT STARTUP", body: "CryptoPrism recognised startup, pre-seed track for Q2 2026.", highlight: true },
+  { label: "COST DISCIPLINE", body: "Avoided roughly USD 100k in infra setup by using managed AI services and on-demand compute instead of self-hosting early.", highlight: true },
 ];
 
 const outcomes = [
@@ -41,7 +41,7 @@ export default function AboutWindow() {
           className="text-[10px] font-bold uppercase tracking-[0.22em]"
           style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
         >
-          FRACTIONAL CTO | FOUNDER | FINTECH INFRASTRUCTURE | AI PRODUCT
+          HANDS-ON CHIEF SOLUTIONS ARCHITECT | FRACTIONAL CTO
         </p>
       </div>
 
@@ -49,9 +49,10 @@ export default function AboutWindow() {
         className="mb-7 max-w-lg text-[14px] leading-[1.9]"
         style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
       >
-        I build operating systems for early and growth-stage fintech teams: data pipelines, live product layers,
-        and technical direction that keeps teams shipping. I work as founder-operator at CryptoPrism and as a
-        fractional CTO on focused mandates.
+        I step in when teams need more than another senior engineer and less risk than the wrong
+        full-time CTO hire. My work sits at the intersection of consulting discovery, architecture
+        direction, and hands-on delivery. I help clients move from ambiguity to scoped, buildable,
+        and commercially credible execution plans.
       </p>
 
       <div className="mb-7 grid grid-cols-1 gap-3 sm:grid-cols-3">

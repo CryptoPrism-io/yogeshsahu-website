@@ -30,11 +30,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "YogeshOS - Yogesh Sahu",
   description:
-    "DPIIT-recognised founder, Fractional CTO, and FinTech infrastructure engineer. CryptoPrism: 1B+ data points daily.",
+    "Hands-On Chief Solutions Architect / Fractional CTO for AI, fintech, and data-heavy products. I scope, architect, code, and lead client-facing engagements from discovery through delivery.",
   openGraph: {
     title: "YogeshOS - Yogesh Sahu",
     description:
-      "1B+ data points. 23 repos. One operator. Fractional CTO mandates for fintech, AI, and data-intensive startups.",
+      "Hands-On Chief Solutions Architect / Fractional CTO for client-facing AI and product engineering engagements from discovery through delivery.",
     url: "https://yogeshsahu.xyz",
     siteName: "yogeshsahu.xyz",
     type: "website",
