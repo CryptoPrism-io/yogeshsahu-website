@@ -22,7 +22,7 @@ const COMMANDS: Record<string, string> = {
   whoami: [
     "Yogesh Sahu",
     "-------------",
-    "Role:     Founder, CryptoPrism",
+    "Role:     Founder & Director, CryptoPrism / Trinetry Infotech",
     "Also:     Chief Solutions Architect / Fractional CTO",
     "Focus:    Discovery, architecture, hands-on delivery, client trust",
     "Offer:    Architecture diagnostic -> ongoing leadership",
@@ -42,10 +42,13 @@ const COMMANDS: Record<string, string> = {
     "Next:     Architecture leadership | focused execution | hiring brief",
   ].join("\n"),
   experience: [
-    "2024-now   CryptoPrism   Founder and operator",
-    "2024-now   Tesco Bank    Credit cards analyst",
-    "2023-2024  Ubisoft       Data engineering",
-    "2022-2023  Strathclyde   MS Financial Technology",
+    "2025-now   CryptoPrism     Founder & Director",
+    "2024-2025  Times Internet  Chief Tech Architect",
+    "2023-2024  Barclays        Credit Card Product & AI/ML",
+    "2022-2023  Strathclyde     MSc FinTech",
+    "2020-2021  Isha Foundation Product Lead",
+    "2018-2020  Gamerz Nation   Founder & CEO",
+    "2016-2018  Ubisoft         QA Lead",
   ].join("\n"),
   projects: [
     "CryptoPrism DB       -> 1B+ points/day, 99.9% SLA",

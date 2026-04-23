@@ -24,14 +24,14 @@ const milestones = [
   {
     icon: "🏢",
     title: "Ubisoft",
-    body: "Worked across Assassin's Creed, For Honor, and Just Dance. Consumer gaming at global scale.",
-    badge: "AAA Titles",
+    body: "QA Lead across Assassin's Creed, For Honor, and Just Dance. 250K first-day users on shipped titles.",
+    badge: "AAA Titles · 250K Day-1",
   },
   {
     icon: "🏆",
     title: "Gamerz Nation",
-    body: "Co-founded 7 e-sports franchises. Built the first GeForce-certified gaming zone in India.",
-    badge: "First in India",
+    body: "Founded 7 e-sports franchises. Rs 1.4 Cr Y1 revenue at 35% gross margin. First GeForce-certified gaming zone in India.",
+    badge: "Rs 1.4 Cr · First in India",
   },
 ];
 

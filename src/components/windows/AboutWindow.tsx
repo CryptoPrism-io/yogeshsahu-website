@@ -7,15 +7,15 @@ const disciplines = [
 ];
 
 const credentials = [
-  { label: "STRATHCLYDE", body: "MS Financial Technology, merit, dissertation topper (82/100)." },
-  { label: "UBISOFT", body: "Data engineering support for Assassin's Creed, For Honor, and Just Dance." },
-  { label: "COST DISCIPLINE", body: "Avoided roughly USD 100k in infra setup by using managed AI services and on-demand compute instead of self-hosting early.", highlight: true },
+  { label: "STRATHCLYDE", body: "MSc FinTech, merit, dissertation topper (82/100). AML false positives reduced from 87% to 59%." },
+  { label: "BARCLAYS / TIMES INTERNET", body: "Credit card product & AI/ML at Barclays (10K+ customers). Chief Tech Architect at Times Internet (India foundation DB)." },
+  { label: "UBISOFT", body: "QA Lead across Assassin's Creed, For Honor, and Just Dance. 250K first-day users." },
 ];
 
 const outcomes = [
-  { value: "1B+", label: "data points/day" },
-  { value: "99.9%", label: "production uptime" },
-  { value: "23", label: "public repos" },
+  { value: "17", label: "production repos" },
+  { value: "99.9%", label: "pipeline uptime" },
+  { value: "130+", label: "indicators" },
   { value: "50K", label: "game downloads" },
 ];
 
@@ -88,10 +88,9 @@ export default function AboutWindow() {
           {credentials.map((item) => (
             <div
               key={item.label}
-              className={`rounded-lg border p-4 ${item.highlight ? "border-l-2" : ""}`}
+              className="rounded-lg border p-4"
               style={{
                 borderColor: "var(--ys-border)",
-                borderLeftColor: item.highlight ? "var(--ys-accent)" : "var(--ys-border)",
                 background: "var(--ys-surface-strong)",
               }}
             >

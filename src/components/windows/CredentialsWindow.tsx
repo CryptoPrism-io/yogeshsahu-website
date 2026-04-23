@@ -136,9 +136,9 @@ const CATEGORIES: CredentialCategory[] = [
     title: "Academic and Recognition",
     items: [
       {
-        name: "MS Financial Technology",
-        org: "Strathclyde Business School",
-        detail: "Merit, dissertation topper (82/100), TimesFM applied research.",
+        name: "MSc Financial Technology",
+        org: "Strathclyde Business School, UK",
+        detail: "Merit, dissertation topper (82/100). AML false positives 87% → 59%.",
         icon: <GraduationCap size={20} strokeWidth={1.5} />,
         accent: "var(--ys-accent)",
       },
