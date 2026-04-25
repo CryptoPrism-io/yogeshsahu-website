@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
+import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 
 const PROJECTS = [
   {
@@ -109,6 +110,11 @@ export default function ProjectsWindow() {
             whileHover={{ y: -2 }}
             style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
           >
+            <ImagePlaceholder
+              variant="screenshot"
+              label={project.name}
+              className="mb-3 aspect-video w-full"
+            />
             <div className="mb-2 flex items-start justify-between gap-4">
               <div>
                 <p

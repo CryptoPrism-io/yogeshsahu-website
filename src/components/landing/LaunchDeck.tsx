@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { fadeUp, MOTION_DURATION, MOTION_EASE_QUICK } from "@/lib/motion";
+import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 
 export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void }) {
   const metrics = [
@@ -28,18 +29,26 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           boxShadow: "0 24px 56px rgba(34, 18, 11, 0.24)",
         }}
       >
-        <p
-          className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-        >
-          CHIEF SOLUTIONS ARCHITECT | FRACTIONAL CTO
-        </p>
-        <h1
-          className="mb-3 text-[clamp(2rem,5.4vw,3.2rem)] font-black uppercase leading-[0.95]"
-          style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
-        >
-          Yogesh Sahu
-        </h1>
+        <div className="mb-4 flex items-start gap-4">
+          <ImagePlaceholder
+            variant="profile"
+            className="h-24 w-24 shrink-0 rounded-2xl"
+          />
+          <div>
+            <p
+              className="mb-2 text-[10px] font-bold uppercase tracking-[0.22em]"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+            >
+              CHIEF SOLUTIONS ARCHITECT | FRACTIONAL CTO
+            </p>
+            <h1
+              className="text-[clamp(2rem,5.4vw,3.2rem)] font-black uppercase leading-[0.95]"
+              style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
+            >
+              Yogesh Sahu
+            </h1>
+          </div>
+        </div>
         <p
           className="mb-5 max-w-[50ch] text-[13px] leading-[1.8]"
           style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}

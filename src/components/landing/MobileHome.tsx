@@ -10,6 +10,7 @@ import ExperienceWindow from "@/components/windows/ExperienceWindow";
 import CredentialsWindow from "@/components/windows/CredentialsWindow";
 import DiagnosticWindow from "@/components/windows/DiagnosticWindow";
 import { useState, type ReactNode } from "react";
+import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 
 function MobileSection({ title, icon, children, defaultOpen = false }: {
   title: string;
@@ -57,7 +58,7 @@ function MobileSection({ title, icon, children, defaultOpen = false }: {
 
 export default function MobileHome() {
   return (
-    <div className="min-h-screen overflow-y-auto" style={{ background: "var(--ys-surface)" }}>
+    <div className="fixed inset-0 overflow-y-auto" style={{ background: "var(--ys-surface)" }}>
       <motion.header
         className="px-5 pt-16 pb-6"
         style={{ background: "var(--ys-bg)" }}
@@ -65,18 +66,27 @@ export default function MobileHome() {
         initial="initial"
         animate="animate"
       >
-        <p
-          className="mb-2 text-[10px] font-bold uppercase tracking-[0.22em]"
-          style={{ fontFamily: "var(--font-mono)", color: "rgba(255,239,225,0.6)" }}
-        >
-          CHIEF SOLUTIONS ARCHITECT | FRACTIONAL CTO
-        </p>
-        <h1
-          className="mb-3 text-[2rem] font-black uppercase leading-[0.95]"
-          style={{ fontFamily: "var(--font-headline)", color: "var(--ys-surface)" }}
-        >
-          Yogesh Sahu
-        </h1>
+        <div className="mb-4 flex items-center gap-4">
+          <ImagePlaceholder
+            variant="profile"
+            className="h-20 w-20 shrink-0 rounded-full"
+            label=""
+          />
+          <div>
+            <h1
+              className="mb-1 text-[2rem] font-black uppercase leading-[0.95]"
+              style={{ fontFamily: "var(--font-headline)", color: "var(--ys-surface)" }}
+            >
+              Yogesh Sahu
+            </h1>
+            <p
+              className="text-[9px] font-bold uppercase tracking-[0.22em]"
+              style={{ fontFamily: "var(--font-mono)", color: "rgba(255,239,225,0.6)" }}
+            >
+              CHIEF SOLUTIONS ARCHITECT | FRACTIONAL CTO
+            </p>
+          </div>
+        </div>
         <p
           className="mb-5 text-[13px] leading-[1.8]"
           style={{ fontFamily: "var(--font-body)", color: "rgba(255,239,225,0.82)" }}

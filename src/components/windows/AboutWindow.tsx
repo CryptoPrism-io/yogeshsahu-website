@@ -1,5 +1,7 @@
 "use client";
 
+import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
+
 const disciplines = [
   { label: "AI", color: "var(--ys-accent)", lines: ["Vertex AI | Together.ai", "From workflow to enterprise rollout", "Cost-aware integration"] },
   { label: "ARCHITECTURE", color: "var(--ys-highlight)", lines: ["GCP | PostgreSQL", "99.9% uptime SLA", "1B+ data points/day"] },
@@ -23,26 +25,34 @@ export default function AboutWindow() {
   return (
     <div className="p-6 md:p-8">
       <div className="mb-7 border-b pb-7" style={{ borderColor: "var(--ys-border)" }}>
-        <h1 className="mb-3 leading-[0.9] tracking-[-0.04em]">
-          <span
-            className="block text-[clamp(2.6rem,5.6vw,4.2rem)] font-black italic"
-            style={{ fontFamily: "var(--font-serif-display)", color: "var(--ys-accent)" }}
-          >
-            Yogesh
-          </span>
-          <span
-            className="block text-[clamp(2.3rem,4.8vw,3.8rem)] font-bold uppercase"
-            style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
-          >
-            Sahu
-          </span>
-        </h1>
-        <p
-          className="text-[10px] font-bold uppercase tracking-[0.22em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-        >
-          HANDS-ON CHIEF SOLUTIONS ARCHITECT | FRACTIONAL CTO
-        </p>
+        <div className="flex items-start gap-5">
+          <ImagePlaceholder
+            variant="profile"
+            className="h-28 w-28 shrink-0 rounded-2xl"
+          />
+          <div>
+            <h1 className="mb-3 leading-[0.9] tracking-[-0.04em]">
+              <span
+                className="block text-[clamp(2.6rem,5.6vw,4.2rem)] font-black italic"
+                style={{ fontFamily: "var(--font-serif-display)", color: "var(--ys-accent)" }}
+              >
+                Yogesh
+              </span>
+              <span
+                className="block text-[clamp(2.3rem,4.8vw,3.8rem)] font-bold uppercase"
+                style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
+              >
+                Sahu
+              </span>
+            </h1>
+            <p
+              className="text-[10px] font-bold uppercase tracking-[0.22em]"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+            >
+              HANDS-ON CHIEF SOLUTIONS ARCHITECT | FRACTIONAL CTO
+            </p>
+          </div>
+        </div>
       </div>
 
       <p

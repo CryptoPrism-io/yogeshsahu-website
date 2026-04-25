@@ -11,6 +11,7 @@ export interface ProjectDetail {
   language: string;
   href: string;
   githubHref: string;
+  image?: string;
   sections: { title: string; content: string }[];
 }
 

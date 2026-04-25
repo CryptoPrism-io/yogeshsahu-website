@@ -12,6 +12,7 @@ export interface Project {
   featured: boolean;
   href: string;
   githubHref: string;
+  image?: string;
 }
 
 export const projects: Project[] = [

@@ -2,6 +2,7 @@ import { projects } from "@/lib/projects";
 import { projectDetails } from "@/data/project-details";
 import type { Metadata } from "next";
 import Link from "next/link";
+import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.id }));
@@ -169,6 +170,14 @@ export default async function ProjectPage({
           )}
         </div>
       </header>
+
+      <div className="mx-auto max-w-4xl px-5 pb-8">
+        <ImagePlaceholder
+          variant="screenshot"
+          label={project.name}
+          className="aspect-video w-full"
+        />
+      </div>
 
       {project.sections.length > 0 && (
         <div className="mx-auto max-w-4xl px-5 pb-16">
