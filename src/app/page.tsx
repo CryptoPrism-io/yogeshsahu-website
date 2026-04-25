@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import CustomCursor from "@/components/desktop/CustomCursor";
 import Dock from "@/components/desktop/Dock";
 import MenuBar from "@/components/desktop/MenuBar";
@@ -8,8 +9,19 @@ import { useWindowManager } from "@/hooks/useWindowManager";
 import { WINDOW_CONFIGS, ICON_MAP, WINDOW_CONTENT } from "@/data/window-configs";
 import GlyphPanel from "@/components/landing/GlyphPanel";
 import LaunchDeck from "@/components/landing/LaunchDeck";
+import MobileHome from "@/components/landing/MobileHome";
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const sync = () => setIsMobile(media.matches);
+    sync();
+    media.addEventListener("change", sync);
+    return () => media.removeEventListener("change", sync);
+  }, []);
+
   const {
     openWindows,
     dockWindows,
@@ -21,6 +33,10 @@ export default function Home() {
     updatePosition,
   } = useWindowManager(WINDOW_CONFIGS);
   const topZIndex = openWindows.reduce((max, current) => Math.max(max, current.zIndex), 0);
+
+  if (isMobile) {
+    return <MobileHome />;
+  }
 
   return (
     <div className="desktop-surface desktop-pattern desktop-cursor relative h-screen w-screen overflow-hidden">

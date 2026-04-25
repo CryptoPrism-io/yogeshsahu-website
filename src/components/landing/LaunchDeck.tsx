@@ -21,8 +21,8 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
       <div
         className="rounded-2xl border p-5 md:p-6"
         style={{
-          borderColor: "rgba(215, 189, 168, 0.55)",
-          background: "rgba(255, 244, 233, 0.84)",
+          borderColor: "var(--ys-card-border)",
+          background: "var(--ys-card-bg)",
           backdropFilter: "blur(20px) saturate(1.12)",
           WebkitBackdropFilter: "blur(20px) saturate(1.12)",
           boxShadow: "0 24px 56px rgba(34, 18, 11, 0.24)",
@@ -58,8 +58,8 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.12 + idx * 0.08 }}
               style={{
-                borderColor: "rgba(215, 189, 168, 0.75)",
-                background: "rgba(255, 248, 241, 0.92)",
+                borderColor: "var(--ys-card-border-strong)",
+                background: "var(--ys-card-bg)",
               }}
             >
               <p
@@ -87,8 +87,8 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             whileTap={{ scale: 0.98 }}
             transition={{ duration: MOTION_DURATION.quick, ease: MOTION_EASE_QUICK }}
             style={{
-              borderColor: "rgba(169, 61, 29, 0.35)",
-              background: "rgba(207, 79, 39, 0.1)",
+              borderColor: "var(--ys-btn-accent-border)",
+              background: "var(--ys-btn-accent-bg)",
               color: "var(--ys-accent-strong)",
               fontFamily: "var(--font-headline)",
             }}
@@ -104,8 +104,8 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             whileTap={{ scale: 0.98 }}
             transition={{ duration: MOTION_DURATION.quick, ease: MOTION_EASE_QUICK }}
             style={{
-              borderColor: "rgba(11, 141, 128, 0.36)",
-              background: "rgba(11, 141, 128, 0.1)",
+              borderColor: "var(--ys-btn-teal-border)",
+              background: "var(--ys-btn-teal-bg)",
               color: "var(--ys-highlight)",
               fontFamily: "var(--font-headline)",
             }}
@@ -121,8 +121,8 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             whileTap={{ scale: 0.98 }}
             transition={{ duration: MOTION_DURATION.quick, ease: MOTION_EASE_QUICK }}
             style={{
-              borderColor: "rgba(169, 61, 29, 0.24)",
-              background: "rgba(255, 248, 241, 0.96)",
+              borderColor: "var(--ys-btn-accent-border)",
+              background: "var(--ys-card-bg)",
               color: "var(--ys-text)",
               fontFamily: "var(--font-headline)",
             }}
@@ -146,7 +146,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             whileTap={{ scale: 0.98 }}
             transition={{ duration: MOTION_DURATION.quick, ease: MOTION_EASE_QUICK }}
             style={{
-              borderColor: "rgba(215, 189, 168, 0.75)",
+              borderColor: "var(--ys-card-border-strong)",
               color: "var(--ys-text)",
               fontFamily: "var(--font-headline)",
             }}
@@ -161,7 +161,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             whileTap={{ scale: 0.98 }}
             transition={{ duration: MOTION_DURATION.quick, ease: MOTION_EASE_QUICK }}
             style={{
-              borderColor: "rgba(215, 189, 168, 0.75)",
+              borderColor: "var(--ys-card-border-strong)",
               color: "var(--ys-text)",
               fontFamily: "var(--font-headline)",
             }}

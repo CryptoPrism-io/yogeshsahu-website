@@ -78,27 +78,27 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
           animate={{ x: -parallaxX * 0.35, y: -parallaxY * 0.35 }}
           transition={{ type: "spring", stiffness: 120, damping: 18, mass: 0.4 }}
           style={{
-            borderColor: "rgba(255,244,233,0.12)",
-            background: "rgba(151, 79, 52, 0.14)",
+            borderColor: "var(--ys-glass-border)",
+            background: "var(--ys-glass-bg)",
           }}
         >
           <p
             className="shrink-0 text-[8px] uppercase tracking-[0.18em]"
-            style={{ fontFamily: "var(--font-mono)", color: "rgba(255,239,225,0.5)" }}
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ys-glass-text-muted)" }}
           >
             Interactive Domain
           </p>
           <div className="min-w-0 flex-1">
             <p
               className="truncate text-[10px] font-bold uppercase tracking-[0.1em]"
-              style={{ fontFamily: "var(--font-headline)", color: "rgba(255,248,241,0.94)" }}
+              style={{ fontFamily: "var(--font-headline)", color: "var(--ys-glass-text)" }}
             >
               {infoTitle}
             </p>
           </div>
           <p
             className="max-w-[48%] truncate text-right text-[10px]"
-            style={{ fontFamily: "var(--font-body)", color: "rgba(255,239,225,0.72)" }}
+            style={{ fontFamily: "var(--font-body)", color: "var(--ys-glass-text-soft)" }}
           >
             {infoBody}
           </p>
@@ -349,25 +349,25 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                 whileHover={{ y: -3, scale: 1.01 }}
                 whileTap={{ scale: 0.985 }}
                 style={{
-                  borderColor: "rgba(255,244,233,0.14)",
-                  background: "rgba(122, 63, 42, 0.16)",
+                  borderColor: "var(--ys-glass-border)",
+                  background: "var(--ys-glass-bg)",
                 }}
               >
                 <p
                   className="mb-1 text-[9px] uppercase tracking-[0.16em]"
-                  style={{ fontFamily: "var(--font-mono)", color: "rgba(255,239,225,0.52)" }}
+                  style={{ fontFamily: "var(--font-mono)", color: "var(--ys-glass-text-muted)" }}
                 >
                   {proof.meta}
                 </p>
                 <p
                   className="mb-1 text-[11px] font-bold uppercase tracking-[0.08em]"
-                  style={{ fontFamily: "var(--font-headline)", color: "rgba(255,248,241,0.94)" }}
+                  style={{ fontFamily: "var(--font-headline)", color: "var(--ys-glass-text)" }}
                 >
                   {proof.title}
                 </p>
                 <p
                   className="text-[11px] leading-[1.55]"
-                  style={{ fontFamily: "var(--font-body)", color: "rgba(255,239,225,0.72)" }}
+                  style={{ fontFamily: "var(--font-body)", color: "var(--ys-glass-text-soft)" }}
                 >
                   {proof.note}
                 </p>
