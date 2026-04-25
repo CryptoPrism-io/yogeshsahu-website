@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 export interface WindowState {
   id: string;
@@ -146,6 +146,22 @@ export function useWindowManager(configs: WindowConfig[]) {
       return { ...prev, [id]: { ...w, position: pos } };
     });
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        const topWindow = Object.values(windows)
+          .filter((w) => w.isOpen && !w.isMinimized)
+          .sort((a, b) => b.zIndex - a.zIndex)[0];
+        if (topWindow) {
+          closeWindow(topWindow.id);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [windows, closeWindow]);
 
   const windowList = Object.values(windows);
   const openWindows = windowList.filter((w) => w.isOpen);

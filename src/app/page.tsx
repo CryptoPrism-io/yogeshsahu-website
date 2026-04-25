@@ -43,7 +43,7 @@ export default function Home() {
       <CustomCursor />
       <MenuBar />
 
-      <main className="absolute top-11 left-0 right-0 bottom-16 overflow-hidden">
+      <main id="main-content" className="absolute top-11 left-0 right-0 bottom-16 overflow-hidden">
         <LaunchDeck onOpen={openWindow} />
         <GlyphPanel onOpen={openWindow} />
 

@@ -16,14 +16,14 @@ export const SUBDOMAIN_PROOFS: Record<SubdomainId, LandingProofCard[]> = {
       title: "CryptoPrism DB",
       meta: "GCP / PostgreSQL",
       note: "1B+ market datapoints flowing through a production financial core.",
-      href: "/projects/cryptoprism-db.html",
+      href: "/projects/cryptoprism-db",
     },
     {
       id: "forex-pipeline",
       title: "Forex Pipeline",
       meta: "FX / pipelines",
       note: "Trading-session workflow and live financial processing.",
-      href: "/projects/forex-pipeline.html",
+      href: "/projects/forex-pipeline",
     },
     {
       id: "projects-window",
@@ -39,14 +39,14 @@ export const SUBDOMAIN_PROOFS: Record<SubdomainId, LandingProofCard[]> = {
       title: "Pratyaksha",
       meta: "130+ indicators",
       note: "Signal design and quant workflow support in a live scanner.",
-      href: "/projects/pratyaksha.html",
+      href: "/projects/pratyaksha",
     },
     {
       id: "backtest",
       title: "Backtest",
       meta: "quant research",
       note: "Strategy validation and pricing logic under model constraints.",
-      href: "/projects/backtest.html",
+      href: "/projects/backtest",
     },
     {
       id: "diagnostic-window",
@@ -62,7 +62,7 @@ export const SUBDOMAIN_PROOFS: Record<SubdomainId, LandingProofCard[]> = {
       title: "Screener",
       meta: "live analysis",
       note: "Interface and backend signal surfaces for active decisions.",
-      href: "/projects/cryptoprism-screener.html",
+      href: "/projects/cryptoprism-screener",
     },
     {
       id: "news-engine-signal",
@@ -154,7 +154,7 @@ export const SUBDOMAIN_PROOFS: Record<SubdomainId, LandingProofCard[]> = {
       title: "Pratyaksha",
       meta: "AI workflows",
       note: "Real-time analysis engine anchored in live product behavior.",
-      href: "/projects/pratyaksha.html",
+      href: "/projects/pratyaksha",
     },
     {
       id: "news-engine-ai",
@@ -168,7 +168,7 @@ export const SUBDOMAIN_PROOFS: Record<SubdomainId, LandingProofCard[]> = {
       title: "Screener",
       meta: "surface",
       note: "Front-end interface for analysis and AI-adjacent system execution.",
-      href: "/projects/cryptoprism-screener.html",
+      href: "/projects/cryptoprism-screener",
     },
   ],
   data: [
@@ -177,14 +177,14 @@ export const SUBDOMAIN_PROOFS: Record<SubdomainId, LandingProofCard[]> = {
       title: "CryptoPrism DB",
       meta: "data core",
       note: "Production data architecture and market pipeline depth.",
-      href: "/projects/cryptoprism-db.html",
+      href: "/projects/cryptoprism-db",
     },
     {
       id: "forex-data",
       title: "Forex Pipeline",
       meta: "data flow",
       note: "Market-session data transformation and pipeline logic.",
-      href: "/projects/forex-pipeline.html",
+      href: "/projects/forex-pipeline",
     },
     {
       id: "news-data",
@@ -200,7 +200,7 @@ export const SUBDOMAIN_PROOFS: Record<SubdomainId, LandingProofCard[]> = {
       title: "Screener",
       meta: "runtime",
       note: "System boundary between interface, analysis, and delivery speed.",
-      href: "/projects/cryptoprism-screener.html",
+      href: "/projects/cryptoprism-screener",
     },
     {
       id: "projects-systems",

@@ -35,6 +35,17 @@ export default function MenuBar() {
         boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
       }}
     >
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-1/2 focus:-translate-y-1/2 focus:z-[99999] focus:rounded-lg focus:px-3 focus:py-1.5 focus:text-[11px] focus:font-bold"
+        style={{
+          fontFamily: "var(--font-mono)",
+          background: "var(--ys-surface)",
+          color: "var(--ys-text)",
+        }}
+      >
+        Skip to content
+      </a>
       <div className="flex items-center gap-4">
         <span
           className="text-[14px] font-bold tracking-wide"
