@@ -69,7 +69,7 @@ export const SUBDOMAIN_PROOFS: Record<SubdomainId, LandingProofCard[]> = {
       title: "News Engine",
       meta: "signal flow",
       note: "AI-aware inputs feeding signal relevance and context.",
-      href: "/projects/news-fetcher.html",
+      href: "/projects/news-fetcher",
     },
     {
       id: "terminal-window",
@@ -161,7 +161,7 @@ export const SUBDOMAIN_PROOFS: Record<SubdomainId, LandingProofCard[]> = {
       title: "News Engine",
       meta: "NLP pipeline",
       note: "AI-aware ingestion and relevance flow in production.",
-      href: "/projects/news-fetcher.html",
+      href: "/projects/news-fetcher",
     },
     {
       id: "screener-ai",
@@ -191,7 +191,7 @@ export const SUBDOMAIN_PROOFS: Record<SubdomainId, LandingProofCard[]> = {
       title: "News Engine",
       meta: "ingestion",
       note: "Content ingestion and signal-ready processing.",
-      href: "/projects/news-fetcher.html",
+      href: "/projects/news-fetcher",
     },
   ],
   systems: [
