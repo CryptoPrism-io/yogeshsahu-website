@@ -16,6 +16,21 @@
   --ys-shell-glass: rgba(34, 18, 11, 0.74);
   --ys-fast: 180ms;
   --ys-base: 260ms;
+  --ys-glass-bg: rgba(122, 63, 42, 0.16);
+  --ys-glass-border: rgba(255, 244, 233, 0.14);
+  --ys-glass-text: rgba(255, 248, 241, 0.94);
+  --ys-glass-text-soft: rgba(255, 239, 225, 0.72);
+  --ys-glass-text-muted: rgba(255, 239, 225, 0.52);
+  --ys-glass-text-faint: rgba(255, 239, 225, 0.48);
+  --ys-glass-stroke: rgba(255, 244, 233, 0.08);
+  --ys-glass-stroke-active: rgba(255, 244, 233, 0.42);
+  --ys-card-bg: rgba(255, 244, 233, 0.84);
+  --ys-card-border: rgba(215, 189, 168, 0.55);
+  --ys-card-border-strong: rgba(215, 189, 168, 0.75);
+  --ys-btn-accent-bg: rgba(207, 79, 39, 0.1);
+  --ys-btn-accent-border: rgba(169, 61, 29, 0.35);
+  --ys-btn-teal-bg: rgba(11, 141, 128, 0.1);
+  --ys-btn-teal-border: rgba(11, 141, 128, 0.36);
 }
 
 @theme {
@@ -51,15 +66,11 @@ body {
 
 ::selection { background: var(--ys-highlight); color: #ffffff; }
 
-/* Custom cursor is scoped to the desktop shell only. */
-.desktop-cursor,
-.desktop-cursor * {
-  cursor: none !important;
-}
-@media (max-width: 767px) {
+/* Custom cursor: only hide native cursor on devices with a fine pointer (mouse/trackpad). */
+@media (hover: hover) and (pointer: fine) {
   .desktop-cursor,
   .desktop-cursor * {
-    cursor: auto !important;
+    cursor: none !important;
   }
 }
 
