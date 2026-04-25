@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Expanded Architecture — yogeshsahu.xyz</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:#f1f5f9;color:#111;padding:2rem;line-height:1.6;}
+h1{font-size:1.25rem;font-weight:800;margin-bottom:.2rem;}
+.sub{font-size:.8rem;color:#64748b;margin-bottom:2rem;}
+h2{font-size:.95rem;font-weight:800;margin:2rem 0 1rem;padding-bottom:.4rem;border-bottom:2px solid #e2e8f0;color:#0f172a;}
+
+/* PAGE WIREFRAME */
+.page{width:360px;display:flex;flex-direction:column;gap:3px;border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15);}
+.wrap{display:flex;gap:2.5rem;align-items:flex-start;flex-wrap:wrap;}
+.annotations{flex:1;min-width:280px;}
+
+/* Section blocks */
+.s{padding:.6rem .9rem;font-size:.55rem;font-weight:600;letter-spacing:.06em;}
+.s-dark{background:#080808;color:#9ca3af;border-bottom:1px solid rgba(255,255,255,.04);}
+.s-gold{background:#fbbf24;color:#000;}
+.s-light{background:#fafafa;color:#6b7280;border-bottom:1px solid #e5e7eb;}
+.s-white{background:#ffffff;color:#6b7280;border-bottom:1px solid #f0f0f0;}
+.s-label{font-size:.52rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.2rem;}
+.s-desc{font-size:.48rem;font-weight:400;opacity:.75;line-height:1.5;}
+.new-tag{display:inline-block;background:#4ade80;color:#000;font-size:.4rem;font-weight:800;padding:.1rem .35rem;border-radius:2px;text-transform:uppercase;letter-spacing:.08em;margin-left:.4rem;vertical-align:middle;}
+.exp-tag{display:inline-block;background:#60a5fa;color:#000;font-size:.4rem;font-weight:800;padding:.1rem .35rem;border-radius:2px;text-transform:uppercase;letter-spacing:.08em;margin-left:.4rem;vertical-align:middle;}
+.pill-row{display:flex;flex-wrap:wrap;gap:.25rem;margin-top:.35rem;}
+.pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:2px;font-size:.42rem;padding:.1rem .3rem;color:#d1d5db;}
+.pill-dark{background:#f3f4f6;border:1px solid #e5e7eb;border-radius:2px;font-size:.42rem;padding:.1rem .3rem;color:#374151;}
+.pill-gold{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.25);border-radius:2px;font-size:.42rem;padding:.1rem .3rem;color:#d97706;}
+
+/* Annotations */
+.ann{display:flex;gap:.75rem;padding:.85rem 0;border-bottom:1px solid #f1f5f9;}
+.ann:last-child{border-bottom:none;}
+.ann-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.ann-body h4{font-size:.82rem;font-weight:700;margin-bottom:.25rem;}
+.ann-body p{font-size:.75rem;color:#64748b;line-height:1.65;}
+.ann-body .why{margin-top:.35rem;font-size:.72rem;color:#0f172a;font-style:italic;}
+.badge{display:inline-block;font-size:.6rem;font-weight:700;padding:.15rem .45rem;border-radius:3px;margin-left:.35rem;}
+.badge-green{background:#dcfce7;color:#16a34a;}
+.badge-blue{background:#dbeafe;color:#1d4ed8;}
+.badge-gold{background:#fef3c7;color:#b45309;}
+</style>
+</head>
+<body>
+
+<h1>Expanded Page Architecture</h1>
+<p class="sub">yogeshsahu.xyz v2 — Fractional CTO · Founder · Thought Leader · 12 sections</p>
+
+<div class="wrap">
+
+<!-- WIREFRAME -->
+<div class="page">
+
+  <div class="s s-dark">
+    <div class="s-label">Nav</div>
+    <div class="s-desc">Work · Products · Thinking · Credentials · Contact</div>
+  </div>
+
+  <div class="s s-dark" style="min-height:70px;background:#080808;position:relative;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(251,191,36,.15) 0%,transparent 70%);"></div>
+    <div class="s-label" style="color:#fbbf24;position:relative;">Hero</div>
+    <div class="s-desc" style="position:relative;">Veo 3 scroll · Fractional CTO · Founder · Pre-Seed Q2 2026</div>
+  </div>
+
+  <div class="s s-gold">
+    <div class="s-label">Marquee</div>
+    <div class="s-desc">CRYPTOPRISM · FRACTIONAL CTO · 1B+ DATA POINTS · 20 REPOS · BLOOMBERG · PMI · CSPO · GOOGLE · MS · DPIIT · 50K DOWNLOADS</div>
+  </div>
+
+  <div class="s s-dark">
+    <div class="s-label" style="color:#fbbf24;">About — Founder + Consultant</div>
+    <div class="s-desc">Manifesto: "1B+ data points. 30+ mental models. One operator." · Stats: 1B+ / 20 repos / 50K downloads / 5+ clients</div>
+  </div>
+
+  <div class="s s-light" style="background:#f8fafc;">
+    <div class="s-label" style="color:#d97706;">Expertise Pillars <span class="new-tag">NEW</span></div>
+    <div class="s-desc">3 columns: Infrastructure & Data · Product & AI · Business & Finance. Each with icon, 3-line description, key tools.</div>
+    <div class="pill-row">
+      <span class="pill-dark">GCP · PostgreSQL · ETL</span>
+      <span class="pill-dark">React · FastAPI · Firebase</span>
+      <span class="pill-dark">Bloomberg · PMI · CSPO</span>
+    </div>
+  </div>
+
+  <div class="s s-dark">
+    <div class="s-label" style="color:#fbbf24;">Selected Work — All 20 Repos <span class="exp-tag">EXPANDED</span></div>
+    <div class="s-desc">Tabbed or filtered: All · Fintech · Products · Quant · Web · Tools. Cards show repo, stack, live link, key metric.</div>
+  </div>
+
+  <div class="s s-gold">
+    <div class="s-label">Marquee 2</div>
+    <div class="s-desc" style="color:#000;">FIRST PRINCIPLES · OODA LOOP · ANTIFRAGILITY · INVERSION · BARBELL STRATEGY · CIRCLE OF COMPETENCE · SECOND ORDER THINKING</div>
+  </div>
+
+  <div class="s s-dark">
+    <div class="s-label" style="color:#fbbf24;">How I Think <span class="new-tag">NEW</span></div>
+    <div class="s-desc">Mental models I apply to client problems. Cards: First Principles / Inversion / OODA / Barbell. Brief: "what it is · when I use it". Drawn from Gyanmarg.</div>
+    <div class="pill-row">
+      <span class="pill">First Principles</span>
+      <span class="pill">Inversion</span>
+      <span class="pill">OODA Loop</span>
+      <span class="pill">Antifragility</span>
+      <span class="pill">Barbell Strategy</span>
+      <span class="pill">Circle of Competence</span>
+    </div>
+  </div>
+
+  <div class="s s-white">
+    <div class="s-label" style="color:#d97706;">Credentials <span class="new-tag">NEW</span></div>
+    <div class="s-desc">Certification cards + institutional logos: Bloomberg BMC & ESG · LIBF Investment Banking · Power BI PL-300 · PMI · CSPO · Google Cloud · MS · Strathclyde</div>
+    <div class="pill-row">
+      <span class="pill-dark">Bloomberg</span>
+      <span class="pill-dark">LIBF</span>
+      <span class="pill-dark">PMI</span>
+      <span class="pill-dark">CSPO</span>
+      <span class="pill-dark">Power BI</span>
+      <span class="pill-dark">Google</span>
+      <span class="pill-dark">MS</span>
+      <span class="pill-dark">Strathclyde</span>
+    </div>
+  </div>
+
+  <div class="s s-dark">
+    <div class="s-label" style="color:#fbbf24;">Milestones</div>
+    <div class="s-desc">Game · Moto · Strathclyde · Ubisoft · E-Sports (3-col)</div>
+  </div>
+
+  <div class="s s-white">
+    <div class="s-label" style="color:#d97706;">Writing / Thinking Out Loud</div>
+    <div class="s-desc">3 posts — practitioner titles. Positions as thought leader for Fractional CTO audience.</div>
+  </div>
+
+  <div class="s s-dark">
+    <div class="s-label" style="color:#fbbf24;">Contact — Fractional CTO</div>
+    <div class="s-desc">"2–3 mandates at a time." · CryptoPrism pre-seed Q2 2026 · GitHub · LinkedIn · Email · Cal.com booking link</div>
+  </div>
+
+  <div class="s s-dark" style="background:#050505;">
+    <div class="s-desc" style="text-align:center;">yogeshsahu.xyz · © 2026</div>
+  </div>
+
+</div>
+
+<!-- ANNOTATIONS -->
+<div class="annotations">
+
+  <h2>What's New & Why</h2>
+
+  <div class="ann">
+    <div class="ann-dot" style="background:#4ade80;"></div>
+    <div class="ann-body">
+      <h4>Expertise Pillars <span class="badge badge-green">NEW</span></h4>
+      <p>3-column section showing you operate across all three dimensions a Fractional CTO client cares about. Not just a coder — an operator.</p>
+      <p class="why">Infrastructure & Data · Product & AI · Business & Finance<br/>Each pillar: icon, 2-line claim, 5–6 tool/skill pills.</p>
+    </div>
+  </div>
+
+  <div class="ann">
+    <div class="ann-dot" style="background:#60a5fa;"></div>
+    <div class="ann-body">
+      <h4>All 20 Repos — Filtered Grid <span class="badge badge-blue">EXPANDED</span></h4>
+      <p>Filter tabs: All · Fintech/Crypto · AI Products · Quant · Web · Automation. Shows full technical breadth — not just CryptoPrism. Pratyaksha, Gyanmarg, Forex Session Dashboard, Habit Tracker all visible.</p>
+      <p class="why">Fractional CTO clients need to see range, not just depth in one domain.</p>
+    </div>
+  </div>
+
+  <div class="ann">
+    <div class="ann-dot" style="background:#fbbf24;"></div>
+    <div class="ann-body">
+      <h4>How I Think — Mental Models <span class="badge badge-green">NEW</span></h4>
+      <p>6 mental model cards drawn from your Gyanmarg knowledge base. Each one: name, 1-line definition, "when I apply this to client work". Signals intellectual framework — rare for a technical consultant.</p>
+      <p class="why">First Principles · Inversion · OODA Loop · Antifragility · Barbell Strategy · Circle of Competence</p>
+    </div>
+  </div>
+
+  <div class="ann">
+    <div class="ann-dot" style="background:#f0f0f0;box-shadow:0 0 0 1px #ddd;"></div>
+    <div class="ann-body">
+      <h4>Credentials Wall <span class="badge badge-green">NEW</span></h4>
+      <p>Light section. Certification cards with logos, issuer, year. Signals professional depth beyond GitHub. Critical for investor and enterprise client trust.</p>
+      <p class="why">Bloomberg BMC & ESG · LIBF Investment Banking Diploma · Power BI PL-300 · PMI · CSPO · Google Cloud · Microsoft · Strathclyde MS FinTech</p>
+    </div>
+  </div>
+
+  <div class="ann">
+    <div class="ann-dot" style="background:#374151;"></div>
+    <div class="ann-body">
+      <h4>Milestones — Add Ubisoft & E-Sports</h4>
+      <p>Currently: Game · Moto · Strathclyde. Add: Ubisoft (Assassin's Creed, For Honor, Just Dance) and Gamerz Nation (7 franchises, first GeForce certified zone in India). That's 5 cards — 2+3 grid or horizontal scroll.</p>
+    </div>
+  </div>
+
+  <div class="ann">
+    <div class="ann-dot" style="background:#fbbf24;"></div>
+    <div class="ann-body">
+      <h4>Contact — Add Booking Link</h4>
+      <p>Add a Cal.com or Calendly link as a fifth contact card. "Book a 30-min intro call" removes friction for Fractional CTO mandates. The single highest-ROI change for the contact section.</p>
+      <p class="why">"2–3 mandates at a time" signals scarcity. Booking link converts that signal into action.</p>
+    </div>
+  </div>
+
+  <h2>Trust Architecture — Why This Converts</h2>
+
+  <div class="ann">
+    <div class="ann-dot" style="background:#a78bfa;"></div>
+    <div class="ann-body">
+      <h4>Instant Likeability Layer</h4>
+      <p>Human story (moto + game + Bansuri) lives in Milestones. Mental models show you think — not just execute. Gyanmarg itself is a signal: you built a mental models platform. That is not a normal thing a developer does.</p>
+    </div>
+  </div>
+
+  <div class="ann">
+    <div class="ann-dot" style="background:#4ade80;"></div>
+    <div class="ann-body">
+      <h4>Instant Trust Layer</h4>
+      <p>Bloomberg + LIBF signals finance credibility. DPIIT signals institutional recognition. PMI + CSPO signals delivery methodology. 1B+ data points signals scale. 99.9% uptime signals reliability. Each credential answers a different buyer objection.</p>
+    </div>
+  </div>
+
+  <div class="ann">
+    <div class="ann-dot" style="background:#f59e0b;"></div>
+    <div class="ann-body">
+      <h4>Instant Authority Layer</h4>
+      <p>Mental models section + practitioner blog titles + Gyanmarg project card together signal: this person has a framework for thinking, not just a framework for coding. That is what separates a Fractional CTO from a senior developer.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+</body>
+</html>

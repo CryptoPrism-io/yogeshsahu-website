@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "automation:glassdoor:login": "node automation/scripts/glassdoor-login.mjs",
+    "automation:glassdoor:snapshot": "node automation/scripts/glassdoor-snapshot.mjs",
+    "automation:glassdoor:profile": "node automation/scripts/glassdoor-profile-fill.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
@@ -23,6 +26,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.3",
+    "playwright": "^1.51.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

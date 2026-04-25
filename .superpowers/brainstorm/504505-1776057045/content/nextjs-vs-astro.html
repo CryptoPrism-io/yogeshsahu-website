@@ -1,0 +1,114 @@
+<h2>Next.js vs Astro — For Your Portfolio</h2>
+<p class="subtitle">Pick the foundation that fits your ambition and workflow</p>
+
+<div class="split" style="gap:1.5rem;margin-top:1.5rem;">
+
+  <div class="mockup" style="flex:1;">
+    <div class="mockup-header" style="background:#000;color:#fff;font-weight:700;letter-spacing:.05em;">B — Next.js + React</div>
+    <div class="mockup-body" style="padding:1.25rem;font-size:.88rem;line-height:1.7;">
+
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;">
+        <span style="background:#000;color:#fff;font-size:.7rem;padding:.2rem .6rem;border-radius:4px;font-weight:700;">RECOMMENDED</span>
+        <span style="font-size:.75rem;color:#666;">for your ambition level</span>
+      </div>
+
+      <div style="margin-bottom:1rem;">
+        <div style="font-weight:700;margin-bottom:.4rem;color:#111;">What you get</div>
+        <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:.3rem;">
+          <li style="display:flex;gap:.5rem;"><span style="color:#22c55e;flex-shrink:0;">✓</span> Full React component model — reuse hero, nav, project cards</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#22c55e;flex-shrink:0;">✓</span> Framer Motion built in — scroll animations, page transitions, stagger effects</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#22c55e;flex-shrink:0;">✓</span> Canvas scroll-driver for Veo 3 frame sequence is trivial in a React useEffect</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#22c55e;flex-shrink:0;">✓</span> <code style="background:#f3f4f6;padding:.1rem .3rem;border-radius:3px;font-size:.8rem;">next/image</code> — auto-optimises your extracted frames (WebP, lazy load)</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#22c55e;flex-shrink:0;">✓</span> App Router + Server Components — fast, SEO-friendly out of the box</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#22c55e;flex-shrink:0;">✓</span> Easy to add dynamic features later (blog via MDX, contact API route)</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#f59e0b;flex-shrink:0;">~</span> Slightly heavier JS bundle than Astro (still fast with proper config)</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#f59e0b;flex-shrink:0;">~</span> Needs Vercel or similar for best deployment experience</li>
+        </ul>
+      </div>
+
+      <div style="background:#f0fdf4;border-left:3px solid #22c55e;padding:.75rem 1rem;border-radius:0 6px 6px 0;font-size:.82rem;">
+        <strong>Best for:</strong> You want Framer Motion scroll effects, clean component architecture, and potential to grow (blog, API, dynamic data). This is the standard choice for ambitious dev portfolios in 2025.
+      </div>
+
+      <div style="margin-top:1rem;">
+        <div style="font-weight:700;margin-bottom:.5rem;color:#111;font-size:.82rem;">STACK</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.35rem;">
+          <span style="background:#111;color:#fff;font-size:.72rem;padding:.2rem .5rem;border-radius:4px;">Next.js 15</span>
+          <span style="background:#61dafb22;color:#0284c7;font-size:.72rem;padding:.2rem .5rem;border-radius:4px;border:1px solid #bae6fd;">React 19</span>
+          <span style="background:#ec489922;color:#be185d;font-size:.72rem;padding:.2rem .5rem;border-radius:4px;border:1px solid #fbcfe8;">Framer Motion</span>
+          <span style="background:#8b5cf622;color:#6d28d9;font-size:.72rem;padding:.2rem .5rem;border-radius:4px;border:1px solid #ddd6fe;">Tailwind CSS</span>
+          <span style="background:#f97316;color:#fff;font-size:.72rem;padding:.2rem .5rem;border-radius:4px;">Canvas API</span>
+          <span style="background:#10b98122;color:#065f46;font-size:.72rem;padding:.2rem .5rem;border-radius:4px;border:1px solid #a7f3d0;">Vercel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup" style="flex:1;">
+    <div class="mockup-header" style="background:#ff5d01;color:#fff;font-weight:700;letter-spacing:.05em;">C — Astro</div>
+    <div class="mockup-body" style="padding:1.25rem;font-size:.88rem;line-height:1.7;">
+
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;">
+        <span style="background:#ff5d01;color:#fff;font-size:.7rem;padding:.2rem .6rem;border-radius:4px;font-weight:700;">PERF-FIRST</span>
+        <span style="font-size:.75rem;color:#666;">if bundle size is top priority</span>
+      </div>
+
+      <div style="margin-bottom:1rem;">
+        <div style="font-weight:700;margin-bottom:.4rem;color:#111;">What you get</div>
+        <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:.3rem;">
+          <li style="display:flex;gap:.5rem;"><span style="color:#22c55e;flex-shrink:0;">✓</span> Ships zero JS by default — only interactive islands send JS</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#22c55e;flex-shrink:0;">✓</span> Near-perfect Lighthouse scores out of the box</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#22c55e;flex-shrink:0;">✓</span> Can use React, Vue, Svelte components side by side</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#22c55e;flex-shrink:0;">✓</span> MDX blog built in — great for writing</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#f59e0b;flex-shrink:0;">~</span> Canvas scroll animation needs a client:load island — adds friction</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#ef4444;flex-shrink:0;">✗</span> No Server Actions / API routes as smooth as Next.js</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#ef4444;flex-shrink:0;">✗</span> Framer Motion works but feels bolted-on vs native React</li>
+          <li style="display:flex;gap:.5rem;"><span style="color:#ef4444;flex-shrink:0;">✗</span> Smaller community, fewer portfolio-specific tutorials</li>
+        </ul>
+      </div>
+
+      <div style="background:#fff7ed;border-left:3px solid #ff5d01;padding:.75rem 1rem;border-radius:0 6px 6px 0;font-size:.82rem;">
+        <strong>Best for:</strong> Mostly-static sites where you want maximum performance scores and don't need heavy interactivity. Great choice, but the scroll-driven Veo 3 animation + Framer Motion feel more natural in Next.js.
+      </div>
+
+      <div style="margin-top:1rem;">
+        <div style="font-weight:700;margin-bottom:.5rem;color:#111;font-size:.82rem;">STACK</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.35rem;">
+          <span style="background:#ff5d01;color:#fff;font-size:.72rem;padding:.2rem .5rem;border-radius:4px;">Astro 5</span>
+          <span style="background:#61dafb22;color:#0284c7;font-size:.72rem;padding:.2rem .5rem;border-radius:4px;border:1px solid #bae6fd;">React islands</span>
+          <span style="background:#8b5cf622;color:#6d28d9;font-size:.72rem;padding:.2rem .5rem;border-radius:4px;border:1px solid #ddd6fe;">Tailwind CSS</span>
+          <span style="background:#f97316;color:#fff;font-size:.72rem;padding:.2rem .5rem;border-radius:4px;">Canvas API</span>
+          <span style="background:#10b98122;color:#065f46;font-size:.72rem;padding:.2rem .5rem;border-radius:4px;border:1px solid #a7f3d0;">Netlify / Vercel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:1.5rem;padding:1rem 1.25rem;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">
+  <div style="font-weight:700;margin-bottom:.5rem;font-size:.9rem;">Verdict for YOUR specific build</div>
+  <p style="font-size:.85rem;color:#374151;line-height:1.7;margin:0;">
+    You want scroll-driven Veo 3 frames + Framer Motion transitions + potential blog/contact API.
+    <strong>Next.js wins here</strong> — the Canvas API + Framer Motion + React useEffect combo
+    is battle-tested for exactly this kind of scroll animation. Astro would work but adds
+    friction at every animated section. Both deploy to Vercel/Firebase for free.
+  </p>
+</div>
+
+<div class="options" style="margin-top:1.5rem;">
+  <div class="option" data-choice="nextjs" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Next.js — Go with this</h3>
+      <p>Better for scroll animations, Framer Motion, Canvas API, and future growth</p>
+    </div>
+  </div>
+  <div class="option" data-choice="astro" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Astro — Go with this</h3>
+      <p>Best Lighthouse scores, zero JS by default, blog built in</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Page Architecture — yogeshsahu.xyz</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f1f5f9;color:#111;padding:2rem;}
+  h1{font-size:1.3rem;font-weight:800;margin-bottom:.25rem;}
+  .sub{font-size:.82rem;color:#64748b;margin-bottom:2rem;}
+
+  .page{width:320px;margin:0 auto;display:flex;flex-direction:column;gap:3px;border-radius:8px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.18);}
+
+  /* nav */
+  .s-nav{background:#050505;padding:.5rem 1rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(251,191,36,.2);}
+  .s-nav .logo{font-size:.6rem;font-weight:800;color:#fbbf24;letter-spacing:.05em;}
+  .s-nav .links{display:flex;gap:.5rem;}
+  .s-nav .links span{font-size:.45rem;color:#6b7280;}
+
+  /* hero */
+  .s-hero{background:#080808;padding:2rem 1rem;text-align:center;position:relative;overflow:hidden;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;}
+  .s-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 60%,rgba(251,191,36,.18) 0%,transparent 65%);}
+  .avatar-ring{width:56px;height:56px;border-radius:50%;border:2px solid #fbbf24;box-shadow:0 0 20px rgba(251,191,36,.4);background:rgba(251,191,36,.08);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;}
+  .avatar-ring span{font-size:1.2rem;font-weight:900;color:#fbbf24;}
+  .hero-name{font-size:.95rem;font-weight:900;color:#fff;letter-spacing:-.02em;position:relative;z-index:1;}
+  .hero-role{font-size:.5rem;color:#fbbf24;letter-spacing:.2em;text-transform:uppercase;position:relative;z-index:1;}
+  .hero-cta{background:#fbbf24;color:#000;font-size:.5rem;font-weight:700;padding:.3rem .75rem;border-radius:3px;position:relative;z-index:1;letter-spacing:.05em;}
+  .scroll-hint{font-size:.42rem;color:#6b7280;position:relative;z-index:1;}
+
+  /* marquee */
+  .s-marquee{background:#fbbf24;padding:.35rem 0;overflow:hidden;white-space:nowrap;}
+  .s-marquee span{font-size:.48rem;font-weight:800;color:#000;letter-spacing:.12em;text-transform:uppercase;}
+
+  /* about - dark */
+  .s-about{background:#0d0d0d;padding:1rem;border-left:3px solid rgba(251,191,36,.3);}
+  .section-label{font-size:.4rem;color:#fbbf24;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.4rem;}
+  .s-about p{font-size:.52rem;color:#d1d5db;line-height:1.7;font-style:italic;}
+  .s-about .stats{display:flex;gap:1rem;margin-top:.75rem;}
+  .stat{text-align:center;}
+  .stat .num{font-size:.9rem;font-weight:900;color:#fbbf24;}
+  .stat .lbl{font-size:.38rem;color:#6b7280;text-transform:uppercase;letter-spacing:.1em;}
+
+  /* projects - light */
+  .s-projects{background:#fafafa;padding:1rem;border-top:1px solid #e5e7eb;}
+  .s-projects .grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.5rem;}
+  .proj-card{background:#fff;border:1px solid #e5e7eb;border-radius:4px;padding:.45rem;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+  .proj-card .tag{font-size:.38rem;color:#d97706;letter-spacing:.1em;text-transform:uppercase;font-weight:700;}
+  .proj-card .title{font-size:.48rem;font-weight:700;color:#111;margin:.15rem 0;}
+  .proj-card .desc{font-size:.4rem;color:#9ca3af;line-height:1.5;}
+
+  /* achievements - dark */
+  .s-achieve{background:#080808;padding:1rem;position:relative;overflow:hidden;}
+  .s-achieve::before{content:'';position:absolute;right:-20px;top:-20px;width:80px;height:80px;border-radius:50%;background:rgba(251,191,36,.06);}
+  .achieve-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.5rem;}
+  .achieve-item{background:rgba(251,191,36,.05);border:1px solid rgba(251,191,36,.1);border-radius:4px;padding:.4rem;text-align:center;}
+  .achieve-item .icon{font-size:.7rem;margin-bottom:.2rem;}
+  .achieve-item .text{font-size:.42rem;color:#d1d5db;line-height:1.5;}
+
+  /* blog - light */
+  .s-blog{background:#fff;padding:1rem;border-top:1px solid #f0f0f0;}
+  .blog-items{display:flex;flex-direction:column;gap:.35rem;margin-top:.5rem;}
+  .blog-item{display:flex;gap:.5rem;align-items:center;padding:.35rem;background:#f8fafc;border-radius:3px;}
+  .blog-item .dot{width:6px;height:6px;background:#fbbf24;border-radius:50%;flex-shrink:0;}
+  .blog-item .ttl{font-size:.44rem;color:#374151;font-weight:600;}
+
+  /* contact - dark-to-light fade */
+  .s-contact{background:linear-gradient(180deg,#0d0d0d 0%,#1a1a1a 100%);padding:1rem;text-align:center;}
+  .s-contact h3{font-size:.65rem;font-weight:800;color:#fff;margin-bottom:.35rem;}
+  .s-contact p{font-size:.44rem;color:#9ca3af;margin-bottom:.6rem;}
+  .contact-links{display:flex;gap:.35rem;justify-content:center;flex-wrap:wrap;}
+  .contact-link{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);border-radius:3px;padding:.25rem .5rem;font-size:.42rem;color:#fbbf24;font-weight:600;}
+
+  /* footer */
+  .s-footer{background:#050505;padding:.4rem 1rem;text-align:center;}
+  .s-footer span{font-size:.4rem;color:#374151;}
+
+  /* annotations */
+  .annotation-wrap{display:flex;gap:2rem;align-items:flex-start;flex-wrap:wrap;}
+  .annotations{flex:1;min-width:220px;}
+  .ann{display:flex;gap:.75rem;align-items:flex-start;margin-bottom:1rem;}
+  .ann-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+  .ann-body h4{font-size:.82rem;font-weight:700;margin-bottom:.2rem;}
+  .ann-body p{font-size:.75rem;color:#64748b;line-height:1.6;}
+  h2{font-size:1rem;font-weight:700;margin-bottom:1rem;margin-top:1.5rem;}
+</style>
+</head>
+<body>
+
+<h1>Page Architecture — The Architect</h1>
+<p class="sub">yogeshsahu.xyz · Next.js 15 · Obsidian + Gold · Section-level dark/light contrast</p>
+
+<div class="annotation-wrap">
+
+  <!-- PAGE MOCKUP -->
+  <div class="page">
+
+    <!-- NAV -->
+    <div class="s-nav">
+      <div class="logo">YS //</div>
+      <div class="links">
+        <span>Work</span><span>About</span><span>Blog</span><span>Contact</span>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="s-hero">
+      <div class="avatar-ring"><span>Y</span></div>
+      <div class="hero-name">YOGESH SAHU</div>
+      <div class="hero-role">Founder · Engineer · Builder · Human</div>
+      <div class="hero-cta">VIEW MY WORK →</div>
+      <div class="scroll-hint">↓ scroll to animate</div>
+      <div style="position:absolute;bottom:.5rem;right:.75rem;font-size:.38rem;color:rgba(251,191,36,.4);z-index:1;">Veo 3 frame animation on scroll</div>
+    </div>
+
+    <!-- MARQUEE -->
+    <div class="s-marquee">
+      <span>CRYPTOPRISM · DPIIT FOUNDER · STRATHCLYDE MS FINTECH · 23 GITHUB REPOS · 2.26M DB RECORDS · 50K GAME DOWNLOADS · 21 STATES · BANSURI · UPSC TOP 2% &nbsp;&nbsp;&nbsp;</span>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="s-about">
+      <div class="section-label">· About</div>
+      <p>"I build systems that move markets — and stories that move people."</p>
+      <div class="stats">
+        <div class="stat"><div class="num">2.26M</div><div class="lbl">DB Records</div></div>
+        <div class="stat"><div class="num">23</div><div class="lbl">Repos</div></div>
+        <div class="stat"><div class="num">50K</div><div class="lbl">Downloads</div></div>
+        <div class="stat"><div class="num">21</div><div class="lbl">States Ridden</div></div>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="s-projects">
+      <div class="section-label" style="color:#d97706;">· Featured Work</div>
+      <div class="grid">
+        <div class="proj-card">
+          <div class="tag">Fintech · AI</div>
+          <div class="title">CryptoPrism DB</div>
+          <div class="desc">2.26M records · 130+ indicators</div>
+        </div>
+        <div class="proj-card">
+          <div class="tag">Mobile · Game</div>
+          <div class="title">Kari & Lost Shrines</div>
+          <div class="desc">50K downloads · 110 countries</div>
+        </div>
+        <div class="proj-card">
+          <div class="tag">Data · GCP</div>
+          <div class="title">Forex Pipeline</div>
+          <div class="desc">Real-time data engineering</div>
+        </div>
+        <div class="proj-card">
+          <div class="tag">AI · Screener</div>
+          <div class="title">CP Screener</div>
+          <div class="desc">AI-powered signal engine</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACHIEVEMENTS -->
+    <div class="s-achieve">
+      <div class="section-label">· Milestones</div>
+      <div class="achieve-grid">
+        <div class="achieve-item"><div class="icon">🏛</div><div class="text">UPSC Top 2%<br/>of 500,000</div></div>
+        <div class="achieve-item"><div class="icon">🎮</div><div class="text">Sadhguru<br/>Appreciation</div></div>
+        <div class="achieve-item"><div class="icon">🏍</div><div class="text">Solo 21-State<br/>Moto Ride</div></div>
+        <div class="achieve-item"><div class="icon">🎓</div><div class="text">Strathclyde<br/>Merit · AI/ML</div></div>
+      </div>
+    </div>
+
+    <!-- BLOG -->
+    <div class="s-blog">
+      <div class="section-label" style="color:#d97706;">· Writing</div>
+      <div class="blog-items">
+        <div class="blog-item"><div class="dot"></div><div class="ttl">Building CryptoPrism: From Idea to 2.26M Records</div></div>
+        <div class="blog-item"><div class="dot"></div><div class="ttl">What UPSC taught me about shipping products</div></div>
+        <div class="blog-item"><div class="dot"></div><div class="ttl">AI/ML in Fintech: Lessons from my Dissertation</div></div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="s-contact">
+      <h3>Let's build something.</h3>
+      <p>Open to conversations — investors, collaborators, opportunities.</p>
+      <div class="contact-links">
+        <span class="contact-link">GitHub</span>
+        <span class="contact-link">LinkedIn</span>
+        <span class="contact-link">Email</span>
+        <span class="contact-link">CryptoPrism</span>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="s-footer">
+      <span>yogeshsahu.xyz · © 2025 · Built with Next.js</span>
+    </div>
+
+  </div>
+
+  <!-- ANNOTATIONS -->
+  <div class="annotations">
+    <h2>Section Breakdown</h2>
+
+    <div class="ann">
+      <div class="ann-dot" style="background:#fbbf24;"></div>
+      <div class="ann-body">
+        <h4>Nav — Sticky, minimal</h4>
+        <p>Logo "YS //" left. Work · About · Blog · Contact right. Transparent over hero, solid on scroll. Gold underline on active.</p>
+      </div>
+    </div>
+
+    <div class="ann">
+      <div class="ann-dot" style="background:#7c3aed;"></div>
+      <div class="ann-body">
+        <h4>Hero — Dark + Veo 3 scroll</h4>
+        <p>Full viewport. Veo 3 frames play as you scroll. Name + role in massive type. One CTA button. Gold glow radial. This is the WOW moment.</p>
+      </div>
+    </div>
+
+    <div class="ann">
+      <div class="ann-dot" style="background:#fbbf24;"></div>
+      <div class="ann-body">
+        <h4>Marquee — Gold ticker</h4>
+        <p>Full-bleed gold band. Your credentials scroll as white text. Separates dark → light visually.</p>
+      </div>
+    </div>
+
+    <div class="ann">
+      <div class="ann-dot" style="background:#374151;"></div>
+      <div class="ann-body">
+        <h4>About — Dark, 4 stats</h4>
+        <p>One punchy manifesto line. Four gold stat counters animate in on scroll (2.26M, 23, 50K, 21 states).</p>
+      </div>
+    </div>
+
+    <div class="ann">
+      <div class="ann-dot" style="background:#f0f0f0;box-shadow:0 0 0 1px #ddd;"></div>
+      <div class="ann-body">
+        <h4>Projects — Light, card grid</h4>
+        <p>White background. 2-col cards. Each links to your existing case study pages. Hover: gold border + lift.</p>
+      </div>
+    </div>
+
+    <div class="ann">
+      <div class="ann-dot" style="background:#374151;"></div>
+      <div class="ann-body">
+        <h4>Milestones — Dark, 2×2 grid</h4>
+        <p>The human story — UPSC, Sadhguru, moto ride, Strathclyde. Gold icon + short text. Separates you from every other dev portfolio.</p>
+      </div>
+    </div>
+
+    <div class="ann">
+      <div class="ann-dot" style="background:#f0f0f0;box-shadow:0 0 0 1px #ddd;"></div>
+      <div class="ann-body">
+        <h4>Blog — Light, 3 posts</h4>
+        <p>Preview of 3 articles. Drives SEO + positions you as a thought leader for investor/recruiter audiences.</p>
+      </div>
+    </div>
+
+    <div class="ann">
+      <div class="ann-dot" style="background:#1a1a1a;"></div>
+      <div class="ann-body">
+        <h4>Contact — Dark, direct links</h4>
+        <p>No form. Just links: GitHub, LinkedIn, Email, CryptoPrism. Clean CTA headline. No friction.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Inject helper if loaded standalone
+  if(typeof toggleSelect === 'undefined'){
+    window.toggleSelect = function(el){ el.classList.toggle('selected'); }
+  }
+</script>
+</body>
+</html>

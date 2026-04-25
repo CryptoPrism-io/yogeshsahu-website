@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Noto+Serif:ital,wght@1,400;1,700&amp;family=Public+Sans:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#ffffff",
+                    "on-tertiary": "#e2e2e2",
+                    "inverse-primary": "#c8c6c5",
+                    "secondary-fixed-dim": "#adabaa",
+                    "on-tertiary-fixed": "#ffffff",
+                    "surface-bright": "#fcf9f3",
+                    "on-primary-fixed-variant": "#e5e2e1",
+                    "primary": "#000000",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#5f5e5e",
+                    "surface-container": "#f0eee8",
+                    "on-secondary-fixed": "#1c1b1b",
+                    "tertiary-container": "#737575",
+                    "on-background": "#1c1c18",
+                    "on-surface-variant": "#474747",
+                    "secondary-container": "#d6d4d3",
+                    "inverse-surface": "#31312d",
+                    "surface": "#fcf9f3",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#3c3b3b",
+                    "surface-variant": "#e5e2dc",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#454747",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-tint": "#5f5e5e",
+                    "primary-fixed-dim": "#474746",
+                    "on-tertiary-fixed-variant": "#e2e2e2",
+                    "tertiary-fixed": "#5d5f5f",
+                    "tertiary": "#3a3c3c",
+                    "surface-container-high": "#ebe8e2",
+                    "secondary": "#5f5e5e",
+                    "surface-container-highest": "#e5e2dc",
+                    "surface-container-low": "#f6f3ed",
+                    "on-secondary": "#ffffff",
+                    "outline": "#777777",
+                    "background": "#fcf9f3",
+                    "on-error-container": "#410002",
+                    "surface-dim": "#dcdad4",
+                    "on-surface": "#1c1c18",
+                    "on-primary-fixed": "#ffffff",
+                    "secondary-fixed": "#c8c6c5",
+                    "on-secondary-fixed-variant": "#3c3b3b",
+                    "inverse-on-surface": "#f3f0ea",
+                    "on-primary": "#e5e2e1",
+                    "outline-variant": "#c6c6c6",
+                    "on-primary-container": "#ffffff",
+                    "on-secondary-container": "#1c1b1b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Public Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .ticker-scroll {
+            display: flex;
+            width: max-content;
+            animation: scroll 30s linear infinite;
+        }
+        ::selection {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        body {
+            background-color: #fcf9f3;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+<!-- TopNavBar Shell -->
+<nav class="fixed top-0 w-full z-50 bg-[#fcf9f3] dark:bg-stone-950 border-b border-stone-200/30 dark:border-stone-800/30">
+<div class="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto">
+<!-- Brand Logo -->
+<div class="text-2xl font-serif italic text-black dark:text-white">YS.</div>
+<!-- Navigation Links (Web) -->
+<div class="hidden md:flex items-center space-x-12">
+<a class="text-stone-500 dark:text-stone-400 hover:text-black dark:hover:text-white transition-colors font-sans uppercase tracking-widest text-xs" href="#">Work</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-black dark:hover:text-white transition-colors font-sans uppercase tracking-widest text-xs" href="#">About</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-black dark:hover:text-white transition-colors font-sans uppercase tracking-widest text-xs" href="#">Contact</a>
+</div>
+<!-- Trailing Action -->
+<div class="flex items-center gap-6">
+<button class="bg-primary text-on-primary px-6 py-2 font-sans uppercase tracking-widest text-xs hover:opacity-80 transition-opacity active:scale-95 transition-transform duration-300">
+                    Consultation
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="min-h-screen pt-[88px] flex flex-col">
+<section class="flex flex-col md:flex-row flex-grow w-full max-w-screen-2xl mx-auto">
+<!-- Left Editorial Copy (65%) -->
+<div class="w-full md:w-[65%] px-8 py-16 md:py-32 flex flex-col justify-center">
+<div class="space-y-12">
+<!-- Label -->
+<p class="font-label uppercase tracking-[0.2em] text-[10px] md:text-xs text-primary/60">
+                        FRACTIONAL CTO · FOUNDER · DPIIT RECOGNISED
+                    </p>
+<!-- Hero Title -->
+<div class="flex flex-col">
+<h1 class="font-headline italic text-[80px] md:text-[120px] leading-[0.9] text-primary -ml-1">
+                            Yogesh
+                        </h1>
+<h2 class="font-label font-bold uppercase text-[64px] md:text-[100px] leading-[0.9] tracking-tighter text-primary">
+                            SAHU
+                        </h2>
+</div>
+<!-- Divider -->
+<div class="w-full h-[4px] bg-primary"></div>
+<!-- Body Copy -->
+<div class="max-w-xl">
+<p class="font-body text-sm md:text-base leading-relaxed text-primary/80">
+                            Fintech infrastructure at the intersection of data engineering, AI, and product strategy. 
+                            Former Ubisoft. Now: Founder + Fractional CTO.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Right Sticky Column (35%) -->
+<div class="w-full md:w-[35%] bg-surface-container-lowest border-l border-stone-200/50 md:sticky md:top-[88px] md:h-[calc(100vh-88px)] flex flex-col">
+<!-- Stat Block 1 -->
+<div class="flex-1 flex flex-col justify-center px-12 border-b border-stone-100 last:border-b-0">
+<span class="font-body text-5xl font-bold tracking-tighter">1B+</span>
+<span class="font-label uppercase tracking-widest text-[10px] text-primary/50 mt-2">data points/day</span>
+</div>
+<!-- Stat Block 2 -->
+<div class="flex-1 flex flex-col justify-center px-12 border-b border-stone-100 last:border-b-0">
+<span class="font-body text-5xl font-bold tracking-tighter">99.9%</span>
+<span class="font-label uppercase tracking-widest text-[10px] text-primary/50 mt-2">uptime SLA</span>
+</div>
+<!-- Stat Block 3 -->
+<div class="flex-1 flex flex-col justify-center px-12 border-b border-stone-100 last:border-b-0">
+<span class="font-body text-5xl font-bold tracking-tighter">23</span>
+<span class="font-label uppercase tracking-widest text-[10px] text-primary/50 mt-2">repos live</span>
+</div>
+<!-- Stat Block 4 -->
+<div class="flex-1 flex flex-col justify-center px-12 border-b border-stone-100 last:border-b-0">
+<span class="font-body text-5xl font-bold tracking-tighter">50K</span>
+<span class="font-label uppercase tracking-widest text-[10px] text-primary/50 mt-2">game downloads</span>
+</div>
+</div>
+</section>
+<!-- Ticker Bar -->
+<div class="w-full bg-[#1a1a1a] py-4 overflow-hidden mt-auto">
+<div class="ticker-scroll flex items-center gap-12">
+<!-- Ticker Content 1 -->
+<div class="flex items-center gap-12 whitespace-nowrap">
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white">AVAILABLE FOR FRACTIONAL CTO MANDATES</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white/40">·</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white">Q2 2026</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white/40">·</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white">DPIIT RECOGNISED</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white/40">·</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white">INDIA</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white/40">·</span>
+</div>
+<!-- Duplicate for seamless loop -->
+<div class="flex items-center gap-12 whitespace-nowrap">
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white">AVAILABLE FOR FRACTIONAL CTO MANDATES</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white/40">·</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white">Q2 2026</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white/40">·</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white">DPIIT RECOGNISED</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white/40">·</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white">INDIA</span>
+<span class="font-label text-[10px] tracking-[0.3em] uppercase text-white/40">·</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Shell -->
+<footer class="w-full py-12 px-8 bg-[#fcf9f3] dark:bg-stone-950 border-t border-stone-200/30 dark:border-stone-800/30">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 w-full max-w-screen-2xl mx-auto">
+<div class="text-lg font-serif italic text-black dark:text-white">YS.</div>
+<div class="flex gap-8">
+<a class="font-sans text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 hover:text-black dark:hover:text-white transition-all duration-200 underline decoration-1 underline-offset-4" href="#">LinkedIn</a>
+<a class="font-sans text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 hover:text-black dark:hover:text-white transition-all duration-200 underline decoration-1 underline-offset-4" href="#">GitHub</a>
+<a class="font-sans text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 hover:text-black dark:hover:text-white transition-all duration-200 underline decoration-1 underline-offset-4" href="#">ReadCV</a>
+</div>
+<p class="font-sans text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500">
+                © 2024 YS. Fractional CTO &amp; Founder. All rights reserved.
+            </p>
+</div>
+</footer>
+</body></html>

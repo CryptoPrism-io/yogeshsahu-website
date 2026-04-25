@@ -1,0 +1,38 @@
+{
+  "identity": {
+    "full_name": "Yogesh Sahu",
+    "primary_title": "Hands-On Chief Solutions Architect / Fractional CTO",
+    "email": "",
+    "phone": "",
+    "linkedin": "https://linkedin.com/in/yogeshsahu",
+    "portfolio": "https://yogeshsahu.xyz"
+  },
+  "location": {
+    "current_city": "",
+    "country": "India",
+    "remote_only": true
+  },
+  "headline_variants": {
+    "default": "Hands-On Chief Solutions Architect / Fractional CTO | AI, fintech, and data-heavy products | Discovery to delivery leadership",
+    "product": "",
+    "freelance": ""
+  },
+  "bio_variants": {
+    "default": "I step in when a client needs more than another senior engineer and less risk than the wrong full-time CTO hire. My best work sits at the intersection of consulting discovery, solution architecture, and hands-on delivery."
+  },
+  "target_roles": [
+    "Fractional CTO",
+    "Solutions Architect",
+    "Founding Engineer",
+    "Product Engineer",
+    "Technical Product Manager"
+  ],
+  "screening_answers": {
+    "authorized_to_work": "",
+    "need_visa_sponsorship": "",
+    "years_experience_total": "",
+    "expected_hourly_rate_usd": "",
+    "notice_period": "",
+    "why_interested_short": ""
+  }
+}

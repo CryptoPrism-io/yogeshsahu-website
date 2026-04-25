@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Mental OS + Credentials — yogeshsahu.xyz</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --obsidian:#080808;
+  --gold:#fbbf24;--gold-dim:#d97706;
+  --gold-faint:rgba(251,191,36,0.07);
+  --text-primary:#ffffff;--text-body:#9ca3af;--text-muted:#4b5563;
+  --light:#f8fafc;--light-border:#e2e8f0;
+}
+body{font-family:'Inter',sans-serif;background:#f1f5f9;color:#111;}
+
+/* ── MENTAL OS SECTION ── */
+.mental-os{background:var(--obsidian);padding:6rem 2rem;position:relative;overflow:hidden;}
+.mental-os::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(251,191,36,0.06) 0%,transparent 60%);pointer-events:none;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-label{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;margin-bottom:1.25rem;}
+.section-label::before{content:'';display:block;width:8px;height:8px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.section-heading{font-family:'Inter',sans-serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:900;letter-spacing:-.025em;line-height:1.1;color:#fff;margin-bottom:.75rem;}
+.section-heading em{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);}
+.section-sub{font-size:.88rem;color:var(--text-body);max-width:560px;line-height:1.7;margin-bottom:3.5rem;}
+
+/* Model grid */
+.models-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.05);border-radius:12px;overflow:hidden;}
+.model-card{background:var(--obsidian);padding:2rem 1.75rem;position:relative;overflow:hidden;cursor:default;transition:background .25s;}
+.model-card:hover{background:#0d0d0d;}
+.model-card::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);transform:scaleY(0);transform-origin:bottom;transition:transform .3s ease;}
+.model-card:hover::after{transform:scaleY(1);}
+
+.model-num{font-size:.62rem;font-weight:700;color:var(--text-muted);letter-spacing:.15em;margin-bottom:1.25rem;}
+.model-name{font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:.5rem;line-height:1.3;letter-spacing:-.01em;}
+.model-def{font-size:.78rem;color:var(--text-body);line-height:1.7;margin-bottom:1.25rem;}
+.model-apply{font-size:.72rem;color:var(--gold);line-height:1.65;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.06);}
+.model-apply-label{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted);margin-bottom:.35rem;}
+.model-tag{display:inline-block;font-size:.58rem;font-weight:700;background:var(--gold-faint);border:1px solid rgba(251,191,36,0.15);color:var(--gold-dim);padding:.15rem .45rem;border-radius:3px;text-transform:uppercase;letter-spacing:.07em;margin-top:.85rem;}
+
+/* MARQUEE 2 */
+.marquee-strip{background:var(--obsidian);overflow:hidden;padding:.55rem 0;border-top:1px solid rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.04);}
+.marquee-inner{display:inline-block;animation:marquee 35s linear infinite;white-space:nowrap;}
+.marquee-inner span{font-size:.65rem;font-weight:700;color:rgba(251,191,36,0.35);letter-spacing:.15em;text-transform:uppercase;padding:0 1.5rem;}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── CREDENTIALS SECTION ── */
+.credentials{background:#ffffff;padding:6rem 2rem;}
+.credentials .section-label{color:var(--gold-dim);}
+.credentials .section-heading{color:#111;}
+.credentials .section-heading em{color:var(--gold-dim);}
+.credentials .section-sub{color:#6b7280;}
+
+.cred-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem;}
+.cred-card{background:var(--light);border:1px solid var(--light-border);border-radius:10px;padding:1.5rem 1.25rem;display:flex;flex-direction:column;gap:.85rem;transition:border-color .2s,box-shadow .2s,transform .2s;}
+.cred-card:hover{border-color:#d97706;box-shadow:0 4px 20px rgba(217,119,6,0.08);transform:translateY(-3px);}
+.cred-logo{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex-shrink:0;}
+.cred-body{}
+.cred-issuer{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#9ca3af;margin-bottom:.25rem;}
+.cred-name{font-size:.82rem;font-weight:700;color:#111;line-height:1.35;}
+.cred-year{font-size:.62rem;color:#9ca3af;margin-top:.25rem;}
+.cred-badge{display:inline-block;font-size:.55rem;font-weight:700;padding:.15rem .4rem;border-radius:3px;text-transform:uppercase;letter-spacing:.07em;}
+.badge-finance{background:#fef3c7;color:#b45309;}
+.badge-tech{background:#dbeafe;color:#1d4ed8;}
+.badge-product{background:#dcfce7;color:#16a34a;}
+.badge-data{background:#ede9fe;color:#6d28d9;}
+
+/* ── EXPERTISE PILLARS ── */
+.expertise{background:var(--light);padding:6rem 2rem;border-top:1px solid var(--light-border);}
+.expertise .section-label{color:var(--gold-dim);}
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
+.pillar{background:#fff;border:1px solid var(--light-border);border-radius:12px;padding:2rem 1.75rem;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.pillar:hover{border-color:var(--gold);box-shadow:0 4px 24px rgba(251,191,36,0.08);}
+.pillar-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:1.25rem;}
+.pillar-title{font-size:1.05rem;font-weight:800;color:#111;margin-bottom:.5rem;letter-spacing:-.01em;}
+.pillar-desc{font-size:.8rem;color:#6b7280;line-height:1.75;margin-bottom:1.25rem;}
+.pillar-tags{display:flex;flex-wrap:wrap;gap:.35rem;}
+.ptag{font-size:.62rem;font-weight:600;background:#f3f4f6;color:#374151;padding:.2rem .5rem;border-radius:4px;}
+
+/* divider */
+.divider{background:#f1f5f9;padding:2rem;text-align:center;font-size:.72rem;color:#94a3b8;letter-spacing:.1em;text-transform:uppercase;font-weight:600;}
+</style>
+</head>
+<body>
+
+<!-- DIVIDER -->
+<div class="divider">↑ Existing sections above &nbsp;·&nbsp; New sections below ↓</div>
+
+<!-- EXPERTISE PILLARS -->
+<section class="expertise">
+  <div class="section-inner">
+    <div class="section-label" style="color:var(--gold-dim);">What I Bring</div>
+    <h2 class="section-heading" style="color:#111;font-family:'Inter',sans-serif;font-weight:900;">Three disciplines.<br/><em style="font-family:'Playfair Display',serif;font-style:italic;color:var(--gold-dim);">One operator.</em></h2>
+    <p class="section-sub">Most technical consultants own one of these. Fractional CTO mandates require all three.</p>
+    <div class="pillars-grid">
+
+      <div class="pillar">
+        <div class="pillar-icon" style="background:#fef3c7;">⚙️</div>
+        <div class="pillar-title">Infrastructure & Data</div>
+        <div class="pillar-desc">Production systems at scale. 1B+ data points daily. Three-database GCP architectures, real-time pipelines, PostgreSQL optimization, 99.9% uptime SLAs.</div>
+        <div class="pillar-tags">
+          <span class="ptag">GCP</span><span class="ptag">PostgreSQL</span><span class="ptag">Python</span><span class="ptag">ETL</span><span class="ptag">vectorbt</span><span class="ptag">FastAPI</span>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-icon" style="background:#dbeafe;">🧠</div>
+        <div class="pillar-title">Product & AI</div>
+        <div class="pillar-desc">Full-cycle product delivery — from problem definition to live deployment. AI integration, cognitive apps, React frontends, Firebase backends, mobile games.</div>
+        <div class="pillar-tags">
+          <span class="ptag">React</span><span class="ptag">TypeScript</span><span class="ptag">Firebase</span><span class="ptag">Gemini AI</span><span class="ptag">Unity</span><span class="ptag">Streamlit</span>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-icon" style="background:#dcfce7;">📊</div>
+        <div class="pillar-title">Business & Finance</div>
+        <div class="pillar-desc">Bloomberg-certified. Investment banking trained. PMI & CSPO qualified. Translates technical decisions into business outcomes — not just code reviews.</div>
+        <div class="pillar-tags">
+          <span class="ptag">Bloomberg</span><span class="ptag">PMI</span><span class="ptag">CSPO</span><span class="ptag">Power BI</span><span class="ptag">FinTech</span><span class="ptag">DPIIT</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MENTAL OS MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>First Principles</span><span>·</span>
+    <span>Inversion</span><span>·</span>
+    <span>OODA Loop</span><span>·</span>
+    <span>Antifragility</span><span>·</span>
+    <span>Barbell Strategy</span><span>·</span>
+    <span>Circle of Competence</span><span>·</span>
+    <span>Second-Order Thinking</span><span>·</span>
+    <span>Margin of Safety</span><span>·</span>
+    <span>Pareto Principle</span><span>·</span>
+    <span>Regret Minimization</span><span>·</span>
+    <span>First Principles</span><span>·</span>
+    <span>Inversion</span><span>·</span>
+    <span>OODA Loop</span><span>·</span>
+    <span>Antifragility</span><span>·</span>
+    <span>Barbell Strategy</span><span>·</span>
+    <span>Circle of Competence</span><span>·</span>
+    <span>Second-Order Thinking</span><span>·</span>
+    <span>Margin of Safety</span><span>·</span>
+    <span>Pareto Principle</span><span>·</span>
+    <span>Regret Minimization</span><span>·</span>
+  </div>
+</div>
+
+<!-- MENTAL OS SECTION -->
+<section class="mental-os">
+  <div class="section-inner">
+    <div class="section-label" style="color:var(--gold);">Mental OS</div>
+    <h2 class="section-heading">How I approach <em>hard problems.</em></h2>
+    <p class="section-sub">The frameworks that shape how I diagnose, decide, and build. Not theory — applied daily in client work, product decisions, and system design.</p>
+
+    <div class="models-grid">
+
+      <div class="model-card">
+        <div class="model-num">01</div>
+        <div class="model-name">First Principles</div>
+        <div class="model-def">Break every problem to bedrock facts. Build up from there — not from how it's always been done.</div>
+        <div class="model-apply">
+          <div class="model-apply-label">Applied in client work</div>
+          When a client says "we need X tool" I ask why — five times. Usually the real constraint is three layers deeper and half the cost.
+        </div>
+        <span class="model-tag">Decision-Making</span>
+      </div>
+
+      <div class="model-card">
+        <div class="model-num">02</div>
+        <div class="model-name">Inversion</div>
+        <div class="model-def">"How would I guarantee this project fails?" Map those failure modes. Then systematically eliminate them.</div>
+        <div class="model-apply">
+          <div class="model-apply-label">Applied in client work</div>
+          Before any architecture decision, I write the failure post-mortem first. It surfaces hidden risks before a line of code is written.
+        </div>
+        <span class="model-tag">Risk & Systems</span>
+      </div>
+
+      <div class="model-card">
+        <div class="model-num">03</div>
+        <div class="model-name">OODA Loop</div>
+        <div class="model-def">Observe → Orient → Decide → Act — then loop faster than the competition. Tempo is the advantage.</div>
+        <div class="model-apply">
+          <div class="model-apply-label">Applied in client work</div>
+          I structure sprints around the OODA loop. Faster internal decision cycles mean clients ship before competitors can respond.
+        </div>
+        <span class="model-tag">Strategy</span>
+      </div>
+
+      <div class="model-card">
+        <div class="model-num">04</div>
+        <div class="model-name">Antifragility</div>
+        <div class="model-def">Don't just survive shocks — design systems that get stronger from them. Fragile is the real risk.</div>
+        <div class="model-apply">
+          <div class="model-apply-label">Applied in client work</div>
+          CryptoPrism DB was designed to handle 10× normal load. That redundancy became a feature, not a cost, during market spikes.
+        </div>
+        <span class="model-tag">Architecture</span>
+      </div>
+
+      <div class="model-card">
+        <div class="model-num">05</div>
+        <div class="model-name">Circle of Competence</div>
+        <div class="model-def">Know what you genuinely understand. Know precisely where that edge ends. Be explicit about both.</div>
+        <div class="model-apply">
+          <div class="model-apply-label">Applied in client work</div>
+          I take fintech, data infrastructure, and AI mandates. I decline e-commerce and hardware. Saying no to the wrong mandate protects both parties.
+        </div>
+        <span class="model-tag">Self-Awareness</span>
+      </div>
+
+      <div class="model-card">
+        <div class="model-num">06</div>
+        <div class="model-name">Second-Order Thinking</div>
+        <div class="model-def">First-order: what happens immediately. Second-order: what happens because of that. Keep going.</div>
+        <div class="model-apply">
+          <div class="model-apply-label">Applied in client work</div>
+          Migrating to microservices looks efficient (1st order). Increases operational complexity and team cognitive load (2nd order). Often the wrong call for a 10-person team.
+        </div>
+        <span class="model-tag">Systems Thinking</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS SECTION -->
+<section class="credentials">
+  <div class="section-inner">
+    <div class="section-label" style="color:var(--gold-dim);">Credentials</div>
+    <h2 class="section-heading" style="font-family:'Inter',sans-serif;font-weight:900;letter-spacing:-.02em;">The proof <em>behind the pitch.</em></h2>
+    <p class="section-sub">Technical depth backed by formal credentials across finance, product, data, and delivery.</p>
+    <div class="cred-grid">
+
+      <div class="cred-card">
+        <div class="cred-logo" style="background:#fef3c7;color:#b45309;">BB</div>
+        <div class="cred-body">
+          <div class="cred-issuer">Bloomberg</div>
+          <div class="cred-name">Bloomberg Market Concepts & ESG</div>
+          <div class="cred-year">Financial Markets · ESG</div>
+        </div>
+        <span class="cred-badge badge-finance">Finance</span>
+      </div>
+
+      <div class="cred-card">
+        <div class="cred-logo" style="background:#fee2e2;color:#b91c1c;">IB</div>
+        <div class="cred-body">
+          <div class="cred-issuer">LIBF · London</div>
+          <div class="cred-name">Investment Banking Diploma</div>
+          <div class="cred-year">Capital Markets · M&A</div>
+        </div>
+        <span class="cred-badge badge-finance">Finance</span>
+      </div>
+
+      <div class="cred-card">
+        <div class="cred-logo" style="background:#dcfce7;color:#16a34a;">PO</div>
+        <div class="cred-body">
+          <div class="cred-issuer">Scrum Alliance</div>
+          <div class="cred-name">CSPO — Certified Scrum Product Owner</div>
+          <div class="cred-year">Product · Agile Delivery</div>
+        </div>
+        <span class="cred-badge badge-product">Product</span>
+      </div>
+
+      <div class="cred-card">
+        <div class="cred-logo" style="background:#dbeafe;color:#1d4ed8;">PM</div>
+        <div class="cred-body">
+          <div class="cred-issuer">PMI</div>
+          <div class="cred-name">Project Management Professional</div>
+          <div class="cred-year">Delivery · Execution</div>
+        </div>
+        <span class="cred-badge badge-product">Management</span>
+      </div>
+
+      <div class="cred-card">
+        <div class="cred-logo" style="background:#ede9fe;color:#6d28d9;">PBI</div>
+        <div class="cred-body">
+          <div class="cred-issuer">Microsoft</div>
+          <div class="cred-name">Power BI PL-300</div>
+          <div class="cred-year">Data Analytics · BI</div>
+        </div>
+        <span class="cred-badge badge-data">Data</span>
+      </div>
+
+      <div class="cred-card">
+        <div class="cred-logo" style="background:#dbeafe;color:#1d4ed8;">G</div>
+        <div class="cred-body">
+          <div class="cred-issuer">Google</div>
+          <div class="cred-name">Google Cloud Certified</div>
+          <div class="cred-year">Infrastructure · GCP</div>
+        </div>
+        <span class="cred-badge badge-tech">Cloud</span>
+      </div>
+
+      <div class="cred-card">
+        <div class="cred-logo" style="background:#f0fdf4;color:#166534;">MS</div>
+        <div class="cred-body">
+          <div class="cred-issuer">Strathclyde Business School</div>
+          <div class="cred-name">MS Financial Technology — Merit</div>
+          <div class="cred-year">AI/ML Dissertation Topper · 82/100</div>
+        </div>
+        <span class="cred-badge badge-finance">FinTech</span>
+      </div>
+
+      <div class="cred-card">
+        <div class="cred-logo" style="background:#fef3c7;color:#b45309;">🏛</div>
+        <div class="cred-body">
+          <div class="cred-issuer">Govt. of India</div>
+          <div class="cred-name">DPIIT Recognised Startup</div>
+          <div class="cred-year">CryptoPrism · Trinetry Infotech</div>
+        </div>
+        <span class="cred-badge badge-finance">Recognised</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -23,6 +23,9 @@ Thumbs.db
 .playwright-mcp/
 test-portfolios.py
 screenshots/
+automation/.auth/
+automation/runs/
+automation/data/profile.master.json
 
 # Dev screenshots (kept in .stitch-screens instead)
 *.png

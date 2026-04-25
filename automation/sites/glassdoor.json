@@ -1,0 +1,53 @@
+{
+  "site": "glassdoor",
+  "startUrl": "https://www.glassdoor.co.in/Community/index.htm",
+  "manualNavigationPrompt": "Log in if needed, then manually navigate to the Glassdoor profile or preferences page you want to automate before pressing Enter.",
+  "useSystemChromeUserData": true,
+  "browserChannel": "chrome",
+  "chromeProfileDirectory": "Profile 17",
+  "debugPort": 9222,
+  "fields": [
+    {
+      "id": "headline",
+      "source": "headline_variants.default",
+      "labels": [
+        "Professional headline",
+        "Headline",
+        "Job title",
+        "Title"
+      ],
+      "type": "text"
+    },
+    {
+      "id": "about",
+      "source": "bio_variants.default",
+      "labels": [
+        "About me",
+        "Summary",
+        "Bio",
+        "About"
+      ],
+      "type": "textarea"
+    },
+    {
+      "id": "location",
+      "source": "location.current_city",
+      "labels": [
+        "Location",
+        "Current location",
+        "City"
+      ],
+      "type": "text"
+    },
+    {
+      "id": "target_role",
+      "source": "target_roles.0",
+      "labels": [
+        "Desired job title",
+        "Preferred job title",
+        "Target role"
+      ],
+      "type": "text"
+    }
+  ]
+}

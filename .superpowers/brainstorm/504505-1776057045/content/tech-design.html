@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Technical Design — yogeshsahu.xyz</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f1f5f9;color:#111;padding:2rem;line-height:1.6;}
+  h1{font-size:1.3rem;font-weight:800;margin-bottom:.25rem;}
+  .sub{font-size:.82rem;color:#64748b;margin-bottom:2rem;}
+  h2{font-size:1rem;font-weight:800;margin:1.75rem 0 .75rem;padding-bottom:.4rem;border-bottom:2px solid #e2e8f0;}
+  h3{font-size:.88rem;font-weight:700;margin-bottom:.4rem;color:#1e293b;}
+  p,li{font-size:.82rem;color:#374151;line-height:1.75;}
+  ul{padding-left:1.25rem;margin:.4rem 0;}
+  .card{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:1.1rem 1.25rem;margin-bottom:1rem;}
+  .tag{display:inline-block;font-size:.62rem;font-weight:700;padding:.15rem .5rem;border-radius:3px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem;}
+  .tag-gold{background:#fef3c7;color:#b45309;}
+  .tag-dark{background:#1e293b;color:#94a3b8;}
+  .tag-green{background:#dcfce7;color:#16a34a;}
+  .tag-blue{background:#dbeafe;color:#1d4ed8;}
+  .tag-red{background:#fee2e2;color:#dc2626;}
+
+  /* scroll mechanic diagram */
+  .scroll-diagram{background:#080808;border-radius:8px;padding:1.25rem;margin:1rem 0;position:relative;overflow:hidden;}
+  .scroll-diagram::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(251,191,36,.1) 0%,transparent 70%);}
+  .sd-row{display:flex;align-items:center;gap:.75rem;position:relative;z-index:1;margin-bottom:.6rem;}
+  .sd-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:.4rem .6rem;font-size:.62rem;color:#d1d5db;white-space:nowrap;}
+  .sd-arrow{color:#fbbf24;font-size:.75rem;flex-shrink:0;}
+  .sd-label{font-size:.55rem;color:#6b7280;font-style:italic;}
+  .sd-gold{border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.08);color:#fbbf24;}
+  .sd-code{font-family:monospace;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:.5rem .75rem;font-size:.62rem;color:#86efac;margin-top:.5rem;position:relative;z-index:1;}
+
+  /* file tree */
+  .tree{background:#0f172a;border-radius:8px;padding:1rem 1.25rem;font-family:monospace;font-size:.72rem;line-height:2;color:#94a3b8;}
+  .tree .dir{color:#fbbf24;font-weight:700;}
+  .tree .file{color:#e2e8f0;}
+  .tree .cmt{color:#4b5563;}
+  .tree .new{color:#4ade80;}
+  .indent1{padding-left:1.25rem;}
+  .indent2{padding-left:2.5rem;}
+  .indent3{padding-left:3.75rem;}
+
+  /* grid */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr;}}
+
+  .timeline{display:flex;flex-direction:column;gap:0;}
+  .tl-item{display:flex;gap:.75rem;padding:.6rem 0;}
+  .tl-item+.tl-item{border-top:1px solid #f1f5f9;}
+  .tl-num{width:22px;height:22px;border-radius:50%;background:#fbbf24;color:#000;font-size:.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .tl-body h4{font-size:.78rem;font-weight:700;margin-bottom:.15rem;}
+  .tl-body p{font-size:.72rem;color:#64748b;}
+</style>
+</head>
+<body>
+
+<h1>Technical Design — yogeshsahu.xyz</h1>
+<p class="sub">Next.js 15 · Tailwind CSS · Framer Motion · Canvas API · Obsidian + Gold</p>
+
+<!-- ── SECTION 1: VEO 3 SCROLL MECHANIC ── -->
+<h2>1 — Veo 3 Scroll Animation (Hero Centrepiece)</h2>
+
+<div class="card">
+  <span class="tag tag-gold">How it works</span>
+  <p>Generate a ~6–10 second cinematic video with Veo 3 / Google Flow. Extract ~180 frames at 30fps using ffmpeg. Load frames as a WebP sprite sequence. Drive playback via the user's scroll position using the Canvas API + <code>IntersectionObserver</code>.</p>
+</div>
+
+<div class="scroll-diagram">
+  <div class="sd-row">
+    <div class="sd-box sd-gold">Veo 3 Video<br/><span style="font-size:.5rem;color:#a16207;">6–10 sec, 1080p</span></div>
+    <span class="sd-arrow">→</span>
+    <div class="sd-box">ffmpeg<br/><span style="font-size:.5rem;">extract frames</span></div>
+    <span class="sd-arrow">→</span>
+    <div class="sd-box">~180 WebP frames<br/><span style="font-size:.5rem;">optimised, ~30KB each</span></div>
+    <span class="sd-arrow">→</span>
+    <div class="sd-box sd-gold">Canvas API<br/><span style="font-size:.5rem;">scroll-driven playback</span></div>
+  </div>
+  <div class="sd-code">
+// Scroll → frame index mapping<br/>
+const frameIndex = Math.floor(<br/>
+&nbsp;&nbsp;(scrollY / scrollHeight) * totalFrames<br/>
+);<br/>
+ctx.drawImage(frames[frameIndex], 0, 0);
+  </div>
+  <div style="margin-top:.75rem;position:relative;z-index:1;">
+    <div class="sd-row" style="margin-bottom:.3rem;">
+      <div class="sd-box" style="font-size:.55rem;">Hero viewport = <strong style="color:#fbbf24;">100vh sticky</strong></div>
+      <span class="sd-arrow">·</span>
+      <div class="sd-box" style="font-size:.55rem;">Scroll zone = <strong style="color:#fbbf24;">500vh</strong> below</div>
+      <span class="sd-arrow">·</span>
+      <div class="sd-box" style="font-size:.55rem;">User scrolls → video plays</div>
+    </div>
+    <div class="sd-label">Hero sticks to top while user scrolls 5× viewport height, driving the animation. Once complete, page continues normally.</div>
+  </div>
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <span class="tag tag-green">Performance strategy</span>
+    <ul>
+      <li>Frames preloaded in batches of 20 on idle (<code>requestIdleCallback</code>)</li>
+      <li>WebP format — ~60% smaller than JPEG</li>
+      <li>Canvas renders at 0.5× DPR on mobile</li>
+      <li>Fallback: static poster image if frames fail to load</li>
+      <li>Total frame payload: ~5–6MB (acceptable for hero)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <span class="tag tag-blue">ffmpeg extraction command</span>
+    <div style="background:#0f172a;border-radius:5px;padding:.6rem .75rem;font-family:monospace;font-size:.63rem;color:#86efac;line-height:1.8;margin-top:.25rem;">
+      ffmpeg -i avatar.mp4 \<br/>
+      &nbsp;&nbsp;-vf "fps=30,scale=1080:-1" \<br/>
+      &nbsp;&nbsp;-q:v 85 \<br/>
+      &nbsp;&nbsp;public/frames/frame_%04d.webp
+    </div>
+    <p style="margin-top:.5rem;font-size:.72rem;color:#64748b;">Run once, commit frames to <code>public/frames/</code>. Next.js serves them statically.</p>
+  </div>
+</div>
+
+<!-- ── SECTION 2: COMPONENT ARCHITECTURE ── -->
+<h2>2 — Component Architecture</h2>
+
+<div class="tree">
+  <span class="dir">src/</span><br/>
+  <span class="indent1 dir">app/</span><br/>
+  <span class="indent2 file">layout.tsx</span> <span class="cmt">— root layout, fonts, metadata</span><br/>
+  <span class="indent2 file">page.tsx</span> <span class="cmt">— home page, assembles sections</span><br/>
+  <span class="indent2 dir">projects/[slug]/</span><br/>
+  <span class="indent3 file">page.tsx</span> <span class="cmt">— individual project case study</span><br/>
+  <span class="indent2 dir">blog/[slug]/</span><br/>
+  <span class="indent3 file">page.tsx</span> <span class="cmt">— MDX blog post</span><br/>
+  <br/>
+  <span class="indent1 dir">components/</span><br/>
+  <span class="indent2 new">Nav.tsx</span> <span class="cmt">— sticky, transparent→solid, mobile hamburger</span><br/>
+  <span class="indent2 new">HeroScroll.tsx</span> <span class="cmt">★ Veo 3 canvas scroll engine</span><br/>
+  <span class="indent2 new">Marquee.tsx</span> <span class="cmt">— gold ticker strip</span><br/>
+  <span class="indent2 new">AboutStats.tsx</span> <span class="cmt">— manifesto + 4 animated counters</span><br/>
+  <span class="indent2 new">ProjectCard.tsx</span> <span class="cmt">— reusable card, hover gold border</span><br/>
+  <span class="indent2 new">ProjectsGrid.tsx</span> <span class="cmt">— light section, 2-col grid</span><br/>
+  <span class="indent2 new">Milestones.tsx</span> <span class="cmt">— dark section, 2×2 achievement grid</span><br/>
+  <span class="indent2 new">BlogPreview.tsx</span> <span class="cmt">— light section, 3 posts</span><br/>
+  <span class="indent2 new">Contact.tsx</span> <span class="cmt">— dark section, link grid</span><br/>
+  <span class="indent2 new">SectionWrapper.tsx</span> <span class="cmt">— Framer Motion scroll-reveal wrapper</span><br/>
+  <br/>
+  <span class="indent1 dir">lib/</span><br/>
+  <span class="indent2 new">useScrollFrames.ts</span> <span class="cmt">— canvas frame loader + scroll driver hook</span><br/>
+  <span class="indent2 new">projects.ts</span> <span class="cmt">— project data (migrated from current HTML)</span><br/>
+  <span class="indent2 new">posts.ts</span> <span class="cmt">— blog post metadata</span><br/>
+  <br/>
+  <span class="indent1 dir">styles/</span><br/>
+  <span class="indent2 new">globals.css</span> <span class="cmt">— CSS vars: --gold, --obsidian, --light, fonts</span><br/>
+</div>
+
+<!-- ── SECTION 3: TYPOGRAPHY ── -->
+<h2>3 — Typography System</h2>
+<div class="grid2">
+  <div class="card">
+    <span class="tag tag-gold">Display — PP Neue Montreal / Cabinet Grotesk</span>
+    <p>Bold, condensed, geometric. Used for section headlines and hero name. Mix weight 800 sans with italic serif for accent words — same technique as sujalbuild.in.</p>
+    <div style="margin-top:.75rem;font-size:1.4rem;font-weight:900;line-height:1.1;color:#111;">YOGESH<br/><span style="font-style:italic;font-weight:400;color:#d97706;">Sahu</span></div>
+  </div>
+  <div class="card">
+    <span class="tag tag-dark">Body — Inter / DM Sans</span>
+    <p>Clean, highly readable at small sizes. Used for project descriptions, blog excerpts, contact text. 0.875rem base, 1.7 line-height.</p>
+    <div style="margin-top:.75rem;">
+      <div style="font-size:.7rem;font-weight:700;color:#111;text-transform:uppercase;letter-spacing:.12em;">SECTION LABEL</div>
+      <div style="font-size:.82rem;color:#374151;margin-top:.3rem;">Body text at comfortable reading size with generous line-height for content-heavy sections.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 4: ANIMATIONS ── -->
+<h2>4 — Animation Inventory</h2>
+<div class="card">
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-num">1</div>
+      <div class="tl-body">
+        <h4>Hero scroll animation — Canvas API</h4>
+        <p>Veo 3 frames driven by scroll position. Sticky hero, 500vh scroll zone. Smoothed with linear interpolation to prevent jitter.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num">2</div>
+      <div class="tl-body">
+        <h4>Section reveal — Framer Motion</h4>
+        <p>Each section fades up (y: 40 → 0, opacity: 0 → 1) as it enters the viewport. 0.6s ease. Triggered once per section.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num">3</div>
+      <div class="tl-body">
+        <h4>Stat counters — Framer Motion animate</h4>
+        <p>2.26M, 23, 50K, 21 count up from 0 when About section enters viewport. Duration: 1.5s ease-out.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num">4</div>
+      <div class="tl-body">
+        <h4>Marquee — CSS animation</h4>
+        <p>Pure CSS <code>@keyframes</code> translateX loop. No JS dependency. Pauses on hover.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num">5</div>
+      <div class="tl-body">
+        <h4>Project card hover — Framer Motion whileHover</h4>
+        <p>Gold border appears, card lifts 4px, subtle gold glow. 200ms ease.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num">6</div>
+      <div class="tl-body">
+        <h4>Nav transition — CSS</h4>
+        <p>Transparent on hero, transitions to rgba(8,8,8,0.92) + blur(12px) on scroll past hero. Pure CSS transition.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 5: DEPLOYMENT ── -->
+<h2>5 — Deployment</h2>
+<div class="grid2">
+  <div class="card">
+    <span class="tag tag-green">Vercel (recommended)</span>
+    <ul>
+      <li>Zero-config Next.js deployment</li>
+      <li>Free tier covers portfolio traffic</li>
+      <li>Custom domain: yogeshsahu.xyz (point DNS to Vercel)</li>
+      <li>Automatic preview deploys per PR</li>
+    </ul>
+  </div>
+  <div class="card">
+    <span class="tag tag-dark">Migration from Firebase</span>
+    <ul>
+      <li>Existing <code>firebase.json</code> / <code>.firebaserc</code> can be removed</li>
+      <li>Current GitHub Actions CI updated to <code>vercel deploy</code></li>
+      <li>9 project case study pages migrated to Next.js routes</li>
+      <li>DNS cutover: ~5 minutes</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

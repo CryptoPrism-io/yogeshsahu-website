@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:ital,wght@1,400;1,700&amp;family=Space+Grotesk:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#0e0e0e",
+                        "inverse-surface": "#e5e2e1",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "tertiary": "#e2e2e2",
+                        "background": "#131313",
+                        "surface-variant": "#353534",
+                        "on-primary-fixed-variant": "#e2e2e2",
+                        "tertiary-container": "#909191",
+                        "surface": "#131313",
+                        "on-tertiary-fixed-variant": "#e2e2e2",
+                        "on-tertiary-fixed": "#ffffff",
+                        "surface-container-high": "#2a2a2a",
+                        "on-surface-variant": "#c6c6c6",
+                        "on-secondary-container": "#e2e2e2",
+                        "error-container": "#93000a",
+                        "on-surface": "#e5e2e1",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#5d5f5f",
+                        "on-error-container": "#ffdad6",
+                        "on-error": "#690005",
+                        "surface-bright": "#3a3939",
+                        "primary-container": "#d4d4d4",
+                        "surface-container-highest": "#353534",
+                        "secondary-container": "#454747",
+                        "on-secondary": "#1a1c1c",
+                        "on-primary-fixed": "#ffffff",
+                        "inverse-primary": "#5d5f5f",
+                        "error": "#ffb4ab",
+                        "secondary": "#c6c6c7",
+                        "tertiary-fixed-dim": "#454747",
+                        "on-primary": "#1a1c1c",
+                        "outline-variant": "#474747",
+                        "primary-fixed-dim": "#454747",
+                        "on-primary-container": "#000000",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-low": "#1c1b1b",
+                        "secondary-fixed-dim": "#aaabab",
+                        "surface-dim": "#131313",
+                        "tertiary-fixed": "#5d5f5f",
+                        "outline": "#919191",
+                        "surface-tint": "#c6c6c7",
+                        "on-tertiary": "#1a1c1c",
+                        "primary": "#ffffff",
+                        "surface-container": "#201f1f",
+                        "on-tertiary-container": "#000000",
+                        "secondary-fixed": "#c6c6c7",
+                        "on-secondary-fixed-variant": "#3a3c3c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Space Grotesk", "monospace"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+        }
+        .hero-glow {
+            background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, rgba(10,10,10,0) 70%);
+        }
+        .vertical-text {
+            writing-mode: vertical-rl;
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-primary selection:text-background">
+<div class="film-grain"></div>
+<!-- TopNavBar Shell -->
+<nav class="fixed top-0 w-full z-50 bg-[#0a0a0a]/60 backdrop-blur-2xl flex justify-between items-center px-12 py-6 border-b border-[#474747]/20">
+<div class="text-2xl font-headline italic text-white">YS.</div>
+<div class="hidden md:flex items-center gap-12">
+<a class="text-white border-b border-white pb-1 font-label uppercase text-xs tracking-widest hover:text-white transition-colors duration-500 active:scale-95 transition-transform" href="#">Work</a>
+<a class="text-[#474747] font-label uppercase text-xs tracking-widest hover:text-white transition-colors duration-500 active:scale-95 transition-transform" href="#">About</a>
+<a class="text-[#474747] font-label uppercase text-xs tracking-widest hover:text-white transition-colors duration-500 active:scale-95 transition-transform" href="#">Contact</a>
+</div>
+<a class="text-white font-label uppercase text-xs tracking-widest border border-white/20 px-4 py-2 hover:bg-white hover:text-black transition-all duration-500" href="#">HIRE ↗</a>
+</nav>
+<!-- Main Content -->
+<main class="relative min-h-screen flex flex-col justify-center px-12 pt-20">
+<!-- Hero Section -->
+<section class="relative w-full flex flex-col md:flex-row items-end justify-between hero-glow">
+<!-- Left Side: Massive Title & Subline -->
+<div class="w-full md:w-3/4 flex flex-col items-start">
+<h1 class="text-[12vw] md:text-[18vw] font-headline italic leading-[0.8] text-white tracking-tighter mix-blend-difference">
+                    Yogesh Sahu
+                </h1>
+<div class="w-full h-px bg-white/20 mt-4 mb-6"></div>
+<p class="font-label text-[10px] md:text-xs tracking-[0.2em] text-white/60">
+                    FRACTIONAL CTO · DPIIT · CRYPTOPRISM · STRATHCLYDE MS
+                </p>
+<!-- Corner Metadata/Technical Readouts -->
+<div class="mt-20 flex gap-12">
+<div class="flex flex-col gap-1">
+<span class="font-label text-[8px] text-[#474747] tracking-widest uppercase">Location</span>
+<span class="font-label text-[10px] text-white tracking-widest uppercase">Global / Remote</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label text-[8px] text-[#474747] tracking-widest uppercase">Focus</span>
+<span class="font-label text-[10px] text-white tracking-widest uppercase">Scalable Architecture</span>
+</div>
+</div>
+</div>
+<!-- Right Side: Stats Column -->
+<div class="hidden md:flex flex-col items-end border-l border-[#474747]/20 pl-12 py-8 min-w-[240px]">
+<div class="flex flex-col items-end mb-12">
+<span class="text-4xl font-headline italic text-white">1B+</span>
+<span class="font-label text-[10px] text-[#474747] tracking-widest mt-2">ASSETS SECURED</span>
+</div>
+<div class="w-12 h-px bg-[#474747]/40 mb-12 self-end"></div>
+<div class="flex flex-col items-end mb-12">
+<span class="text-4xl font-headline italic text-white">99.9%</span>
+<span class="font-label text-[10px] text-[#474747] tracking-widest mt-2">UPTIME</span>
+</div>
+<div class="w-12 h-px bg-[#474747]/40 mb-12 self-end"></div>
+<div class="flex flex-col items-end mb-12">
+<span class="text-4xl font-headline italic text-white">23</span>
+<span class="font-label text-[10px] text-[#474747] tracking-widest mt-2">VENTURES</span>
+</div>
+<div class="w-12 h-px bg-[#474747]/40 mb-12 self-end"></div>
+<div class="flex flex-col items-end">
+<span class="text-4xl font-headline italic text-white">50K</span>
+<span class="font-label text-[10px] text-[#474747] tracking-widest mt-2">COMMUNITY</span>
+</div>
+</div>
+</section>
+<!-- Vertical Scroll Indicator -->
+<div class="fixed right-6 bottom-12 flex flex-col items-center gap-4">
+<div class="h-24 w-px bg-gradient-to-b from-transparent via-[#474747] to-white"></div>
+<span class="vertical-text font-label text-[9px] tracking-[0.3em] text-white uppercase opacity-40">SCROLL ↓</span>
+</div>
+<!-- Corner Coordinates (Architectural Detail) -->
+<div class="absolute bottom-6 left-12">
+<span class="font-label text-[8px] text-[#474747] tracking-widest">EST. 2012 / CORE SYSTEM ALPHA</span>
+</div>
+</main>
+<!-- Project Preview (Visual Anchor) -->
+<section class="mt-32 px-12 pb-32">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="group relative overflow-hidden bg-surface-container-low aspect-[4/5] md:aspect-[16/9]">
+<img class="w-full h-full object-cover grayscale opacity-50 group-hover:scale-105 transition-transform duration-1000" data-alt="monochromatic high contrast close-up of computer server circuits and digital data streams with cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjzEKYnU6_nEXLJt0AVxiZp8zX6hhI50gWj_IpXYPBHSy964wZ7NQRrTV5dR-jbQXwG2B0TNbvmRwoPqaDQetdzJATNSLhDMOSOGq41VC9dU1IeQkZHnZQOw4g1LY45bB74WAjpMOJx52vOR7bMom9CVxhX4OwYeM6hGts-o663xGXjCNSIOKAQKTrAezBFNTGrTiGQPjrcNPpnCDoccA13-6ynJSWdEoSSguiph5pOusFEl8iiKmW6QFB9G7HleZ1__PhidJm2jM"/>
+<div class="absolute inset-0 bg-black/40 p-12 flex flex-col justify-end">
+<span class="font-label text-[10px] tracking-widest text-white/60 mb-2">PROJECT 01</span>
+<h3 class="text-3xl font-headline italic text-white">Cryptoprism Nexus</h3>
+</div>
+</div>
+<div class="flex flex-col justify-center p-12 border border-[#474747]/20">
+<span class="font-label text-[10px] tracking-widest text-[#474747] mb-8">THOUGHT LEADERSHIP</span>
+<p class="text-2xl font-headline italic leading-relaxed text-on-surface mb-12">
+                    "Architecture is not just about structure; it is about the silence between the components that allows the data to breathe."
+                </p>
+<div class="w-16 h-px bg-white"></div>
+</div>
+</div>
+</section>
+<!-- Footer Shell -->
+<footer class="w-full py-20 px-12 border-t border-[#474747]/20 bg-[#0a0a0a] flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="font-label uppercase text-[10px] tracking-[0.2em] text-[#474747]">
+            © 2024 YS. ALL RIGHTS RESERVED.
+        </div>
+<div class="flex gap-12">
+<a class="font-label uppercase text-[10px] tracking-[0.2em] text-[#474747] hover:text-white hover:underline decoration-1 underline-offset-4 transition-all" href="#">INSTAGRAM</a>
+<a class="font-label uppercase text-[10px] tracking-[0.2em] text-[#474747] hover:text-white hover:underline decoration-1 underline-offset-4 transition-all" href="#">TWITTER</a>
+<a class="font-label uppercase text-[10px] tracking-[0.2em] text-[#474747] hover:text-white hover:underline decoration-1 underline-offset-4 transition-all" href="#">LINKEDIN</a>
+</div>
+<div class="font-label uppercase text-[8px] tracking-[0.4em] text-[#474747]">
+            35.6895° N, 139.6917° E
+        </div>
+</footer>
+</body></html>

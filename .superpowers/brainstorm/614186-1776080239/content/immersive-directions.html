@@ -1,0 +1,126 @@
+<h2>What kind of immersive are we building?</h2>
+<p class="subtitle">Three distinct directions — each takes the current monochrome brutalist base to 10/10 in a different way</p>
+
+<div class="cards">
+
+  <!-- Option A -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0a0a0a;min-height:220px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;font-family:monospace;overflow:hidden;position:relative;">
+      <!-- Scroll Storytelling mockup -->
+      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.03) 40px);pointer-events:none;"></div>
+      <div>
+        <div style="font-size:9px;color:#444;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;">SCROLL ↓</div>
+        <div style="font-size:36px;font-weight:900;color:#fff;line-height:0.9;letter-spacing:-2px;">Yogesh<br/><span style="font-style:italic;">Sahu</span></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:flex-end;">
+        <div style="width:3px;height:60px;background:#fff;opacity:0.8;"></div>
+        <div style="width:3px;height:40px;background:#fff;opacity:0.5;"></div>
+        <div style="width:3px;height:20px;background:#fff;opacity:0.3;"></div>
+        <div style="margin-left:8px;">
+          <div style="font-size:9px;color:#555;letter-spacing:2px;">1B+ pts/day</div>
+          <div style="font-size:9px;color:#333;letter-spacing:2px;margin-top:4px;">counting up...</div>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,#0a0a0a);"></div>
+    </div>
+    <div class="card-body">
+      <h3>A — Scroll Cinema</h3>
+      <p>Dark canvas. Stats count up as you scroll. Text fades in line by line. Each section is a cinematic reveal. Feels like watching a documentary about the work. Very Apple-keynote, very Stripe.</p>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="font-size:10px;padding:3px 8px;border:1px solid #333;color:#888;border-radius:2px;">scroll-driven</span>
+        <span style="font-size:10px;padding:3px 8px;border:1px solid #333;color:#888;border-radius:2px;">counter animations</span>
+        <span style="font-size:10px;padding:3px 8px;border:1px solid #333;color:#888;border-radius:2px;">dark mode</span>
+        <span style="font-size:10px;padding:3px 8px;border:1px solid #333;color:#888;border-radius:2px;">high drama</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option B -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f7f4ee;min-height:220px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;font-family:sans-serif;overflow:hidden;position:relative;">
+      <!-- Full-screen editorial mockup -->
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div>
+          <div style="font-size:8px;color:#aaa;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;">FRACTIONAL CTO</div>
+          <div style="font-size:42px;font-weight:900;color:#1a1a1a;line-height:0.85;letter-spacing:-3px;font-style:italic;">Yogesh<br/>SAHU</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:48px;font-weight:900;color:#1a1a1a;line-height:1;">1B+</div>
+          <div style="font-size:8px;color:#aaa;letter-spacing:2px;">DATA PTS/DAY</div>
+        </div>
+      </div>
+      <div style="border-top:2px solid #1a1a1a;padding-top:12px;margin-top:8px;display:flex;gap:16px;">
+        <div style="flex:1;background:#1a1a1a;height:6px;"></div>
+        <div style="flex:1;background:#888;height:6px;"></div>
+        <div style="flex:1;background:#ddd;height:6px;"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px;">
+        <div style="background:#fff;border:1px solid #e0e0e0;padding:8px;">
+          <div style="font-size:7px;color:#bbb;letter-spacing:2px;">PROJ_001</div>
+          <div style="font-size:11px;font-weight:900;color:#1a1a1a;margin-top:2px;">CryptoPrism</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e0e0e0;padding:8px;">
+          <div style="font-size:7px;color:#bbb;letter-spacing:2px;">PROJ_002</div>
+          <div style="font-size:11px;font-weight:900;color:#1a1a1a;margin-top:2px;">KARI</div>
+        </div>
+        <div style="background:#1a1a1a;border:1px solid #1a1a1a;padding:8px;">
+          <div style="font-size:7px;color:#555;letter-spacing:2px;">GITHUB</div>
+          <div style="font-size:11px;font-weight:900;color:#fff;margin-top:2px;">23 repos</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Parallax Editorial</h3>
+      <p>Keep the light cream base but add depth: parallax layers, sticky section headers, large numbers that stay pinned as content scrolls past. Like a luxury magazine that moves. Bold, prestigious, confident.</p>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="font-size:10px;padding:3px 8px;border:1px solid #ddd;color:#888;border-radius:2px;">parallax</span>
+        <span style="font-size:10px;padding:3px 8px;border:1px solid #ddd;color:#888;border-radius:2px;">sticky elements</span>
+        <span style="font-size:10px;padding:3px 8px;border:1px solid #ddd;color:#888;border-radius:2px;">light mode</span>
+        <span style="font-size:10px;padding:3px 8px;border:1px solid #ddd;color:#888;border-radius:2px;">confident</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option C -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#060812;min-height:220px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;font-family:monospace;overflow:hidden;position:relative;">
+      <!-- Data/Terminal mockup -->
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%, rgba(100,180,255,0.05) 0%, transparent 70%);pointer-events:none;"></div>
+      <div>
+        <div style="font-size:9px;color:#1a6aff;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;opacity:0.8;">SYSTEM ONLINE ●</div>
+        <div style="font-size:11px;color:#fff;font-weight:700;line-height:1.8;">
+          <span style="color:#4a9eff;">const</span> operator = <span style="color:#a8d8ff;">"Yogesh Sahu"</span>;<br/>
+          <span style="color:#4a9eff;">const</span> dataPoints = <span style="color:#90ee90;">1_000_000_000</span>;<br/>
+          <span style="color:#4a9eff;">const</span> uptime = <span style="color:#ffaa44;">"99.9%"</span>;
+        </div>
+      </div>
+      <div style="border-top:1px solid #1a3a6a;padding-top:12px;display:flex;gap:12px;">
+        <div style="text-align:center;">
+          <div style="font-size:22px;font-weight:900;color:#4a9eff;">23</div>
+          <div style="font-size:7px;color:#4a6a8a;letter-spacing:2px;">REPOS</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:22px;font-weight:900;color:#90ee90;">50K</div>
+          <div style="font-size:7px;color:#4a6a8a;letter-spacing:2px;">DOWNLOADS</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:22px;font-weight:900;color:#ffaa44;">1B+</div>
+          <div style="font-size:7px;color:#4a6a8a;letter-spacing:2px;">DATA PTS</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Data Terminal</h3>
+      <p>Deep space dark with live-looking data streams, code syntax accents, blinking cursors, animated stat counters. Matches the CryptoPrism brand. Feels like the actual infrastructure you built. Unique, technical, alive.</p>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="font-size:10px;padding:3px 8px;border:1px solid #1a3a6a;color:#4a9eff;border-radius:2px;">code aesthetic</span>
+        <span style="font-size:10px;padding:3px 8px;border:1px solid #1a3a6a;color:#4a9eff;border-radius:2px;">live data feel</span>
+        <span style="font-size:10px;padding:3px 8px;border:1px solid #1a3a6a;color:#4a9eff;border-radius:2px;">dark mode</span>
+        <span style="font-size:10px;padding:3px 8px;border:1px solid #1a3a6a;color:#4a9eff;border-radius:2px;">technical</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:24px;text-align:center;">Click a card to select. Can also mix — e.g. "B layout with C animations"</p>

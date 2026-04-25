@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>yogeshsahu.xyz — Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --obsidian:#080808;
+  --obsidian-soft:#0d0d0d;
+  --gold:#fbbf24;
+  --gold-dim:#d97706;
+  --gold-faint:rgba(251,191,36,0.08);
+  --gold-glow:rgba(251,191,36,0.35);
+  --light:#fafafa;
+  --light-surface:#ffffff;
+  --light-border:#e5e7eb;
+  --text-primary:#ffffff;
+  --text-body:#d1d5db;
+  --text-muted:#6b7280;
+  --text-dark:#111111;
+  --text-dark-body:#374151;
+  --font-display:'Cabinet Grotesk','Arial Black',sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-serif:'Playfair Display',Georgia,serif;
+}
+
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--obsidian);color:var(--text-primary);overflow-x:hidden;font-size:16px;line-height:1.6;}
+
+/* ── PREVIEW BANNER ── */
+.preview-banner{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(251,191,36,0.95);color:#000;text-align:center;font-size:.7rem;font-weight:700;padding:.35rem;letter-spacing:.1em;text-transform:uppercase;}
+
+/* ── NAV ── */
+nav{position:fixed;top:28px;left:0;right:0;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;z-index:1000;transition:background .3s,backdrop-filter .3s;}
+nav.scrolled{background:rgba(8,8,8,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(251,191,36,0.1);}
+.nav-logo{font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--gold);letter-spacing:.05em;text-decoration:none;}
+.nav-links{display:flex;gap:.25rem;}
+.nav-links a{font-family:var(--font-body);font-size:.78rem;color:var(--text-muted);text-decoration:none;padding:.4rem .85rem;border-radius:4px;transition:color .2s,background .2s;letter-spacing:.02em;}
+.nav-links a:hover{color:var(--text-primary);background:var(--gold-faint);}
+
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5rem 2rem 4rem;overflow:hidden;background:var(--obsidian);}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 55%,rgba(251,191,36,0.18) 0%,transparent 65%);pointer-events:none;}
+
+/* Veo3 canvas placeholder */
+.veo-canvas-wrap{position:relative;width:340px;height:340px;margin:0 auto 2.5rem;z-index:1;}
+.veo-canvas{width:100%;height:100%;border-radius:12px;background:linear-gradient(135deg,rgba(251,191,36,0.04) 0%,rgba(251,191,36,0.12) 50%,rgba(251,191,36,0.04) 100%);border:1.5px solid rgba(251,191,36,0.3);box-shadow:0 0 60px rgba(251,191,36,0.25),0 0 120px rgba(251,191,36,0.08);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
+.veo-canvas::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(251,191,36,0.02) 3px,rgba(251,191,36,0.02) 4px);}
+.veo-avatar-placeholder{width:120px;height:120px;border-radius:50%;border:2px solid var(--gold);background:rgba(251,191,36,0.08);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(251,191,36,0.4);position:relative;z-index:1;}
+.veo-avatar-placeholder span{font-family:var(--font-display);font-size:2.5rem;font-weight:900;color:var(--gold);}
+.veo-label{position:absolute;bottom:.75rem;left:50%;transform:translateX(-50%);font-size:.58rem;color:rgba(251,191,36,0.45);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;}
+
+.hero-content{text-align:center;z-index:1;position:relative;}
+.hero-eyebrow{font-size:.68rem;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;margin-bottom:1rem;}
+.hero-name{font-family:var(--font-display);font-size:clamp(2.8rem,8vw,5.5rem);font-weight:900;letter-spacing:-.02em;line-height:1;color:#fff;margin-bottom:.5rem;}
+.hero-name-serif{font-family:var(--font-serif);font-weight:700;font-style:italic;color:var(--gold);}
+.hero-role{font-size:.72rem;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;margin-bottom:2.5rem;}
+.hero-cta{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:#000;font-family:var(--font-body);font-size:.8rem;font-weight:700;padding:.75rem 1.75rem;border-radius:4px;text-decoration:none;letter-spacing:.05em;transition:background .2s,transform .2s;}
+.hero-cta:hover{background:#f59e0b;transform:translateY(-2px);}
+.hero-scroll-hint{margin-top:2rem;font-size:.62rem;color:var(--text-muted);letter-spacing:.1em;animation:pulse-hint 2s ease-in-out infinite;}
+@keyframes pulse-hint{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ── MARQUEE ── */
+.marquee-strip{background:var(--gold);overflow:hidden;padding:.6rem 0;white-space:nowrap;}
+.marquee-inner{display:inline-block;animation:marquee 28s linear infinite;}
+.marquee-inner span{font-family:var(--font-display);font-size:.72rem;font-weight:800;color:#000;letter-spacing:.12em;text-transform:uppercase;padding:0 1.5rem;}
+.marquee-inner .sep{color:rgba(0,0,0,0.35);}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── SECTIONS SHARED ── */
+.section{padding:6rem 2rem;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-label{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;margin-bottom:1.5rem;}
+.section-label::before{content:'';display:block;width:8px;height:8px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.section-heading{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:1.5rem;}
+
+/* ── ABOUT (dark) ── */
+.about-section{background:var(--obsidian-soft);border-top:1px solid rgba(251,191,36,0.08);}
+.about-section .section-label{color:var(--gold);}
+.about-manifesto{font-family:var(--font-display);font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800;color:#fff;line-height:1.4;margin-bottom:.75rem;}
+.about-manifesto em{font-family:var(--font-serif);font-weight:700;font-style:italic;color:var(--gold);}
+.about-bio{font-size:.9rem;color:var(--text-body);line-height:1.8;max-width:680px;margin-bottom:3rem;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+.stat-card{background:var(--gold-faint);border:1px solid rgba(251,191,36,0.15);border-radius:8px;padding:1.5rem 1.25rem;text-align:center;}
+.stat-num{font-family:var(--font-display);font-size:2.2rem;font-weight:900;color:var(--gold);line-height:1;margin-bottom:.4rem;}
+.stat-lbl{font-size:.62rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.15em;}
+
+/* ── PROJECTS (light) ── */
+.projects-section{background:var(--light);}
+.projects-section .section-label{color:var(--gold-dim);}
+.projects-section .section-heading{color:var(--text-dark);}
+.projects-section .section-sub{font-size:.88rem;color:#6b7280;margin-bottom:3rem;max-width:500px;}
+.projects-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;}
+.view-all{font-size:.78rem;color:var(--gold-dim);font-weight:600;text-decoration:none;display:flex;align-items:center;gap:.35rem;transition:gap .2s;}
+.view-all:hover{gap:.6rem;}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.project-card{background:var(--light-surface);border:1px solid var(--light-border);border-radius:10px;padding:1.5rem;transition:border-color .2s,transform .2s,box-shadow .2s;cursor:pointer;}
+.project-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 8px 32px rgba(251,191,36,0.12);}
+.project-tag{font-size:.6rem;font-weight:700;color:var(--gold-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.75rem;}
+.project-title{font-family:var(--font-display);font-size:1.05rem;font-weight:800;color:var(--text-dark);margin-bottom:.5rem;line-height:1.3;}
+.project-desc{font-size:.78rem;color:#9ca3af;line-height:1.6;margin-bottom:.85rem;}
+.project-stat{font-size:.7rem;font-weight:600;color:var(--gold-dim);padding:.3rem .6rem;background:#fef3c7;border-radius:4px;display:inline-block;}
+
+/* ── MILESTONES (dark) ── */
+.milestones-section{background:var(--obsidian);border-top:1px solid rgba(251,191,36,0.06);}
+.milestones-section .section-label{color:var(--gold);}
+.milestones-section .section-heading{color:#fff;}
+.milestones-section .section-heading em{font-family:var(--font-serif);font-style:italic;color:var(--gold);}
+.milestones-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem;}
+.milestone-card{background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.12);border-radius:10px;padding:1.75rem 1.5rem;display:flex;gap:1.25rem;align-items:flex-start;transition:border-color .25s,background .25s;}
+.milestone-card:hover{border-color:rgba(251,191,36,0.3);background:rgba(251,191,36,0.07);}
+.milestone-icon{font-size:1.75rem;flex-shrink:0;width:44px;height:44px;background:rgba(251,191,36,0.08);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.milestone-title{font-family:var(--font-display);font-size:.95rem;font-weight:800;color:#fff;margin-bottom:.4rem;line-height:1.3;}
+.milestone-desc{font-size:.78rem;color:var(--text-body);line-height:1.6;}
+.milestone-badge{display:inline-block;margin-top:.5rem;font-size:.6rem;font-weight:700;color:var(--gold);background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.2);padding:.2rem .5rem;border-radius:3px;letter-spacing:.07em;text-transform:uppercase;}
+
+/* ── BLOG (light) ── */
+.blog-section{background:#fff;border-top:1px solid var(--light-border);}
+.blog-section .section-label{color:var(--gold-dim);}
+.blog-section .section-heading{color:var(--text-dark);}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
+.blog-card{padding:1.5rem 0;border-top:2px solid var(--light-border);transition:border-color .2s;}
+.blog-card:hover{border-color:var(--gold);}
+.blog-date{font-size:.62rem;color:#9ca3af;letter-spacing:.08em;margin-bottom:.6rem;text-transform:uppercase;}
+.blog-title{font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--text-dark);line-height:1.4;margin-bottom:.6rem;}
+.blog-excerpt{font-size:.78rem;color:#6b7280;line-height:1.7;margin-bottom:1rem;}
+.blog-read{font-size:.72rem;font-weight:700;color:var(--gold-dim);display:flex;align-items:center;gap:.35rem;transition:gap .2s;}
+.blog-card:hover .blog-read{gap:.55rem;}
+
+/* ── CONTACT (dark) ── */
+.contact-section{background:var(--obsidian-soft);border-top:1px solid rgba(251,191,36,0.08);}
+.contact-section .section-label{color:var(--gold);}
+.contact-heading{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:.75rem;}
+.contact-heading em{font-family:var(--font-serif);font-style:italic;color:var(--gold);}
+.contact-sub{font-size:.88rem;color:var(--text-muted);margin-bottom:2.5rem;max-width:480px;}
+.availability{display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;color:#4ade80;letter-spacing:.08em;margin-bottom:2.5rem;}
+.avail-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;animation:pulse-green 2s ease-in-out infinite;}
+@keyframes pulse-green{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,0.4)}50%{box-shadow:0 0 0 6px rgba(74,222,128,0)}}
+.contact-links{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem;max-width:560px;}
+.contact-link{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.25rem;background:rgba(255,255,255,0.03);border:1px solid rgba(251,191,36,0.15);border-radius:8px;text-decoration:none;transition:border-color .2s,background .2s,transform .2s;}
+.contact-link:hover{border-color:rgba(251,191,36,0.4);background:rgba(251,191,36,0.06);transform:translateX(4px);}
+.contact-link-icon{width:36px;height:36px;border-radius:6px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.15);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+.contact-link-text{}
+.contact-link-label{font-size:.58rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:.1rem;}
+.contact-link-value{font-size:.78rem;font-weight:600;color:var(--text-primary);}
+
+/* ── FOOTER ── */
+footer{background:#050505;padding:1.5rem 2.5rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.04);}
+.footer-copy{font-size:.7rem;color:#374151;}
+.footer-copy span{color:var(--gold);}
+.footer-socials{display:flex;gap:.75rem;}
+.footer-socials a{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--text-muted);text-decoration:none;transition:border-color .2s,color .2s;}
+.footer-socials a:hover{border-color:var(--gold);color:var(--gold);}
+</style>
+</head>
+<body>
+
+<!-- PREVIEW BANNER -->
+<div class="preview-banner">⚡ Design Preview — yogeshsahu.xyz v2 · The Architect · Obsidian + Gold · Next.js 15</div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a class="nav-logo" href="#">YS //</a>
+  <div class="nav-links">
+    <a href="#projects">Work</a>
+    <a href="#about">About</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+
+  <div class="veo-canvas-wrap">
+    <div class="veo-canvas">
+      <div class="veo-avatar-placeholder"><span>Y</span></div>
+      <div class="veo-label">Veo 3 scroll animation · 180 frames</div>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Fractional CTO &nbsp;·&nbsp; Founder, CryptoPrism &nbsp;·&nbsp; Pre-Seed Q2 2026</div>
+    <h1 class="hero-name">YOGESH<br/><span class="hero-name-serif">Sahu</span></h1>
+    <div class="hero-role">Fintech Infrastructure · AI · Data Engineering</div>
+    <a class="hero-cta" href="#projects">THE WORK →</a>
+    <div class="hero-scroll-hint">↓ scroll</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>CRYPTOPRISM</span><span class="sep">·</span>
+    <span>DPIIT FOUNDER</span><span class="sep">·</span>
+    <span>STRATHCLYDE MS FINTECH</span><span class="sep">·</span>
+    <span>23 GITHUB REPOS</span><span class="sep">·</span>
+    <span>1B+ DATA POINTS DAILY</span><span class="sep">·</span>
+    <span>50K GAME DOWNLOADS</span><span class="sep">·</span>
+    <span>110 COUNTRIES</span><span class="sep">·</span>
+    <span>21 STATES RIDDEN</span><span class="sep">·</span>
+    <span>BANSURI PLAYER</span><span class="sep">·</span>
+    <span>ISHA SADHANA</span><span class="sep">·</span>
+    <!-- duplicate for seamless -->
+    <span>CRYPTOPRISM</span><span class="sep">·</span>
+    <span>DPIIT FOUNDER</span><span class="sep">·</span>
+    <span>STRATHCLYDE MS FINTECH</span><span class="sep">·</span>
+    <span>23 GITHUB REPOS</span><span class="sep">·</span>
+    <span>1B+ DATA POINTS DAILY</span><span class="sep">·</span>
+    <span>50K GAME DOWNLOADS</span><span class="sep">·</span>
+    <span>110 COUNTRIES</span><span class="sep">·</span>
+    <span>21 STATES RIDDEN</span><span class="sep">·</span>
+    <span>BANSURI PLAYER</span><span class="sep">·</span>
+    <span>ISHA SADHANA</span><span class="sep">·</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="section about-section">
+  <div class="section-inner">
+    <div class="section-label" style="color:var(--gold);">About</div>
+    <div class="about-manifesto">1B+ data points.<br/>Processed daily.<br/><em>One engineer.</em></div>
+    <p class="about-bio">CryptoPrism is AI-powered crypto intelligence for independent traders — not institutions. Three-database GCP architecture processing over 1 billion data points daily across 1,000+ coins, 130+ indicators, 99.9% uptime. DPIIT-recognised, raising pre-seed Q2 2026.<br/><br/>Before that: Ubisoft. A mobile game to 110 countries in 21 days. An e-sports franchise network. MS FinTech at Strathclyde — dissertation topper, applied TimesFM to live crypto markets.</p>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">1B+</div>
+        <div class="stat-lbl">Data Points Daily</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">23</div>
+        <div class="stat-lbl">GitHub Repos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">50K</div>
+        <div class="stat-lbl">Game Downloads</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">21</div>
+        <div class="stat-lbl">States Ridden</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section projects-section">
+  <div class="section-inner">
+    <div class="section-label" style="color:var(--gold-dim);">Selected Work</div>
+    <div class="projects-header">
+      <div>
+        <h2 class="section-heading">Built.<br/>Running.</h2>
+        <p class="projects-section__sub" style="font-size:.88rem;color:#6b7280;margin-top:.5rem;">No demos. No side projects. Everything here is in production or shipped to real users.</p>
+      </div>
+      <a class="view-all" href="#">All work →</a>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-tag">GCP · PostgreSQL · Fintech</div>
+        <div class="project-title">CryptoPrism DB</div>
+        <div class="project-desc">The backbone. Three databases, one GCP project, 99.9% uptime. Every CryptoPrism product runs on this.</div>
+        <div class="project-stat">1B+ data points/day · 130+ indicators</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">Mobile · Global · 21 Days</div>
+        <div class="project-title">Kari & the Lost Shrines</div>
+        <div class="project-desc">21 days. Zero budget. 50K downloads, 110 countries — and a note from Sadhguru.</div>
+        <div class="project-stat">50K downloads · 110 countries</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">Python · GCP · Live</div>
+        <div class="project-title">Forex Pipeline</div>
+        <div class="project-desc">Live forex ingestion, normalisation, and storage on GCP. Feeds CryptoPrism's quant layer without manual intervention.</div>
+        <div class="project-stat">Live · GCP · PostgreSQL</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">AI · FastAPI · Signals</div>
+        <div class="project-title">CryptoPrism Screener</div>
+        <div class="project-desc">130 indicators. 1,000+ coins. One engine. Cuts noise — surfaces what's actually worth watching.</div>
+        <div class="project-stat">130+ indicators · Live</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">Quant · OHLCV · Backtesting</div>
+        <div class="project-title">CryptoPrism DB-H</div>
+        <div class="project-desc">Multi-year OHLCV warehouse, vectorbt-ready. The historical layer underpinning strategy validation at CryptoPrism.</div>
+        <div class="project-stat">Multi-year depth · vectorbt</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">NLP · Gemini AI · Python</div>
+        <div class="project-title">News Intelligence</div>
+        <div class="project-desc">Gemini-scored crypto news. Multi-source, sub-minute latency. Feeds sentiment context into the signal stack.</div>
+        <div class="project-stat">Multi-source · Sub-minute</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MILESTONES -->
+<section id="milestones" class="section milestones-section">
+  <div class="section-inner">
+    <div class="section-label" style="color:var(--gold);">Milestones</div>
+    <h2 class="section-heading">Not just <em>code.</em></h2>
+    <div class="milestones-grid">
+
+      <div class="milestone-card">
+        <div class="milestone-icon">🎮</div>
+        <div>
+          <div class="milestone-title">Kari & the Lost Shrines</div>
+          <div class="milestone-desc">21 days. Zero marketing. 50K downloads across 110 countries — and a personal note from Sadhguru.</div>
+          <div class="milestone-badge">Sadhguru Appreciation</div>
+        </div>
+      </div>
+
+      <div class="milestone-card">
+        <div class="milestone-icon">🏍</div>
+        <div>
+          <div class="milestone-title">Solo. 21 States. No Support.</div>
+          <div class="milestone-desc">Crossed 21 Indian states on a motorbike, alone. What most people plan for years — executed.</div>
+          <div class="milestone-badge">21 States · Solo</div>
+        </div>
+      </div>
+
+      <div class="milestone-card">
+        <div class="milestone-icon">🎓</div>
+        <div>
+          <div class="milestone-title">Strathclyde MS FinTech</div>
+          <div class="milestone-desc">Dissertation topper — 82/100. Applied Google's TimesFM to live crypto price forecasting. Cohort first.</div>
+          <div class="milestone-badge">Merit · Cohort Topper</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog" class="section blog-section">
+  <div class="section-inner">
+    <div class="section-label" style="color:var(--gold-dim);">Writing</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;">
+      <h2 class="section-heading" style="color:var(--text-dark);">Thinking out loud.</h2>
+      <a class="view-all" href="#" style="color:var(--gold-dim);">All posts →</a>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card">
+        <div class="blog-date">Mar 2026</div>
+        <div class="blog-title">Why I Used Three Databases Instead of One</div>
+        <div class="blog-excerpt">The architecture decision behind CryptoPrism DB — tradeoffs, costs, and what I'd do differently at scale.</div>
+        <a class="blog-read" href="#">Read → </a>
+      </div>
+      <div class="blog-card">
+        <div class="blog-date">Feb 2026</div>
+        <div class="blog-title">TimesFM on Live Crypto: Honest Results</div>
+        <div class="blog-excerpt">Google's foundation model applied to price forecasting. The numbers, the caveats, and where it actually outperforms baselines.</div>
+        <a class="blog-read" href="#">Read → </a>
+      </div>
+      <div class="blog-card">
+        <div class="blog-date">Jan 2026</div>
+        <div class="blog-title">Retail Crypto Doesn't Have a Signal Problem. It Has a Data Problem.</div>
+        <div class="blog-excerpt">Most platforms pile on indicators. The actual constraint is data quality and latency. Here's what that looks like in practice.</div>
+        <a class="blog-read" href="#">Read → </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section contact-section">
+  <div class="section-inner">
+    <div class="section-label" style="color:var(--gold);">Contact</div>
+    <h2 class="contact-heading">Available.<br/><em>Selectively.</em></h2>
+    <p class="contact-sub">Open to Fractional CTO engagements — fintech, data infrastructure, AI/ML. I take on two to three clients at a time. Simultaneously raising pre-seed for CryptoPrism, Q2 2026.</p>
+    <div class="availability">
+      <span class="avail-dot"></span>
+      Accepting Fractional CTO mandates
+    </div>
+    <div class="contact-links">
+      <a class="contact-link" href="#">
+        <div class="contact-link-icon">GH</div>
+        <div class="contact-link-text">
+          <span class="contact-link-label">GitHub</span>
+          <span class="contact-link-value">CryptoPrism-io</span>
+        </div>
+      </a>
+      <a class="contact-link" href="#">
+        <div class="contact-link-icon">in</div>
+        <div class="contact-link-text">
+          <span class="contact-link-label">LinkedIn</span>
+          <span class="contact-link-value">yogeshsahu-</span>
+        </div>
+      </a>
+      <a class="contact-link" href="#">
+        <div class="contact-link-icon">@</div>
+        <div class="contact-link-text">
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-value">yogesh.sahu@cryptoprism.io</span>
+        </div>
+      </a>
+      <a class="contact-link" href="#">
+        <div class="contact-link-icon">CP</div>
+        <div class="contact-link-text">
+          <span class="contact-link-label">Company</span>
+          <span class="contact-link-value">cryptoprism.io</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">yogeshsahu.xyz · © 2026 <span>Yogesh Sahu</span> · Built with Next.js</div>
+  <div class="footer-socials">
+    <a href="#">GH</a>
+    <a href="#">in</a>
+    <a href="#">@</a>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 80);
+});
+</script>
+</body>
+</html>
