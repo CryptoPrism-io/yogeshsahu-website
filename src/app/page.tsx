@@ -10,6 +10,7 @@ import { WINDOW_CONFIGS, ICON_MAP, WINDOW_CONTENT } from "@/data/window-configs"
 import GlyphPanel from "@/components/landing/GlyphPanel";
 import LaunchDeck from "@/components/landing/LaunchDeck";
 import MobileHome from "@/components/landing/MobileHome";
+import GuidedTour from "@/components/landing/GuidedTour";
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -65,6 +66,7 @@ export default function Home() {
       </main>
 
       <Dock windows={dockWindows} iconMap={ICON_MAP} onOpen={openWindow} onFocus={focusWindow} />
+      <GuidedTour onOpenWindow={openWindow} />
     </div>
   );
 }
