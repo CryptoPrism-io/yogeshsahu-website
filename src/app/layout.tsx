@@ -66,13 +66,12 @@ export default function RootLayout({
     jobTitle: "Fractional CTO & Chief Solutions Architect",
     url: "https://yogeshsahu.xyz",
     sameAs: [
-      "https://linkedin.com/in/yogeshsahu",
+      "https://linkedin.com/in/yogeshsahu-",
       "https://github.com/CryptoPrism-io",
     ],
     worksFor: {
       "@type": "Organization",
-      name: "CryptoPrism",
-      url: "https://cryptoprism.io",
+      name: "Trinetry Infotech Pvt Ltd",
     },
     knowsAbout: [
       "AI Integration",
@@ -80,6 +79,8 @@ export default function RootLayout({
       "Data Pipelines",
       "Solution Architecture",
       "Product Engineering",
+      "Cognitive AI",
+      "EdTech",
     ],
     alumniOf: {
       "@type": "CollegeOrUniversity",

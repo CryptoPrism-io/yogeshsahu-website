@@ -21,10 +21,10 @@ const MANDATE_TYPES = [
 const LINKS = [
   {
     label: "EMAIL",
-    content: "yogesh@cryptoprism.io",
-    href: "mailto:yogesh@cryptoprism.io?subject=5-day%20CTO%20Diagnostic&body=Hi%20Yogesh%2C%0A%0AI%20want%20to%20explore%20the%205-day%20CTO%20diagnostic.%20The%20main%20issue%20we%20are%20dealing%20with%20is%3A%20%0A%0ACompany%3A%20%0AStage%3A%20%0ACurrent%20pressure%3A%20",
+    content: "yogesh.sahu@cryptoprism.io",
+    href: "mailto:yogesh.sahu@cryptoprism.io?subject=5-day%20CTO%20Diagnostic&body=Hi%20Yogesh%2C%0A%0AI%20want%20to%20explore%20the%205-day%20CTO%20diagnostic.%20The%20main%20issue%20we%20are%20dealing%20with%20is%3A%20%0A%0ACompany%3A%20%0AStage%3A%20%0ACurrent%20pressure%3A%20",
   },
-  { label: "LINKEDIN", content: "linkedin.com/in/yogeshsahu", href: "https://linkedin.com/in/yogeshsahu" },
+  { label: "LINKEDIN", content: "linkedin.com/in/yogeshsahu-", href: "https://linkedin.com/in/yogeshsahu-" },
   { label: "GITHUB", content: "github.com/CryptoPrism-io", href: "https://github.com/CryptoPrism-io" },
 ];
 
@@ -142,7 +142,7 @@ export default function ContactWindow() {
       </div>
 
       <a
-        href="mailto:yogesh@cryptoprism.io?subject=5-day%20CTO%20Diagnostic&body=Hi%20Yogesh%2C%0A%0AI%20want%20to%20explore%20the%205-day%20CTO%20diagnostic.%20The%20main%20issue%20we%20are%20dealing%20with%20is%3A%20%0A%0ACompany%3A%20%0AStage%3A%20%0ACurrent%20pressure%3A%20"
+        href="mailto:yogesh.sahu@cryptoprism.io?subject=5-day%20CTO%20Diagnostic&body=Hi%20Yogesh%2C%0A%0AI%20want%20to%20explore%20the%205-day%20CTO%20diagnostic.%20The%20main%20issue%20we%20are%20dealing%20with%20is%3A%20%0A%0ACompany%3A%20%0AStage%3A%20%0ACurrent%20pressure%3A%20"
         className="block w-full rounded-lg py-3 text-center text-[11px] font-bold uppercase tracking-[0.08em] transition-colors"
         style={{
           fontFamily: "var(--font-headline)",

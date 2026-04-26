@@ -10,15 +10,16 @@ const disciplines = [
 
 const credentials = [
   { label: "STRATHCLYDE", body: "MSc FinTech, merit, dissertation topper (82/100). AML false positives reduced from 87% to 59%." },
-  { label: "BARCLAYS / TIMES INTERNET", body: "Credit card product & AI/ML at Barclays (10K+ customers). Chief Tech Architect at Times Internet (India foundation DB)." },
-  { label: "UBISOFT", body: "QA Lead across Assassin's Creed, For Honor, and Just Dance. 250K first-day users." },
+  { label: "BARCLAYS", body: "ML Engineer in Credit Cards Fraud team. Built ML pipelines for fraud detection and real-time transaction anomaly detection." },
+  { label: "TIMES OF INDIA", body: "Chief Technological Architect. Built AI Bharatverse — interactive AI platform for Indian history exploration." },
+  { label: "ISHA FOUNDATION", body: "Project Manager. Shipped Kari and the Lost Shrines — 50K+ downloads. Mandala Support — 4.2M engagements across 120 countries." },
 ];
 
 const outcomes = [
-  { value: "17", label: "production repos" },
-  { value: "99.9%", label: "pipeline uptime" },
-  { value: "130+", label: "indicators" },
-  { value: "50K", label: "game downloads" },
+  { value: "8+", label: "years experience" },
+  { value: "1B+", label: "datapoints/day" },
+  { value: "100+", label: "coins tracked" },
+  { value: "50K+", label: "game downloads" },
 ];
 
 export default function AboutWindow() {
