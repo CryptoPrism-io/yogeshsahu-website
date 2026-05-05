@@ -52,7 +52,7 @@ export interface TableBlock {
 
 export interface CalloutBlock {
   type: 'callout';
-  tone?: 'gold' | 'green' | 'blue' | 'purple';
+  tone?: 'gold' | 'green' | 'blue' | 'purple' | 'red';
   title?: string;
   body: string;
 }

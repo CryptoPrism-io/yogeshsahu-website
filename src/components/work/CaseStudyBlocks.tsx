@@ -180,6 +180,8 @@ function CalloutBlockView({ block }: { block: CalloutBlock }) {
       ? "var(--ys-accent-strong)"
       : block.tone === "blue" || block.tone === "purple"
       ? "var(--ys-highlight)"
+      : block.tone === "red"
+      ? "#c0392b"
       : "var(--ys-accent)";
   return (
     <div

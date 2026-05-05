@@ -35,8 +35,8 @@ export const cryptoprismOnchain: CaseStudyContent = {
           body: 'On-chain analytics is the gold standard of crypto intelligence. Metrics like active addresses, whale movements, NVT ratios, and exchange flows reveal what is actually happening on blockchains — information that price charts alone cannot provide.\n\nThe problem: access costs a fortune. Glassnode charges $800+/month for their professional tier. Nansen, Santiment, and IntoTheBlock charge similar premiums. For a bootstrapped project like CryptoPrism, these are non-starters.\n\nBut Google makes raw blockchain data freely available through BigQuery public datasets — every transaction, every block, every address, for 10+ chains. The data is there; the challenge is building the intelligence layer on top of it.',
         },
         {
-          // FIXME: source uses `.callout.red` but CalloutBlock.tone only supports gold | green | blue | purple. Rendered without a tone (defaults to gold border).
           type: 'callout',
+          tone: 'red',
           title: 'The Cost Gap',
           body: 'Glassnode Professional: $800/month ($9,600/year). CryptoPrism On-Chain: $30/month ($360/year) for equivalent coverage across 6 chains. That is a 96% cost reduction while retaining full control over the data and metrics.',
         },
