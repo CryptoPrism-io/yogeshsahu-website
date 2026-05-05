@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { ArrowRight, Mail, Briefcase, FileText, Terminal, Award, FolderOpen } from "lucide-react";
 import { fadeUp } from "@/lib/motion";
 import AboutWindow from "@/components/windows/AboutWindow";
@@ -126,6 +127,40 @@ export default function MobileHome() {
           ))}
         </div>
       </motion.header>
+
+      <section
+        className="border-b"
+        style={{ borderColor: "var(--ys-card-border)" }}
+      >
+        <Link
+          href="/work"
+          className="flex w-full items-center justify-between px-5 py-4"
+          style={{ background: "var(--ys-surface)" }}
+        >
+          <div className="flex items-center gap-3">
+            <span style={{ color: "var(--ys-accent)" }}>
+              <FolderOpen size={16} />
+            </span>
+            <div>
+              <span
+                className="block text-[13px] font-bold uppercase tracking-[0.1em]"
+                style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
+              >
+                /work hub
+              </span>
+              <span
+                className="block text-[10px] uppercase tracking-[0.12em]"
+                style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+              >
+                12 case studies · 3 clusters
+              </span>
+            </div>
+          </div>
+          <span style={{ color: "var(--ys-text-soft)" }}>
+            <ArrowRight size={16} />
+          </span>
+        </Link>
+      </section>
 
       <MobileSection title="About" icon={<FileText size={16} />} defaultOpen>
         <AboutWindow />

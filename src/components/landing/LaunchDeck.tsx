@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { fadeUp, MOTION_DURATION, MOTION_EASE_QUICK } from "@/lib/motion";
@@ -182,6 +183,29 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             Open Terminal
           </motion.button>
         </div>
+        <Link
+          href="/work"
+          className="mt-3 flex items-center justify-between rounded-xl border px-3 py-2.5 text-left transition-colors hover:opacity-90"
+          style={{
+            borderColor: "var(--ys-card-border-strong)",
+            background: "var(--ys-card-bg)",
+            color: "var(--ys-text)",
+            fontFamily: "var(--font-headline)",
+          }}
+        >
+          <div>
+            <span className="mb-0.5 block text-[12px] font-bold uppercase tracking-[0.08em]">
+              /work hub
+            </span>
+            <span
+              className="block text-[9px] uppercase tracking-[0.12em]"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+            >
+              12 case studies · 3 leadership clusters
+            </span>
+          </div>
+          <ArrowRight size={14} />
+        </Link>
       </div>
     </motion.section>
   );
