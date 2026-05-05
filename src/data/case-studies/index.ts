@@ -10,6 +10,7 @@ import { pggCrm } from './pgg-crm';
 import { trinetryErp } from './trinetry-erp';
 import { gyanmarg } from './gyanmarg';
 import { aiBharatverse } from './ai-bharatverse';
+import { pratyaksha } from './pratyaksha';
 
 // Cases get registered here as they're ported (Tasks 7 & 8).
 export const caseStudies: Record<string, CaseStudyContent> = {
@@ -23,6 +24,7 @@ export const caseStudies: Record<string, CaseStudyContent> = {
   'trinetry-erp': trinetryErp,
   'gyanmarg': gyanmarg,
   'ai-bharatverse': aiBharatverse,
+  'pratyaksha': pratyaksha,
 };
 
 export function getCaseStudy(slug: string): CaseStudyContent | undefined {
