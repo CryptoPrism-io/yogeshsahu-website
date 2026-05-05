@@ -1,3 +1,6 @@
+import type { ClusterId } from '@/data/clusters';
+import { CLUSTER_ORDER } from '@/data/clusters';
+
 export type Category = 'fintech' | 'ai' | 'quant' | 'web' | 'tools';
 
 export interface Project {
@@ -15,6 +18,7 @@ export interface Project {
   image?: string;
   reportHref?: string;
   reports?: { label: string; href: string }[];
+  cluster?: ClusterId;
 }
 
 export const projects: Project[] = [
@@ -32,6 +36,7 @@ export const projects: Project[] = [
     githubHref: 'https://github.com/CryptoPrism-io/cryptoprism-onchain',
     image: '/images/projects/onchain-cover.webp',
     reportHref: '/reports/onchain-architecture.html',
+    cluster: 'A',
   },
   {
     id: 'cryptoprism-api',
@@ -46,6 +51,7 @@ export const projects: Project[] = [
     href: 'https://cryptoprism.io',
     githubHref: 'https://github.com/CryptoPrism-io/cryptoprism-api',
     image: '/images/projects/cryptoprism-landing.webp',
+    cluster: 'A',
   },
   {
     id: 'timesfm-trading-bot',
@@ -61,6 +67,7 @@ export const projects: Project[] = [
     githubHref: 'https://github.com/CryptoPrism-io/times-fm-100-coin-bot',
     image: '/images/projects/timesfm-cover.webp',
     reportHref: '/reports/timesfm-report.html',
+    cluster: 'A',
   },
   {
     id: 'cryptoprism-news-fetcher',
@@ -82,6 +89,7 @@ export const projects: Project[] = [
       { label: 'Q4 Backtest', href: '/reports/q4-backtest.html' },
       { label: 'Trishula PnL', href: '/reports/trishula-pnl.html' },
     ],
+    cluster: 'A',
   },
   {
     id: 'pratyaksha',
@@ -96,6 +104,7 @@ export const projects: Project[] = [
     href: 'https://ai-becoming.web.app',
     githubHref: 'https://github.com/CryptoPrism-io/pratyaksha',
     image: '/images/projects/becoming-landing.webp',
+    cluster: 'C',
   },
   {
     id: 'gyanmarg',
@@ -110,6 +119,7 @@ export const projects: Project[] = [
     href: 'https://ai-polymind.web.app',
     githubHref: 'https://github.com/CryptoPrism-io/gyanmarg',
     image: '/images/projects/polymind-explore.webp',
+    cluster: 'C',
   },
   {
     id: 'ai-bharatverse',
@@ -123,6 +133,7 @@ export const projects: Project[] = [
     featured: false,
     href: '',
     githubHref: '',
+    cluster: 'C',
   },
   {
     id: 'kari',
@@ -136,6 +147,7 @@ export const projects: Project[] = [
     featured: true,
     href: 'https://apps.apple.com/us/app/kari-and-the-lost-shrines/id1561474376',
     githubHref: '',
+    cluster: 'C',
   },
   {
     id: 'trinetry-erp',
@@ -149,6 +161,7 @@ export const projects: Project[] = [
     featured: false,
     href: '',
     githubHref: '',
+    cluster: 'B',
   },
   {
     id: 'cryptoprism-dashboard',
@@ -164,6 +177,59 @@ export const projects: Project[] = [
     githubHref: 'https://github.com/CryptoPrism-io/cryptoprism-dashboard',
     image: '/images/projects/cryptoprism-landing.webp',
   },
+  {
+    id: 'fxsaarthi',
+    name: 'FxSaarthi',
+    description: 'Professional forex session dashboard tracking the four major sessions (Sydney, Tokyo, London, NY) with real-time pair coverage and session overlap analytics.',
+    stat: '28',
+    statLabel: 'forex pairs',
+    tags: ['Python', 'OANDA API', 'TypeScript', 'React'],
+    category: ['fintech', 'tools'],
+    language: 'TypeScript',
+    featured: false,
+    href: '',
+    githubHref: '',
+    cluster: 'A',
+  },
+  {
+    id: 'pgg-erp',
+    name: 'PGG ERP',
+    description: 'Enterprise resource planning system for a manufacturing operation. Inventory, production scheduling, vendor reconciliation, and finance close.',
+    stat: '7',
+    statLabel: 'end-to-end operations',
+    tags: ['Python', 'PostgreSQL', 'React'],
+    category: ['tools'],
+    language: 'Python',
+    featured: false,
+    href: '',
+    githubHref: '',
+    cluster: 'B',
+  },
+  {
+    id: 'pgg-crm',
+    name: 'PGG CRM',
+    description: 'Customer relationship and outreach platform built alongside the ERP — pipeline tracking, automated client communication, and deal-stage analytics.',
+    stat: '12',
+    statLabel: 'CRUD + pipeline ops',
+    tags: ['Python', 'PostgreSQL', 'React'],
+    category: ['tools'],
+    language: 'Python',
+    featured: false,
+    href: '',
+    githubHref: '',
+    cluster: 'B',
+  },
 ];
 
 export const featuredProjects = projects.filter(p => p.featured);
+
+export function getProjectsByCluster(cluster: ClusterId): Project[] {
+  return projects.filter((p) => p.cluster === cluster);
+}
+
+export function getAllClusteredProjects(): Array<{ cluster: ClusterId; projects: Project[] }> {
+  return CLUSTER_ORDER.map((cluster) => ({
+    cluster,
+    projects: getProjectsByCluster(cluster),
+  }));
+}
