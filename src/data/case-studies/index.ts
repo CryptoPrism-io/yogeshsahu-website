@@ -1,8 +1,11 @@
 import type { CaseStudyContent } from './types';
 import type { ClusterId } from '@/data/clusters';
+import { cryptoprismOnchain } from './cryptoprism-onchain';
 
 // Cases get registered here as they're ported (Tasks 7 & 8).
-export const caseStudies: Record<string, CaseStudyContent> = {};
+export const caseStudies: Record<string, CaseStudyContent> = {
+  'cryptoprism-onchain': cryptoprismOnchain,
+};
 
 export function getCaseStudy(slug: string): CaseStudyContent | undefined {
   return caseStudies[slug];
