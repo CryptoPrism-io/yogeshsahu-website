@@ -2,11 +2,13 @@ import type { CaseStudyContent } from './types';
 import type { ClusterId } from '@/data/clusters';
 import { cryptoprismOnchain } from './cryptoprism-onchain';
 import { cryptoprismApi } from './cryptoprism-api';
+import { cryptoprismNewsFetcher } from './cryptoprism-news-fetcher';
 
 // Cases get registered here as they're ported (Tasks 7 & 8).
 export const caseStudies: Record<string, CaseStudyContent> = {
   'cryptoprism-onchain': cryptoprismOnchain,
   'cryptoprism-api': cryptoprismApi,
+  'cryptoprism-news-fetcher': cryptoprismNewsFetcher,
 };
 
 export function getCaseStudy(slug: string): CaseStudyContent | undefined {
