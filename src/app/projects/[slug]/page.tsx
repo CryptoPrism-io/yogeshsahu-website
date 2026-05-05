@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
+import LeadershipLens from "@/components/work/LeadershipLens";
+import CaseStudyBlocks from "@/components/work/CaseStudyBlocks";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.id }));
@@ -261,31 +263,14 @@ export default async function ProjectPage({
         </div>
       )}
 
-      {project.sections.length > 0 && (
-        <div className="mx-auto max-w-4xl px-5 pb-16">
-          {project.sections.map((section) => (
-            <section key={section.title} className="mb-10">
-              <h2
-                className="mb-3 text-[14px] font-bold uppercase tracking-[0.1em]"
-                style={{
-                  fontFamily: "var(--font-headline)",
-                  color: "var(--ys-text)",
-                }}
-              >
-                {section.title}
-              </h2>
-              <p
-                className="text-[14px] leading-[1.8]"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  color: "var(--ys-text-soft)",
-                }}
-              >
-                {section.content}
-              </p>
-            </section>
-          ))}
+      {project.caseStudy && (
+        <div className="mx-auto max-w-4xl px-5 pt-2">
+          <LeadershipLens lens={project.caseStudy.leadershipLens} />
         </div>
+      )}
+
+      {project.caseStudy && project.caseStudy.sections.length > 0 && (
+        <CaseStudyBlocks sections={project.caseStudy.sections} />
       )}
 
       <footer
