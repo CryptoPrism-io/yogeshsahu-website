@@ -4,6 +4,7 @@ import { cryptoprismOnchain } from './cryptoprism-onchain';
 import { cryptoprismApi } from './cryptoprism-api';
 import { cryptoprismNewsFetcher } from './cryptoprism-news-fetcher';
 import { timesfmTradingBot } from './timesfm-trading-bot';
+import { fxsaarthi } from './fxsaarthi';
 
 // Cases get registered here as they're ported (Tasks 7 & 8).
 export const caseStudies: Record<string, CaseStudyContent> = {
@@ -11,6 +12,7 @@ export const caseStudies: Record<string, CaseStudyContent> = {
   'cryptoprism-api': cryptoprismApi,
   'cryptoprism-news-fetcher': cryptoprismNewsFetcher,
   'timesfm-trading-bot': timesfmTradingBot,
+  'fxsaarthi': fxsaarthi,
 };
 
 export function getCaseStudy(slug: string): CaseStudyContent | undefined {
