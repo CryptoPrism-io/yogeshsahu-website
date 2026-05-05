@@ -7,6 +7,7 @@ import { timesfmTradingBot } from './timesfm-trading-bot';
 import { fxsaarthi } from './fxsaarthi';
 import { pggErp } from './pgg-erp';
 import { pggCrm } from './pgg-crm';
+import { trinetryErp } from './trinetry-erp';
 
 // Cases get registered here as they're ported (Tasks 7 & 8).
 export const caseStudies: Record<string, CaseStudyContent> = {
@@ -17,6 +18,7 @@ export const caseStudies: Record<string, CaseStudyContent> = {
   'fxsaarthi': fxsaarthi,
   'pgg-erp': pggErp,
   'pgg-crm': pggCrm,
+  'trinetry-erp': trinetryErp,
 };
 
 export function getCaseStudy(slug: string): CaseStudyContent | undefined {
