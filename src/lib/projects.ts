@@ -13,6 +13,8 @@ export interface Project {
   href: string;
   githubHref: string;
   image?: string;
+  reportHref?: string;
+  reports?: { label: string; href: string }[];
 }
 
 export const projects: Project[] = [
@@ -26,8 +28,10 @@ export const projects: Project[] = [
     category: ['fintech', 'quant'],
     language: 'Python',
     featured: true,
-    href: 'https://github.com/CryptoPrism-io/cryptoprism-onchain',
+    href: 'https://cryptoprism.io',
     githubHref: 'https://github.com/CryptoPrism-io/cryptoprism-onchain',
+    image: '/images/projects/onchain-cover.webp',
+    reportHref: '/reports/onchain-architecture.html',
   },
   {
     id: 'cryptoprism-api',
@@ -39,8 +43,9 @@ export const projects: Project[] = [
     category: ['fintech', 'tools'],
     language: 'Python',
     featured: true,
-    href: 'https://github.com/CryptoPrism-io/cryptoprism-api',
+    href: 'https://cryptoprism.io',
     githubHref: 'https://github.com/CryptoPrism-io/cryptoprism-api',
+    image: '/images/projects/cryptoprism-landing.webp',
   },
   {
     id: 'timesfm-trading-bot',
@@ -54,6 +59,8 @@ export const projects: Project[] = [
     featured: true,
     href: 'https://github.com/CryptoPrism-io/times-fm-100-coin-bot',
     githubHref: 'https://github.com/CryptoPrism-io/times-fm-100-coin-bot',
+    image: '/images/projects/timesfm-cover.webp',
+    reportHref: '/reports/timesfm-report.html',
   },
   {
     id: 'cryptoprism-news-fetcher',
@@ -67,6 +74,14 @@ export const projects: Project[] = [
     featured: false,
     href: 'https://github.com/CryptoPrism-io/CryptoPrism-News-Fetcher',
     githubHref: 'https://github.com/CryptoPrism-io/CryptoPrism-News-Fetcher',
+    image: '/images/projects/news-fetcher-cover.webp',
+    reportHref: '/reports/ml-signal-architecture.html',
+    reports: [
+      { label: 'ML Architecture', href: '/reports/ml-signal-architecture.html' },
+      { label: 'Trading Playbook', href: '/reports/trading-playbook.html' },
+      { label: 'Q4 Backtest', href: '/reports/q4-backtest.html' },
+      { label: 'Trishula PnL', href: '/reports/trishula-pnl.html' },
+    ],
   },
   {
     id: 'pratyaksha',
@@ -80,6 +95,7 @@ export const projects: Project[] = [
     featured: true,
     href: 'https://ai-becoming.web.app',
     githubHref: 'https://github.com/CryptoPrism-io/pratyaksha',
+    image: '/images/projects/becoming-landing.webp',
   },
   {
     id: 'gyanmarg',
@@ -93,6 +109,7 @@ export const projects: Project[] = [
     featured: true,
     href: 'https://ai-polymind.web.app',
     githubHref: 'https://github.com/CryptoPrism-io/gyanmarg',
+    image: '/images/projects/polymind-explore.webp',
   },
   {
     id: 'ai-bharatverse',
@@ -143,8 +160,9 @@ export const projects: Project[] = [
     category: ['fintech', 'web'],
     language: 'TypeScript',
     featured: false,
-    href: 'https://github.com/CryptoPrism-io/cryptoprism-dashboard',
+    href: 'https://cryptoprism.io',
     githubHref: 'https://github.com/CryptoPrism-io/cryptoprism-dashboard',
+    image: '/images/projects/cryptoprism-landing.webp',
   },
 ];
 

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
+import Image from "next/image";
 import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 
 const PROJECTS = [
@@ -13,6 +14,7 @@ const PROJECTS = [
     outcome: "1B+ datapoints/day, 99.9% SLA",
     tags: ["Python", "BigQuery", "Cloud Run", "GitHub Actions"],
     href: "https://github.com/CryptoPrism-io/cryptoprism-onchain",
+    image: "/images/projects/onchain-cover.webp",
   },
   {
     id: "pratyaksha",
@@ -22,6 +24,7 @@ const PROJECTS = [
     outcome: "4-agent AI pipeline",
     tags: ["React", "Express", "LangChain", "Firebase"],
     href: "https://ai-becoming.web.app",
+    image: "/images/projects/becoming-landing.webp",
   },
   {
     id: "gyanmarg",
@@ -31,6 +34,7 @@ const PROJECTS = [
     outcome: "Real-time learning platform",
     tags: ["React", "Firebase", "TypeScript"],
     href: "https://ai-polymind.web.app",
+    image: "/images/projects/polymind-explore.webp",
   },
   {
     id: "ai-bharatverse",
@@ -110,11 +114,21 @@ export default function ProjectsWindow() {
             whileHover={{ y: -2 }}
             style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
           >
-            <ImagePlaceholder
-              variant="screenshot"
-              label={project.name}
-              className="mb-3 aspect-video w-full"
-            />
+            {project.image ? (
+              <Image
+                src={project.image}
+                alt={project.name}
+                width={700}
+                height={250}
+                className="mb-3 w-full rounded-lg object-cover"
+              />
+            ) : (
+              <ImagePlaceholder
+                variant="screenshot"
+                label={project.name}
+                className="mb-3 aspect-video w-full"
+              />
+            )}
             <div className="mb-2 flex items-start justify-between gap-4">
               <div>
                 <p

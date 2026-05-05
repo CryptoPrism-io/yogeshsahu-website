@@ -10,7 +10,7 @@ import ExperienceWindow from "@/components/windows/ExperienceWindow";
 import CredentialsWindow from "@/components/windows/CredentialsWindow";
 import DiagnosticWindow from "@/components/windows/DiagnosticWindow";
 import { useState, type ReactNode } from "react";
-import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
+import Image from "next/image";
 
 function MobileSection({ title, icon, children, defaultOpen = false }: {
   title: string;
@@ -67,10 +67,12 @@ export default function MobileHome() {
         animate="animate"
       >
         <div className="mb-4 flex items-center gap-4">
-          <ImagePlaceholder
-            variant="profile"
-            className="h-20 w-20 shrink-0 rounded-full"
-            label=""
+          <Image
+            src="/images/profile.jpg"
+            alt="Yogesh Sahu"
+            width={80}
+            height={80}
+            className="h-20 w-20 shrink-0 rounded-full object-cover"
           />
           <div>
             <h1
@@ -83,7 +85,7 @@ export default function MobileHome() {
               className="text-[9px] font-bold uppercase tracking-[0.22em]"
               style={{ fontFamily: "var(--font-mono)", color: "rgba(255,239,225,0.6)" }}
             >
-              CHIEF SOLUTIONS ARCHITECT | FRACTIONAL CTO
+              FOUNDER | AI-NATIVE BUILDER | CTO
             </p>
           </div>
         </div>
@@ -91,14 +93,14 @@ export default function MobileHome() {
           className="mb-5 text-[13px] leading-[1.8]"
           style={{ fontFamily: "var(--font-body)", color: "rgba(255,239,225,0.82)" }}
         >
-          I scope, architect, code, and lead client-facing AI, fintech, and data-heavy
-          engagements from discovery through delivery.
+          I build and ship AI-native B2B and B2C products end-to-end — 6+ production-grade apps
+          in 6 months, not MVPs.
         </p>
         <div className="grid grid-cols-3 gap-2">
           {[
-            { value: "1B+", label: "data points/day" },
-            { value: "99.9%", label: "uptime SLA" },
-            { value: "23", label: "public repos" },
+            { value: "6+", label: "production apps shipped" },
+            { value: "2M+", label: "lines of code" },
+            { value: "1B+", label: "datapoints/day" },
           ].map((item) => (
             <div
               key={item.label}

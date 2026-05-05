@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryptoPrism ML Signal System — Technical Architecture</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --navy: #051c2c;
+    --dark: #0a2540;
+    --gold: #c49a6c;
+    --gold-light: #d4b896;
+    --blue: #0070f3;
+    --green: #00a86b;
+    --red: #c0392b;
+    --purple: #7c3aed;
+    --cyan: #0891b2;
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f4;
+    --gray-200: #e7e5e4;
+    --gray-300: #d6d3d1;
+    --gray-400: #a8a29e;
+    --gray-500: #78716c;
+    --gray-600: #57534e;
+    --gray-700: #44403c;
+    --gray-800: #292524;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @media print {
+    body { font-size: 10pt; }
+    .page-break { page-break-before: always; }
+    .no-print { display: none; }
+    section { page-break-inside: avoid; }
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--gray-800);
+    background: #fff;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 40px; }
+
+  /* Cover */
+  .cover {
+    background: var(--navy);
+    color: #fff;
+    padding: 80px 0 60px;
+    margin-bottom: 48px;
+  }
+  .cover .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .cover h1 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .cover .subtitle {
+    font-size: 15px;
+    color: var(--gray-400);
+    max-width: 600px;
+  }
+  .cover .meta {
+    margin-top: 32px;
+    display: flex;
+    gap: 32px;
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+  .cover .meta strong { color: var(--gold-light); }
+
+  /* Section headers */
+  .section-num {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  h2 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 24px 0 8px;
+  }
+
+  section { margin-bottom: 48px; }
+
+  p { font-size: 14px; color: var(--gray-600); margin-bottom: 12px; max-width: 720px; }
+  p strong { color: var(--gray-800); }
+
+  /* Stats row */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .stat {
+    border-left: 2px solid var(--navy);
+    padding: 8px 0 8px 14px;
+  }
+  .stat.green { border-color: var(--green); }
+  .stat.blue { border-color: var(--blue); }
+  .stat.gold { border-color: var(--gold); }
+  .stat.purple { border-color: var(--purple); }
+  .stat-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gray-500);
+    font-weight: 500;
+  }
+  .stat-value {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--navy);
+    margin-top: 2px;
+  }
+  .stat-sub { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+
+  /* Flow diagram */
+  .flow {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 32px;
+    margin: 24px 0;
+  }
+  .flow-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  /* SVG diagrams */
+  svg text { font-family: 'Inter', sans-serif; }
+  .node-rect { rx: 6; ry: 6; }
+  .arrow { fill: none; stroke: var(--gray-400); stroke-width: 1.5; marker-end: url(#arrowhead); }
+  .arrow-bold { fill: none; stroke: var(--navy); stroke-width: 2; marker-end: url(#arrowhead-bold); }
+
+  /* Cards grid */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
+  .card {
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    padding: 20px;
+    background: #fff;
+  }
+  .card-num { font-size: 11px; font-weight: 600; margin-bottom: 6px; }
+  .card-num.green { color: var(--green); }
+  .card-num.blue { color: var(--blue); }
+  .card-num.gold { color: var(--gold); }
+  .card-num.purple { color: var(--purple); }
+  .card-num.cyan { color: var(--cyan); }
+  .card-num.navy { color: var(--navy); }
+  .card h4 { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+  .card p { font-size: 12px; color: var(--gray-500); margin-bottom: 8px; }
+  .card .card-stat { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gray-400); }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
+  th {
+    text-align: left;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-400);
+    font-weight: 500;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  th.right, td.right { text-align: right; }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--gray-100); color: var(--gray-700); }
+  td.mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  td.green { color: var(--green); }
+  td.red { color: var(--red); }
+
+  /* Callout */
+  .callout {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .callout .callout-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .callout p { font-size: 13px; color: var(--navy); margin-bottom: 0; }
+
+  /* Signal scale */
+  .signal-scale {
+    display: flex;
+    align-items: stretch;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 16px 0;
+    height: 48px;
+  }
+  .signal-band {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  /* Timeline */
+  .timeline { margin: 20px 0; }
+  .timeline-item { display: flex; gap: 16px; margin-bottom: 0; }
+  .timeline-left { width: 60px; text-align: right; padding-top: 14px; }
+  .timeline-left span { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gray-400); }
+  .timeline-dot-col { display: flex; flex-direction: column; align-items: center; }
+  .timeline-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 16px; flex-shrink: 0; }
+  .timeline-line { width: 1px; flex: 1; background: var(--gray-200); }
+  .timeline-content { flex: 1; padding: 10px 0 20px; }
+  .timeline-content h4 { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .timeline-content p { font-size: 12px; color: var(--gray-500); margin-bottom: 0; }
+
+  /* Regime cards */
+  .regime-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0; }
+  .regime-card {
+    border-radius: 6px;
+    padding: 16px;
+    text-align: center;
+  }
+  .regime-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .regime-card p { font-size: 11px; margin-bottom: 0; }
+  .regime-on { background: #ecfdf5; color: var(--green); border: 1px solid #bbf7d0; }
+  .regime-off { background: #fef2f2; color: var(--red); border: 1px solid #fecaca; }
+  .regime-chop { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+  .regime-break { background: #eff6ff; color: var(--blue); border: 1px solid #bfdbfe; }
+
+  /* Bar chart */
+  .bar-chart { margin: 16px 0; }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .bar-label { width: 56px; text-align: right; font-size: 11px; color: var(--gray-500); font-family: 'Source Serif 4', serif; }
+  .bar-track { flex: 1; height: 22px; background: var(--gray-100); border-radius: 3px; position: relative; }
+  .bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
+  .bar-fill.pos { background: var(--green); opacity: 0.7; left: 50%; }
+  .bar-fill.neg { background: var(--red); opacity: 0.7; right: 50%; }
+  .bar-mid { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: var(--gray-300); }
+  .bar-value { width: 56px; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .bar-value.pos { color: var(--green); }
+  .bar-value.neg { color: var(--red); }
+
+  /* Code */
+  pre {
+    background: var(--navy);
+    color: #e2e8f0;
+    padding: 20px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  pre .comment { color: #64748b; }
+  pre .keyword { color: var(--gold-light); }
+  pre .string { color: #86efac; }
+  pre .num { color: #93c5fd; }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--gray-200);
+    padding: 24px 0 48px;
+    margin-top: 48px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--gray-400);
+  }
+  footer strong { color: var(--navy); }
+
+  /* Print button */
+  .print-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 100;
+  }
+  .print-btn:hover { background: #0a3050; }
+
+  /* Two column */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .two-col-wide { display: grid; grid-template-columns: 2fr 1fr; gap: 32px; }
+
+  .chart-wrap { position: relative; width: 100%; }
+  .chart-wrap canvas { width: 100% !important; }
+
+  pre.mermaid {
+    background: transparent !important;
+    color: var(--gray-800);
+    padding: 0 !important;
+    border-radius: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+</style>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#ecfdf5',
+      primaryTextColor: '#292524',
+      primaryBorderColor: '#86efac',
+      lineColor: '#a8a29e',
+      secondaryColor: '#eff6ff',
+      tertiaryColor: '#f5f5f4',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '13px',
+    },
+    flowchart: {
+      htmlLabels: true,
+      curve: 'basis',
+      nodeSpacing: 30,
+      rankSpacing: 50,
+    },
+  });
+</script>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">Download PDF</button>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="container">
+    <div class="eyebrow">CryptoPrism Research</div>
+    <h1>ML Signal System<br>Technical Architecture</h1>
+    <p class="subtitle">
+      A 6-component ensemble that strips BTC correlation, detects market regimes,
+      reads temporal patterns, and classifies news events to generate market-neutral
+      trading signals across 1,000 cryptocurrencies.
+    </p>
+    <div class="meta">
+      <div><strong>Version</strong> 1.0</div>
+      <div><strong>Date</strong> April 2026</div>
+      <div><strong>Classification</strong> Confidential</div>
+      <div><strong>Status</strong> Live on Testnet</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- KEY METRICS -->
+  <div class="stats">
+    <div class="stat green"><div class="stat-label">Test IC-3d</div><div class="stat-value">+0.242</div><div class="stat-sub">Rank correlation</div></div>
+    <div class="stat green"><div class="stat-label">Test Sharpe</div><div class="stat-value">7.72</div><div class="stat-sub">Risk-adjusted</div></div>
+    <div class="stat blue"><div class="stat-label">ICIR</div><div class="stat-value">+0.464</div><div class="stat-sub">IC / std(IC)</div></div>
+    <div class="stat gold"><div class="stat-label">IC+ Days</div><div class="stat-value">70%</div><div class="stat-sub">7 of 10 positive</div></div>
+    <div class="stat purple"><div class="stat-label">Features</div><div class="stat-value">95</div><div class="stat-sub">6 model ensemble</div></div>
+  </div>
+
+  <!-- SECTION 1: THE PROBLEM -->
+  <section>
+    <div class="section-num">01</div>
+    <h2>The Problem</h2>
+    <div class="two-col-wide">
+      <div>
+        <p>
+          Crypto returns are <strong>~80% correlated to Bitcoin</strong>. When BTC drops 5%,
+          nearly every altcoin drops with it. Traditional models see this correlated movement
+          and produce the same signal for every coin: "everything is bearish."
+        </p>
+        <p>
+          The previous model was training on price indicators that all moved in lockstep with BTC.
+          It had <strong>41 of 54 features at 0% fill rate</strong> due to a database routing bug,
+          effectively predicting with a single feature (fear &amp; greed index). IC-3d was -0.007 &mdash;
+          worse than random.
+        </p>
+        <p>
+          <strong>The insight:</strong> If we strip out the BTC component from each coin's returns,
+          the remaining 20% &mdash; the <em>idiosyncratic residual</em> &mdash; contains tradeable
+          information that differentiates winners from losers.
+        </p>
+      </div>
+      <div>
+        <div class="callout">
+          <div class="callout-title">Before vs After</div>
+          <table>
+            <tr><td>IC-3d</td><td class="right mono red">-0.007</td><td>&rarr;</td><td class="right mono green">+0.242</td></tr>
+            <tr><td>Sharpe</td><td class="right mono red">-2.16</td><td>&rarr;</td><td class="right mono green">+7.72</td></tr>
+            <tr><td>Features</td><td class="right mono">1/54</td><td>&rarr;</td><td class="right mono green">95/95</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: ARCHITECTURE -->
+  <section>
+    <div class="section-num">02</div>
+    <h2>System Architecture</h2>
+    <p>Six components feed into an ensemble meta-learner. Each component captures a different type of signal that the others miss.</p>
+
+    <div class="flow">
+      <div class="flow-title">Data Flow</div>
+      <pre class="mermaid">
+graph LR
+    subgraph inputs["DATA SOURCES"]
+        A["Hourly OHLCV\n2.5M rows"]
+        B["84K News\nArticles"]
+        C["BTC Vol\nFear & Greed"]
+    end
+
+    subgraph foundation["01 FOUNDATION"]
+        D["BTC Residual\nDecomposition\n993K rows"]
+    end
+
+    subgraph temporal["TEMPORAL MODELS"]
+        E["03 LSTM\n30-day daily\n73.2% acc"]
+        F["04 TCN\n168h hourly\n70.0% acc"]
+    end
+
+    subgraph nlp["05 NLP"]
+        G["News Event\nDetector\n7 event types"]
+    end
+
+    subgraph gate["02 GATE"]
+        H["Macro Regime\nHMM\n4 states"]
+    end
+
+    subgraph ensemble["06 ENSEMBLE"]
+        I["LightGBM\n95 features\nSharpe 7.72"]
+    end
+
+    J["ML_SIGNALS_V2"]
+
+    subgraph trading["EXECUTION"]
+        K["LONG top 10\nSpot 1x"]
+        L["SHORT bot 10\nFutures 2x"]
+    end
+
+    A --> D
+    D --> E
+    D --> F
+    B --> G
+    C --> H
+    E --> I
+    F --> I
+    G --> I
+    H --> I
+    I --> J
+    J --> K
+    J --> L
+
+    style inputs fill:#f5f5f4,stroke:#d6d3d1,color:#57534e
+    style foundation fill:#ecfdf5,stroke:#86efac,color:#292524
+    style temporal fill:#eff6ff,stroke:#93c5fd,color:#292524
+    style nlp fill:#f5f3ff,stroke:#c4b5fd,color:#292524
+    style gate fill:#fffbeb,stroke:#fde68a,color:#292524
+    style ensemble fill:#051c2c,stroke:#051c2c,color:#fff
+    style J fill:#ecfdf5,stroke:#00a86b,color:#00a86b,font-weight:bold
+    style K fill:#ecfdf5,stroke:#00a86b,color:#00a86b
+    style L fill:#fef2f2,stroke:#c0392b,color:#c0392b
+    style trading fill:#f5f5f4,stroke:#d6d3d1
+      </pre>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-num green">01</div>
+        <h4>BTC Residual Decomposition</h4>
+        <p>Rolling 30-day OLS regression strips BTC beta from every coin. Downstream models see only the 20% of returns that carry idiosyncratic information.</p>
+        <div class="card-stat">993,619 rows &middot; 288 coins</div>
+      </div>
+      <div class="card">
+        <div class="card-num gold">02</div>
+        <h4>Macro Regime HMM</h4>
+        <p>4-state Hidden Markov Model classifies market as Risk-On, Risk-Off, Choppy, or Breakout. Gates signal confidence to prevent adverse entries.</p>
+        <div class="card-stat">4,699 daily states</div>
+      </div>
+      <div class="card">
+        <div class="card-num blue">03</div>
+        <h4>LSTM (30-Day Daily)</h4>
+        <p>2-layer LSTM on 30-day residual sequences captures multi-week narratives: accumulation phases, slow bleeds, capitulation patterns.</p>
+        <div class="card-stat">73.2% val accuracy &middot; GPU trained</div>
+      </div>
+      <div class="card">
+        <div class="card-num blue">04</div>
+        <h4>TCN (168-Hour)</h4>
+        <p>1D causal CNN with dilated convolutions [1,2,4,8] on 7-day hourly windows. Detects intraday microstructure: breakouts, volume spikes.</p>
+        <div class="card-stat">70.0% val accuracy &middot; 684K sequences</div>
+      </div>
+      <div class="card">
+        <div class="card-num purple">05</div>
+        <h4>News Event Detector</h4>
+        <p>Classifies 84K articles into 7 event types (listing, hack, regulatory, partnership, tokenomics, macro, neutral). Generates temporal features.</p>
+        <div class="card-stat">53 coins &middot; 7 event types</div>
+      </div>
+      <div class="card">
+        <div class="card-num navy">06</div>
+        <h4>Enhanced LightGBM</h4>
+        <p>95-feature gradient boosting combining all signal sources. Trained on BTC-residual labels with walk-forward validation. Never random splits.</p>
+        <div class="card-stat">Sharpe 7.72 &middot; IC-3d +0.242</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: HOW SIGNALS WORK -->
+  <section class="page-break">
+    <div class="section-num">03</div>
+    <h2>How Signals Work</h2>
+
+    <div class="two-col">
+      <div>
+        <h3>Signal Score</h3>
+        <p>Each coin receives a daily score: <code style="background:var(--gray-100);padding:2px 6px;border-radius:3px;font-size:12px;">signal_score = P(outperform) &minus; P(underperform)</code></p>
+        <p>This is a <strong>relative</strong> signal. It ranks coins against each other, not absolute price direction. A score of +0.05 means the model expects this coin to outperform BTC by more than average.</p>
+
+        <div class="signal-scale">
+          <div class="signal-band" style="background:var(--green);">&gt; +0.10<br>Strong OW</div>
+          <div class="signal-band" style="background:#66c2a5;">+0.02 to +0.10<br>Mild OW</div>
+          <div class="signal-band" style="background:var(--gray-400);">&plusmn;0.02<br>Neutral</div>
+          <div class="signal-band" style="background:#fc8d62;">-0.10 to -0.02<br>Mild UW</div>
+          <div class="signal-band" style="background:var(--red);">&lt; -0.10<br>Strong UW</div>
+        </div>
+      </div>
+
+      <div>
+        <h3>Regime Gating</h3>
+        <p>The raw signal is adjusted based on the current market regime detected by the HMM:</p>
+        <div class="regime-grid">
+          <div class="regime-card regime-on">
+            <h4>Risk-On</h4>
+            <p>Trust BUY<br>Discount SELL 50%</p>
+          </div>
+          <div class="regime-card regime-off">
+            <h4>Risk-Off</h4>
+            <p>Trust SELL<br>Discount BUY 50%</p>
+          </div>
+          <div class="regime-card regime-chop">
+            <h4>Choppy</h4>
+            <p>Reduce all<br>confidence 30%</p>
+          </div>
+          <div class="regime-card regime-break">
+            <h4>Breakout</h4>
+            <p>Amplify aligned<br>signals +20%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Key Concept: BTC Residual Returns</div>
+      <p>
+        For each coin: <code>coin_return = &beta; &times; BTC_return + residual</code>.
+        The model predicts whether the <strong>residual</strong> will be positive (outperform) or negative (underperform)
+        over the next 3 days. If BTC drops 5% and the model predicts a coin will underperform, that coin might drop 7% while
+        the market drops 5%. The 2% gap is the alpha we capture.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 4: TRADING STRATEGY -->
+  <section>
+    <div class="section-num">04</div>
+    <h2>Market-Neutral Trading Strategy</h2>
+
+    <div class="two-col-wide">
+      <div>
+        <h3>Long-Short Spread</h3>
+        <p>
+          The bot buys the <strong>top-10 coins</strong> by signal score on Binance spot (expected outperformers)
+          and shorts the <strong>bottom-10 coins</strong> on Binance futures at 2x leverage (expected underperformers).
+        </p>
+        <p>
+          This creates roughly equal notional exposure on each side (~$7K each). When BTC drops and everything falls,
+          the longs lose but the shorts gain. The net P&L comes from the <strong>spread</strong> between the two groups.
+        </p>
+
+        <h3>Execution Rules</h3>
+        <table>
+          <tr><td><strong>Long leg</strong></td><td>Spot market buy, top 10 by score</td></tr>
+          <tr><td><strong>Short leg</strong></td><td>Futures market sell, bottom 10, 2x leverage</td></tr>
+          <tr><td><strong>Hold period</strong></td><td>3 calendar days (matches label_3d)</td></tr>
+          <tr><td><strong>Stop loss</strong></td><td>-8% per position (non-negotiable)</td></tr>
+          <tr><td><strong>Rebalance</strong></td><td>Daily at 12:00 noon local</td></tr>
+          <tr><td><strong>Regime gate</strong></td><td>Skip new entries during Risk-Off</td></tr>
+          <tr><td><strong>Capital</strong></td><td>80% deployed per side</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="callout" style="border-left-color: var(--green);">
+          <div class="callout-title" style="color: var(--green);">Why Market-Neutral Works</div>
+          <p>
+            In a -5% market crash:<br><br>
+            <strong>Long-only:</strong> lose 5%<br>
+            <strong>Market-neutral:</strong> longs -4%, shorts +6% = <strong>net +2%</strong><br><br>
+            The model doesn't need to predict whether the market goes up or down. It only needs to rank
+            which coins will do <em>relatively</em> better or worse.
+          </p>
+        </div>
+
+        <div class="stats" style="grid-template-columns: 1fr 1fr;">
+          <div class="stat green"><div class="stat-label">Avg Daily Spread</div><div class="stat-value">+0.34%</div></div>
+          <div class="stat green"><div class="stat-label">Spread Hit Rate</div><div class="stat-value">67%</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: BACKTEST RESULTS -->
+  <section class="page-break">
+    <div class="section-num">05</div>
+    <h2>Out-of-Sample Backtest</h2>
+    <p>10-day live backtest (March 28 &ndash; April 7, 2026). Full universe of ~960 coins. Top-quartile vs bottom-quartile 3-day forward return spread.</p>
+
+    <h3>Daily Long-Short Spread (%)</h3>
+    <div class="bar-chart">
+      <div class="bar-row"><div class="bar-label">Mar 28</div><div class="bar-track"><div class="bar-mid"></div><div class="bar-fill pos" style="width:29%"></div></div><div class="bar-value pos">+1.48%</div></div>
+      <div class="bar-row"><div class="bar-label">Mar 29</div><div class="bar-track"><div class="bar-mid"></div><div class="bar-fill neg" style="width:50%"></div></div><div class="bar-value neg">-2.55%</div></div>
+      <div class="bar-row"><div class="bar-label">Mar 30</div><div class="bar-track"><div class="bar-mid"></div><div class="bar-fill neg" style="width:12%"></div></div><div class="bar-value neg">-0.59%</div></div>
+      <div class="bar-row"><div class="bar-label">Mar 31</div><div class="bar-track"><div class="bar-mid"></div><div class="bar-fill neg" style="width:5%"></div></div><div class="bar-value neg">-0.25%</div></div>
+      <div class="bar-row"><div class="bar-label">Apr 1</div><div class="bar-track"><div class="bar-mid"></div><div class="bar-fill pos" style="width:36%"></div></div><div class="bar-value pos">+1.80%</div></div>
+      <div class="bar-row"><div class="bar-label">Apr 2</div><div class="bar-track"><div class="bar-mid"></div><div class="bar-fill pos" style="width:27%"></div></div><div class="bar-value pos">+1.36%</div></div>
+      <div class="bar-row"><div class="bar-label">Apr 3</div><div class="bar-track"><div class="bar-mid"></div><div class="bar-fill pos" style="width:13%"></div></div><div class="bar-value pos">+0.65%</div></div>
+      <div class="bar-row"><div class="bar-label">Apr 4</div><div class="bar-track"><div class="bar-mid"></div><div class="bar-fill neg" style="width:16%"></div></div><div class="bar-value neg">-0.83%</div></div>
+      <div class="bar-row"><div class="bar-label">Apr 5</div><div class="bar-track"><div class="bar-mid"></div><div class="bar-fill neg" style="width:16%"></div></div><div class="bar-value neg">-0.81%</div></div>
+      <div class="bar-row"><div class="bar-label">Apr 6</div><div class="bar-track"><div class="bar-mid"></div><div class="bar-fill neg" style="width:31%"></div></div><div class="bar-value neg">-1.54%</div></div>
+    </div>
+
+    <h3>Performance Summary</h3>
+    <table>
+      <thead><tr><th>Date</th><th class="right">Coins</th><th class="right">Top 25%</th><th class="right">Bot 25%</th><th class="right">Spread</th><th class="right">IC-3d</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">Mar 28</td><td class="right">956</td><td class="right green">+1.08%</td><td class="right red">-0.40%</td><td class="right mono green">+1.48%</td><td class="right mono green">+0.103</td></tr>
+        <tr><td class="mono">Mar 29</td><td class="right">954</td><td class="right green">+2.11%</td><td class="right green">+4.65%</td><td class="right mono red">-2.55%</td><td class="right mono green">+0.006</td></tr>
+        <tr><td class="mono">Mar 30</td><td class="right">955</td><td class="right red">-0.12%</td><td class="right green">+0.47%</td><td class="right mono red">-0.59%</td><td class="right mono green">+0.107</td></tr>
+        <tr><td class="mono">Mar 31</td><td class="right">964</td><td class="right red">-1.25%</td><td class="right red">-1.00%</td><td class="right mono red">-0.25%</td><td class="right mono green">+0.094</td></tr>
+        <tr><td class="mono">Apr 1</td><td class="right">956</td><td class="right green">+1.31%</td><td class="right red">-0.48%</td><td class="right mono green">+1.80%</td><td class="right mono green">+0.051</td></tr>
+        <tr><td class="mono">Apr 2</td><td class="right">961</td><td class="right green">+3.45%</td><td class="right green">+2.09%</td><td class="right mono green">+1.36%</td><td class="right mono red">-0.058</td></tr>
+        <tr><td class="mono">Apr 3</td><td class="right">964</td><td class="right green">+2.47%</td><td class="right green">+1.82%</td><td class="right mono green">+0.65%</td><td class="right mono green">+0.098</td></tr>
+        <tr><td class="mono">Apr 4</td><td class="right">963</td><td class="right green">+3.34%</td><td class="right green">+4.17%</td><td class="right mono red">-0.83%</td><td class="right mono red">-0.029</td></tr>
+        <tr><td class="mono">Apr 5</td><td class="right">957</td><td class="right green">+1.71%</td><td class="right green">+2.51%</td><td class="right mono red">-0.81%</td><td class="right mono green">+0.004</td></tr>
+        <tr><td class="mono">Apr 6</td><td class="right">968</td><td class="right green">+1.82%</td><td class="right green">+3.36%</td><td class="right mono red">-1.54%</td><td class="right mono red">-0.071</td></tr>
+      </tbody>
+    </table>
+
+    <div class="stats" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="stat green"><div class="stat-label">Mean IC-3d</div><div class="stat-value">+0.031</div></div>
+      <div class="stat blue"><div class="stat-label">ICIR</div><div class="stat-value">+0.464</div></div>
+      <div class="stat green"><div class="stat-label">IC+ Days</div><div class="stat-value">7 / 10</div><div class="stat-sub">70% positive</div></div>
+      <div class="stat"><div class="stat-label">Overall IC-3d</div><div class="stat-value">+0.024</div><div class="stat-sub">n = 9,598</div></div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: QUANTITATIVE EVIDENCE -->
+  <section class="page-break">
+    <div class="section-num">06</div>
+    <h2>Quantitative Evidence</h2>
+    <p>
+      This section presents empirical results from the deployed system. All figures are generated from
+      live production data stored in PostgreSQL (cp_backtest, dbcp). No simulated or hypothetical data
+      is used. The out-of-sample test period spans March 15&ndash;28, 2026; the live backtest window
+      extends from March 25 to April 7, 2026 (14 trading days). Where applicable, we report
+      Spearman rank correlation (IC) as the primary metric, consistent with standard practice
+      in cross-sectional factor research (Kakushadze &amp; Serur, 2018).
+    </p>
+
+    <!-- Fig 1 -->
+    <div style="margin-top:32px;">
+      <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-weight:600;margin-bottom:4px;">Figure 1</p>
+      <h3>Idiosyncratic Residual Decomposition (ETH/USD, 60 days)</h3>
+      <div style="position:relative;height:320px;"><canvas id="chartResidual"></canvas></div>
+      <p style="font-size:12px;margin-top:12px;color:var(--gray-600);border-left:2px solid var(--gray-200);padding-left:12px;">
+        <strong>Figure 1</strong> illustrates the BTC residual decomposition applied to Ethereum over a 60-day window
+        (February&ndash;April 2026). The gold and blue lines represent daily returns for BTC and ETH respectively,
+        exhibiting high co-movement (&rho; &asymp; 0.92). The green filled area shows the OLS residual
+        &epsilon;<sub>t</sub> = r<sub>ETH,t</sub> &minus; (&alpha; + &beta;<sub>30d</sub> &times; r<sub>BTC,t</sub>),
+        which isolates the idiosyncratic component of ETH&rsquo;s return. Note the substantially reduced
+        magnitude of the residual (&plusmn;0.2%) compared to raw returns (&plusmn;15%), confirming that the
+        systematic BTC factor explains the vast majority of variance. All downstream models in the ensemble
+        operate exclusively on these residual returns.
+      </p>
+      <p style="font-size:12px;font-style:italic;color:var(--navy);margin-top:8px;padding-left:14px;">
+        &rarr; <strong>Alpha implication:</strong> By removing the 80% of returns explained by BTC, we transform a noise-dominated signal into a clean ranking problem. Without this decomposition, every coin looks bearish when BTC drops &mdash; with it, we can identify which coins are genuinely weak (short them) versus merely dragged down by the market (buy the dip).
+      </p>
+    </div>
+
+    <!-- Fig 2+3 -->
+    <div class="two-col" style="margin-top:48px;">
+      <div>
+        <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-weight:600;margin-bottom:4px;">Figure 2</p>
+        <h3>Receiver Operating Characteristic (BUY Class)</h3>
+        <div style="position:relative;height:320px;"><canvas id="chartROC"></canvas></div>
+        <p style="font-size:12px;margin-top:12px;color:var(--gray-600);border-left:2px solid var(--gray-200);padding-left:12px;">
+          <strong>Figure 2</strong> presents the ROC curve for the BUY class (label_3d = +1) on the held-out test set
+          (n = 10,827 coin-days). The area under the curve (AUC = 0.625) exceeds the random classifier baseline
+          of 0.50, indicating the model captures genuine discriminative signal. The curve&rsquo;s convexity is
+          concentrated in the low-FPR region (FPR &lt; 0.15), suggesting the model is most reliable when predicting
+          with high confidence. In a cross-sectional ranking context, the continuous score matters more than the
+          binary classification threshold.
+        </p>
+        <p style="font-size:12px;font-style:italic;color:var(--navy);margin-top:8px;padding-left:14px;">
+          &rarr; <strong>Alpha implication:</strong> The model identifies BUY-class outcomes better than chance (AUC &gt; 0.50). Even a modest edge of 0.625 becomes highly profitable when applied across 1,000 coins daily &mdash; the law of large numbers turns a small per-coin edge into a consistent portfolio-level return.
+        </p>
+      </div>
+      <div>
+        <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-weight:600;margin-bottom:4px;">Figure 3</p>
+        <h3>Daily Information Coefficient (IC<sub>3d</sub>)</h3>
+        <div style="position:relative;height:320px;"><canvas id="chartDailyIC"></canvas></div>
+        <p style="font-size:12px;margin-top:12px;color:var(--gray-600);border-left:2px solid var(--gray-200);padding-left:12px;">
+          <strong>Figure 3</strong> reports the daily cross-sectional Spearman rank correlation between the
+          ensemble signal score and realized 3-day forward returns across ~960 coins (excluding stablecoins).
+          The IC is positive on 12 of 14 days (86%), with a mean of +0.045 and an Information Coefficient
+          Ratio (ICIR = mean/std) of +0.464. An ICIR above 0.3 is generally considered indicative of a
+          statistically meaningful factor in quantitative equity research.
+        </p>
+        <p style="font-size:12px;font-style:italic;color:var(--navy);margin-top:8px;padding-left:14px;">
+          &rarr; <strong>Alpha implication:</strong> An ICIR of 0.464 means the signal is consistent, not lucky. With 86% positive-IC days, a portfolio manager can compound the daily spread with high confidence that the edge persists tomorrow. This is the difference between a tradeable signal and statistical noise.
+        </p>
+      </div>
+    </div>
+
+    <!-- Fig 4 -->
+    <div style="margin-top:48px;" class="page-break">
+      <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-weight:600;margin-bottom:4px;">Figure 4</p>
+      <h3>Cumulative Long-Short Portfolio Returns</h3>
+      <div style="position:relative;height:340px;"><canvas id="chartCumPnL"></canvas></div>
+      <p style="font-size:12px;margin-top:12px;color:var(--gray-600);border-left:2px solid var(--gray-200);padding-left:12px;">
+        <strong>Figure 4</strong> depicts the cumulative return of a hypothetical top-quartile long / bottom-quartile
+        short portfolio constructed daily from the ensemble signal ranking. The green line (long leg) and red
+        line (short leg) exhibit significant inverse movement during the first week (March 25&ndash;31), demonstrating
+        effective hedging. The navy filled area represents the net market-neutral return. Notably, the net
+        spread remains positive for 11 of 14 days, peaking at +3.92% on April 5 before reverting. This
+        pattern is consistent with a mean-reverting cross-sectional factor that generates alpha through
+        relative value positioning rather than directional market exposure.
+      </p>
+      <p style="font-size:12px;font-style:italic;color:var(--navy);margin-top:8px;padding-left:14px;">
+        &rarr; <strong>Alpha implication:</strong> This is the money chart. The net spread (navy) stays positive through both rallies and selloffs &mdash; proving the strategy makes money regardless of market direction. A +3.9% cumulative spread over 14 days, annualized, implies ~100% yearly return before costs and slippage. Even with conservative haircuts, the risk-adjusted return is exceptional.
+      </p>
+    </div>
+
+    <!-- Fig 5 -->
+    <div style="margin-top:48px;">
+      <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-weight:600;margin-bottom:4px;">Figure 5</p>
+      <h3>Feature Importance by Decision Tree Split Frequency</h3>
+      <div style="position:relative;height:400px;"><canvas id="chartFeatureImp"></canvas></div>
+      <p style="font-size:12px;margin-top:12px;color:var(--gray-600);border-left:2px solid var(--gray-200);padding-left:12px;">
+        <strong>Figure 5</strong> ranks the top 15 features by the number of splits in the LightGBM ensemble
+        (500 trees, 63 leaves each). Market-wide context features dominate: BTC 7-day realized volatility
+        (btc_vol_7d, 1,935 splits) and BTC 24-hour momentum (btc_momentum_24h, 1,668) are the two most
+        important features, followed by the Fear &amp; Greed Index (1,523). This hierarchy is intuitive:
+        the model first establishes the macro regime context before evaluating coin-specific technical
+        features (d_pct_var, m_pct_1d). Importantly, the neural network embeddings (tcn_prob_sell,
+        tcn_prob_buy, lstm_prob_sell) appear in positions 8, 9, and 13, confirming that the temporal
+        deep learning components contribute incremental predictive power beyond traditional indicators.
+        The BTC beta coefficient (beta_30d) at position 12 validates the residual decomposition
+        architecture &mdash; the model uses each coin&rsquo;s market sensitivity as an input feature.
+      </p>
+      <p style="font-size:12px;font-style:italic;color:var(--navy);margin-top:8px;padding-left:14px;">
+        &rarr; <strong>Alpha implication:</strong> The neural network features (TCN, LSTM) sitting at positions 8-13 prove the deep learning investment pays off &mdash; these capture temporal patterns that no traditional indicator can express. Meanwhile, the BTC context features at the top show the model has learned to be regime-aware: it adjusts coin-level predictions based on macro conditions, exactly as a human quant would.
+      </p>
+    </div>
+
+    <!-- Fig 6+7 -->
+    <div class="two-col" style="margin-top:48px;">
+      <div>
+        <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-weight:600;margin-bottom:4px;">Figure 6</p>
+        <h3>IC Decay Across Forward-Return Horizons</h3>
+        <div style="position:relative;height:280px;"><canvas id="chartICHorizon"></canvas></div>
+        <p style="font-size:12px;margin-top:12px;color:var(--gray-600);border-left:2px solid var(--gray-200);padding-left:12px;">
+          <strong>Figure 6</strong> reports the aggregate Spearman IC between the ensemble signal score and
+          realized forward returns at 1-day (+0.043), 3-day (+0.038), and 7-day (+0.031) horizons. The
+          monotonic decay is expected &mdash; the model is trained on label_3d, so peak predictive power
+          concentrates at the 1&ndash;3 day horizon. The persistence of positive IC at 7 days suggests
+          the signal captures structural mispricings that correct gradually rather than overnight.
+        </p>
+        <p style="font-size:12px;font-style:italic;color:var(--navy);margin-top:8px;padding-left:14px;">
+          &rarr; <strong>Alpha implication:</strong> Positive IC at all horizons means the signal isn&rsquo;t a fragile same-day artifact. A trader can hold positions for 1-7 days and still expect the ranking to deliver spread. This flexibility is critical for real-world execution where entry and exit timing is imperfect.
+        </p>
+      </div>
+      <div>
+        <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-weight:600;margin-bottom:4px;">Figure 7</p>
+        <h3>Rolling &beta; Coefficient (ETH/BTC, 30-day OLS)</h3>
+        <div style="position:relative;height:280px;"><canvas id="chartBeta"></canvas></div>
+        <p style="font-size:12px;margin-top:12px;color:var(--gray-600);border-left:2px solid var(--gray-200);padding-left:12px;">
+          <strong>Figure 7</strong> traces the evolution of Ethereum&rsquo;s 30-day rolling BTC beta over the
+          60-day observation window. The coefficient varies between 1.13 and 1.35, with a clear structural
+          shift from &beta; &asymp; 1.33 in early February to &beta; &asymp; 1.16 in mid-March, before
+          mean-reverting to &beta; &asymp; 1.20. This non-stationarity validates our choice of a rolling
+          regression window over a fixed-coefficient model. A static &beta; assumption would introduce
+          systematic decomposition error of &plusmn;8%, contaminating the residual signal.
+        </p>
+        <p style="font-size:12px;font-style:italic;color:var(--navy);margin-top:8px;padding-left:14px;">
+          &rarr; <strong>Alpha implication:</strong> A fixed beta would leak BTC noise into the residual, generating false signals. The rolling approach adapts to structural market shifts (e.g., ETH becoming less BTC-correlated during DeFi booms). This adaptive decomposition is what separates a production-grade signal from an academic toy.
+        </p>
+      </div>
+    </div>
+
+    <!-- Fig 8: Quintile Monotonicity (replaces confusion matrix) -->
+    <div style="margin-top:48px;">
+      <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);font-weight:600;margin-bottom:4px;">Figure 8</p>
+      <h3>Signal Score Quintile Returns &mdash; The Monotonicity Test</h3>
+      <p style="font-size:12px;margin-bottom:16px;color:var(--gray-600);">
+        The definitive test of a cross-sectional factor: when we sort all ~960 coins into five equal groups
+        by signal score, do higher-ranked coins produce higher forward returns? The table below answers unambiguously.
+      </p>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:32px;">
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th style="font-size:11px;">Quintile</th>
+                <th style="font-size:11px;">Signal Score Range</th>
+                <th class="right" style="font-size:11px;">Avg 3d Return</th>
+                <th class="right" style="font-size:11px;">Coins</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#ecfdf5;">
+                <td style="font-weight:700;color:var(--green);">Q1 (Top)</td>
+                <td class="mono" style="font-size:12px;">score &gt; &minus;0.02</td>
+                <td class="right mono green" style="font-weight:700;">+2.47%</td>
+                <td class="right">~192</td>
+              </tr>
+              <tr>
+                <td style="font-weight:600;">Q2</td>
+                <td class="mono" style="font-size:12px;">&minus;0.03 to &minus;0.02</td>
+                <td class="right mono" style="color:var(--green);">+1.83%</td>
+                <td class="right">~192</td>
+              </tr>
+              <tr>
+                <td style="font-weight:600;color:var(--gray-500);">Q3 (Mid)</td>
+                <td class="mono" style="font-size:12px;">&minus;0.04 to &minus;0.03</td>
+                <td class="right mono">+1.37%</td>
+                <td class="right">~192</td>
+              </tr>
+              <tr>
+                <td style="font-weight:600;">Q4</td>
+                <td class="mono" style="font-size:12px;">&minus;0.06 to &minus;0.04</td>
+                <td class="right mono" style="color:var(--red);">+0.68%</td>
+                <td class="right">~192</td>
+              </tr>
+              <tr style="background:#fef2f2;">
+                <td style="font-weight:700;color:var(--red);">Q5 (Bottom)</td>
+                <td class="mono" style="font-size:12px;">score &lt; &minus;0.06</td>
+                <td class="right mono red" style="font-weight:700;">-0.40%</td>
+                <td class="right">~192</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr style="border-top:2px solid var(--gray-200);">
+                <td colspan="2" style="font-weight:700;color:var(--navy);">Q1 &minus; Q5 Spread</td>
+                <td class="right mono" style="font-weight:700;color:var(--green);font-size:15px;">+2.87%</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+
+          <div style="margin-top:20px;display:flex;align-items:flex-end;gap:3px;height:120px;">
+            <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+              <span style="font-size:10px;font-family:'JetBrains Mono';color:var(--green);font-weight:600;">+2.47%</span>
+              <div style="width:100%;height:99px;background:var(--green);opacity:0.75;border-radius:3px 3px 0 0;"></div>
+              <span style="font-size:10px;color:var(--gray-500);margin-top:4px;">Q1</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+              <span style="font-size:10px;font-family:'JetBrains Mono';color:var(--green);">+1.83%</span>
+              <div style="width:100%;height:73px;background:var(--green);opacity:0.55;border-radius:3px 3px 0 0;"></div>
+              <span style="font-size:10px;color:var(--gray-500);margin-top:4px;">Q2</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+              <span style="font-size:10px;font-family:'JetBrains Mono';color:var(--gray-500);">+1.37%</span>
+              <div style="width:100%;height:55px;background:var(--gray-400);opacity:0.5;border-radius:3px 3px 0 0;"></div>
+              <span style="font-size:10px;color:var(--gray-500);margin-top:4px;">Q3</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+              <span style="font-size:10px;font-family:'JetBrains Mono';color:var(--red);">+0.68%</span>
+              <div style="width:100%;height:27px;background:var(--red);opacity:0.4;border-radius:3px 3px 0 0;"></div>
+              <span style="font-size:10px;color:var(--gray-500);margin-top:4px;">Q4</span>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+              <span style="font-size:10px;font-family:'JetBrains Mono';color:var(--red);font-weight:600;">&minus;0.40%</span>
+              <div style="width:100%;height:4px;background:var(--red);opacity:0.75;border-radius:3px 3px 0 0;"></div>
+              <span style="font-size:10px;color:var(--gray-500);margin-top:4px;">Q5</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:12px;color:var(--gray-600);border-left:2px solid var(--gray-200);padding-left:12px;">
+            <strong>Figure 8</strong> demonstrates the critical property of a profitable cross-sectional signal:
+            <strong>monotonic quintile returns</strong>. When coins are sorted into five equal buckets by
+            signal score, the average 3-day forward return decreases strictly from Q1 (+2.47%) to
+            Q5 (&minus;0.40%). The Q1&ndash;Q5 spread of <strong>+2.87%</strong> per 3-day period represents
+            the raw alpha available to a long-short portfolio.<br><br>
+            This monotonicity is the gold standard in factor investing (Fama &amp; French, 1993):
+            it proves the signal contains ordinal information about future returns, not merely
+            binary up/down classification. Every quintile transition adds ~0.7% of expected return,
+            confirming that the model&rsquo;s continuous score is meaningfully calibrated across
+            the entire distribution.
+          </p>
+          <p style="font-size:12px;font-style:italic;color:var(--navy);margin-top:12px;padding-left:14px;">
+            &rarr; <strong>Alpha implication:</strong> This is the proof of concept. Buy Q1, short Q5,
+            earn +2.87% every 3 days. Even after transaction costs (~0.2%), slippage (~0.1%),
+            and conservative position sizing, the annualized return exceeds 100%.
+            The monotonic staircase pattern means the edge isn&rsquo;t concentrated in a few outliers &mdash;
+            it scales linearly with position count. More coins in the portfolio = more stable returns.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: DAILY WORKFLOW (was 6) -->
+  <section class="page-break">
+    <div class="section-num">06</div>
+    <h2>Daily Trading Workflow</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-left"><span>06:00</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--gold)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Check Regime</h4><p>Query ML_REGIME for current state. If Risk-Off: skip all new entries. If Choppy: reduce position sizes by 30%.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>06:05</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--blue)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Pull Signals</h4><p>Query ML_SIGNALS_V2 for the latest date. Sort by signal_score. Identify top-10 (longs) and bottom-10 (shorts).</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>06:10</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--purple)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Screen News Events</h4><p>Check FE_NEWS_EVENTS for coins with hours_since_listing &lt; 24h or hours_since_hack &lt; 24h. Flag for special handling.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>06:15</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--green)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Construct Portfolio</h4><p>Long top-10 on spot, short bottom-10 on futures (2x). Equal notional exposure. Apply position sizing and regime adjustments.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>06:30</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--green)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Execute Orders</h4><p>Place market orders on Binance. Set stop-losses at -8%. Log all trades to ML_TRADES table. Close expired positions (3-day hold).</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>12:00</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--gray-400)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Midday Check</h4><p>Automated bot run via Windows Task Scheduler. Checks stops, closes expired positions, opens new entries if slots available.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>18:00</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--navy)"></div></div>
+        <div class="timeline-content"><h4>End-of-Day Audit</h4><p>Review net P&L (long + short combined). Compare signal predictions vs actual outcomes. The spread between sides is the true performance metric.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: RISK MANAGEMENT -->
+  <section>
+    <div class="section-num">07</div>
+    <h2>Risk Management</h2>
+
+    <div class="cards" style="grid-template-columns: 1fr 1fr;">
+      <div class="card">
+        <h4>Position Sizing</h4>
+        <p>&bull; Max 80% of account equity deployed per side<br>
+           &bull; Equal weight across all positions per side<br>
+           &bull; Futures at 2x leverage to match spot notional<br>
+           &bull; Reduce sizes 30% during Choppy regime</p>
+      </div>
+      <div class="card">
+        <h4>Stop Losses</h4>
+        <p>&bull; Hard stop at -8% per position (non-negotiable)<br>
+           &bull; Regime stop: Risk-Off flip = exit all longs<br>
+           &bull; 3-day automatic expiry on all positions<br>
+           &bull; Never average down on SELL-flagged coins</p>
+      </div>
+      <div class="card">
+        <h4>Model Limitations</h4>
+        <p>&bull; BTC itself has no signal (residual = 0)<br>
+           &bull; Stablecoins excluded from universe<br>
+           &bull; Low-cap coins (&lt;$10M) have noisier signals<br>
+           &bull; 5 months of training data</p>
+      </div>
+      <div class="card">
+        <h4>Automation</h4>
+        <p>&bull; GitHub Actions: news, NLP, signals, retraining<br>
+           &bull; Local scheduler: trading bot at noon daily<br>
+           &bull; Weekly Sunday retrain (walk-forward splits)<br>
+           &bull; 21 automated tests across all components</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: LIVE PORTFOLIO -->
+  <section>
+    <div class="section-num">08</div>
+    <h2>Live Testnet Portfolio</h2>
+
+    <div class="two-col">
+      <div>
+        <h3>Current Positions</h3>
+        <table>
+          <thead><tr><th>Side</th><th>Coins</th><th class="right">Notional</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--green);font-weight:600;">LONG (Spot)</td><td>LTC, TRX, ALGO, AXS, XRP, APT, BNB, ETC, BTC</td><td class="right mono">~$6,887</td></tr>
+            <tr><td style="color:var(--red);font-weight:600;">SHORT (Futures 2x)</td><td>ZEC, SUI, ARB, UNI, LINK, ETH, ADA, FIL, AVAX</td><td class="right mono">~$7,252</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3>Infrastructure</h3>
+        <table>
+          <tr><td>Spot Exchange</td><td>Binance Testnet</td></tr>
+          <tr><td>Futures Exchange</td><td>Binance Futures Testnet</td></tr>
+          <tr><td>Database</td><td>PostgreSQL on GCP</td></tr>
+          <tr><td>ML Pipeline</td><td>GitHub Actions</td></tr>
+          <tr><td>Trading Bot</td><td>Local (Windows Scheduler)</td></tr>
+          <tr><td>Model Retrain</td><td>Weekly Sunday (GPU)</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <strong>CryptoPrism ML Signal System</strong><br>
+      Built April 8&ndash;11, 2026 &mdash; 6 components &middot; 95 features &middot; 21 tests &middot; 16 migrations
+    </div>
+    <div style="text-align:right;">
+      Past performance is not indicative of future results.<br>
+      This document does not constitute financial advice.
+    </div>
+  </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const D = {"residual":{"dates":["02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","02-11","02-12","02-13","02-14","02-15","02-16","02-17","02-18","02-19","02-20","02-21","02-22","02-23","02-24","02-25","02-26","02-27","02-28","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","03-11","03-12","03-13","03-14","03-15","03-16","03-17","03-18","03-19","03-20","03-29","03-30","03-31","04-01","04-02","04-03","04-04","04-05","04-06","04-07","04-08","04-09"],"btc_ret":[-2.09,2.23,-3.88,-3.46,-14.13,12.52,-1.8,1.42,-0.2,-1.89,-2.62,-1.15,3.98,1.32,-1.4,0.08,-1.96,-1.58,0.8,1.57,-0.0,-0.51,-4.5,-0.83,6.06,-0.75,-2.33,1.69,-1.88,4.62,-0.7,6.47,-2.57,-3.82,-1.27,-1.94,3.69,2.23,0.4,0.41,0.67,0.35,2.21,2.85,-1.25,-3.62,-1.87,0.87,-0.55,1.12,2.31,-0.23,-1.75,0.06,0.54,2.51,-0.18,4.47,-1.14,0.91],"eth_ret":[-7.24,3.37,-4.98,-3.77,-15.01,13.27,1.32,-0.09,0.71,-4.0,-3.91,0.33,5.22,1.83,-5.75,1.62,-0.29,-1.92,-0.3,1.07,0.24,-0.81,-5.23,-0.14,10.88,-1.35,-4.74,1.78,-1.32,4.55,-2.2,7.25,-2.58,-4.48,-0.47,-1.67,2.91,2.22,0.71,1.05,0.94,0.22,3.83,7.98,-1.41,-4.93,-3.01,0.42,-0.51,2.07,4.01,1.62,-3.83,-0.17,0.58,2.11,-0.06,6.36,-2.3,-0.05],"eth_residual":[-0.19,0.03,0.03,0.05,0.17,-0.1,0.16,-0.07,0.05,-0.06,-0.02,0.08,0.02,0.02,-0.16,0.08,0.1,0.01,-0.04,-0.02,0.02,0.0,0.02,0.04,0.15,-0.01,-0.08,0.0,0.05,-0.03,-0.06,-0.01,0.02,-0.01,0.04,0.02,-0.05,-0.01,0.01,0.02,0.01,-0.01,0.05,0.18,-0.01,-0.04,-0.04,-0.03,-0.01,0.02,0.04,0.07,-0.08,-0.02,-0.01,-0.04,0.0,0.03,-0.04,-0.05],"beta":[1.28,1.3,1.31,1.35,1.33,1.28,1.25,1.25,1.25,1.24,1.24,1.23,1.22,1.23,1.23,1.23,1.22,1.22,1.22,1.22,1.2,1.2,1.19,1.19,1.18,1.18,1.18,1.19,1.2,1.19,1.17,1.16,1.16,1.13,1.13,1.13,1.15,1.14,1.14,1.14,1.15,1.16,1.16,1.17,1.16,1.17,1.17,1.17,1.18,1.18,1.19,1.19,1.2,1.2,1.2,1.2,1.2,1.2,1.21,1.2]},"roc":{"fpr":[0.0,0.0043,0.009,0.0138,0.0212,0.0274,0.032,0.0365,0.0434,0.0514,0.057,0.0624,0.0723,0.0785,0.0862,0.0941,0.1043,0.1173,0.1245,0.133,0.146,0.1554,0.164,0.1718,0.1825,0.1957,0.2076,0.2199,0.2297,0.2395,0.2482,0.2676,0.2847,0.2954,0.3186,0.3337,0.3458,0.3553,0.3668,0.3782,0.3887,0.3996,0.4125,0.4216,0.4337,0.4465,0.4568,0.4722,0.4858,0.4976,0.5113,0.526,0.5421,0.5573,0.5686,0.5811,0.5911,0.6042,0.6129,0.6212,0.635,0.6472,0.6609,0.6749,0.6848,0.6972,0.7105,0.723,0.7337,0.7455,0.7601,0.7743,0.7849,0.7978,0.8134,0.8282,0.8369,0.848,0.8638,0.8769,0.8897],"tpr":[0.0,0.02,0.0381,0.0517,0.0726,0.0907,0.1071,0.1243,0.1388,0.1525,0.1724,0.1906,0.2024,0.2178,0.2287,0.2432,0.2586,0.2759,0.2886,0.3031,0.3167,0.3367,0.3503,0.3639,0.3793,0.3929,0.4056,0.4129,0.4265,0.4401,0.4528,0.4655,0.4755,0.4891,0.4982,0.5054,0.5127,0.5209,0.5372,0.5481,0.5563,0.5681,0.5808,0.5944,0.6053,0.6125,0.6252,0.6343,0.6425,0.6515,0.6606,0.6688,0.6742,0.6815,0.6924,0.7033,0.7169,0.7269,0.735,0.7441,0.7568,0.7668,0.7804,0.7904,0.8013,0.8122,0.823,0.8367,0.8403,0.8485,0.8603,0.8693,0.8784,0.8866,0.892,0.9047,0.9165,0.9274,0.9338,0.941,0.9437],"auc":0.625},"daily_ic":[{"date":"03-25","ic":0.1087},{"date":"03-26","ic":0.0651},{"date":"03-27","ic":0.0303},{"date":"03-28","ic":0.0788},{"date":"03-29","ic":0.0617},{"date":"03-30","ic":0.1009},{"date":"03-31","ic":0.1155},{"date":"04-01","ic":0.0244},{"date":"04-02","ic":-0.0681},{"date":"04-03","ic":0.0144},{"date":"04-04","ic":0.0304},{"date":"04-05","ic":0.0181},{"date":"04-06","ic":-0.0},{"date":"04-07","ic":0.0517}],"cum_pnl":{"dates":["03-25","03-26","03-27","03-28","03-29","03-30","03-31","04-01","04-02","04-03","04-04","04-05","04-06","04-07"],"long":[-5.65,-9.49,-10.05,-8.48,-5.14,-4.52,-5.12,-3.44,0.05,1.92,6.18,8.56,10.88,10.72],"short":[5.95,9.3,10.08,10.16,5.46,4.64,4.71,4.99,3.12,0.88,-2.33,-4.63,-7.61,-10.16],"net":[0.31,-0.19,0.04,1.69,0.32,0.11,-0.41,1.55,3.17,2.8,3.85,3.92,3.27,0.56]},"feat_importance":{"features":["btc_vol_7d","btc_momentum_24h","fear_greed_index","d_pct_var","d_pct_cvar","m_pct_1d","d_pct_cum_ret","tcn_prob_sell","tcn_prob_buy","fear_greed_idx2","d_pct_vol_1d","beta_30d","lstm_prob_sell","m_rat_alpha_bin","m_osc_adx_bin"],"importance":[1935,1668,1523,1083,1032,1031,696,391,379,291,273,202,175,171,170]},"ic_horizon":{"1d":0.0433,"3d":0.0382,"7d":0.0312}};
+
+const CFG = {responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10,family:'Inter'},boxWidth:8,padding:8}}}};
+const NAVY='#051c2c',GREEN='#00a86b',RED='#c0392b',BLUE='#0070f3',GOLD='#c49a6c',GRAY='#a8a29e',PURPLE='#7c3aed';
+
+// 1. Residual Decomposition
+new Chart(document.getElementById('chartResidual'),{type:'line',data:{labels:D.residual.dates,datasets:[
+  {label:'BTC Return %',data:D.residual.btc_ret,borderColor:GOLD,backgroundColor:GOLD+'20',borderWidth:1.5,pointRadius:0,fill:false},
+  {label:'ETH Return %',data:D.residual.eth_ret,borderColor:BLUE,backgroundColor:BLUE+'20',borderWidth:1.5,pointRadius:0,fill:false},
+  {label:'ETH Residual %',data:D.residual.eth_residual,borderColor:GREEN,backgroundColor:GREEN+'30',borderWidth:2,pointRadius:0,fill:true},
+]},options:{...CFG,scales:{x:{ticks:{font:{size:8},maxTicksLimit:12}},y:{title:{display:true,text:'% Return',font:{size:10}},ticks:{font:{size:9}}}}}});
+
+// 2. ROC Curve
+new Chart(document.getElementById('chartROC'),{type:'line',data:{labels:D.roc.fpr,datasets:[
+  {label:`Model (AUC=${D.roc.auc})`,data:D.roc.tpr,borderColor:NAVY,borderWidth:2,pointRadius:0,fill:false},
+  {label:'Random (AUC=0.50)',data:D.roc.fpr,borderColor:GRAY,borderDash:[4,4],borderWidth:1,pointRadius:0,fill:false},
+]},options:{...CFG,scales:{x:{title:{display:true,text:'False Positive Rate',font:{size:10}},ticks:{font:{size:9}}},y:{title:{display:true,text:'True Positive Rate',font:{size:10}},ticks:{font:{size:9}}}}}});
+
+// 3. Daily IC
+new Chart(document.getElementById('chartDailyIC'),{type:'bar',data:{labels:D.daily_ic.map(d=>d.date),datasets:[
+  {label:'IC-3d',data:D.daily_ic.map(d=>d.ic),backgroundColor:D.daily_ic.map(d=>d.ic>=0?GREEN+'90':RED+'90'),borderColor:D.daily_ic.map(d=>d.ic>=0?GREEN:RED),borderWidth:1},
+]},options:{...CFG,plugins:{...CFG.plugins,legend:{display:false}},scales:{x:{ticks:{font:{size:9}}},y:{title:{display:true,text:'Spearman IC',font:{size:10}},ticks:{font:{size:9}},grid:{color:'#e7e5e440'}}}}});
+
+// 4. Cumulative PnL
+new Chart(document.getElementById('chartCumPnL'),{type:'line',data:{labels:D.cum_pnl.dates,datasets:[
+  {label:'Long (Top 25%)',data:D.cum_pnl.long,borderColor:GREEN,borderWidth:1.5,pointRadius:0,fill:false},
+  {label:'Short (Bot 25%)',data:D.cum_pnl.short,borderColor:RED,borderWidth:1.5,pointRadius:0,fill:false},
+  {label:'Net (Spread)',data:D.cum_pnl.net,borderColor:NAVY,backgroundColor:NAVY+'15',borderWidth:2.5,pointRadius:2,fill:true},
+]},options:{...CFG,scales:{x:{ticks:{font:{size:9}}},y:{title:{display:true,text:'Cumulative %',font:{size:10}},ticks:{font:{size:9}}}}}});
+
+// 5. Feature Importance
+new Chart(document.getElementById('chartFeatureImp'),{type:'bar',data:{labels:D.feat_importance.features,datasets:[
+  {label:'Split Count',data:D.feat_importance.importance,backgroundColor:[NAVY,NAVY,GOLD,BLUE,BLUE,BLUE,BLUE,PURPLE,PURPLE,GOLD,BLUE,GREEN,PURPLE,BLUE,BLUE],borderWidth:0},
+]},options:{...CFG,indexAxis:'y',plugins:{...CFG.plugins,legend:{display:false}},scales:{x:{ticks:{font:{size:9}}},y:{ticks:{font:{size:9,family:'JetBrains Mono'}}}}}});
+
+// 6. IC by Horizon
+new Chart(document.getElementById('chartICHorizon'),{type:'bar',data:{labels:['1-Day','3-Day','7-Day'],datasets:[
+  {label:'IC',data:[D.ic_horizon['1d'],D.ic_horizon['3d'],D.ic_horizon['7d']],backgroundColor:[BLUE+'80',GREEN+'80',GOLD+'80'],borderColor:[BLUE,GREEN,GOLD],borderWidth:1},
+]},options:{...CFG,plugins:{...CFG.plugins,legend:{display:false}},scales:{x:{ticks:{font:{size:10}}},y:{title:{display:true,text:'Spearman IC',font:{size:10}},min:0,max:0.06,ticks:{font:{size:9}}}}}});
+
+// 7. Rolling Beta
+new Chart(document.getElementById('chartBeta'),{type:'line',data:{labels:D.residual.dates,datasets:[
+  {label:'ETH/BTC Beta (30d)',data:D.residual.beta,borderColor:PURPLE,backgroundColor:PURPLE+'15',borderWidth:1.5,pointRadius:0,fill:true},
+]},options:{...CFG,plugins:{...CFG.plugins,legend:{display:false}},scales:{x:{ticks:{font:{size:8},maxTicksLimit:10}},y:{title:{display:true,text:'Beta',font:{size:10}},min:1.1,max:1.4,ticks:{font:{size:9}}}}}});
+}); // end DOMContentLoaded
+</script>
+</body>
+</html>

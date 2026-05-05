@@ -59,19 +59,19 @@ const CAPABILITIES: Record<
     color: "var(--ys-accent)",
     proofs: [
       {
-        label: "CryptoPrism DB",
-        href: "/projects/cryptoprism-db.html",
-        note: "1B+ data points/day, multi-database market infrastructure.",
+        label: "On-chain Analytics",
+        href: "/projects/cryptoprism-onchain",
+        note: "1B+ datapoints/day across 100+ coins via BigQuery pipeline.",
       },
       {
-        label: "Forex Pipeline",
-        href: "/projects/forex-pipeline.html",
-        note: "Trading-time workflow and market session data operations.",
+        label: "CryptoPrism API",
+        href: "/projects/cryptoprism-api",
+        note: "FastAPI microservices for analytics and trading endpoints.",
       },
       {
-        label: "Pratyaksha",
-        href: "/projects/pratyaksha.html",
-        note: "130+ technical indicators in a live scanner.",
+        label: "TimesFM Bot",
+        href: "/projects/timesfm-trading-bot",
+        note: "ML-powered trading signals across 100 coins.",
       },
     ],
   },
@@ -120,18 +120,18 @@ const CAPABILITIES: Record<
     proofs: [
       {
         label: "Pratyaksha",
-        href: "/projects/pratyaksha.html",
-        note: "Real-time scanner connected to live data and indicator engines.",
+        href: "/projects/pratyaksha",
+        note: "4-agent AI journaling pipeline in production.",
       },
       {
         label: "News Engine",
-        href: "/projects/news-fetcher.html",
-        note: "AI-aware content and signal pipeline.",
+        href: "/projects/cryptoprism-news-fetcher",
+        note: "AI-aware content and signal pipeline feeding spot trading.",
       },
       {
-        label: "CryptoPrism Screener",
-        href: "/projects/cryptoprism-screener.html",
-        note: "Interface and backend execution for live analysis workflows.",
+        label: "AI Bharatverse",
+        href: "/projects/ai-bharatverse",
+        note: "Interactive AI platform for Indian history. Built for Times of India.",
       },
     ],
   },
@@ -142,9 +142,9 @@ const NODES: Array<{
   x: number;
   y: number;
 }> = [
-  { id: "finance", x: 114, y: 96 },
-  { id: "leadership", x: 334, y: 96 },
-  { id: "technology", x: 224, y: 236 },
+  { id: "finance", x: 94, y: 80 },
+  { id: "leadership", x: 224, y: 80 },
+  { id: "technology", x: 354, y: 80 },
 ];
 
 export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowProps) {
@@ -258,18 +258,26 @@ export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowP
                       strokeWidth="1.4"
                       strokeLinecap="round"
                     />
-                    <circle cx={node.x} cy={node.y} r="21" fill="rgba(255,248,241,0.94)" stroke={activeRing} strokeWidth="8" />
-                    <circle cx={node.x} cy={node.y} r="17" fill={config.color} fillOpacity="0.12" stroke={activeStroke} strokeWidth="2.4" />
-                    <circle cx={node.x} cy={node.y} r="5.5" fill={config.color} />
-                    <text
-                      x={node.x}
-                      y={node.y - 34}
-                      textAnchor="middle"
-                      fill="rgba(255,239,225,0.8)"
-                      style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.18em" }}
+                    <g
+                      onClick={() => {
+                        setActiveNode(node.id);
+                        setActiveSubdomain(CAPABILITIES[node.id].subdomains[0].id);
+                      }}
+                      className="cursor-pointer"
                     >
-                      {config.name.toUpperCase()}
-                    </text>
+                      <circle cx={node.x} cy={node.y} r="21" fill="rgba(255,248,241,0.94)" stroke={activeRing} strokeWidth="8" />
+                      <circle cx={node.x} cy={node.y} r="17" fill={config.color} fillOpacity="0.12" stroke={activeStroke} strokeWidth="2.4" />
+                      <circle cx={node.x} cy={node.y} r="5.5" fill={config.color} />
+                      <text
+                        x={node.x}
+                        y={node.y - 34}
+                        textAnchor="middle"
+                        fill={activeNode === node.id ? "rgba(31,20,13,0.72)" : "rgba(31,20,13,0.44)"}
+                        style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.18em" }}
+                      >
+                        {config.name.toUpperCase()}
+                      </text>
+                    </g>
                     {config.subdomains.map((subdomain, index) => {
                       const x = node.x + (index - 1) * 42;
                       const y = index === 1 ? 286 : 226;

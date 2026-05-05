@@ -2,6 +2,7 @@ import { projects } from "@/lib/projects";
 import { projectDetails } from "@/data/project-details";
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 
 export function generateStaticParams() {
@@ -153,6 +154,22 @@ export default async function ProjectPage({
               {project.statLabel}
             </p>
           </div>
+          {project.href && (
+            <a
+              href={project.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl border px-4 py-3 text-[11px] font-bold uppercase tracking-[0.08em] transition-colors hover:opacity-80"
+              style={{
+                fontFamily: "var(--font-headline)",
+                borderColor: "var(--ys-btn-accent-border)",
+                background: "var(--ys-btn-accent-bg)",
+                color: "var(--ys-accent-strong)",
+              }}
+            >
+              Live App
+            </a>
+          )}
           {project.githubHref && (
             <a
               href={project.githubHref}
@@ -168,16 +185,81 @@ export default async function ProjectPage({
               View Source
             </a>
           )}
+          {project.reportHref && (
+            <a
+              href={project.reportHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl border px-4 py-3 text-[11px] font-bold uppercase tracking-[0.08em] transition-colors hover:opacity-80"
+              style={{
+                fontFamily: "var(--font-headline)",
+                borderColor: "var(--ys-btn-teal-border)",
+                background: "var(--ys-btn-teal-bg)",
+                color: "var(--ys-highlight)",
+              }}
+            >
+              Deep Dive
+            </a>
+          )}
         </div>
       </header>
 
       <div className="mx-auto max-w-4xl px-5 pb-8">
-        <ImagePlaceholder
-          variant="screenshot"
-          label={project.name}
-          className="aspect-video w-full"
-        />
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={project.name}
+            width={1400}
+            height={500}
+            className="w-full rounded-xl object-cover"
+          />
+        ) : (
+          <ImagePlaceholder
+            variant="screenshot"
+            label={project.name}
+            className="aspect-video w-full"
+          />
+        )}
       </div>
+
+      {project.reports && project.reports.length > 0 && (
+        <div className="mx-auto max-w-4xl px-5 pb-10">
+          <h2
+            className="mb-4 text-[14px] font-bold uppercase tracking-[0.1em]"
+            style={{
+              fontFamily: "var(--font-headline)",
+              color: "var(--ys-text)",
+            }}
+          >
+            Deep Dives
+          </h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {project.reports.map((report) => (
+              <a
+                key={report.href}
+                href={report.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl border px-4 py-3 text-center transition-colors hover:opacity-80"
+                style={{
+                  borderColor: "var(--ys-btn-teal-border)",
+                  background: "var(--ys-btn-teal-bg)",
+                }}
+              >
+                <p
+                  className="text-[11px] font-bold uppercase tracking-[0.08em]"
+                  style={{
+                    fontFamily: "var(--font-headline)",
+                    color: "var(--ys-highlight)",
+                  }}
+                >
+                  {report.label}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
 
       {project.sections.length > 0 && (
         <div className="mx-auto max-w-4xl px-5 pb-16">

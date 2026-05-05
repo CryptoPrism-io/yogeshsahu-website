@@ -1,0 +1,448 @@
+{
+  "meta": {
+    "purpose": "Complete shot list for portfolio images — personal and product",
+    "total_images_needed": 42,
+    "personal_images": 3,
+    "product_images": 39,
+    "products_listed": 10,
+    "story": "Founder who builds and ships production-grade AI-native products — not slide decks. Every image should reinforce: hands-on builder, real products in production, scale and craft."
+  },
+
+  "personal": {
+    "count": 3,
+    "narrative": "Professional but approachable founder — not corporate headshot energy. Think builder who leads from the front.",
+    "shots": [
+      {
+        "id": "profile-hero",
+        "type": "headshot",
+        "usage": [
+          { "component": "LaunchDeck.tsx", "size": "96x96px", "shape": "rounded-2xl" },
+          { "component": "MobileHome.tsx", "size": "80x80px", "shape": "circular" },
+          { "component": "AboutWindow.tsx", "size": "112x112px", "shape": "rounded-2xl" }
+        ],
+        "recommended_source": "1200x1200px minimum, square crop",
+        "tone": "Confident, direct eye contact, natural lighting. Casual professional — no suit/tie. This is the first thing visitors see.",
+        "file": "public/images/profile/headshot.webp"
+      },
+      {
+        "id": "profile-working",
+        "type": "candid",
+        "usage": [
+          { "component": "AboutWindow.tsx", "size": "optional secondary image", "shape": "rounded-xl" }
+        ],
+        "recommended_source": "1600x900px, landscape",
+        "tone": "Working at a desk, whiteboard, or presenting. Shows the 'builder at work' side.",
+        "file": "public/images/profile/working.webp"
+      },
+      {
+        "id": "profile-speaking",
+        "type": "candid",
+        "usage": [
+          { "component": "future: testimonials or press section", "size": "flexible", "shape": "rounded-xl" }
+        ],
+        "recommended_source": "1600x900px, landscape",
+        "tone": "Leading a meeting, presenting, or at an event. Shows the 'leader who ships' side.",
+        "file": "public/images/profile/speaking.webp"
+      }
+    ]
+  },
+
+  "products": [
+    {
+      "id": "cryptoprism-onchain",
+      "name": "CryptoPrism On-chain Analytics",
+      "live_url": "https://cryptoprism.io",
+      "story": "The data backbone — 1B+ datapoints/day flowing through BigQuery pipelines. Show scale and infrastructure.",
+      "shots": [
+        {
+          "id": "cryptoprism-onchain-hero",
+          "type": "hero",
+          "description": "Dashboard overview showing live market data, charts, and coin tracking. The 'wow' shot.",
+          "usage": ["ProjectsWindow card", "/projects/cryptoprism-onchain hero"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/cryptoprism-onchain-hero.webp"
+        },
+        {
+          "id": "cryptoprism-onchain-pipeline",
+          "type": "detail",
+          "description": "Data pipeline view or BigQuery console showing query volume / processing metrics.",
+          "usage": ["/projects/cryptoprism-onchain carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/cryptoprism-onchain-pipeline.webp"
+        },
+        {
+          "id": "cryptoprism-onchain-analytics",
+          "type": "detail",
+          "description": "Analytics output — coin scoring, ML signals, or market heatmap.",
+          "usage": ["/projects/cryptoprism-onchain carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/cryptoprism-onchain-analytics.webp"
+        },
+        {
+          "id": "neelkanth-samudra",
+          "type": "architecture",
+          "description": "Neelkanth Samudra — the CryptoPrism data ocean architecture. Top-level system diagram showing how all CryptoPrism subsystems connect: on-chain pipeline (BigQuery) + API layer (FastAPI/Cloud Run) + TimesFM trading bot + News fetcher bot + Dashboard frontend. Data flows from blockchain/exchanges/news sources into a unified data lake, then fans out to ML models, trading execution, and the user-facing dashboard. This is the 'god view' of the entire CryptoPrism infrastructure.",
+          "usage": ["/projects/cryptoprism-onchain carousel", "capability-graph data proofs", "AboutWindow ventures section"],
+          "recommended_source": "1920x1080px, 16:9, clean diagram style matching portfolio design tokens",
+          "file": "public/images/projects/neelkanth-samudra.webp"
+        }
+      ]
+    },
+    {
+      "id": "cryptoprism-api",
+      "name": "CryptoPrism API",
+      "live_url": "https://cryptoprism.io",
+      "story": "The engine room — FastAPI powering <50ms responses for trading and analytics endpoints.",
+      "shots": [
+        {
+          "id": "cryptoprism-api-hero",
+          "type": "hero",
+          "description": "API docs (Swagger/ReDoc) or Postman collection showing endpoint structure.",
+          "usage": ["ProjectsWindow card", "/projects/cryptoprism-api hero"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/cryptoprism-api-hero.webp"
+        },
+        {
+          "id": "cryptoprism-api-metrics",
+          "type": "detail",
+          "description": "Cloud Run metrics or latency dashboard showing <50ms p99.",
+          "usage": ["/projects/cryptoprism-api carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/cryptoprism-api-metrics.webp"
+        },
+        {
+          "id": "cryptoprism-api-architecture",
+          "type": "detail",
+          "description": "Architecture diagram showing service topology — Cloud Run, PostgreSQL, Redis, Binance API.",
+          "usage": ["/projects/cryptoprism-api carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/cryptoprism-api-architecture.webp"
+        }
+      ]
+    },
+    {
+      "id": "timesfm-trading-bot",
+      "name": "TimesFM 100-Coin Trading Bot",
+      "live_url": null,
+      "story": "ML meets money — Google TimesFM generating trading signals across 100 coins with automated Binance execution.",
+      "shots": [
+        {
+          "id": "timesfm-hero",
+          "type": "hero",
+          "description": "Trading signals dashboard or terminal output showing live predictions across multiple coins.",
+          "usage": ["ProjectsWindow card", "/projects/timesfm-trading-bot hero"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/timesfm-hero.webp"
+        },
+        {
+          "id": "timesfm-signals",
+          "type": "detail",
+          "description": "Signal chart — TimesFM predictions overlaid on actual price action for a coin.",
+          "usage": ["/projects/timesfm-trading-bot carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/timesfm-signals.webp"
+        },
+        {
+          "id": "timesfm-execution",
+          "type": "detail",
+          "description": "Binance trade execution log or P&L summary showing automated trades.",
+          "usage": ["/projects/timesfm-trading-bot carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/timesfm-execution.webp"
+        },
+        {
+          "id": "timesfm-architecture",
+          "type": "architecture",
+          "description": "Trade execution pipeline diagram — TimesFM model inference → signal generation → risk check → Binance API order execution → position tracking → P&L reconciliation. Show the full loop from ML prediction to money moving.",
+          "usage": ["/projects/timesfm-trading-bot carousel", "capability-graph technology proofs"],
+          "recommended_source": "1920x1080px, 16:9, clean diagram style matching portfolio design tokens",
+          "file": "public/images/projects/timesfm-architecture.webp"
+        }
+      ]
+    },
+    {
+      "id": "cryptoprism-news-fetcher",
+      "name": "CryptoPrism News Fetcher",
+      "live_url": null,
+      "story": "AI reads the news so the bot can trade — sentiment analysis feeding automated spot trading decisions.",
+      "shots": [
+        {
+          "id": "news-fetcher-hero",
+          "type": "hero",
+          "description": "News feed with sentiment scores and trading signal indicators.",
+          "usage": ["ProjectsWindow card", "/projects/cryptoprism-news-fetcher hero"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/news-fetcher-hero.webp"
+        },
+        {
+          "id": "news-fetcher-pipeline",
+          "type": "detail",
+          "description": "Pipeline view showing news ingestion → sentiment scoring → trade signal flow.",
+          "usage": ["/projects/cryptoprism-news-fetcher carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/news-fetcher-pipeline.webp"
+        },
+        {
+          "id": "news-fetcher-architecture",
+          "type": "architecture",
+          "description": "Multivariate bot architecture — multiple news sources (RSS, APIs, social) → NLP sentiment extraction → multi-signal aggregation → confidence scoring → Binance spot trade execution. Show the fan-in from diverse inputs converging into a single trading decision engine.",
+          "usage": ["/projects/cryptoprism-news-fetcher carousel", "capability-graph AI proofs"],
+          "recommended_source": "1920x1080px, 16:9, clean diagram style matching portfolio design tokens",
+          "file": "public/images/projects/news-fetcher-architecture.webp"
+        }
+      ]
+    },
+    {
+      "id": "pratyaksha",
+      "name": "Pratyaksha",
+      "live_url": "https://ai-becoming.web.app",
+      "story": "AI journaling that actually works — 4 agents transforming raw thoughts into actionable insight. The flagship Trinetry product.",
+      "shots": [
+        {
+          "id": "pratyaksha-hero",
+          "type": "hero",
+          "description": "Main journaling interface — clean writing view with AI insight panel visible.",
+          "usage": ["ProjectsWindow card", "/projects/pratyaksha hero"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/pratyaksha-hero.webp"
+        },
+        {
+          "id": "pratyaksha-agents",
+          "type": "detail",
+          "description": "AI agent pipeline view showing the 4 agents processing a journal entry.",
+          "usage": ["/projects/pratyaksha carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/pratyaksha-agents.webp"
+        },
+        {
+          "id": "pratyaksha-insights",
+          "type": "detail",
+          "description": "Insight dashboard — patterns, themes, and actionable recommendations generated from entries.",
+          "usage": ["/projects/pratyaksha carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/pratyaksha-insights.webp"
+        },
+        {
+          "id": "pratyaksha-mobile",
+          "type": "mobile",
+          "description": "Mobile view of the journaling experience — shows it works on the go.",
+          "usage": ["/projects/pratyaksha carousel"],
+          "recommended_source": "750x1334px, 9:16 (iPhone)",
+          "file": "public/images/projects/pratyaksha-mobile.webp"
+        }
+      ]
+    },
+    {
+      "id": "gyanmarg",
+      "name": "GyanMarg",
+      "live_url": "https://ai-polymind.web.app",
+      "story": "EdTech that adapts — real-time sync, adaptive learning paths, and content delivery at scale.",
+      "shots": [
+        {
+          "id": "gyanmarg-hero",
+          "type": "hero",
+          "description": "Student dashboard or course view showing learning path and progress.",
+          "usage": ["ProjectsWindow card", "/projects/gyanmarg hero"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/gyanmarg-hero.webp"
+        },
+        {
+          "id": "gyanmarg-content",
+          "type": "detail",
+          "description": "Content delivery view — lesson page with interactive elements and real-time features.",
+          "usage": ["/projects/gyanmarg carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/gyanmarg-content.webp"
+        },
+        {
+          "id": "gyanmarg-admin",
+          "type": "detail",
+          "description": "Admin/teacher dashboard showing student analytics and content management.",
+          "usage": ["/projects/gyanmarg carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/gyanmarg-admin.webp"
+        }
+      ]
+    },
+    {
+      "id": "ai-bharatverse",
+      "name": "AI Bharatverse",
+      "live_url": null,
+      "story": "AI meets Indian history — built for Times of India. Interactive exploration powered by LLMs.",
+      "shots": [
+        {
+          "id": "bharatverse-hero",
+          "type": "hero",
+          "description": "Main exploration interface — interactive map or timeline with AI conversation visible.",
+          "usage": ["ProjectsWindow card", "/projects/ai-bharatverse hero"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/bharatverse-hero.webp"
+        },
+        {
+          "id": "bharatverse-conversation",
+          "type": "detail",
+          "description": "AI conversation view — user asking about a historical event, rich AI response with context.",
+          "usage": ["/projects/ai-bharatverse carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/bharatverse-conversation.webp"
+        },
+        {
+          "id": "bharatverse-timeline",
+          "type": "detail",
+          "description": "Historical timeline or interactive visualization of Indian history.",
+          "usage": ["/projects/ai-bharatverse carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/bharatverse-timeline.webp"
+        }
+      ]
+    },
+    {
+      "id": "kari",
+      "name": "Kari and the Lost Shrines",
+      "live_url": "https://apps.apple.com/us/app/kari-and-the-lost-shrines/id1561474376",
+      "story": "50K+ downloads, 4.5+ rating — a mobile game for Isha Foundation exploring Indian temples. Proof of shipping under constraints.",
+      "shots": [
+        {
+          "id": "kari-hero",
+          "type": "hero",
+          "description": "In-game screenshot — character exploring a temple with rich environment art.",
+          "usage": ["ProjectsWindow card", "/projects/kari hero"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/kari-hero.webp"
+        },
+        {
+          "id": "kari-gameplay",
+          "type": "detail",
+          "description": "Gameplay moment — puzzle solving, relic collection, or temple discovery.",
+          "usage": ["/projects/kari carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/kari-gameplay.webp"
+        },
+        {
+          "id": "kari-appstore",
+          "type": "detail",
+          "description": "App Store listing showing ratings, downloads, and reviews — social proof.",
+          "usage": ["/projects/kari carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/kari-appstore.webp"
+        },
+        {
+          "id": "kari-mobile",
+          "type": "mobile",
+          "description": "Phone mockup showing the game in portrait/landscape on device.",
+          "usage": ["/projects/kari carousel"],
+          "recommended_source": "750x1334px, 9:16 (iPhone)",
+          "file": "public/images/projects/kari-mobile.webp"
+        }
+      ]
+    },
+    {
+      "id": "trinetry-erp",
+      "name": "Trinetry ERP/CRM",
+      "live_url": null,
+      "story": "Agentic AI replacing manual SME workflows — invoicing, inventory, and client outreach automated.",
+      "shots": [
+        {
+          "id": "trinetry-erp-hero",
+          "type": "hero",
+          "description": "ERP dashboard — invoicing overview, inventory status, or client pipeline.",
+          "usage": ["/projects/trinetry-erp hero"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/trinetry-erp-hero.webp"
+        },
+        {
+          "id": "trinetry-erp-ai",
+          "type": "detail",
+          "description": "Agentic AI workflow — automated invoice generation or client outreach sequence.",
+          "usage": ["/projects/trinetry-erp carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/trinetry-erp-ai.webp"
+        },
+        {
+          "id": "trinetry-erp-inventory",
+          "type": "detail",
+          "description": "Inventory management view — stock tracking, alerts, and automated reordering.",
+          "usage": ["/projects/trinetry-erp carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/trinetry-erp-inventory.webp"
+        },
+        {
+          "id": "trinetry-erp-architecture",
+          "type": "architecture",
+          "description": "PGG ERP/CRM backend architecture — React frontend → FastAPI/Express backend → PostgreSQL → agentic AI layer (invoice generation agent, client outreach agent, inventory alert agent). Show how AI agents plug into traditional ERP workflows.",
+          "usage": ["/projects/trinetry-erp carousel", "capability-graph systems proofs"],
+          "recommended_source": "1920x1080px, 16:9, clean diagram style matching portfolio design tokens",
+          "file": "public/images/projects/trinetry-erp-architecture.webp"
+        }
+      ]
+    },
+    {
+      "id": "cryptoprism-dashboard",
+      "name": "CryptoPrism Dashboard",
+      "live_url": "https://cryptoprism.io",
+      "story": "The face of CryptoPrism — real-time portfolio tracking, live charts, and market intelligence for 1K+ coins.",
+      "shots": [
+        {
+          "id": "dashboard-hero",
+          "type": "hero",
+          "description": "Full dashboard view — market pulse, live charts, portfolio summary. The screenshot from localhost:3000 but production.",
+          "usage": ["/projects/cryptoprism-dashboard hero"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/dashboard-hero.webp"
+        },
+        {
+          "id": "dashboard-screener",
+          "type": "detail",
+          "description": "Screener or coin analysis view — filtering, scoring, and signal indicators.",
+          "usage": ["/projects/cryptoprism-dashboard carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/dashboard-screener.webp"
+        },
+        {
+          "id": "dashboard-watchlist",
+          "type": "detail",
+          "description": "Watchlist and alerts view — personalized tracking and notification setup.",
+          "usage": ["/projects/cryptoprism-dashboard carousel"],
+          "recommended_source": "1920x1080px, 16:9",
+          "file": "public/images/projects/dashboard-watchlist.webp"
+        }
+      ]
+    }
+  ],
+
+  "summary_by_type": {
+    "headshot": { "count": 1, "description": "Primary profile photo used across 3 components" },
+    "candid": { "count": 2, "description": "Working and speaking photos for depth" },
+    "hero": { "count": 10, "description": "One per product — the 'wow' screenshot for cards and detail pages" },
+    "detail": { "count": 21, "description": "Supporting screenshots for carousels on detail pages" },
+    "mobile": { "count": 2, "description": "Phone mockups for Pratyaksha and Kari" },
+    "architecture": {
+      "count": 5,
+      "description": "System and pipeline diagrams showing how things actually work under the hood",
+      "diagrams": [
+        "CryptoPrism API — service topology (Cloud Run, PostgreSQL, Redis, Binance API)",
+        "TimesFM Bot — trade execution pipeline (ML inference → signal → risk → execution → P&L)",
+        "News Fetcher — multivariate bot architecture (multi-source NLP → aggregation → spot trading)",
+        "Trinetry ERP — PGG backend with agentic AI layer (invoice, outreach, inventory agents)",
+        "Neelkanth Samudra — CryptoPrism data ocean god-view (all subsystems connected)"
+      ]
+    }
+  },
+
+  "story_arc": {
+    "opening": "Profile headshot + LaunchDeck metrics → 'This person ships real products'",
+    "act_1_ventures": "CryptoPrism suite (4 products) → 'Full-stack crypto intelligence at scale'",
+    "act_2_trinetry": "Pratyaksha + GyanMarg + ERP → 'AI-native SaaS across domains'",
+    "act_3_credibility": "AI Bharatverse + Kari → 'Delivered for Times of India and Isha Foundation'",
+    "closing": "Dashboard live demo → 'This is running in production right now'"
+  },
+
+  "file_conventions": {
+    "format": "WebP (optimized for web, Next.js Image compatible)",
+    "naming": "{project-id}-{shot-type}.webp",
+    "location": "public/images/profile/ and public/images/projects/",
+    "hero_size": "1920x1080px minimum, 16:9 aspect ratio",
+    "profile_size": "1200x1200px minimum, square crop",
+    "mobile_size": "750x1334px, 9:16 aspect ratio"
+  }
+}

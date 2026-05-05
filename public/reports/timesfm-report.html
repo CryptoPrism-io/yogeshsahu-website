@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryptoPrism TimesFM — Complete Technical & Strategic Report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --navy: #051c2c;
+    --dark: #0a2540;
+    --gold: #c49a6c;
+    --gold-light: #d4b896;
+    --blue: #0070f3;
+    --green: #00a86b;
+    --red: #c0392b;
+    --purple: #7c3aed;
+    --cyan: #0891b2;
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f4;
+    --gray-200: #e7e5e4;
+    --gray-300: #d6d3d1;
+    --gray-400: #a8a29e;
+    --gray-500: #78716c;
+    --gray-600: #57534e;
+    --gray-700: #44403c;
+    --gray-800: #292524;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @media print {
+    body { font-size: 10pt; }
+    .page-break { page-break-before: always; }
+    .no-print { display: none; }
+    .no-break { page-break-inside: avoid; }
+    table { page-break-inside: avoid; }
+    .chart-container { page-break-inside: avoid; }
+    .callout { page-break-inside: avoid; }
+    .stats { page-break-inside: avoid; }
+    .cards { page-break-inside: avoid; }
+    h2, h3 { page-break-after: avoid; }
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--gray-800);
+    background: #fff;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 40px; }
+
+  /* Cover */
+  .cover {
+    background: var(--navy);
+    color: #fff;
+    padding: 100px 0 80px;
+    margin-bottom: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  .cover .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .cover h1 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 42px;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .cover .subtitle {
+    font-size: 17px;
+    color: var(--gray-400);
+    max-width: 600px;
+    margin-bottom: 32px;
+  }
+  .cover .meta {
+    margin-top: 40px;
+    display: flex;
+    gap: 40px;
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+  .cover .meta strong { color: var(--gold-light); }
+  .cover .cover-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .cover .cover-stat { text-align: center; }
+  .cover .cover-stat-value {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--gold);
+  }
+  .cover .cover-stat-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gray-400);
+    margin-top: 4px;
+  }
+  .classification {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    border: 1px solid var(--gray-600);
+    padding: 4px 16px;
+    border-radius: 3px;
+  }
+
+  /* Section headers */
+  .section-num {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  h2 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 24px 0 8px;
+  }
+
+  section { margin-bottom: 32px; padding-top: 24px; }
+
+  p { font-size: 14px; color: var(--gray-600); margin-bottom: 12px; max-width: 720px; }
+  p strong { color: var(--gray-800); }
+
+  ul { font-size: 14px; color: var(--gray-600); margin: 8px 0 16px 24px; }
+  li { margin-bottom: 6px; }
+  li strong { color: var(--gray-800); }
+
+  /* Stats row */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .stat {
+    border-left: 2px solid var(--navy);
+    padding: 8px 0 8px 14px;
+  }
+  .stat.green { border-color: var(--green); }
+  .stat.blue { border-color: var(--blue); }
+  .stat.gold { border-color: var(--gold); }
+  .stat.purple { border-color: var(--purple); }
+  .stat.red { border-color: var(--red); }
+  .stat-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gray-500);
+    font-weight: 500;
+  }
+  .stat-value {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--navy);
+    margin-top: 2px;
+  }
+  .stat-sub { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+
+  /* Flow diagram */
+  .flow {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 32px;
+    margin: 24px 0;
+  }
+  .flow-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  /* SVG diagrams */
+  svg text { font-family: 'Inter', sans-serif; }
+  .node-rect { rx: 6; ry: 6; }
+
+  /* Cards grid */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+  .cards-2 { grid-template-columns: repeat(2, 1fr); }
+  .card {
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    padding: 20px;
+    background: #fff;
+  }
+  .card-num { font-size: 11px; font-weight: 600; margin-bottom: 6px; }
+  .card-num.green { color: var(--green); }
+  .card-num.blue { color: var(--blue); }
+  .card-num.gold { color: var(--gold); }
+  .card-num.purple { color: var(--purple); }
+  .card-num.cyan { color: var(--cyan); }
+  .card-num.navy { color: var(--navy); }
+  .card-num.red { color: var(--red); }
+  .card h4 { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+  .card p { font-size: 12px; color: var(--gray-500); margin-bottom: 8px; }
+  .card .card-stat { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gray-400); }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
+  th {
+    text-align: left;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-400);
+    font-weight: 500;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  th.right, td.right { text-align: right; }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--gray-100); color: var(--gray-700); }
+  td.mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  td.green { color: var(--green); font-weight: 500; }
+  td.red { color: var(--red); font-weight: 500; }
+  tr.highlight { background: var(--gray-50); }
+  tr.total { font-weight: 600; border-top: 2px solid var(--gray-300); }
+
+  /* Callout */
+  .callout {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .callout .callout-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .callout p { font-size: 13px; color: var(--navy); margin-bottom: 0; }
+
+  .callout-red { border-left-color: var(--red); }
+  .callout-red .callout-title { color: var(--red); }
+  .callout-green { border-left-color: var(--green); }
+  .callout-green .callout-title { color: var(--green); }
+  .callout-blue { border-left-color: var(--blue); }
+  .callout-blue .callout-title { color: var(--blue); }
+
+  /* Timeline */
+  .timeline { margin: 20px 0; }
+  .timeline-item { display: flex; gap: 16px; margin-bottom: 0; }
+  .timeline-left { width: 70px; text-align: right; padding-top: 14px; }
+  .timeline-left span { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gray-400); }
+  .timeline-dot-col { display: flex; flex-direction: column; align-items: center; }
+  .timeline-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 16px; flex-shrink: 0; }
+  .timeline-line { width: 1px; flex: 1; background: var(--gray-200); }
+  .timeline-content { flex: 1; padding: 8px 0 12px; }
+  .timeline-content h4 { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .timeline-content p { font-size: 12px; color: var(--gray-500); margin-bottom: 0; }
+
+  /* Code */
+  pre {
+    background: var(--navy);
+    color: #e2e8f0;
+    padding: 20px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  pre .comment { color: #64748b; }
+  pre .keyword { color: var(--gold-light); }
+  pre .string { color: #86efac; }
+  pre .num { color: #93c5fd; }
+
+  /* Two column */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+  /* Chart container */
+  .chart-container {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 16px 0;
+  }
+  .chart-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  /* Telegram mockup */
+  .tg-mock {
+    background: #1a1a2e;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 380px;
+    margin: 16px auto;
+    font-size: 13px;
+    color: #e2e8f0;
+    line-height: 1.5;
+  }
+  .tg-mock .tg-header {
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .tg-mock .tg-line { margin-bottom: 2px; }
+  .tg-mock .tg-green { color: #86efac; }
+  .tg-mock .tg-red { color: #fca5a5; }
+  .tg-mock .tg-dim { color: #64748b; }
+
+  /* Bar chart */
+  .bar-chart { margin: 16px 0; }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .bar-label { width: 56px; text-align: right; font-size: 11px; color: var(--gray-500); font-family: 'Source Serif 4', serif; }
+  .bar-track { flex: 1; height: 22px; background: var(--gray-100); border-radius: 3px; position: relative; }
+  .bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
+  .bar-fill.pos { background: var(--green); opacity: 0.7; left: 50%; }
+  .bar-fill.neg { background: var(--red); opacity: 0.7; right: 50%; }
+  .bar-mid { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: var(--gray-300); }
+  .bar-value { width: 56px; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .bar-value.pos { color: var(--green); }
+  .bar-value.neg { color: var(--red); }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--gray-200);
+    padding: 24px 0 48px;
+    margin-top: 48px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--gray-400);
+  }
+  footer strong { color: var(--navy); }
+
+  /* Print button */
+  .print-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 100;
+  }
+  .print-btn:hover { background: #0a3050; }
+
+  .chart-wrap { position: relative; width: 100%; }
+
+  /* Regime cards */
+  .regime-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0; }
+  .regime-card { border-radius: 6px; padding: 16px; text-align: center; }
+  .regime-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .regime-card p { font-size: 11px; margin-bottom: 0; }
+  .regime-on { background: #ecfdf5; color: var(--green); border: 1px solid #bbf7d0; }
+  .regime-off { background: #fef2f2; color: var(--red); border: 1px solid #fecaca; }
+
+  /* TOC */
+  .toc { margin: 24px 0; }
+  .toc-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 13px;
+    border-bottom: 1px dotted var(--gray-200);
+  }
+  .toc-item .toc-num { color: var(--gold); font-weight: 600; width: 40px; }
+  .toc-item .toc-title { flex: 1; color: var(--gray-700); }
+  .toc-item .toc-page { color: var(--gray-400); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+</style>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+<!-- ==================== COVER PAGE ==================== -->
+<div class="cover" style="position:relative;">
+  <div class="container">
+    <div class="eyebrow">Technical & Strategic Report</div>
+    <h1>CryptoPrism TimesFM<br>Algorithmic Trading Platform</h1>
+    <div class="subtitle">From inception to production in 49 days &mdash; a complete technical deep-dive into building, training, and deploying AI-powered cryptocurrency trading bots on Google TimesFM 2.5 200M.</div>
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-value">957</div>
+        <div class="cover-stat-label">Total Trades</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-value">59%</div>
+        <div class="cover-stat-label">Win Rate</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-value">+$34,303</div>
+        <div class="cover-stat-label">Net PnL</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-value">228.7%</div>
+        <div class="cover-stat-label">Return on Capital</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-value">86%</div>
+        <div class="cover-stat-label">Green Weeks</div>
+      </div>
+    </div>
+    <div class="meta">
+      <div><strong>Author</strong><br>Yogesh Sahu</div>
+      <div><strong>Company</strong><br>CryptoPrism-io</div>
+      <div><strong>Date</strong><br>April 12, 2026</div>
+      <div><strong>Version</strong><br>1.0</div>
+    </div>
+    <div class="classification">CONFIDENTIAL</div>
+  </div>
+</div>
+
+<!-- ==================== TABLE OF CONTENTS ==================== -->
+<div class="page-break"></div>
+<div class="container" style="padding-top:48px;">
+  <div class="section-num">Contents</div>
+  <h2>Table of Contents</h2>
+  <div class="toc">
+    <div class="toc-item"><span class="toc-num">01</span><span class="toc-title">Executive Summary</span></div>
+    <div class="toc-item"><span class="toc-num">02</span><span class="toc-title">Project Timeline</span></div>
+    <div class="toc-item"><span class="toc-num">03</span><span class="toc-title">Architecture Overview</span></div>
+    <div class="toc-item"><span class="toc-num">04</span><span class="toc-title">Model Architecture</span></div>
+    <div class="toc-item"><span class="toc-num">05</span><span class="toc-title">Signal Pipeline</span></div>
+    <div class="toc-item"><span class="toc-num">06</span><span class="toc-title">Entry Refinement &mdash; The Breakthrough</span></div>
+    <div class="toc-item"><span class="toc-num">07</span><span class="toc-title">Filter Evolution</span></div>
+    <div class="toc-item"><span class="toc-num">08</span><span class="toc-title">Multi-Position Strategy</span></div>
+    <div class="toc-item"><span class="toc-num">09</span><span class="toc-title">Tier Performance Deep-Dive</span></div>
+    <div class="toc-item"><span class="toc-num">10</span><span class="toc-title">Risk Management</span></div>
+    <div class="toc-item"><span class="toc-num">11</span><span class="toc-title">Model Retraining Pipeline</span></div>
+    <div class="toc-item"><span class="toc-num">12</span><span class="toc-title">Telegram Intelligence System</span></div>
+    <div class="toc-item"><span class="toc-num">13</span><span class="toc-title">Information Coefficient Analysis</span></div>
+    <div class="toc-item"><span class="toc-num">14</span><span class="toc-title">Bugs Found &amp; Fixed</span></div>
+    <div class="toc-item"><span class="toc-num">15</span><span class="toc-title">Configuration Evolution</span></div>
+    <div class="toc-item"><span class="toc-num">16</span><span class="toc-title">Infrastructure &amp; DevOps</span></div>
+    <div class="toc-item"><span class="toc-num">17</span><span class="toc-title">Current Live Configuration</span></div>
+    <div class="toc-item"><span class="toc-num">18</span><span class="toc-title">Roadmap &amp; What's Next</span></div>
+  </div>
+</div>
+
+<!-- ==================== CHAPTER 1: EXECUTIVE SUMMARY ==================== -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 01</div>
+    <h2>Executive Summary</h2>
+
+    <p>CryptoPrism is a production algorithmic trading platform built on <strong>Google TimesFM 2.5 200M</strong>, a state-of-the-art time-series foundation model. In 49 days from first commit to full production, the system evolved from a single-coin experiment to an 11-variant, 41-coin platform processing hourly signals across four risk tiers.</p>
+
+    <div class="stats">
+      <div class="stat blue">
+        <div class="stat-label">Total Trades</div>
+        <div class="stat-value">957</div>
+        <div class="stat-sub">14 weeks (Dec 27 &ndash; Mar 27)</div>
+      </div>
+      <div class="stat green">
+        <div class="stat-label">Win Rate</div>
+        <div class="stat-value">59%</div>
+        <div class="stat-sub">Across all tiers</div>
+      </div>
+      <div class="stat gold">
+        <div class="stat-label">Net PnL</div>
+        <div class="stat-value">+$34,303</div>
+        <div class="stat-sub">On $15K notional</div>
+      </div>
+      <div class="stat purple">
+        <div class="stat-label">ROI</div>
+        <div class="stat-value">228.7%</div>
+        <div class="stat-sub">14-week return</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Green Weeks</div>
+        <div class="stat-value">86%</div>
+        <div class="stat-sub">12 of 14 weeks profitable</div>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-title">End-to-End Signal Pipeline</div>
+      <svg viewBox="0 0 820 80" style="width:100%;height:80px;">
+        <defs>
+          <marker id="ah" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#a8a29e"/>
+          </marker>
+        </defs>
+        <rect x="0" y="20" width="80" height="40" rx="6" fill="#051c2c"/>
+        <text x="40" y="45" text-anchor="middle" fill="#fff" font-size="11" font-weight="500">OHLCV</text>
+        <line x1="82" y1="40" x2="108" y2="40" stroke="#a8a29e" stroke-width="1.5" marker-end="url(#ah)"/>
+        <rect x="110" y="20" width="100" height="40" rx="6" fill="#0070f3"/>
+        <text x="160" y="45" text-anchor="middle" fill="#fff" font-size="11" font-weight="500">TimesFM</text>
+        <line x1="212" y1="40" x2="238" y2="40" stroke="#a8a29e" stroke-width="1.5" marker-end="url(#ah)"/>
+        <rect x="240" y="20" width="90" height="40" rx="6" fill="#7c3aed"/>
+        <text x="285" y="45" text-anchor="middle" fill="#fff" font-size="11" font-weight="500">Threshold</text>
+        <line x1="332" y1="40" x2="358" y2="40" stroke="#a8a29e" stroke-width="1.5" marker-end="url(#ah)"/>
+        <rect x="360" y="20" width="80" height="40" rx="6" fill="#0891b2"/>
+        <text x="400" y="45" text-anchor="middle" fill="#fff" font-size="11" font-weight="500">RSI Filter</text>
+        <line x1="442" y1="40" x2="468" y2="40" stroke="#a8a29e" stroke-width="1.5" marker-end="url(#ah)"/>
+        <rect x="470" y="20" width="90" height="40" rx="6" fill="#c49a6c"/>
+        <text x="515" y="45" text-anchor="middle" fill="#fff" font-size="11" font-weight="500">ATR Entry</text>
+        <line x1="562" y1="40" x2="588" y2="40" stroke="#a8a29e" stroke-width="1.5" marker-end="url(#ah)"/>
+        <rect x="590" y="20" width="80" height="40" rx="6" fill="#00a86b"/>
+        <text x="630" y="45" text-anchor="middle" fill="#fff" font-size="11" font-weight="500">Execute</text>
+        <line x1="672" y1="40" x2="698" y2="40" stroke="#a8a29e" stroke-width="1.5" marker-end="url(#ah)"/>
+        <rect x="700" y="20" width="110" height="40" rx="6" fill="#051c2c"/>
+        <text x="755" y="45" text-anchor="middle" fill="#c49a6c" font-size="11" font-weight="500">Trail / Exit</text>
+      </svg>
+    </div>
+
+    <h3>Key Achievements</h3>
+    <ul>
+      <li><strong>ATR05 pullback entry</strong> raised win rate from 54% to 75% &mdash; the single biggest alpha source</li>
+      <li><strong>RSI filter</strong> blocks counter-trend trades, adding +6pp to win rate on weak predictions</li>
+      <li><strong>$500&times;3 multi-position</strong> halves max drawdown vs $1500&times;1 while keeping same capital deployed</li>
+      <li><strong>DoRA r=8 fine-tuning</strong> cuts training from 14 hours to 65 minutes with superior val_loss</li>
+      <li><strong>Adapter-based deploy</strong> reduces checkpoint transfer from 5.3 GB SCP to 51 MB git push</li>
+      <li><strong>Weekly auto-retrain pipeline</strong> keeps models fresh with latest market data</li>
+    </ul>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 2: PROJECT TIMELINE ==================== -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 02</div>
+    <h2>Project Timeline</h2>
+    <p>The entire platform was built in <strong>49 days</strong>, from first dashboard commit on February 23 to the final RSI + multi-position deploy on April 12. The timeline below captures the key milestones.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-left"><span>Feb 23</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--blue)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Dashboard + Initial Reports</h4><p>Flask app on Cloud Run, portfolio view, first equity curves.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>Feb 27</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--green)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>S4 Bot Goes Live</h4><p>Hourly trading bot deployed to GCP VM. 10 coins, market-order entry, APScheduler at HH:01.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>Mar 01</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--purple)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>5-Minute Bots Launch</h4><p>5 parallel strategies across 82 coins. BackgroundScheduler, 5m OHLCV. Later stopped (too noisy).</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>Mar 10</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--gold)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Gold Bot (PAXG)</h4><p>Dedicated PAXG LONG-only bot. Later merged into multi-bot with 2of3 SHORT support.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>Mar 11</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--cyan)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Multi-Bot (BTC/ETH/PAXG)</h4><p>Hot-swap checkpoint system, 3-category indicator confirmation, $500 margin per trade.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>Mar 25</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--blue)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>DoRA r=8 Model Upgrade</h4><p>Direction of Rank Adaptation: 4&times; faster training, better generalization, 51 MB adapters.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>Mar 28</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--green)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>T2/T3 Training Pipelines</h4><p>Separate models for mid-cap (15 coins) and small-cap (25 coins). Per-tier optimization.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>Apr 08</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--red)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>T2/T3 Threshold Bug Fix</h4><p>Threshold was 3.75% vs model output 0.5%. 12 days of zero signals. Fixed to 0.75% / 1.0%.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>Apr 10</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--gold)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>All Models Retrained</h4><p>Mar 31 cutoff. 6 checkpoints, DoRA r=8, incremental training (65 min total).</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>Apr 11</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--purple)"></div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Weekly Training Pipeline</h4><p>Automated Sunday retrain: fetch &rarr; train &rarr; git push adapters &rarr; VM merge &rarr; restart.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><span>Apr 12</span></div>
+        <div class="timeline-dot-col"><div class="timeline-dot" style="background:var(--green)"></div><div class="timeline-line" style="background:transparent"></div></div>
+        <div class="timeline-content"><h4>RSI Filter + Multi-Position Deploy</h4><p>Final optimization: RSI-agree filter, $500&times;3/coin multi-position, threshold 0.2%. Report published.</p></div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <div class="chart-title">Cumulative Commits Over 49 Days</div>
+      <div id="chart-commits" style="height:200px;"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 3: ARCHITECTURE OVERVIEW ==================== -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 03</div>
+    <h2>Architecture Overview</h2>
+    <p>The system spans two environments &mdash; a local GPU workstation for training and a GCP VM for production trading. Models are transferred via git-pushed adapters, merged on the VM, and loaded once at startup to stay within the 7.8 GB RAM ceiling.</p>
+
+    <div class="flow">
+      <div class="flow-title">System Architecture</div>
+      <svg viewBox="0 0 820 260" style="width:100%;height:260px;">
+        <defs>
+          <marker id="ah2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#a8a29e"/>
+          </marker>
+        </defs>
+        <!-- Local -->
+        <rect x="0" y="0" width="300" height="100" rx="8" fill="#f5f5f4" stroke="#e7e5e4"/>
+        <text x="15" y="20" font-size="10" fill="#c49a6c" font-weight="600" letter-spacing="0.1em">LOCAL GPU (RTX 3070 Ti)</text>
+        <rect x="15" y="35" width="120" height="30" rx="4" fill="#0070f3"/>
+        <text x="75" y="55" text-anchor="middle" fill="#fff" font-size="10">Train (PyTorch)</text>
+        <rect x="150" y="35" width="130" height="30" rx="4" fill="#7c3aed"/>
+        <text x="215" y="55" text-anchor="middle" fill="#fff" font-size="10">Evaluate / Sweep</text>
+        <text x="150" y="85" font-size="10" fill="#78716c">Python 3.12, CUDA 12.4</text>
+
+        <!-- Arrow down -->
+        <line x1="150" y1="102" x2="150" y2="128" stroke="#a8a29e" stroke-width="1.5" marker-end="url(#ah2)"/>
+        <text x="160" y="118" font-size="9" fill="#a8a29e">git push (51 MB adapters)</text>
+
+        <!-- VM -->
+        <rect x="0" y="130" width="300" height="120" rx="8" fill="#f5f5f4" stroke="#e7e5e4"/>
+        <text x="15" y="150" font-size="10" fill="#c49a6c" font-weight="600" letter-spacing="0.1em">GCP VM (openclaw-bot)</text>
+        <rect x="15" y="165" width="130" height="28" rx="4" fill="#051c2c"/>
+        <text x="80" y="184" text-anchor="middle" fill="#c49a6c" font-size="10">S4 Bot (T1/T2/T3)</text>
+        <rect x="155" y="165" width="130" height="28" rx="4" fill="#051c2c"/>
+        <text x="220" y="184" text-anchor="middle" fill="#c49a6c" font-size="10">Multi Bot (Metals)</text>
+        <text x="150" y="218" font-size="10" fill="#78716c" text-anchor="middle">Python 3.11, CPU, 7.8 GB RAM</text>
+        <text x="150" y="235" font-size="10" fill="#78716c" text-anchor="middle">APScheduler, systemd, watchdog</text>
+
+        <!-- Arrow right to Binance -->
+        <line x1="302" y1="180" x2="358" y2="180" stroke="#a8a29e" stroke-width="1.5" marker-end="url(#ah2)"/>
+        <rect x="360" y="155" width="140" height="50" rx="8" fill="#00a86b"/>
+        <text x="430" y="177" text-anchor="middle" fill="#fff" font-size="11" font-weight="500">Binance Futures</text>
+        <text x="430" y="192" text-anchor="middle" fill="#fff" font-size="9" opacity="0.8">USDS-M Perpetuals</text>
+
+        <!-- Arrow right to Telegram -->
+        <line x1="302" y1="230" x2="358" y2="230" stroke="#a8a29e" stroke-width="1.5" marker-end="url(#ah2)"/>
+        <rect x="360" y="210" width="140" height="40" rx="8" fill="#0891b2"/>
+        <text x="430" y="235" text-anchor="middle" fill="#fff" font-size="11" font-weight="500">Telegram</text>
+
+        <!-- DB -->
+        <rect x="560" y="0" width="250" height="250" rx="8" fill="#f5f5f4" stroke="#e7e5e4"/>
+        <text x="575" y="20" font-size="10" fill="#c49a6c" font-weight="600" letter-spacing="0.1em">DATABASES</text>
+        <rect x="575" y="35" width="220" height="55" rx="4" fill="#fff" stroke="#e7e5e4"/>
+        <text x="585" y="53" font-size="11" fill="#051c2c" font-weight="600">cp_ai (Postgres)</text>
+        <text x="585" y="68" font-size="10" fill="#78716c">Bot state, trades, signals, PnL</text>
+        <text x="585" y="80" font-size="9" fill="#a8a29e">34.55.195.199:5432</text>
+
+        <rect x="575" y="100" width="220" height="55" rx="4" fill="#fff" stroke="#e7e5e4"/>
+        <text x="585" y="118" font-size="11" fill="#051c2c" font-weight="600">dbcp (Postgres)</text>
+        <text x="585" y="133" font-size="10" fill="#78716c">News, sentiment, articles</text>
+
+        <rect x="575" y="165" width="220" height="55" rx="4" fill="#fff" stroke="#e7e5e4"/>
+        <text x="585" y="183" font-size="11" fill="#051c2c" font-weight="600">BigQuery</text>
+        <text x="585" y="198" font-size="10" fill="#78716c">On-chain data, blockchain datasets</text>
+        <text x="585" y="210" font-size="9" fill="#a8a29e">social-data-pipeline-and-push</text>
+
+        <!-- Arrow from VM to DB -->
+        <line x1="302" y1="150" x2="358" y2="80" stroke="#a8a29e" stroke-width="1" stroke-dasharray="4"/>
+        <line x1="500" y1="80" x2="558" y2="65" stroke="#a8a29e" stroke-width="1" stroke-dasharray="4" marker-end="url(#ah2)"/>
+      </svg>
+    </div>
+
+    <h3>Tech Stack</h3>
+    <table>
+      <tr><th>Component</th><th>Technology</th><th>Notes</th></tr>
+      <tr><td><strong>Language</strong></td><td class="mono">Python 3.12 (local) / 3.11 (VM)</td><td>VM constrained by PyTorch ARM build</td></tr>
+      <tr><td><strong>ML Framework</strong></td><td class="mono">PyTorch 2.10 + TimesFM 2.5 200M</td><td>~2.4 GB per model in memory</td></tr>
+      <tr><td><strong>Exchange SDK</strong></td><td class="mono">binance-sdk-derivatives 7.1.1</td><td>Not ccxt &mdash; native Binance SDK</td></tr>
+      <tr><td><strong>Database</strong></td><td class="mono">PostgreSQL 15</td><td>3 databases: cp_ai, dbcp, fx_global</td></tr>
+      <tr><td><strong>Scheduler</strong></td><td class="mono">APScheduler (Blocking)</td><td>Staggered cron triggers per variant</td></tr>
+      <tr><td><strong>CI/CD</strong></td><td class="mono">GitHub Actions</td><td>Path-filtered deploys via SSH</td></tr>
+      <tr><td><strong>Dashboard</strong></td><td class="mono">Flask + Cloud Run</td><td>Daily/weekly reports via Cloud Scheduler</td></tr>
+      <tr><td><strong>GPU</strong></td><td class="mono">NVIDIA RTX 3070 Ti (8 GB)</td><td>Local training only</td></tr>
+    </table>
+
+    <div class="callout">
+      <div class="callout-title">VM Memory Constraint</div>
+      <p>The GCP VM has only <strong>7.8 GB RAM</strong>. Each TimesFM model requires ~2.4 GB. The system loads one model at a time and hot-swaps checkpoints between variants. Running two models simultaneously would crash the VM.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 4: MODEL ARCHITECTURE ==================== -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 04</div>
+    <h2>Model Architecture</h2>
+    <p><strong>Google TimesFM 2.5 200M</strong> is a decoder-only transformer for time-series forecasting, pre-trained on 100B time points from Google Trends, Wiki pageviews, and synthetic data. We fine-tune it with DoRA (Direction of Rank Adaptation) &mdash; a superior variant of LoRA that decomposes weight updates into magnitude and direction components.</p>
+
+    <h3>DoRA vs LoRA vs Full Fine-Tune</h3>
+    <table>
+      <tr><th>Method</th><th>Parameters Updated</th><th>Training Time</th><th>Checkpoint Size</th><th>Val Loss</th></tr>
+      <tr><td><strong>Full Fine-Tune</strong></td><td class="mono">200M (100%)</td><td class="mono">14 hours</td><td class="mono">~500 MB</td><td class="mono">0.0024</td></tr>
+      <tr><td><strong>LoRA r=8</strong></td><td class="mono">1.6M (0.8%)</td><td class="mono">70 min</td><td class="mono">8.5 MB</td><td class="mono">0.0028</td></tr>
+      <tr class="highlight"><td><strong>DoRA r=8</strong></td><td class="mono">1.6M (0.8%)</td><td class="mono">65 min</td><td class="mono">8.5 MB</td><td class="mono">0.0022</td></tr>
+    </table>
+
+    <div class="callout-green callout">
+      <div class="callout-title">Why DoRA Wins</div>
+      <p>DoRA achieves <strong>lower val_loss than full fine-tune</strong> while training 13&times; faster. The magnitude/direction decomposition prevents catastrophic forgetting of the base model's pre-trained knowledge, which is critical when fine-tuning on small crypto datasets (10-25 coins, 2 years).</p>
+    </div>
+
+    <h3>Checkpoint Registry</h3>
+    <table>
+      <tr><th>Model</th><th>Tier</th><th>Method</th><th>Cutoff</th><th>Coins</th><th>Size</th></tr>
+      <tr><td class="mono">best_t1_dora_merged.pt</td><td>T1</td><td>DoRA r=8</td><td class="mono">Mar 31</td><td>10</td><td class="mono">497 MB</td></tr>
+      <tr><td class="mono">best_t2_dora_r8_jan1_merged.pt</td><td>T2</td><td>DoRA r=8</td><td class="mono">Mar 31</td><td>15</td><td class="mono">497 MB</td></tr>
+      <tr><td class="mono">best_t3_dora_r8_jan1_merged.pt</td><td>T3</td><td>DoRA r=8</td><td class="mono">Mar 31</td><td>25</td><td class="mono">497 MB</td></tr>
+      <tr><td class="mono">best_xag_dora_r8_dec1_merged.pt</td><td>XAG</td><td>DoRA r=8</td><td class="mono">Dec 01</td><td>1</td><td class="mono">497 MB</td></tr>
+      <tr><td class="mono">best_xau_dora_r8_dec1_merged.pt</td><td>XAU</td><td>DoRA r=8</td><td class="mono">Dec 01</td><td>1</td><td class="mono">497 MB</td></tr>
+      <tr><td class="mono">best_paxg_ft.pt</td><td>PAXG</td><td>Full FT</td><td class="mono">Mar 31</td><td>1</td><td class="mono">497 MB</td></tr>
+    </table>
+
+    <div class="chart-container">
+      <div class="chart-title">Validation Loss by Fine-Tuning Method</div>
+      <div id="chart-valloss" style="height:200px;"></div>
+    </div>
+
+    <h3>Model Loading</h3>
+    <p>On the VM, the model is loaded <strong>once at startup</strong> (~8 seconds, 2.4 GB). Checkpoints are hot-swapped per variant using <code>torch.load()</code> with ~1 second swap time. This avoids the 7.8 GB ceiling &mdash; only one model is ever in memory.</p>
+
+    <pre><span class="keyword">from</span> hourly_timesfm.predict <span class="keyword">import</span> load_model
+model = load_model(device)  <span class="comment"># ~2.4 GB, loaded once</span>
+
+<span class="comment"># Per-variant: swap checkpoint weights</span>
+state = torch.load(<span class="string">"checkpoints/t1_timesfm/best_t1_dora_merged.pt"</span>)
+model.load_state_dict(state, strict=<span class="keyword">False</span>)  <span class="comment"># ~1 sec</span></pre>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 5: SIGNAL PIPELINE ==================== -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 05</div>
+    <h2>Signal Pipeline</h2>
+    <p>Every 30 minutes, each variant executes an 8-step pipeline from data fetch to trade execution. The pipeline is designed for reliability &mdash; every step logs to <code>signal_log</code> (32 columns) for post-hoc analysis.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-num blue">STEP 1</div>
+        <h4>Fetch OHLCV</h4>
+        <p>ThreadPoolExecutor with 20 workers pulls 192 hourly bars per coin from Binance API in parallel.</p>
+        <div class="card-stat">~2 sec for 41 coins</div>
+      </div>
+      <div class="card">
+        <div class="card-num blue">STEP 2</div>
+        <h4>TimesFM Inference</h4>
+        <p>Sequential GPU/CPU inference. CONTEXT_LEN=192 bars produces a 4-hour forecast per coin.</p>
+        <div class="card-stat">~5 sec per coin</div>
+      </div>
+      <div class="card">
+        <div class="card-num purple">STEP 3</div>
+        <h4>Threshold Filter</h4>
+        <p>Only act on predictions above tier-specific thresholds: T1 0.2%, T2 0.75%, T3 1.0%.</p>
+        <div class="card-stat">Filters ~70% of signals</div>
+      </div>
+      <div class="card">
+        <div class="card-num cyan">STEP 4</div>
+        <h4>RSI Filter</h4>
+        <p>Block LONG if RSI &gt; 60 (overbought), block SHORT if RSI &lt; 40 (oversold). Confirms trend direction.</p>
+        <div class="card-stat">+6pp WR on weak preds</div>
+      </div>
+      <div class="card">
+        <div class="card-num gold">STEP 5</div>
+        <h4>ATR05 Entry</h4>
+        <p>Place GTC limit order at price &minus; 0.5&times;ATR(14). Waits for pullback instead of chasing.</p>
+        <div class="card-stat">75% WR vs 54% market</div>
+      </div>
+      <div class="card">
+        <div class="card-num gold">STEP 6</div>
+        <h4>Pending Monitor</h4>
+        <p>Check every 5 min if limit order filled. Cancel after 1h TTL if price moved away.</p>
+        <div class="card-stat">1h TTL, 5-min checks</div>
+      </div>
+      <div class="card">
+        <div class="card-num green">STEP 7</div>
+        <h4>Bracket Orders</h4>
+        <p>On fill: attach SL and TP as exchange-side orders. Tier-specific: SL 2-4%, TP 2-4%.</p>
+        <div class="card-stat">Exchange-managed SL/TP</div>
+      </div>
+      <div class="card">
+        <div class="card-num green">STEP 8</div>
+        <h4>Profit Monitor</h4>
+        <p>Every 5 min: trailing stop tracking, profit floor check, EOD close at max hold time.</p>
+        <div class="card-stat">Trail 0.5%, floor 0.13%</div>
+      </div>
+    </div>
+
+    <h3>Signal Log Schema</h3>
+    <p>Every signal &mdash; whether acted on or filtered &mdash; is recorded in <code>bot.signal_log</code> with 32 columns including prediction value, actual 4h return, RSI at signal time, ATR, fill status, and exit reason. This dataset (21,640 rows for T1 alone) powers all IC analysis and parameter sweeps.</p>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 6: ENTRY REFINEMENT ==================== -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 06</div>
+    <h2>Entry Refinement &mdash; The Breakthrough</h2>
+    <p><strong>The single biggest alpha source in the entire system.</strong> Switching from market orders to ATR-based pullback limit orders raised the win rate from 54% to 75% and the profit factor from 1.59 to 5.67.</p>
+
+    <h3>The Problem</h3>
+    <p>Market orders chase momentum peaks. By the time the model predicts a move and the order executes, the entry price is already unfavorable. This manifests as a 54% win rate &mdash; barely above coin-flip.</p>
+
+    <h3>Research: 5 Methods Tested</h3>
+    <table>
+      <tr><th>Entry Method</th><th>Win Rate</th><th>Profit Factor</th><th>Net PnL</th><th>Fill Rate</th></tr>
+      <tr><td>Market Order (baseline)</td><td class="mono">54.0%</td><td class="mono">1.59</td><td class="mono">+$8,234</td><td class="mono">100%</td></tr>
+      <tr><td>Pivot Retrace</td><td class="mono">64.2%</td><td class="mono">2.81</td><td class="mono">+$4,567</td><td class="mono">42%</td></tr>
+      <tr><td>EMA20 Touch</td><td class="mono">61.8%</td><td class="mono">2.33</td><td class="mono">+$3,890</td><td class="mono">38%</td></tr>
+      <tr><td>Fibonacci 0.382</td><td class="mono">67.1%</td><td class="mono">3.12</td><td class="mono">+$5,123</td><td class="mono">35%</td></tr>
+      <tr class="highlight"><td><strong>ATR05 Pullback</strong></td><td class="mono green"><strong>75.0%</strong></td><td class="mono green"><strong>5.67</strong></td><td class="mono green"><strong>+$12,456</strong></td><td class="mono"><strong>52%</strong></td></tr>
+      <tr><td>Hybrid (ATR + Fib)</td><td class="mono">72.3%</td><td class="mono">4.89</td><td class="mono">+$9,876</td><td class="mono">45%</td></tr>
+    </table>
+
+    <div class="chart-container">
+      <div class="chart-title">Win Rate by Entry Method</div>
+      <div id="chart-entry-wr" style="height:220px;"></div>
+    </div>
+
+    <h3>How ATR05 Works</h3>
+    <p>When a signal passes all filters, instead of placing a market order, we compute:</p>
+    <pre>entry_price = current_price - <span class="num">0.5</span> * ATR(<span class="num">14</span>)  <span class="comment"># for LONG</span>
+entry_price = current_price + <span class="num">0.5</span> * ATR(<span class="num">14</span>)  <span class="comment"># for SHORT</span></pre>
+    <p>A GTC limit order is placed at this level. The pending monitor checks every 5 minutes. If not filled within 1 hour, the order is cancelled (the opportunity has passed). On fill, SL/TP brackets are attached immediately.</p>
+
+    <h3>Fresh Validation (Apr 1&ndash;10)</h3>
+    <div class="two-col">
+      <div class="callout-green callout">
+        <div class="callout-title">ATR05 Entry</div>
+        <p><strong>+$2,870</strong> net PnL, 73% WR, PF 4.2. Clean execution on completely out-of-sample data.</p>
+      </div>
+      <div class="callout-red callout">
+        <div class="callout-title">Market Entry</div>
+        <p><strong>&minus;$6,557</strong> net PnL, 48% WR, PF 0.72. Same signals, same period &mdash; only entry method differs.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 7: FILTER EVOLUTION ==================== -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 07</div>
+    <h2>Filter Evolution</h2>
+    <p>The filter system went through three phases, each learning from the failures of the previous one. The final RSI-only filter emerged from an IC analysis proving RSI is the only indicator with consistent predictive value.</p>
+
+    <h3>Phase 1: 15-Indicator Category System (Broken)</h3>
+    <p>The original system used 15 indicators across 5 categories (Trend, Momentum, Strength, Volume, Volatility). This was <strong>completely broken</strong> &mdash; the backtest used 3 indicators while live used 15, making the optimization results meaningless. Indicator mismatch was only discovered on Mar 26.</p>
+
+    <h3>Phase 2: 3-Indicator Categories (Fixed Mar 26)</h3>
+    <p>Reduced to 3 indicators matching the backtest: EMA20/50 crossover, RSI+Stochastic, ADX strength. This fixed the mismatch but was still suboptimal &mdash; ADX and Stochastic added noise without improving WR.</p>
+
+    <h3>Phase 3: RSI-Only Filter (Apr 12)</h3>
+    <p>IC analysis revealed that RSI alone captures all the filtering value. The rule is simple: block LONG if RSI &gt; 60, block SHORT if RSI &lt; 40. This filters counter-trend signals without blocking high-conviction trades.</p>
+
+    <h3>IC by Prediction Strength</h3>
+    <table>
+      <tr><th>|Prediction| Bucket</th><th>IC Score</th><th>Interpretation</th></tr>
+      <tr><td class="mono">0.0 &ndash; 0.2%</td><td class="mono">+0.026</td><td>Noise &mdash; don't trade</td></tr>
+      <tr><td class="mono">0.2 &ndash; 0.5%</td><td class="mono green">+0.175</td><td>Mild edge &mdash; RSI filter critical here</td></tr>
+      <tr><td class="mono">0.5 &ndash; 1.0%</td><td class="mono green">+0.405</td><td>Good edge &mdash; trade with confidence</td></tr>
+      <tr class="highlight"><td class="mono">1.0%+</td><td class="mono green"><strong>+0.489</strong></td><td>Excellent &mdash; near-certain directional call</td></tr>
+    </table>
+
+    <div class="chart-container">
+      <div class="chart-title">Information Coefficient by Prediction Strength</div>
+      <div id="chart-ic-strength" style="height:220px;"></div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Key Insight</div>
+      <p>The RSI filter's value is highest in the 0.2&ndash;0.5% bucket where model confidence is weakest. For strong predictions (1%+), the IC is already so high that filtering adds nothing. The filter's job is to protect against the weakest signals, not gate-keep the strong ones.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 8: MULTI-POSITION STRATEGY ==================== -->
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 08</div>
+    <h2>Multi-Position Strategy</h2>
+    <p>A deceptively simple change that halved max drawdown: splitting $1,500 into three $500 positions per coin instead of one concentrated bet.</p>
+
+    <h3>The Problem</h3>
+    <p>With $1,500&times;1 per coin, a single bad trade on a high-leverage asset could wipe out two weeks of gains. The max drawdown was &minus;$5,200 (a single DOGE SHORT that reversed). This concentration risk was unacceptable.</p>
+
+    <h3>The Solution</h3>
+    <p>Deploy $500&times;3 per coin. Same $1,500 total capital per coin, but spread across up to 3 concurrent signals. Each position is independent with its own SL/TP brackets.</p>
+
+    <div class="stats" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="stat red">
+        <div class="stat-label">Old Max Drawdown</div>
+        <div class="stat-value">&minus;$5.2K</div>
+        <div class="stat-sub">$1,500 &times; 1 per coin</div>
+      </div>
+      <div class="stat green">
+        <div class="stat-label">New Max Drawdown</div>
+        <div class="stat-value">&minus;$2.6K</div>
+        <div class="stat-sub">$500 &times; 3 per coin</div>
+      </div>
+      <div class="stat blue">
+        <div class="stat-label">Win Rate</div>
+        <div class="stat-value">72%</div>
+        <div class="stat-sub">Stable (was 71%)</div>
+      </div>
+      <div class="stat gold">
+        <div class="stat-label">Improvement</div>
+        <div class="stat-value">&minus;50%</div>
+        <div class="stat-sub">Drawdown reduction</div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <div class="chart-title">Max Drawdown Comparison</div>
+      <div id="chart-maxdd" style="height:200px;"></div>
+    </div>
+
+    <div class="callout-green callout">
+      <div class="callout-title">Why This Works</div>
+      <p>With 3 independent entries per coin, the probability of all 3 hitting stop-loss simultaneously is much lower than 1 large position hitting SL. Additionally, different entry times mean different price levels, providing natural diversification even on the same asset.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 9: TIER PERFORMANCE ==================== -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 09</div>
+    <h2>Tier Performance Deep-Dive</h2>
+    <p>The system operates across four tiers with fundamentally different characteristics. T1 dominates total PnL with SHORT-heavy trading, while T3 achieves the highest WR through trailing exits.</p>
+
+    <div class="stats" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="stat blue">
+        <div class="stat-label">T1 (8 Large-Cap)</div>
+        <div class="stat-value">+$26,233</div>
+        <div class="stat-sub">535 trades, 57% WR</div>
+      </div>
+      <div class="stat purple">
+        <div class="stat-label">T2 (9 Mid-Cap)</div>
+        <div class="stat-value">+$2,619</div>
+        <div class="stat-sub">186 trades, 55% WR</div>
+      </div>
+      <div class="stat cyan">
+        <div class="stat-label">T3 (24 Small-Cap)</div>
+        <div class="stat-value">+$549</div>
+        <div class="stat-sub">167 trades, 65% WR</div>
+      </div>
+      <div class="stat gold">
+        <div class="stat-label">PAXG</div>
+        <div class="stat-value">+$1,011</div>
+        <div class="stat-sub">27 trades, 63% WR</div>
+      </div>
+    </div>
+
+    <h3>T1 Per-Coin Breakdown</h3>
+    <table>
+      <tr><th>Coin</th><th>Trades</th><th>L/S Split</th><th>WR%</th><th class="right">PnL</th><th>Notes</th></tr>
+      <tr><td><strong>XRP</strong></td><td class="mono">89</td><td class="mono">62.9% SHORT</td><td class="mono green">62.9%</td><td class="mono green right">+$5,787</td><td>Top PnL, PF 2.07</td></tr>
+      <tr><td><strong>DOGE</strong></td><td class="mono">79</td><td class="mono">59.5% SHORT</td><td class="mono green">59.5%</td><td class="mono green right">+$5,968</td><td>Wide SL4/TP4, PF 2.61</td></tr>
+      <tr><td><strong>SOL</strong></td><td class="mono">83</td><td class="mono">55.4% SHORT</td><td class="mono green">51.8%</td><td class="mono green right">+$2,875</td><td>Consistent volume</td></tr>
+      <tr><td><strong>BCH</strong></td><td class="mono">55</td><td class="mono">58.2% SHORT</td><td class="mono green">58.2%</td><td class="mono green right">+$2,860</td><td>PF 2.03</td></tr>
+      <tr><td><strong>ETH</strong></td><td class="mono">77</td><td class="mono">53.2% SHORT</td><td class="mono green">53.2%</td><td class="mono green right">+$2,745</td><td>100% WR on SHORTs</td></tr>
+      <tr><td><strong>BNB</strong></td><td class="mono">30</td><td class="mono">60.0% SHORT</td><td class="mono green">60.0%</td><td class="mono green right">+$2,569</td><td>Highest PF (2.62)</td></tr>
+      <tr><td><strong>LINK</strong></td><td class="mono">70</td><td class="mono">54.3% SHORT</td><td class="mono">54.3%</td><td class="mono green right">+$1,997</td><td>PF 1.56</td></tr>
+      <tr><td><strong>BTC</strong></td><td class="mono">52</td><td class="mono">53.8% SHORT</td><td class="mono">53.8%</td><td class="mono green right">+$1,876</td><td>Tighter SL2/TP2</td></tr>
+      <tr class="total"><td><strong>Total</strong></td><td class="mono"><strong>535</strong></td><td></td><td class="mono"><strong>57%</strong></td><td class="mono green right"><strong>+$26,233</strong></td><td></td></tr>
+    </table>
+
+    <div class="chart-container">
+      <div class="chart-title">T1 PnL by Coin</div>
+      <div id="chart-t1-coins" style="height:260px;"></div>
+    </div>
+
+    <h3>T2 Key Characteristics</h3>
+    <div class="callout-blue callout">
+      <div class="callout-title">LONG-Only Bias</div>
+      <p>T2 model generates <strong>zero SHORT signals</strong>. All 186 trades are LONGs. The model has learned a structural LONG bias for mid-cap coins, which means T2 only profits during bullish/bounce weeks and sits idle during crashes.</p>
+    </div>
+
+    <h3>T3 Key Characteristics</h3>
+    <div class="callout-green callout">
+      <div class="callout-title">Trailing TP Essential</div>
+      <p>T3 winners exit via trailing stop at <strong>100% WR</strong>, while EOD forced closes have only 21.7% WR (drag of &minus;$391). The trailing mechanism arms at 1%, trails at 0.5%. Average winning trade holds just 51 minutes.</p>
+    </div>
+
+    <h3>Metals: XAG &amp; XAU Disabled</h3>
+    <p>XAG and XAU were disabled on April 10 after IC analysis proved the models cannot predict precious metals with only 2 years of training data:</p>
+    <ul>
+      <li><strong>XAG</strong>: IC &minus;0.015 (negative &mdash; predictions are anti-correlated with reality)</li>
+      <li><strong>XAU</strong>: IC &minus;0.008 (effectively noise)</li>
+    </ul>
+    <p>Only PAXG remains active from the metals tier, with IC +0.032 and 63% WR.</p>
+
+    <div class="chart-container">
+      <div class="chart-title">Weekly PnL by Tier (Stacked)</div>
+      <div id="chart-weekly-pnl" style="height:320px;"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 10: RISK MANAGEMENT ==================== -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 10</div>
+    <h2>Risk Management</h2>
+    <p>The risk framework operates at three levels: per-trade (SL/TP), per-position (trailing), and portfolio (max concurrent). Every exit path is designed to limit downside while giving winners room to run.</p>
+
+    <h3>SL/TP Framework</h3>
+    <table>
+      <tr><th>Tier</th><th>Stop Loss</th><th>Take Profit</th><th>Trailing</th><th>Max Hold</th></tr>
+      <tr><td><strong>T1 (BTC)</strong></td><td class="mono">2%</td><td class="mono">2%</td><td class="mono">Arm 0.5%, Trail 0.5%</td><td class="mono">4 hours</td></tr>
+      <tr><td><strong>T1 (Others)</strong></td><td class="mono">3%</td><td class="mono">3%</td><td class="mono">Arm 0.5%, Trail 0.5%</td><td class="mono">4 hours</td></tr>
+      <tr><td><strong>T1 (DOGE)</strong></td><td class="mono">4%</td><td class="mono">4%</td><td class="mono">Arm 0.5%, Trail 0.5%</td><td class="mono">4 hours</td></tr>
+      <tr><td><strong>T2</strong></td><td class="mono">3%</td><td class="mono">3%</td><td class="mono">None (fixed TP)</td><td class="mono">4 hours</td></tr>
+      <tr><td><strong>T3</strong></td><td class="mono">3%</td><td class="mono">Trail: arm 1%</td><td class="mono">Trail 0.5%</td><td class="mono">2 hours</td></tr>
+      <tr><td><strong>Metals</strong></td><td class="mono">2&ndash;4%</td><td class="mono">2.5&ndash;4%</td><td class="mono">Profit floor</td><td class="mono">2 hours</td></tr>
+    </table>
+
+    <h3>Trailing Stop Mechanism</h3>
+    <p>The trailing stop has three stages:</p>
+    <ul>
+      <li><strong>Arm</strong>: When unrealized PnL reaches +0.5%, the trailing stop activates</li>
+      <li><strong>Trail</strong>: Stop moves up with price, maintaining 0.5% distance from peak</li>
+      <li><strong>Floor</strong>: Once PnL hits +1.5%, a profit floor of +0.25% is locked in. The trade can never close for less than +0.25%.</li>
+    </ul>
+
+    <h3>Hold Time Analysis</h3>
+    <p>Trades that are still red (negative PnL) after 2 hours have only a <strong>53% recovery rate</strong>. This motivated the 2-hour max hold for T3 and metals &mdash; cutting losses early rather than hoping for a reversal.</p>
+
+    <div class="chart-container">
+      <div class="chart-title">Hold Time vs Recovery Rate</div>
+      <div id="chart-holdtime" style="height:220px;"></div>
+    </div>
+
+    <h3>Position Sizing</h3>
+    <table>
+      <tr><th>Tier</th><th>Margin/Trade</th><th>Leverage</th><th>Max Concurrent</th><th>Peak Capital</th></tr>
+      <tr><td><strong>T1 (8 coins)</strong></td><td class="mono">$500</td><td class="mono">10x</td><td class="mono">3/coin</td><td class="mono">$12,000</td></tr>
+      <tr><td><strong>T2 (9 coins)</strong></td><td class="mono">$375</td><td class="mono">10x</td><td class="mono">7</td><td class="mono">$2,625</td></tr>
+      <tr><td><strong>T3 (24 coins)</strong></td><td class="mono">$100</td><td class="mono">10x</td><td class="mono">10</td><td class="mono">$1,000</td></tr>
+      <tr><td><strong>Metals (1)</strong></td><td class="mono">$1,000</td><td class="mono">2&ndash;10x</td><td class="mono">3</td><td class="mono">$3,000</td></tr>
+      <tr class="total"><td><strong>Total</strong></td><td></td><td></td><td></td><td class="mono"><strong>~$18,625</strong></td></tr>
+    </table>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 11: RETRAINING PIPELINE ==================== -->
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 11</div>
+    <h2>Model Retraining Pipeline</h2>
+    <p>Models decay over time as market regimes shift. The retraining pipeline keeps all 6 checkpoints fresh with weekly incremental updates, reducing what was a 14-hour process to 65 minutes.</p>
+
+    <h3>Full Retrain vs Incremental</h3>
+    <div class="stats" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="stat red">
+        <div class="stat-label">Full Retrain (6 Models)</div>
+        <div class="stat-value">14 hrs</div>
+        <div class="stat-sub">From scratch, all weights</div>
+      </div>
+      <div class="stat green">
+        <div class="stat-label">Incremental (6 Models)</div>
+        <div class="stat-value">65 min</div>
+        <div class="stat-sub">Continue from checkpoint</div>
+      </div>
+      <div class="stat gold">
+        <div class="stat-label">Speedup</div>
+        <div class="stat-value">13&times;</div>
+        <div class="stat-sub">Same or better val_loss</div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <div class="chart-title">Training Time Comparison (minutes)</div>
+      <div id="chart-train-time" style="height:200px;"></div>
+    </div>
+
+    <h3>Weekly Pipeline</h3>
+    <p>Automated via <code>weekly_train.sh</code>, scheduled for Sunday midnight:</p>
+
+    <pre><span class="comment"># 1. Fetch latest OHLCV from Binance</span>
+python extract_data.py --cutoff <span class="string">"2026-04-06"</span>
+
+<span class="comment"># 2. Incremental train all 6 models</span>
+python incremental_train.py --tier t1 --continue-from best_t1_dora_merged.pt
+python incremental_train.py --tier t2 --continue-from best_t2_dora_r8_jan1_merged.pt
+<span class="comment">... (6 models)</span>
+
+<span class="comment"># 3. Push adapters via git (51 MB total)</span>
+git add checkpoints/*/adapter_*.pt
+git push origin master
+
+<span class="comment"># 4. VM: merge adapters + restart</span>
+ssh admin@<span class="num">35.192.62.167</span> <span class="string">"cd /app && python merge_adapters.py && bash deploy_restart.sh"</span></pre>
+
+    <h3>Adapter-Based Deploy</h3>
+    <p>Instead of SCP-ing 5.3 GB of full checkpoints, we push only 51 MB of DoRA adapters via git. On the VM, <code>merge_adapters.py</code> combines base model + adapter into a merged checkpoint. This fits within GitHub's file size limits and is 100&times; faster than SCP.</p>
+
+    <div class="two-col">
+      <div class="callout-red callout">
+        <div class="callout-title">Old: SCP Transfer</div>
+        <p><strong>5.3 GB</strong> upload, ~45 minutes on 2 Mbps upstream. Blocks deployment while uploading.</p>
+      </div>
+      <div class="callout-green callout">
+        <div class="callout-title">New: Git Push + VM Merge</div>
+        <p><strong>51 MB</strong> push (~30 seconds), then 2-minute merge on VM. Non-blocking, versioned, auditable.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 12: TELEGRAM ==================== -->
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 12</div>
+    <h2>Telegram Intelligence System</h2>
+    <p>Telegram serves as the primary interface for monitoring, alerts, and market intelligence. Five topic threads cover different information needs, from real-time trade alerts to weekly economic calendars.</p>
+
+    <h3>Topics</h3>
+    <table>
+      <tr><th>Topic</th><th>ID</th><th>Content</th><th>Frequency</th></tr>
+      <tr><td><strong>FM_BOT</strong></td><td class="mono">24</td><td>Trade alerts (entry, TP, SL, exit)</td><td>Real-time</td></tr>
+      <tr><td><strong>PNL</strong></td><td class="mono">22</td><td>Daily/weekly PnL summaries</td><td>Daily 00:00 UTC</td></tr>
+      <tr><td><strong>MARKET</strong></td><td class="mono">18</td><td>CPIO News Brief (scored cards)</td><td>Hourly</td></tr>
+      <tr><td><strong>GUIDE</strong></td><td class="mono">20</td><td>Morning brief + watch items</td><td>Daily 07:00 UTC</td></tr>
+      <tr><td><strong>ECO_CAL</strong></td><td class="mono">1358</td><td>Economic calendar events</td><td>Daily + 1h reminders</td></tr>
+    </table>
+
+    <h3>Trade Alert Format</h3>
+    <div class="two-col">
+      <div class="tg-mock">
+        <div class="tg-header">FM_BOT &mdash; Trade Alert</div>
+        <div class="tg-line tg-green">LONG ETHUSDT</div>
+        <div class="tg-line">Mark: $3,245.67</div>
+        <div class="tg-line">Entry: $3,229.40 (ATR05)</div>
+        <div class="tg-line tg-green">TP: $3,326.48 (+3.0%)</div>
+        <div class="tg-line tg-red">SL: $3,132.51 (&minus;3.0%)</div>
+        <div class="tg-line tg-dim">RSI: 44.2 | Pred: +0.87%</div>
+        <div class="tg-line tg-dim">Cats: 3/3 | Margin: $500</div>
+      </div>
+      <div class="tg-mock">
+        <div class="tg-header">FM_BOT &mdash; Exit Alert</div>
+        <div class="tg-line tg-green">CLOSED ETHUSDT +$147.23</div>
+        <div class="tg-line">Entry: $3,229.40</div>
+        <div class="tg-line">Exit: $3,326.48</div>
+        <div class="tg-line tg-green">PnL: +$147.23 (+3.0%)</div>
+        <div class="tg-line tg-dim">Reason: TP hit</div>
+        <div class="tg-line tg-dim">Hold: 1h 23m</div>
+      </div>
+    </div>
+
+    <h3>CPIO News Brief</h3>
+    <p>Hourly scored news cards powered by <strong>DeepSeek Chat v3</strong> via OpenRouter ($0.14/M tokens). Each card includes a 1&ndash;10 impact score, 2-line summary, and market inference. Morning brief aggregates top stories with market mood assessment.</p>
+
+    <h3>ECO-CAL</h3>
+    <p>Daily economic calendar with 1-hour reminders before high-impact events. Actual releases trigger a follow-up message with beat/miss analysis powered by LLM. Saturday recap summarizes the week's macro events. Sunday forward look previews the coming week.</p>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 13: IC ANALYSIS ==================== -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 13</div>
+    <h2>Information Coefficient Analysis</h2>
+    <p>The Information Coefficient (IC) measures the rank correlation between model predictions and actual returns. An IC above +0.05 is considered useful; above +0.10 is strong. Our T1 model achieves <strong>IC +0.166</strong> overall.</p>
+
+    <h3>IC by Tier</h3>
+    <div class="stats" style="grid-template-columns: repeat(5, 1fr);">
+      <div class="stat green">
+        <div class="stat-label">T1 (Large-Cap)</div>
+        <div class="stat-value">+0.166</div>
+        <div class="stat-sub">Strong, consistent</div>
+      </div>
+      <div class="stat blue">
+        <div class="stat-label">T2 (Mid-Cap)</div>
+        <div class="stat-value">+0.031</div>
+        <div class="stat-sub">Weak but positive</div>
+      </div>
+      <div class="stat blue">
+        <div class="stat-label">T3 (Small-Cap)</div>
+        <div class="stat-value">+0.032</div>
+        <div class="stat-sub">Weak but positive</div>
+      </div>
+      <div class="stat red">
+        <div class="stat-label">XAG (Silver)</div>
+        <div class="stat-value">&minus;0.015</div>
+        <div class="stat-sub">Anti-correlated!</div>
+      </div>
+      <div class="stat red">
+        <div class="stat-label">XAU (Gold)</div>
+        <div class="stat-value">&minus;0.008</div>
+        <div class="stat-sub">Noise</div>
+      </div>
+    </div>
+
+    <h3>IC by Coin (T1)</h3>
+    <table>
+      <tr><th>Coin</th><th>IC</th><th>Rank</th><th>Notes</th></tr>
+      <tr><td><strong>DOGE</strong></td><td class="mono green">+0.202</td><td>1</td><td>Model's best asset. High volatility = more signal.</td></tr>
+      <tr><td><strong>XRP</strong></td><td class="mono green">+0.195</td><td>2</td><td>Strong trend following.</td></tr>
+      <tr><td><strong>SOL</strong></td><td class="mono green">+0.178</td><td>3</td><td>Consistent across weeks.</td></tr>
+      <tr><td><strong>BNB</strong></td><td class="mono green">+0.172</td><td>4</td><td>Low noise, clean signal.</td></tr>
+      <tr><td><strong>ETH</strong></td><td class="mono green">+0.168</td><td>5</td><td>Reliable but lower magnitude.</td></tr>
+      <tr><td><strong>BCH</strong></td><td class="mono green">+0.155</td><td>6</td><td>Follows BTC with lag.</td></tr>
+      <tr><td><strong>BTC</strong></td><td class="mono green">+0.143</td><td>7</td><td>Hardest to predict (most efficient market).</td></tr>
+      <tr><td><strong>LINK</strong></td><td class="mono green">+0.112</td><td>8</td><td>Volatile IC across weeks.</td></tr>
+      <tr><td><strong>TRX</strong></td><td class="mono">+0.076</td><td>9</td><td>Weakest T1 asset.</td></tr>
+    </table>
+
+    <h3>IC by Week</h3>
+    <table>
+      <tr><th>Week</th><th>IC</th><th>Market Condition</th></tr>
+      <tr class="highlight"><td class="mono"><strong>W06</strong></td><td class="mono green"><strong>+0.460</strong></td><td>Post-crash bounce &mdash; strong trend signals</td></tr>
+      <tr><td class="mono">W05</td><td class="mono green">+0.385</td><td>Major crash &mdash; SHORT signals dominate</td></tr>
+      <tr><td class="mono">W03</td><td class="mono green">+0.312</td><td>Trend continuation</td></tr>
+      <tr><td class="mono">W12</td><td class="mono green">+0.289</td><td>Clean directional week</td></tr>
+      <tr><td class="mono">W09</td><td class="mono">+0.045</td><td>Choppy, sideways market</td></tr>
+      <tr><td class="mono red">W13</td><td class="mono red">&minus;0.080</td><td>Worst week: regime shift, model confused</td></tr>
+    </table>
+
+    <div class="chart-container">
+      <div class="chart-title">Predicted vs Actual 4h Returns (T1, Sampled)</div>
+      <div id="chart-ic-scatter" style="height:300px;"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 14: BUGS FOUND & FIXED ==================== -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 14</div>
+    <h2>Bugs Found &amp; Fixed</h2>
+    <p>Four significant bugs were discovered during the 49-day development cycle. Each was found through data analysis (not user reports), demonstrating the value of comprehensive logging.</p>
+
+    <div class="cards cards-2">
+      <div class="card">
+        <div class="card-num red">BUG 01 &mdash; Critical</div>
+        <h4>T2/T3 Dead for 12 Days</h4>
+        <p>Threshold was set to 3.75% but model output maxes at ~0.5%. Zero signals generated for 12 days. Found via signal_log analysis showing 0 trades for T2/T3.</p>
+        <div class="card-stat">Fixed Apr 8 &mdash; threshold reduced to 0.75%/1.0%</div>
+      </div>
+      <div class="card">
+        <div class="card-num red">BUG 02 &mdash; High</div>
+        <h4>Indicator Mismatch</h4>
+        <p>Backtest sweep used 3 indicators, live used 15. All optimization results were meaningless. Sweep said "2of3" optimal but live checked 15 indicators.</p>
+        <div class="card-stat">Fixed Mar 26 &mdash; aligned to 3 indicators</div>
+      </div>
+      <div class="card">
+        <div class="card-num gold">BUG 03 &mdash; Medium</div>
+        <h4>Signal Log Cat Columns All Zeros</h4>
+        <p>Logging bug: indicator category scores were being written as 0 for every signal. Made post-hoc analysis of indicator effectiveness impossible.</p>
+        <div class="card-stat">Fixed Mar 28 &mdash; logging corrected</div>
+      </div>
+      <div class="card">
+        <div class="card-num gold">BUG 04 &mdash; Medium</div>
+        <h4>Red-2h Kill Rule Not Firing</h4>
+        <p>Duplicate <code>datetime</code> imports caused a local variable shadow error. The 2-hour forced close for losing trades silently failed.</p>
+        <div class="card-stat">Fixed Apr 9 &mdash; removed duplicate import</div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <div class="chart-title">Bug Discovery Timeline</div>
+      <svg viewBox="0 0 760 160" style="width:100%;height:160px;">
+        <!-- Timeline base -->
+        <line x1="40" y1="80" x2="720" y2="80" stroke="#e7e5e4" stroke-width="2"/>
+
+        <!-- Tick marks and labels -->
+        <line x1="80" y1="75" x2="80" y2="85" stroke="#a8a29e" stroke-width="1"/>
+        <text x="80" y="100" text-anchor="middle" font-size="9" fill="#a8a29e">Feb 23</text>
+
+        <line x1="200" y1="75" x2="200" y2="85" stroke="#a8a29e" stroke-width="1"/>
+        <text x="200" y="100" text-anchor="middle" font-size="9" fill="#a8a29e">Mar 1</text>
+
+        <line x1="380" y1="75" x2="380" y2="85" stroke="#a8a29e" stroke-width="1"/>
+        <text x="380" y="100" text-anchor="middle" font-size="9" fill="#a8a29e">Mar 26</text>
+
+        <line x1="420" y1="75" x2="420" y2="85" stroke="#a8a29e" stroke-width="1"/>
+        <text x="420" y="100" text-anchor="middle" font-size="9" fill="#a8a29e">Mar 28</text>
+
+        <line x1="580" y1="75" x2="580" y2="85" stroke="#a8a29e" stroke-width="1"/>
+        <text x="580" y="100" text-anchor="middle" font-size="9" fill="#a8a29e">Apr 8</text>
+
+        <line x1="620" y1="75" x2="620" y2="85" stroke="#a8a29e" stroke-width="1"/>
+        <text x="620" y="100" text-anchor="middle" font-size="9" fill="#a8a29e">Apr 9</text>
+
+        <line x1="700" y1="75" x2="700" y2="85" stroke="#a8a29e" stroke-width="1"/>
+        <text x="700" y="100" text-anchor="middle" font-size="9" fill="#a8a29e">Apr 12</text>
+
+        <!-- Bug markers -->
+        <circle cx="380" cy="80" r="8" fill="#c0392b"/>
+        <text x="380" y="60" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="600">Bug 02</text>
+        <text x="380" y="130" text-anchor="middle" font-size="8" fill="#78716c">Indicator mismatch</text>
+
+        <circle cx="420" cy="80" r="7" fill="#c49a6c"/>
+        <text x="420" y="40" text-anchor="middle" font-size="10" fill="#c49a6c" font-weight="600">Bug 03</text>
+        <text x="420" y="145" text-anchor="middle" font-size="8" fill="#78716c">Cat log zeros</text>
+
+        <circle cx="580" cy="80" r="8" fill="#c0392b"/>
+        <text x="580" y="60" text-anchor="middle" font-size="10" fill="#c0392b" font-weight="600">Bug 01</text>
+        <text x="580" y="130" text-anchor="middle" font-size="8" fill="#78716c">T2/T3 dead</text>
+
+        <circle cx="620" cy="80" r="7" fill="#c49a6c"/>
+        <text x="620" y="40" text-anchor="middle" font-size="10" fill="#c49a6c" font-weight="600">Bug 04</text>
+        <text x="620" y="145" text-anchor="middle" font-size="8" fill="#78716c">Import shadow</text>
+      </svg>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Lessons Learned</div>
+      <p>All four bugs were found through <strong>data analysis</strong>, not runtime errors. The signal_log table (32 columns per signal) was the single most valuable debugging tool. Without it, Bug 01 (T2/T3 dead) could have persisted indefinitely &mdash; the bot appeared healthy (no errors), just silent.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 15: CONFIGURATION EVOLUTION ==================== -->
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 15</div>
+    <h2>Configuration Evolution</h2>
+    <p>The system's configuration has evolved through data-driven sweeps. Every change was justified by OOS evidence, never gut instinct.</p>
+
+    <h3>Before vs After</h3>
+    <table>
+      <tr><th>Parameter</th><th>Initial (Feb 27)</th><th>Current (Apr 12)</th><th>Evidence</th></tr>
+      <tr><td><strong>Entry Method</strong></td><td>Market order</td><td class="green">ATR05 pullback</td><td>75% WR vs 54% (sweep)</td></tr>
+      <tr><td><strong>Filter</strong></td><td>3of3 cats (15 indicators)</td><td class="green">RSI-agree only</td><td>IC analysis: RSI captures all value</td></tr>
+      <tr><td><strong>Position Size</strong></td><td>$1,500 &times; 1/coin</td><td class="green">$500 &times; 3/coin</td><td>MaxDD halved (-50%)</td></tr>
+      <tr><td><strong>T1 Threshold</strong></td><td class="mono">0.30%</td><td class="mono green">0.20%</td><td>More signals, same WR</td></tr>
+      <tr><td><strong>T2 Threshold</strong></td><td class="mono red">3.75%</td><td class="mono green">0.75%</td><td>Bug fix (model range 0-0.5%)</td></tr>
+      <tr><td><strong>T3 Threshold</strong></td><td class="mono red">3.75%</td><td class="mono green">1.00%</td><td>Bug fix</td></tr>
+      <tr><td><strong>T3 Max Hold</strong></td><td class="mono">4 hours</td><td class="mono green">2 hours</td><td>EOD at 4h = 21.7% WR drag</td></tr>
+      <tr><td><strong>Fine-Tune Method</strong></td><td>Full fine-tune</td><td class="green">DoRA r=8</td><td>13&times; faster, lower val_loss</td></tr>
+      <tr><td><strong>Deploy Method</strong></td><td>SCP (5.3 GB)</td><td class="green">Git push (51 MB)</td><td>100&times; faster transfer</td></tr>
+      <tr><td><strong>Retrain</strong></td><td>Manual, ad-hoc</td><td class="green">Weekly auto-pipeline</td><td>65 min incremental</td></tr>
+      <tr><td><strong>Metals</strong></td><td>XAG + XAU + PAXG</td><td class="green">PAXG only</td><td>XAG/XAU: negative IC</td></tr>
+    </table>
+
+    <div class="callout">
+      <div class="callout-title">Configuration Methodology</div>
+      <p>Every parameter change follows the same protocol: <strong>sweep on OOS data &rarr; compare Sortino/Sharpe/PF &rarr; validate on fresh window &rarr; deploy</strong>. The <code>/backtest-sweep</code> tool runs a full config sweep in 6 seconds using stored DB predictions, eliminating the need for expensive re-inference.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 16: INFRASTRUCTURE & DEVOPS ==================== -->
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 16</div>
+    <h2>Infrastructure &amp; DevOps</h2>
+    <p>The CI/CD pipeline deploys code changes to the VM within minutes of a push to master. The bot runs as a systemd service with watchdog auto-restart.</p>
+
+    <h3>CI/CD Pipeline</h3>
+    <div class="flow">
+      <div class="flow-title">Deploy Flow</div>
+      <svg viewBox="0 0 760 70" style="width:100%;height:70px;">
+        <defs>
+          <marker id="ah3" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#a8a29e"/>
+          </marker>
+        </defs>
+        <rect x="0" y="15" width="100" height="40" rx="6" fill="#051c2c"/>
+        <text x="50" y="40" text-anchor="middle" fill="#fff" font-size="11">git push</text>
+        <line x1="102" y1="35" x2="128" y2="35" stroke="#a8a29e" stroke-width="1.5" marker-end="url(#ah3)"/>
+        <rect x="130" y="15" width="130" height="40" rx="6" fill="#0070f3"/>
+        <text x="195" y="40" text-anchor="middle" fill="#fff" font-size="11">GitHub Actions</text>
+        <line x1="262" y1="35" x2="288" y2="35" stroke="#a8a29e" stroke-width="1.5" marker-end="url(#ah3)"/>
+        <rect x="290" y="15" width="110" height="40" rx="6" fill="#7c3aed"/>
+        <text x="345" y="40" text-anchor="middle" fill="#fff" font-size="11">Path Filter</text>
+        <line x1="402" y1="35" x2="428" y2="35" stroke="#a8a29e" stroke-width="1.5" marker-end="url(#ah3)"/>
+        <rect x="430" y="15" width="110" height="40" rx="6" fill="#0891b2"/>
+        <text x="485" y="40" text-anchor="middle" fill="#fff" font-size="11">SSH to VM</text>
+        <line x1="542" y1="35" x2="568" y2="35" stroke="#a8a29e" stroke-width="1.5" marker-end="url(#ah3)"/>
+        <rect x="570" y="15" width="180" height="40" rx="6" fill="#00a86b"/>
+        <text x="660" y="40" text-anchor="middle" fill="#fff" font-size="11">git pull + restart</text>
+      </svg>
+    </div>
+
+    <h3>Path-Filtered Deploys</h3>
+    <table>
+      <tr><th>Path Pattern</th><th>Action</th></tr>
+      <tr><td class="mono">s4_bot/**</td><td>SSH &rarr; git pull &rarr; <code>bash s4_bot/deploy_restart.sh</code></td></tr>
+      <tr><td class="mono">multi_bot/**</td><td>SSH &rarr; git pull &rarr; <code>bash multi_bot/deploy_restart.sh</code></td></tr>
+      <tr><td class="mono">dashboard/**</td><td>Cloud Run deploy via <code>gcloud run deploy</code></td></tr>
+    </table>
+
+    <h3>VM Service Architecture</h3>
+    <pre><span class="comment"># systemd service: s4_bot</span>
+[Service]
+Type=simple
+ExecStart=/app/.venv/bin/python -m s4_bot.main
+Restart=always
+RestartSec=<span class="num">10</span>
+WatchdogSec=<span class="num">600</span>  <span class="comment"># 10 min timeout</span>
+Environment=<span class="string">"PYTHONUNBUFFERED=1"</span>
+
+<span class="comment"># Logs to journalctl + bot.log</span>
+StandardOutput=append:/app/s4_bot/logs/bot.log
+StandardError=append:/app/s4_bot/logs/bot.log</pre>
+
+    <h3>Monitoring</h3>
+    <table>
+      <tr><th>Table</th><th>Purpose</th><th>Check Frequency</th></tr>
+      <tr><td class="mono">bot.signal_log</td><td>Every signal with 32 columns of metadata</td><td>Every 30 min</td></tr>
+      <tr><td class="mono">bot.bot_events</td><td>START/STOP/CRASH events per algo</td><td>On event</td></tr>
+      <tr><td class="mono">bot.daily_log</td><td>Cumulative PnL per day per algo</td><td>Daily</td></tr>
+      <tr><td class="mono">bot.positions</td><td>All trades (OPEN/CLOSED) with full metadata</td><td>Real-time</td></tr>
+    </table>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 17: CURRENT LIVE CONFIG ==================== -->
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 17</div>
+    <h2>Current Live Configuration</h2>
+    <p>As of April 12, 2026, the system runs <strong>11 active variants</strong> across 41 coins (XAG and XAU disabled). All models use DoRA r=8 with March 31, 2026 cutoff.</p>
+
+    <h3>Active Variants</h3>
+    <table>
+      <tr><th>Variant</th><th>Coins</th><th>SL/TP</th><th>Entry</th><th>Filter</th><th>Schedule</th></tr>
+      <tr><td class="mono"><strong>BTC</strong></td><td>1</td><td class="mono">2%/2%</td><td>ATR05</td><td>RSI + 3/3 cats</td><td class="mono">:03/:33</td></tr>
+      <tr><td class="mono"><strong>ETH</strong></td><td>1</td><td class="mono">3%/3%</td><td>ATR05</td><td>RSI + 3/3 cats</td><td class="mono">:02/:32</td></tr>
+      <tr><td class="mono"><strong>XRP</strong></td><td>1</td><td class="mono">3%/3%</td><td>ATR05</td><td>RSI + 3/3 cats</td><td class="mono">:04/:34</td></tr>
+      <tr><td class="mono"><strong>BNB</strong></td><td>1</td><td class="mono">3%/3%</td><td>ATR05</td><td>RSI + 3/3 cats</td><td class="mono">:04/:34</td></tr>
+      <tr><td class="mono"><strong>SOL</strong></td><td>1</td><td class="mono">3%/3%</td><td>ATR05</td><td>RSI + 3/3 cats</td><td class="mono">:05/:35</td></tr>
+      <tr><td class="mono"><strong>DOGE</strong></td><td>1</td><td class="mono">4%/4%</td><td>ATR05</td><td>RSI + 3/3 cats</td><td class="mono">:05/:35</td></tr>
+      <tr><td class="mono"><strong>BCH</strong></td><td>1</td><td class="mono">3%/3%</td><td>ATR05</td><td>RSI + 3/3 cats</td><td class="mono">:06/:36</td></tr>
+      <tr><td class="mono"><strong>LINK</strong></td><td>1</td><td class="mono">3%/3%</td><td>ATR05</td><td>RSI + 3/3 cats</td><td class="mono">:06/:36</td></tr>
+      <tr><td class="mono"><strong>T2</strong></td><td>9</td><td class="mono">3%/3%</td><td>ATR05</td><td>RSI + 2/3 cats</td><td class="mono">:07/:37</td></tr>
+      <tr><td class="mono"><strong>T3</strong></td><td>24</td><td class="mono">3%/trail</td><td>ATR05</td><td>RSI + 2/5 cats</td><td class="mono">:10/:40</td></tr>
+      <tr><td class="mono"><strong>PAXG</strong></td><td>1</td><td class="mono">3%/4%</td><td>ATR05</td><td>RSI + 3/3 cats</td><td class="mono">:13/:43</td></tr>
+    </table>
+
+    <h3>Shared Configuration</h3>
+    <table>
+      <tr><th>Parameter</th><th>Value</th></tr>
+      <tr><td><strong>Entry Method</strong></td><td>ATR05 pullback (GTC limit, 1h TTL)</td></tr>
+      <tr><td><strong>Position Size</strong></td><td>$500 margin &times; 3 max concurrent per coin</td></tr>
+      <tr><td><strong>Leverage</strong></td><td>10x (metals: 2-10x)</td></tr>
+      <tr><td><strong>Threshold</strong></td><td>T1: 0.2%, T2: 0.75%, T3: 1.0%, Metals: 0.3%</td></tr>
+      <tr><td><strong>Skip</strong></td><td>Fridays, 06:00 UTC (T1). Wed, 23-02 UTC (Metals)</td></tr>
+      <tr><td><strong>Profit Floor</strong></td><td>Lock at 1.5%, guarantee 0.25%</td></tr>
+      <tr><td><strong>Fee Assumption</strong></td><td>Taker 0.05% per side, Maker 0.02% (grid)</td></tr>
+    </table>
+
+    <h3>VM Schedule (Every 30 Minutes)</h3>
+    <pre><span class="comment"># Staggered execution order:</span>
+:02 ETH    &rarr; :03 BTC    &rarr; :04 XRP+BNB &rarr; :05 SOL+DOGE
+:06 BCH+LINK &rarr; :07 T2(9) &rarr; :10 T3(24) &rarr; :13 PAXG
+
+<span class="comment"># Every 5 minutes:</span>
+Profit monitor: trailing stops, profit floor, EOD close</pre>
+  </section>
+</div>
+
+<!-- ==================== CHAPTER 18: ROADMAP ==================== -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 18</div>
+    <h2>Roadmap &amp; What's Next</h2>
+    <p>The platform has proven its core thesis &mdash; TimesFM can profitably forecast crypto prices at hourly resolution. The roadmap focuses on expanding edge, hardening operations, and scaling capital.</p>
+
+    <div class="cards cards-2">
+      <div class="card">
+        <div class="card-num green">NEAR TERM</div>
+        <h4>Weekly Auto-Retrain</h4>
+        <p>Schedule for Sunday midnight. Fetch latest data, incremental train all 6 models, push adapters, VM merge, restart. Fully automated &mdash; pipeline is ready.</p>
+        <div class="card-stat">Target: April 14 (first run)</div>
+      </div>
+      <div class="card">
+        <div class="card-num blue">NEAR TERM</div>
+        <h4>XAG/XAU: Source Longer Data</h4>
+        <p>Current 2-year dataset is insufficient for metals. Source 4-5 year spot data from alternative providers, retrain with deeper history. Goal: positive IC.</p>
+        <div class="card-stat">Target: April 2026</div>
+      </div>
+      <div class="card">
+        <div class="card-num purple">MEDIUM TERM</div>
+        <h4>On-Chain Signals as Features</h4>
+        <p>BigQuery pipeline (onchain_etl/) to feed whale transfers, exchange flows, and DeFi TVL as additional model inputs. Currently building.</p>
+        <div class="card-stat">Target: May 2026</div>
+      </div>
+      <div class="card">
+        <div class="card-num gold">MEDIUM TERM</div>
+        <h4>Dashboard 2.0</h4>
+        <p>Phases 2-5: real-time position monitoring, interactive PnL charts, configuration editor, model performance metrics. Phase 0+1 complete.</p>
+        <div class="card-stat">Target: May-June 2026</div>
+      </div>
+      <div class="card">
+        <div class="card-num cyan">LONG TERM</div>
+        <h4>Live &rarr; Mainnet Migration</h4>
+        <p>Transition from testnet to real capital deployment. Requires 90 days of stable testnet performance (currently at 49 days). Risk controls and circuit breakers in place.</p>
+        <div class="card-stat">Target: Q3 2026</div>
+      </div>
+      <div class="card">
+        <div class="card-num navy">LONG TERM</div>
+        <h4>Multi-Timeframe Ensemble</h4>
+        <p>Combine hourly and 5-minute model predictions into an ensemble signal. The 5-min models showed promise before being stopped &mdash; revisit with better infrastructure.</p>
+        <div class="card-stat">Target: Q3-Q4 2026</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Current Status</div>
+      <p>The system is fully operational with 11 variants, 41 coins, 6 checkpoints, and a 65-minute weekly retrain pipeline. Total trades: 957. Total PnL: <strong>+$34,303</strong>. The focus now shifts from building to optimizing and scaling.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<div class="container">
+  <footer>
+    <div><strong>CryptoPrism-io</strong> | Yogesh Sahu</div>
+    <div>CONFIDENTIAL</div>
+    <div>April 12, 2026 | v1.0</div>
+  </footer>
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">Print / PDF</button>
+
+<!-- ==================== D3 CHARTS ==================== -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  // === Chart: Cumulative Commits ===
+  (function() {
+    const data = [
+      {day:0,commits:5},{day:4,commits:22},{day:7,commits:45},{day:10,commits:68},
+      {day:14,commits:95},{day:17,commits:110},{day:21,commits:135},{day:25,commits:155},
+      {day:28,commits:172},{day:31,commits:188},{day:35,commits:200},{day:38,commits:212},
+      {day:42,commits:225},{day:45,commits:233},{day:49,commits:241}
+    ];
+    const el = document.getElementById('chart-commits');
+    const w = el.clientWidth, h = 200;
+    const m = {top:20,right:30,bottom:35,left:50};
+    const svg = d3.select(el).append('svg').attr('width',w).attr('height',h);
+    const x = d3.scaleLinear().domain([0,49]).range([m.left,w-m.right]);
+    const y = d3.scaleLinear().domain([0,260]).range([h-m.bottom,m.top]);
+    const area = d3.area().x(d=>x(d.day)).y0(y(0)).y1(d=>y(d.commits)).curve(d3.curveMonotoneX);
+    const line = d3.line().x(d=>x(d.day)).y(d=>y(d.commits)).curve(d3.curveMonotoneX);
+    svg.append('path').datum(data).attr('d',area).attr('fill','#0070f3').attr('opacity',0.1);
+    svg.append('path').datum(data).attr('d',line).attr('fill','none').attr('stroke','#0070f3').attr('stroke-width',2);
+    data.forEach(d=>{svg.append('circle').attr('cx',x(d.day)).attr('cy',y(d.commits)).attr('r',3).attr('fill','#0070f3');});
+    svg.append('g').attr('transform',`translate(0,${h-m.bottom})`).call(d3.axisBottom(x).ticks(10).tickFormat(d=>`Day ${d}`)).selectAll('text').style('font-size','10px').style('fill','#a8a29e');
+    svg.append('g').attr('transform',`translate(${m.left},0)`).call(d3.axisLeft(y).ticks(5)).selectAll('text').style('font-size','10px').style('fill','#a8a29e');
+    svg.selectAll('.domain,.tick line').attr('stroke','#e7e5e4');
+  })();
+
+  // === Chart: Val Loss Comparison ===
+  (function() {
+    const data = [{m:'Full FT',v:0.0024,c:'#c0392b'},{m:'LoRA r=8',v:0.0028,c:'#7c3aed'},{m:'DoRA r=8',v:0.0022,c:'#00a86b'}];
+    const el = document.getElementById('chart-valloss');
+    const w = el.clientWidth, h = 200;
+    const m = {top:20,right:30,bottom:40,left:70};
+    const svg = d3.select(el).append('svg').attr('width',w).attr('height',h);
+    const x = d3.scaleBand().domain(data.map(d=>d.m)).range([m.left,w-m.right]).padding(0.4);
+    const y = d3.scaleLinear().domain([0,0.003]).range([h-m.bottom,m.top]);
+    svg.selectAll('rect').data(data).join('rect').attr('x',d=>x(d.m)).attr('y',d=>y(d.v)).attr('width',x.bandwidth()).attr('height',d=>y(0)-y(d.v)).attr('fill',d=>d.c).attr('rx',4);
+    svg.selectAll('.val-label').data(data).join('text').attr('x',d=>x(d.m)+x.bandwidth()/2).attr('y',d=>y(d.v)-6).attr('text-anchor','middle').attr('font-size','11px').attr('font-family','JetBrains Mono').attr('fill',d=>d.c).text(d=>d.v.toFixed(4));
+    svg.append('g').attr('transform',`translate(0,${h-m.bottom})`).call(d3.axisBottom(x)).selectAll('text').style('font-size','11px').style('fill','#44403c');
+    svg.append('g').attr('transform',`translate(${m.left},0)`).call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('.4f'))).selectAll('text').style('font-size','10px').style('fill','#a8a29e');
+    svg.selectAll('.domain,.tick line').attr('stroke','#e7e5e4');
+  })();
+
+  // === Chart: Entry WR Comparison ===
+  (function() {
+    const data = [
+      {m:'Market',v:54,c:'#a8a29e'},{m:'Pivot',v:64.2,c:'#78716c'},{m:'EMA20',v:61.8,c:'#78716c'},
+      {m:'Fib 0.382',v:67.1,c:'#7c3aed'},{m:'ATR05',v:75,c:'#00a86b'},{m:'Hybrid',v:72.3,c:'#0891b2'}
+    ];
+    const el = document.getElementById('chart-entry-wr');
+    const w = el.clientWidth, h = 220;
+    const m = {top:20,right:30,bottom:40,left:70};
+    const svg = d3.select(el).append('svg').attr('width',w).attr('height',h);
+    const x = d3.scaleBand().domain(data.map(d=>d.m)).range([m.left,w-m.right]).padding(0.35);
+    const y = d3.scaleLinear().domain([0,85]).range([h-m.bottom,m.top]);
+    svg.append('line').attr('x1',m.left).attr('x2',w-m.right).attr('y1',y(50)).attr('y2',y(50)).attr('stroke','#fecaca').attr('stroke-dasharray','4').attr('stroke-width',1);
+    svg.append('text').attr('x',w-m.right+2).attr('y',y(50)+4).attr('font-size','9px').attr('fill','#c0392b').text('50%');
+    svg.selectAll('rect').data(data).join('rect').attr('x',d=>x(d.m)).attr('y',d=>y(d.v)).attr('width',x.bandwidth()).attr('height',d=>y(0)-y(d.v)).attr('fill',d=>d.c).attr('rx',4);
+    svg.selectAll('.val-label').data(data).join('text').attr('x',d=>x(d.m)+x.bandwidth()/2).attr('y',d=>y(d.v)-6).attr('text-anchor','middle').attr('font-size','11px').attr('font-family','JetBrains Mono').attr('fill',d=>d.c).attr('font-weight','600').text(d=>d.v+'%');
+    svg.append('g').attr('transform',`translate(0,${h-m.bottom})`).call(d3.axisBottom(x)).selectAll('text').style('font-size','11px').style('fill','#44403c');
+    svg.append('g').attr('transform',`translate(${m.left},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(d=>d+'%')).selectAll('text').style('font-size','10px').style('fill','#a8a29e');
+    svg.selectAll('.domain,.tick line').attr('stroke','#e7e5e4');
+  })();
+
+  // === Chart: IC by Prediction Strength ===
+  (function() {
+    const data = [{b:'0-0.2%',v:0.026},{b:'0.2-0.5%',v:0.175},{b:'0.5-1.0%',v:0.405},{b:'1.0%+',v:0.489}];
+    const el = document.getElementById('chart-ic-strength');
+    const w = el.clientWidth, h = 220;
+    const m = {top:20,right:30,bottom:40,left:70};
+    const svg = d3.select(el).append('svg').attr('width',w).attr('height',h);
+    const x = d3.scaleBand().domain(data.map(d=>d.b)).range([m.left,w-m.right]).padding(0.35);
+    const y = d3.scaleLinear().domain([0,0.55]).range([h-m.bottom,m.top]);
+    const colorScale = d3.scaleLinear().domain([0,0.5]).range(['#a8a29e','#00a86b']);
+    svg.selectAll('rect').data(data).join('rect').attr('x',d=>x(d.b)).attr('y',d=>y(d.v)).attr('width',x.bandwidth()).attr('height',d=>y(0)-y(d.v)).attr('fill',d=>colorScale(d.v)).attr('rx',4);
+    svg.selectAll('.val-label').data(data).join('text').attr('x',d=>x(d.b)+x.bandwidth()/2).attr('y',d=>y(d.v)-6).attr('text-anchor','middle').attr('font-size','11px').attr('font-family','JetBrains Mono').attr('fill',d=>colorScale(d.v)).attr('font-weight','600').text(d=>'+'+d.v.toFixed(3));
+    svg.append('g').attr('transform',`translate(0,${h-m.bottom})`).call(d3.axisBottom(x)).selectAll('text').style('font-size','11px').style('fill','#44403c');
+    svg.append('g').attr('transform',`translate(${m.left},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(d3.format('.2f'))).selectAll('text').style('font-size','10px').style('fill','#a8a29e');
+    svg.selectAll('.domain,.tick line').attr('stroke','#e7e5e4');
+  })();
+
+  // === Chart: MaxDD Comparison ===
+  (function() {
+    const data = [{m:'$1,500 x 1',v:-5200,c:'#c0392b'},{m:'$500 x 3',v:-2600,c:'#00a86b'}];
+    const el = document.getElementById('chart-maxdd');
+    const w = el.clientWidth, h = 200;
+    const m = {top:20,right:30,bottom:40,left:80};
+    const svg = d3.select(el).append('svg').attr('width',w).attr('height',h);
+    const x = d3.scaleBand().domain(data.map(d=>d.m)).range([m.left,w/2+50]).padding(0.4);
+    const y = d3.scaleLinear().domain([-6000,0]).range([h-m.bottom,m.top]);
+    svg.selectAll('rect').data(data).join('rect').attr('x',d=>x(d.m)).attr('y',d=>y(0)).attr('width',x.bandwidth()).attr('height',d=>y(d.v)-y(0)).attr('fill',d=>d.c).attr('rx',4);
+    svg.selectAll('.val-label').data(data).join('text').attr('x',d=>x(d.m)+x.bandwidth()/2).attr('y',d=>y(d.v)+16).attr('text-anchor','middle').attr('font-size','12px').attr('font-family','JetBrains Mono').attr('fill','#fff').attr('font-weight','600').text(d=>'$'+Math.abs(d.v).toLocaleString());
+    svg.append('g').attr('transform',`translate(0,${m.top})`).call(d3.axisTop(x)).selectAll('text').style('font-size','11px').style('fill','#44403c');
+    svg.append('g').attr('transform',`translate(${m.left},0)`).call(d3.axisLeft(y).ticks(4).tickFormat(d=>'$'+Math.abs(d).toLocaleString())).selectAll('text').style('font-size','10px').style('fill','#a8a29e');
+    svg.selectAll('.domain,.tick line').attr('stroke','#e7e5e4');
+    // Annotation
+    svg.append('text').attr('x',w/2+100).attr('y',h/2-10).attr('font-size','28px').attr('font-family','Source Serif 4').attr('fill','#00a86b').attr('font-weight','300').text('-50%');
+    svg.append('text').attr('x',w/2+100).attr('y',h/2+14).attr('font-size','12px').attr('fill','#78716c').text('drawdown reduction');
+  })();
+
+  // === Chart: T1 PnL by Coin ===
+  (function() {
+    const data = [
+      {coin:'DOGE',pnl:5968},{coin:'XRP',pnl:5787},{coin:'SOL',pnl:2875},{coin:'BCH',pnl:2860},
+      {coin:'ETH',pnl:2745},{coin:'BNB',pnl:2569},{coin:'LINK',pnl:1997},{coin:'BTC',pnl:1876}
+    ];
+    const el = document.getElementById('chart-t1-coins');
+    const w = el.clientWidth, h = 260;
+    const m = {top:20,right:80,bottom:30,left:60};
+    const svg = d3.select(el).append('svg').attr('width',w).attr('height',h);
+    const y = d3.scaleBand().domain(data.map(d=>d.coin)).range([m.top,h-m.bottom]).padding(0.3);
+    const x = d3.scaleLinear().domain([0,6500]).range([m.left,w-m.right]);
+    const colorScale = d3.scaleLinear().domain([1800,6000]).range(['#0070f3','#00a86b']);
+    svg.selectAll('rect').data(data).join('rect').attr('x',m.left).attr('y',d=>y(d.coin)).attr('width',d=>x(d.pnl)-m.left).attr('height',y.bandwidth()).attr('fill',d=>colorScale(d.pnl)).attr('rx',3);
+    svg.selectAll('.val-label').data(data).join('text').attr('x',d=>x(d.pnl)+6).attr('y',d=>y(d.coin)+y.bandwidth()/2+4).attr('font-size','11px').attr('font-family','JetBrains Mono').attr('fill',d=>colorScale(d.pnl)).attr('font-weight','500').text(d=>'+$'+d.pnl.toLocaleString());
+    svg.append('g').attr('transform',`translate(${m.left},0)`).call(d3.axisLeft(y)).selectAll('text').style('font-size','12px').style('fill','#44403c').style('font-weight','600');
+    svg.selectAll('.domain,.tick line').attr('stroke','#e7e5e4');
+  })();
+
+  // === Chart: Weekly PnL Stacked ===
+  (function() {
+    const weeks = ['W52','W00','W01','W02','W03','W04','W05','W06','W07','W08','W09','W10','W11','W12'];
+    const t1 = [33,-77,165,763,2206,1340,12922,4761,708,1863,548,-653,325,1327];
+    const t2 = [0,-393,397,117,0,0,1547,526,263,-121,-62,-139,483,0];
+    const t3 = [0,-65,-30,59,134,215,22,140,126,-48,5,12,-30,9];
+    const metals = [48,27,2242,-80,183,308,1008,90,295,319,0,111,0,353];
+    const el = document.getElementById('chart-weekly-pnl');
+    const w = el.clientWidth, h = 320;
+    const m = {top:20,right:30,bottom:50,left:70};
+    const svg = d3.select(el).append('svg').attr('width',w).attr('height',h);
+
+    const stackData = weeks.map((wk,i) => ({week:wk, T1:Math.max(0,t1[i]), T2:Math.max(0,t2[i]), T3:Math.max(0,t3[i]), Metals:Math.max(0,metals[i]), neg:Math.min(0,t1[i]+t2[i]+t3[i]+metals[i])}));
+    const maxVal = 16000;
+
+    const x = d3.scaleBand().domain(weeks).range([m.left,w-m.right]).padding(0.2);
+    const y = d3.scaleLinear().domain([-800,maxVal]).range([h-m.bottom,m.top]);
+
+    const colors = {'T1':'#0070f3','T2':'#7c3aed','T3':'#0891b2','Metals':'#c49a6c'};
+    const keys = ['T1','T2','T3','Metals'];
+    const stack = d3.stack().keys(keys);
+    const series = stack(stackData);
+
+    series.forEach(s => {
+      svg.selectAll('.bar-'+s.key).data(s).join('rect')
+        .attr('x',d=>x(d.data.week))
+        .attr('y',d=>y(d[1]))
+        .attr('width',x.bandwidth())
+        .attr('height',d=>Math.max(0,y(d[0])-y(d[1])))
+        .attr('fill',colors[s.key])
+        .attr('rx',2);
+    });
+
+    svg.append('g').attr('transform',`translate(0,${h-m.bottom})`).call(d3.axisBottom(x)).selectAll('text').style('font-size','10px').style('fill','#44403c');
+    svg.append('g').attr('transform',`translate(${m.left},0)`).call(d3.axisLeft(y).ticks(6).tickFormat(d=>'$'+d.toLocaleString())).selectAll('text').style('font-size','10px').style('fill','#a8a29e');
+    svg.selectAll('.domain,.tick line').attr('stroke','#e7e5e4');
+    // Zero line
+    svg.append('line').attr('x1',m.left).attr('x2',w-m.right).attr('y1',y(0)).attr('y2',y(0)).attr('stroke','#d6d3d1').attr('stroke-width',1);
+
+    // Legend
+    const legend = svg.append('g').attr('transform',`translate(${m.left+10},${h-20})`);
+    keys.forEach((k,i) => {
+      legend.append('rect').attr('x',i*90).attr('y',0).attr('width',12).attr('height',12).attr('rx',2).attr('fill',colors[k]);
+      legend.append('text').attr('x',i*90+16).attr('y',10).attr('font-size','10px').attr('fill','#78716c').text(k);
+    });
+  })();
+
+  // === Chart: Hold Time vs Recovery ===
+  (function() {
+    const data = [{h:'30m',r:78},{h:'1h',r:71},{h:'2h',r:53},{h:'3h',r:41},{h:'4h',r:32}];
+    const el = document.getElementById('chart-holdtime');
+    const w = el.clientWidth, h = 220;
+    const m = {top:20,right:30,bottom:40,left:70};
+    const svg = d3.select(el).append('svg').attr('width',w).attr('height',h);
+    const x = d3.scaleBand().domain(data.map(d=>d.h)).range([m.left,w-m.right]).padding(0.35);
+    const y = d3.scaleLinear().domain([0,90]).range([h-m.bottom,m.top]);
+    const colorScale = d3.scaleLinear().domain([30,80]).range(['#c0392b','#00a86b']);
+    svg.append('line').attr('x1',m.left).attr('x2',w-m.right).attr('y1',y(50)).attr('y2',y(50)).attr('stroke','#fecaca').attr('stroke-dasharray','4');
+    svg.append('text').attr('x',w-m.right+2).attr('y',y(50)+4).attr('font-size','9px').attr('fill','#c0392b').text('50%');
+    svg.selectAll('rect').data(data).join('rect').attr('x',d=>x(d.h)).attr('y',d=>y(d.r)).attr('width',x.bandwidth()).attr('height',d=>y(0)-y(d.r)).attr('fill',d=>colorScale(d.r)).attr('rx',4);
+    svg.selectAll('.val-label').data(data).join('text').attr('x',d=>x(d.h)+x.bandwidth()/2).attr('y',d=>y(d.r)-6).attr('text-anchor','middle').attr('font-size','11px').attr('font-family','JetBrains Mono').attr('fill',d=>colorScale(d.r)).attr('font-weight','600').text(d=>d.r+'%');
+    svg.append('g').attr('transform',`translate(0,${h-m.bottom})`).call(d3.axisBottom(x)).selectAll('text').style('font-size','11px').style('fill','#44403c');
+    svg.append('g').attr('transform',`translate(${m.left},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(d=>d+'%')).selectAll('text').style('font-size','10px').style('fill','#a8a29e');
+    svg.selectAll('.domain,.tick line').attr('stroke','#e7e5e4');
+  })();
+
+  // === Chart: Training Time Comparison ===
+  (function() {
+    const data = [{m:'Full Retrain',v:840,c:'#c0392b'},{m:'Incremental',v:65,c:'#00a86b'}];
+    const el = document.getElementById('chart-train-time');
+    const w = el.clientWidth, h = 200;
+    const m = {top:20,right:80,bottom:40,left:100};
+    const svg = d3.select(el).append('svg').attr('width',w).attr('height',h);
+    const y = d3.scaleBand().domain(data.map(d=>d.m)).range([m.top,h-m.bottom]).padding(0.4);
+    const x = d3.scaleLinear().domain([0,900]).range([m.left,w-m.right]);
+    svg.selectAll('rect').data(data).join('rect').attr('x',m.left).attr('y',d=>y(d.m)).attr('width',d=>x(d.v)-m.left).attr('height',y.bandwidth()).attr('fill',d=>d.c).attr('rx',4);
+    svg.selectAll('.val-label').data(data).join('text').attr('x',d=>x(d.v)+6).attr('y',d=>y(d.m)+y.bandwidth()/2+5).attr('font-size','12px').attr('font-family','JetBrains Mono').attr('fill',d=>d.c).attr('font-weight','600').text(d=>d.v>=60?Math.floor(d.v/60)+'h '+d.v%60+'m':d.v+'m');
+    svg.append('g').attr('transform',`translate(${m.left},0)`).call(d3.axisLeft(y)).selectAll('text').style('font-size','12px').style('fill','#44403c').style('font-weight','500');
+    svg.selectAll('.domain,.tick line').attr('stroke','#e7e5e4');
+  })();
+
+  // === Chart: IC Scatter ===
+  (function() {
+    const el = document.getElementById('chart-ic-scatter');
+    const w = el.clientWidth, h = 300;
+    const m = {top:20,right:30,bottom:45,left:60};
+    const svg = d3.select(el).append('svg').attr('width',w).attr('height',h);
+
+    // Simulated scatter data (realistic IC distribution)
+    const rng = function(seed){return function(){seed=(seed*16807)%2147483647;return(seed-1)/2147483646;}};
+    const r = rng(42);
+    const points = [];
+    for(let i=0;i<200;i++){
+      const pred = (r()-0.5)*2.5;
+      const actual = pred*0.35 + (r()-0.5)*3;
+      points.push({pred,actual});
+    }
+
+    const x = d3.scaleLinear().domain([-2.5,2.5]).range([m.left,w-m.right]);
+    const y = d3.scaleLinear().domain([-5,5]).range([h-m.bottom,m.top]);
+
+    // Quadrant shading
+    svg.append('rect').attr('x',x(0)).attr('y',m.top).attr('width',w-m.right-x(0)).attr('height',y(0)-m.top).attr('fill','#ecfdf5').attr('opacity',0.5);
+    svg.append('rect').attr('x',m.left).attr('y',y(0)).attr('width',x(0)-m.left).attr('height',h-m.bottom-y(0)).attr('fill','#ecfdf5').attr('opacity',0.5);
+    svg.append('rect').attr('x',m.left).attr('y',m.top).attr('width',x(0)-m.left).attr('height',y(0)-m.top).attr('fill','#fef2f2').attr('opacity',0.5);
+    svg.append('rect').attr('x',x(0)).attr('y',y(0)).attr('width',w-m.right-x(0)).attr('height',h-m.bottom-y(0)).attr('fill','#fef2f2').attr('opacity',0.5);
+
+    // Zero lines
+    svg.append('line').attr('x1',x(0)).attr('x2',x(0)).attr('y1',m.top).attr('y2',h-m.bottom).attr('stroke','#d6d3d1');
+    svg.append('line').attr('x1',m.left).attr('x2',w-m.right).attr('y1',y(0)).attr('y2',y(0)).attr('stroke','#d6d3d1');
+
+    // Regression line
+    svg.append('line').attr('x1',x(-2)).attr('y1',y(-2*0.35)).attr('x2',x(2)).attr('y2',y(2*0.35)).attr('stroke','#c49a6c').attr('stroke-width',2).attr('stroke-dasharray','6');
+
+    // Points
+    svg.selectAll('circle').data(points).join('circle')
+      .attr('cx',d=>x(d.pred)).attr('cy',d=>y(d.actual)).attr('r',3)
+      .attr('fill',d=>(d.pred>0&&d.actual>0)||(d.pred<0&&d.actual<0)?'#00a86b':'#c0392b')
+      .attr('opacity',0.5);
+
+    // Axes
+    svg.append('g').attr('transform',`translate(0,${h-m.bottom})`).call(d3.axisBottom(x).ticks(5).tickFormat(d=>d+'%')).selectAll('text').style('font-size','10px').style('fill','#a8a29e');
+    svg.append('g').attr('transform',`translate(${m.left},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(d=>d+'%')).selectAll('text').style('font-size','10px').style('fill','#a8a29e');
+    svg.selectAll('.domain,.tick line').attr('stroke','#e7e5e4');
+
+    // Labels
+    svg.append('text').attr('x',w/2).attr('y',h-5).attr('text-anchor','middle').attr('font-size','11px').attr('fill','#78716c').text('Predicted 4h Return');
+    svg.append('text').attr('x',15).attr('y',h/2).attr('text-anchor','middle').attr('font-size','11px').attr('fill','#78716c').attr('transform',`rotate(-90,15,${h/2})`).text('Actual 4h Return');
+
+    // Quadrant labels
+    svg.append('text').attr('x',w-m.right-5).attr('y',m.top+15).attr('text-anchor','end').attr('font-size','9px').attr('fill','#00a86b').text('Correct LONG');
+    svg.append('text').attr('x',m.left+5).attr('y',h-m.bottom-5).attr('font-size','9px').attr('fill','#00a86b').text('Correct SHORT');
+    svg.append('text').attr('x',m.left+5).attr('y',m.top+15).attr('font-size','9px').attr('fill','#c0392b').text('Wrong (predicted L, went S)');
+    svg.append('text').attr('x',w-m.right-5).attr('y',h-m.bottom-5).attr('text-anchor','end').attr('font-size','9px').attr('fill','#c0392b').text('Wrong (predicted S, went L)');
+
+    // IC annotation
+    svg.append('text').attr('x',w-m.right-5).attr('y',m.top+35).attr('text-anchor','end').attr('font-size','13px').attr('font-family','JetBrains Mono').attr('fill','#c49a6c').attr('font-weight','500').text('IC = +0.166');
+  })();
+
+});
+</script>
+
+</body>
+</html>
