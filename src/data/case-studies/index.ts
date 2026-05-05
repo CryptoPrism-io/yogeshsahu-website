@@ -11,6 +11,7 @@ import { trinetryErp } from './trinetry-erp';
 import { gyanmarg } from './gyanmarg';
 import { aiBharatverse } from './ai-bharatverse';
 import { pratyaksha } from './pratyaksha';
+import { kari } from './kari';
 
 // Cases get registered here as they're ported (Tasks 7 & 8).
 export const caseStudies: Record<string, CaseStudyContent> = {
@@ -25,6 +26,7 @@ export const caseStudies: Record<string, CaseStudyContent> = {
   'gyanmarg': gyanmarg,
   'ai-bharatverse': aiBharatverse,
   'pratyaksha': pratyaksha,
+  'kari': kari,
 };
 
 export function getCaseStudy(slug: string): CaseStudyContent | undefined {
