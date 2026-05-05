@@ -69,7 +69,7 @@ export default async function ProjectPage({
   }
 
   return (
-    <main className="min-h-screen" style={{ background: "var(--ys-surface)" }}>
+    <main className="h-screen overflow-y-auto" style={{ background: "var(--ys-surface)" }}>
       <nav
         className="fixed top-0 left-0 right-0 z-50 border-b px-5 py-3"
         style={{
