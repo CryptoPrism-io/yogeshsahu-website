@@ -6,6 +6,7 @@ import Image from "next/image";
 import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 import LeadershipLens from "@/components/work/LeadershipLens";
 import CaseStudyBlocks from "@/components/work/CaseStudyBlocks";
+import ProjectGallery from "@/components/work/ProjectGallery";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.id }));
@@ -211,8 +212,9 @@ export default async function ProjectPage({
           <Image
             src={project.image}
             alt={project.name}
-            width={1400}
-            height={500}
+            width={1600}
+            height={900}
+            priority
             className="w-full rounded-xl object-cover"
           />
         ) : (
@@ -223,6 +225,10 @@ export default async function ProjectPage({
           />
         )}
       </div>
+
+      {project.gallery && project.gallery.images.length > 1 && (
+        <ProjectGallery gallery={project.gallery} projectName={project.name} />
+      )}
 
       {project.reports && project.reports.length > 0 && (
         <div className="mx-auto max-w-4xl px-5 pb-10">
