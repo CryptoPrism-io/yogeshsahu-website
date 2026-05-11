@@ -118,10 +118,51 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
               filter: "drop-shadow(0 26px 48px rgba(25, 11, 6, 0.1))",
             }}
           >
-            <circle cx="280" cy="240" r="212" stroke="rgba(255,244,233,0.08)" strokeWidth="1.1" />
-            <circle cx="280" cy="240" r="168" stroke="rgba(255,244,233,0.06)" strokeWidth="1" strokeDasharray="4 12" />
-            <path d="M62 178H498" stroke="rgba(255,244,233,0.06)" strokeWidth="1" strokeDasharray="4 12" />
-            <path d="M62 282H498" stroke="rgba(255,244,233,0.04)" strokeWidth="1" strokeDasharray="4 16" />
+            {/* Mandala scaffold — concentric rings */}
+            <circle cx="280" cy="240" r="212" stroke="rgba(255,244,233,0.24)" strokeWidth="1.1" fill="none" />
+            <circle cx="280" cy="240" r="168" stroke="rgba(255,244,233,0.2)" strokeWidth="1" strokeDasharray="4 10" fill="none" />
+            <circle cx="280" cy="240" r="128" stroke="rgba(255,244,233,0.16)" strokeWidth="0.9" strokeDasharray="2 8" fill="none" />
+            <circle cx="280" cy="240" r="84" stroke="rgba(255,244,233,0.18)" strokeWidth="0.9" fill="none" />
+            <circle cx="280" cy="240" r="46" stroke="rgba(255,244,233,0.22)" strokeWidth="0.9" strokeDasharray="3 5" fill="none" />
+
+            {/* Radial spokes from inner ring outward to each outer subdomain */}
+            {[
+              { x: 72, y: 238 }, { x: 164, y: 238 }, { x: 234, y: 238 },
+              { x: 326, y: 238 }, { x: 396, y: 238 }, { x: 488, y: 238 },
+            ].map((p, i) => {
+              const dx = p.x - 280;
+              const dy = p.y - 240;
+              const len = Math.sqrt(dx * dx + dy * dy);
+              const sx = 280 + (dx / len) * 48;
+              const sy = 240 + (dy / len) * 48;
+              return (
+                <line key={`spoke-${i}`} x1={sx} y1={sy} x2={p.x} y2={p.y}
+                  stroke="rgba(255,244,233,0.16)" strokeWidth="0.9" strokeDasharray="2 4" />
+              );
+            })}
+
+            {/* Petal arcs joining adjacent outer subdomains, alternating above/below */}
+            <path d="M 72 238 Q 118 198 164 238" stroke="rgba(255,244,233,0.22)" strokeWidth="1" fill="none" />
+            <path d="M 164 238 Q 199 272 234 238" stroke="rgba(255,244,233,0.22)" strokeWidth="1" fill="none" />
+            <path d="M 234 238 Q 280 208 326 238" stroke="rgba(255,244,233,0.22)" strokeWidth="1" fill="none" />
+            <path d="M 326 238 Q 361 272 396 238" stroke="rgba(255,244,233,0.22)" strokeWidth="1" fill="none" />
+            <path d="M 396 238 Q 442 198 488 238" stroke="rgba(255,244,233,0.22)" strokeWidth="1" fill="none" />
+
+            {/* Cross-tier connectors — outer subdomains down to inner-tier dots */}
+            <path d="M 72 238 Q 95 292 118 322" stroke="rgba(255,244,233,0.18)" strokeWidth="0.9" fill="none" />
+            <path d="M 164 238 Q 141 292 118 322" stroke="rgba(255,244,233,0.18)" strokeWidth="0.9" fill="none" />
+            <path d="M 234 238 Q 257 292 280 322" stroke="rgba(255,244,233,0.18)" strokeWidth="0.9" fill="none" />
+            <path d="M 326 238 Q 303 292 280 322" stroke="rgba(255,244,233,0.18)" strokeWidth="0.9" fill="none" />
+            <path d="M 396 238 Q 419 292 442 322" stroke="rgba(255,244,233,0.18)" strokeWidth="0.9" fill="none" />
+            <path d="M 488 238 Q 465 292 442 322" stroke="rgba(255,244,233,0.18)" strokeWidth="0.9" fill="none" />
+
+            {/* Mandala flourish — petal apex dots */}
+            <circle cx="118" cy="198" r="1.6" fill="rgba(255,244,233,0.5)" />
+            <circle cx="199" cy="272" r="1.6" fill="rgba(255,244,233,0.5)" />
+            <circle cx="280" cy="208" r="1.6" fill="rgba(255,244,233,0.5)" />
+            <circle cx="361" cy="272" r="1.6" fill="rgba(255,244,233,0.5)" />
+            <circle cx="442" cy="198" r="1.6" fill="rgba(255,244,233,0.5)" />
+            <circle cx="280" cy="240" r="2.2" fill="rgba(255,244,233,0.42)" />
             <motion.circle
               cx={pointer.x}
               cy={pointer.y}
@@ -131,10 +172,10 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
               transition={{ duration: 2.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
             />
 
-            <text x="280" y="42" textAnchor="middle" fill="rgba(255,239,225,0.48)" style={{ fontFamily: "var(--font-mono)", fontSize: "11px", letterSpacing: "0.28em" }}>
+            <text x="280" y="42" textAnchor="middle" fill="rgba(255,244,233,0.78)" style={{ fontFamily: "var(--font-mono)", fontSize: "11px", fontWeight: 600, letterSpacing: "0.28em" }}>
               DOMAIN MAP
             </text>
-            <text x="280" y="474" textAnchor="middle" fill="rgba(255,239,225,0.34)" style={{ fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.16em" }}>
+            <text x="280" y="474" textAnchor="middle" fill="rgba(255,244,233,0.62)" style={{ fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.16em" }}>
               HOVER TO TRACE / CLICK TO OPEN PROOF GRAPH
             </text>
 
@@ -183,8 +224,8 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                   x={domain.x}
                   y={domain.y - 42}
                   textAnchor="middle"
-                  fill={activeDomain === domain.id ? "rgba(255,248,241,0.9)" : "rgba(255,239,225,0.68)"}
-                  style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.18em" }}
+                  fill={activeDomain === domain.id ? "rgba(255,250,244,0.98)" : "rgba(255,243,232,0.86)"}
+                  style={{ fontFamily: "var(--font-mono)", fontSize: "10px", fontWeight: 600, letterSpacing: "0.18em" }}
                 >
                   {domain.label}
                 </text>
@@ -272,8 +313,8 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                       x={node.x}
                       y={node.y + (node.y > 280 ? 24 : -18)}
                       textAnchor="middle"
-                      fill={activeSubdomain === node.id ? "rgba(255,248,241,0.84)" : "rgba(255,239,225,0.46)"}
-                      style={{ fontFamily: "var(--font-mono)", fontSize: "8.5px", letterSpacing: "0.12em" }}
+                      fill={activeSubdomain === node.id ? "rgba(255,250,244,0.98)" : "rgba(255,243,232,0.78)"}
+                      style={{ fontFamily: "var(--font-mono)", fontSize: "9px", fontWeight: 600, letterSpacing: "0.14em" }}
                     >
                       {node.label}
                     </text>
