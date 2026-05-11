@@ -118,54 +118,30 @@ export default function MobileHome() {
           />
         </div>
 
-        {/* Editorial brand mark — monumental scale + horizontal accent bar */}
-        <h1 className="mb-3 text-center leading-[0.82]">
+        {/* Negative-space lockup — italic serif left, caps sans right, overlapping */}
+        <h1 className="mb-3">
           <span
-            className="block text-[4.4rem] font-black italic"
+            className="block text-left font-black italic"
             style={{
               fontFamily: "var(--font-serif-display)",
               color: "var(--ys-surface)",
-              letterSpacing: "-0.045em",
+              fontSize: "5.2rem",
+              lineHeight: "0.88",
+              letterSpacing: "-0.05em",
               textShadow: "0 2px 0 rgba(15,8,4,0.18)",
             }}
           >
             Yogesh
           </span>
-          <span className="my-1.5 flex items-center justify-center gap-2.5" aria-hidden>
-            <span
-              className="inline-block"
-              style={{
-                width: "44px",
-                height: "3px",
-                background: "var(--ys-surface)",
-                opacity: 0.92,
-              }}
-            />
-            <span
-              className="inline-block rotate-45"
-              style={{
-                width: "9px",
-                height: "9px",
-                background: "var(--ys-highlight)",
-                boxShadow: "0 0 14px rgba(11,141,128,0.55)",
-              }}
-            />
-            <span
-              className="inline-block"
-              style={{
-                width: "44px",
-                height: "3px",
-                background: "var(--ys-surface)",
-                opacity: 0.92,
-              }}
-            />
-          </span>
           <span
-            className="block text-[3rem] font-black uppercase"
+            className="block text-right font-black uppercase"
             style={{
               fontFamily: "var(--font-headline)",
               color: "var(--ys-surface)",
+              fontSize: "2.9rem",
+              lineHeight: "1",
               letterSpacing: "-0.02em",
+              marginTop: "-1.05rem",
               textShadow: "0 2px 0 rgba(15,8,4,0.18)",
             }}
           >
@@ -173,12 +149,12 @@ export default function MobileHome() {
           </span>
         </h1>
 
-        {/* Role */}
+        {/* Role — credit line, em-dash prefix, left-aligned to sustain asymmetry */}
         <p
-          className="mb-6 text-center text-[9.5px] font-bold uppercase tracking-[0.22em]"
-          style={{ fontFamily: "var(--font-mono)", color: "rgba(255,239,225,0.72)" }}
+          className="mb-6 text-left text-[10px] font-bold uppercase tracking-[0.22em]"
+          style={{ fontFamily: "var(--font-mono)", color: "rgba(255,239,225,0.78)" }}
         >
-          Founder · AI-Native Builder · CTO
+          — Founder · AI-Native Builder · CTO
         </p>
 
         {/* Rotating stat card */}
