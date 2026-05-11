@@ -2,7 +2,11 @@ import { projects } from "@/lib/projects";
 import { projectDetails } from "@/data/project-details";
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
+import LeadershipLens from "@/components/work/LeadershipLens";
+import CaseStudyBlocks from "@/components/work/CaseStudyBlocks";
+import ProjectGallery from "@/components/work/ProjectGallery";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.id }));
@@ -66,7 +70,7 @@ export default async function ProjectPage({
   }
 
   return (
-    <main className="min-h-screen" style={{ background: "var(--ys-surface)" }}>
+    <main className="h-screen overflow-y-auto" style={{ background: "var(--ys-surface)" }}>
       <nav
         className="fixed top-0 left-0 right-0 z-50 border-b px-5 py-3"
         style={{
@@ -153,6 +157,22 @@ export default async function ProjectPage({
               {project.statLabel}
             </p>
           </div>
+          {project.href && (
+            <a
+              href={project.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl border px-4 py-3 text-[11px] font-bold uppercase tracking-[0.08em] transition-colors hover:opacity-80"
+              style={{
+                fontFamily: "var(--font-headline)",
+                borderColor: "var(--ys-btn-accent-border)",
+                background: "var(--ys-btn-accent-bg)",
+                color: "var(--ys-accent-strong)",
+              }}
+            >
+              Live App
+            </a>
+          )}
           {project.githubHref && (
             <a
               href={project.githubHref}
@@ -168,42 +188,95 @@ export default async function ProjectPage({
               View Source
             </a>
           )}
+          {project.reportHref && (
+            <a
+              href={project.reportHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl border px-4 py-3 text-[11px] font-bold uppercase tracking-[0.08em] transition-colors hover:opacity-80"
+              style={{
+                fontFamily: "var(--font-headline)",
+                borderColor: "var(--ys-btn-teal-border)",
+                background: "var(--ys-btn-teal-bg)",
+                color: "var(--ys-highlight)",
+              }}
+            >
+              Deep Dive
+            </a>
+          )}
         </div>
       </header>
 
       <div className="mx-auto max-w-4xl px-5 pb-8">
-        <ImagePlaceholder
-          variant="screenshot"
-          label={project.name}
-          className="aspect-video w-full"
-        />
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={project.name}
+            width={1600}
+            height={900}
+            priority
+            className="w-full rounded-xl object-cover"
+          />
+        ) : (
+          <ImagePlaceholder
+            variant="screenshot"
+            label={project.name}
+            className="aspect-video w-full"
+          />
+        )}
       </div>
 
-      {project.sections.length > 0 && (
-        <div className="mx-auto max-w-4xl px-5 pb-16">
-          {project.sections.map((section) => (
-            <section key={section.title} className="mb-10">
-              <h2
-                className="mb-3 text-[14px] font-bold uppercase tracking-[0.1em]"
+      {project.gallery && project.gallery.images.length > 1 && (
+        <ProjectGallery gallery={project.gallery} projectName={project.name} />
+      )}
+
+      {project.reports && project.reports.length > 0 && (
+        <div className="mx-auto max-w-4xl px-5 pb-10">
+          <h2
+            className="mb-4 text-[14px] font-bold uppercase tracking-[0.1em]"
+            style={{
+              fontFamily: "var(--font-headline)",
+              color: "var(--ys-text)",
+            }}
+          >
+            Deep Dives
+          </h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {project.reports.map((report) => (
+              <a
+                key={report.href}
+                href={report.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl border px-4 py-3 text-center transition-colors hover:opacity-80"
                 style={{
-                  fontFamily: "var(--font-headline)",
-                  color: "var(--ys-text)",
+                  borderColor: "var(--ys-btn-teal-border)",
+                  background: "var(--ys-btn-teal-bg)",
                 }}
               >
-                {section.title}
-              </h2>
-              <p
-                className="text-[14px] leading-[1.8]"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  color: "var(--ys-text-soft)",
-                }}
-              >
-                {section.content}
-              </p>
-            </section>
-          ))}
+                <p
+                  className="text-[11px] font-bold uppercase tracking-[0.08em]"
+                  style={{
+                    fontFamily: "var(--font-headline)",
+                    color: "var(--ys-highlight)",
+                  }}
+                >
+                  {report.label}
+                </p>
+              </a>
+            ))}
+          </div>
         </div>
+      )}
+
+      {project.caseStudy && (
+        <div className="mx-auto max-w-4xl px-5 pt-2">
+          <LeadershipLens lens={project.caseStudy.leadershipLens} />
+        </div>
+      )}
+
+      {project.caseStudy && project.caseStudy.sections.length > 0 && (
+        <CaseStudyBlocks sections={project.caseStudy.sections} />
       )}
 
       <footer

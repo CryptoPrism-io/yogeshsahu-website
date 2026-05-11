@@ -1,15 +1,16 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { fadeUp, MOTION_DURATION, MOTION_EASE_QUICK } from "@/lib/motion";
-import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 
 export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void }) {
   const metrics = [
-    { value: "1B+", label: "data points/day" },
-    { value: "99.9%", label: "uptime SLA" },
-    { value: "23", label: "public repos" },
+    { value: "6+", label: "production apps shipped" },
+    { value: "2M+", label: "lines of code" },
+    { value: "1B+", label: "datapoints/day" },
   ];
 
   return (
@@ -30,16 +31,20 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
         }}
       >
         <div className="mb-4 flex items-start gap-4">
-          <ImagePlaceholder
-            variant="profile"
-            className="h-24 w-24 shrink-0 rounded-2xl"
+          <Image
+            src="/images/profile.jpg"
+            alt="Yogesh Sahu"
+            width={96}
+            height={96}
+            className="h-24 w-24 shrink-0 rounded-2xl object-cover"
+            priority
           />
           <div>
             <p
               className="mb-2 text-[10px] font-bold uppercase tracking-[0.22em]"
               style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
             >
-              CHIEF SOLUTIONS ARCHITECT | FRACTIONAL CTO
+              FOUNDER | AI-NATIVE BUILDER | CTO
             </p>
             <h1
               className="text-[clamp(2rem,5.4vw,3.2rem)] font-black uppercase leading-[0.95]"
@@ -53,9 +58,9 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           className="mb-5 max-w-[50ch] text-[13px] leading-[1.8]"
           style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
         >
-          I scope, architect, code, and lead client-facing AI, fintech, and data-heavy engagements from
-          discovery through delivery. Start with a hands-on architecture diagnostic, then move into
-          focused leadership without taking on the wrong full-time hire too early.
+          I build and ship AI-native B2B and B2C products end-to-end — 6+ production-grade apps
+          in 6 months, not MVPs. I lead teams and customers to success across fintech, data
+          infrastructure, and applied AI.
         </p>
 
         <div className="mb-5 grid grid-cols-3 gap-2">
@@ -178,6 +183,29 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             Open Terminal
           </motion.button>
         </div>
+        <Link
+          href="/work"
+          className="mt-3 flex items-center justify-between rounded-xl border px-3 py-2.5 text-left transition-colors hover:opacity-90"
+          style={{
+            borderColor: "var(--ys-card-border-strong)",
+            background: "var(--ys-card-bg)",
+            color: "var(--ys-text)",
+            fontFamily: "var(--font-headline)",
+          }}
+        >
+          <div>
+            <span className="mb-0.5 block text-[12px] font-bold uppercase tracking-[0.08em]">
+              /work hub
+            </span>
+            <span
+              className="block text-[9px] uppercase tracking-[0.12em]"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+            >
+              12 case studies · 3 leadership clusters
+            </span>
+          </div>
+          <ArrowRight size={14} />
+        </Link>
       </div>
     </motion.section>
   );

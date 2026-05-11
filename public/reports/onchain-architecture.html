@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryptoPrism On-Chain Analytics — Architecture & Intelligence Layers</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #0A0E14;
+  --surface: #0E1320;
+  --surface-high: #141A28;
+  --surface-bright: #1A2535;
+  --emerald: #0ECB81;
+  --emerald-dim: #0AA06A;
+  --rose: #EF4444;
+  --amber: #F59E0B;
+  --cyan: #22D3EE;
+  --violet: #8B5CF6;
+  --text: #E8EEFF;
+  --text-secondary: #A0B1C5;
+  --text-muted: #7A8BA0;
+  --border: #1A2535;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 11pt;
+  line-height: 1.6;
+}
+
+.page-break { page-break-before: always; }
+
+/* Cover Page */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #060810 0%, #0A1628 50%, #060810 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 60px 40px;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(14,203,129,0.08) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+}
+
+.cover-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--emerald);
+  background: rgba(14,203,129,0.1);
+  border: 1px solid rgba(14,203,129,0.2);
+  padding: 6px 20px;
+  border-radius: 20px;
+  margin-bottom: 40px;
+}
+
+.cover h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.cover h1 span { color: var(--emerald); }
+
+.cover-subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+  max-width: 550px;
+  margin-bottom: 50px;
+}
+
+.cover-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 700px;
+  width: 100%;
+}
+
+.cover-stat {
+  background: rgba(14,19,32,0.8);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 16px;
+}
+
+.cover-stat .val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--emerald);
+}
+
+.cover-stat .lbl {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.cover-meta {
+  margin-top: 50px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+/* Container */
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 50px 40px;
+}
+
+/* Section */
+section { margin-bottom: 40px; }
+
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--emerald);
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text);
+  margin-top: 24px;
+}
+
+h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 16px;
+  color: var(--cyan);
+}
+
+p { margin-bottom: 12px; color: var(--text-secondary); }
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 10pt;
+  page-break-inside: avoid;
+}
+
+th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(26,37,53,0.5);
+  color: var(--text-secondary);
+  font-size: 10pt;
+}
+
+tr:hover td { background: rgba(14,19,32,0.5); }
+
+td.val { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--text); }
+td.green { color: var(--emerald); }
+td.red { color: var(--rose); }
+td.amber { color: var(--amber); }
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 20px 0;
+  page-break-inside: avoid;
+}
+
+.cards-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.card .card-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--emerald);
+}
+
+.card .card-lbl {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.card .card-sub {
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+/* Status badges */
+.badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+.badge-pass { background: rgba(14,203,129,0.15); color: var(--emerald); border: 1px solid rgba(14,203,129,0.3); }
+.badge-fail { background: rgba(239,68,68,0.15); color: var(--rose); border: 1px solid rgba(239,68,68,0.3); }
+.badge-warn { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+.badge-live { background: rgba(14,203,129,0.15); color: var(--emerald); border: 1px solid rgba(14,203,129,0.3); }
+.badge-pending { background: rgba(122,139,160,0.15); color: var(--text-muted); border: 1px solid rgba(122,139,160,0.3); }
+.badge-pro { background: rgba(139,92,246,0.15); color: var(--violet); border: 1px solid rgba(139,92,246,0.3); }
+.badge-premium { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+.badge-free { background: rgba(34,211,238,0.15); color: var(--cyan); border: 1px solid rgba(34,211,238,0.3); }
+
+/* Callout */
+.callout {
+  background: var(--surface);
+  border-left: 3px solid var(--emerald);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 16px 0;
+  page-break-inside: avoid;
+}
+
+.callout.warn { border-left-color: var(--amber); }
+.callout.danger { border-left-color: var(--rose); }
+.callout.info { border-left-color: var(--cyan); }
+
+.callout-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--emerald);
+  margin-bottom: 6px;
+}
+
+.callout.warn .callout-title { color: var(--amber); }
+.callout.info .callout-title { color: var(--cyan); }
+
+/* Layer card */
+.layer-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 16px 0;
+  page-break-inside: avoid;
+}
+
+.layer-card .layer-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.layer-card .layer-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--emerald);
+  min-width: 50px;
+}
+
+.layer-card .layer-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.layer-card .layer-tier {
+  margin-left: auto;
+}
+
+.layer-card .layer-desc {
+  color: var(--text-secondary);
+  font-size: 11pt;
+  margin-bottom: 12px;
+}
+
+.layer-card .layer-example {
+  background: var(--surface-high);
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--cyan);
+  margin-top: 12px;
+  line-height: 1.8;
+}
+
+/* Schema block */
+.schema-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px 0;
+  page-break-inside: avoid;
+}
+
+.schema-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--emerald);
+  margin-bottom: 12px;
+}
+
+.schema-subtitle {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+/* Code */
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  background: var(--surface-high);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--cyan);
+}
+
+/* Architecture diagram */
+.arch-diagram {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 30px 20px;
+  margin: 20px 0;
+  page-break-inside: avoid;
+}
+
+.arch-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.arch-box {
+  background: var(--surface-high);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 18px;
+  text-align: center;
+  min-width: 110px;
+}
+
+.arch-box.primary {
+  border-color: var(--emerald);
+  background: rgba(14,203,129,0.08);
+}
+
+.arch-box .arch-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.arch-box .arch-sub {
+  font-size: 9px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.arch-arrow {
+  font-size: 18px;
+  color: var(--emerald);
+}
+
+.arch-arrow-down {
+  text-align: center;
+  font-size: 18px;
+  color: var(--emerald);
+  margin: 6px 0;
+}
+
+/* Coverage matrix */
+.matrix-cell {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  border-radius: 3px;
+  margin: 1px;
+}
+
+.matrix-cell.active { background: var(--emerald); opacity: 0.9; }
+.matrix-cell.pending { background: var(--amber); opacity: 0.5; }
+.matrix-cell.none { background: var(--surface-high); opacity: 0.3; }
+
+/* Print */
+@media print {
+  body { background: #0A0E14; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page-break { page-break-before: always; }
+  table { page-break-inside: avoid; }
+  .callout { page-break-inside: avoid; }
+  .cards { page-break-inside: avoid; }
+  .layer-card { page-break-inside: avoid; }
+  .schema-block { page-break-inside: avoid; }
+  h2, h3 { page-break-after: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="cover-badge">Architecture Report &mdash; 2026-04-17</div>
+  <h1>On-Chain <span>Analytics</span><br>Architecture &amp;<br>Intelligence Layers</h1>
+  <p class="cover-subtitle">CryptoPrism.io — 4-layer intelligence stack delivering Glassnode-quality on-chain signals across 21 chains via BigQuery public datasets at 5% of the cost</p>
+
+  <div class="cover-stats">
+    <div class="cover-stat">
+      <div class="val">4</div>
+      <div class="lbl">Intelligence Layers</div>
+    </div>
+    <div class="cover-stat">
+      <div class="val">21</div>
+      <div class="lbl">Chains Supported</div>
+    </div>
+    <div class="cover-stat">
+      <div class="val">8</div>
+      <div class="lbl">DB Tables</div>
+    </div>
+    <div class="cover-stat">
+      <div class="val">$0.22</div>
+      <div class="lbl">Daily Cost</div>
+    </div>
+  </div>
+
+  <div class="cover-meta">
+    CryptoPrism.io &nbsp;|&nbsp; cryptoprism-onchain repo &nbsp;|&nbsp; 14 metrics &nbsp;|&nbsp; 34 BigQuery datasets
+  </div>
+</div>
+
+<!-- CHAPTER 1: THE 4 INTELLIGENCE LAYERS -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 01</div>
+    <h2>The 4 Intelligence Layers</h2>
+    <p>CryptoPrism's on-chain analytics system is a 4-layer intelligence stack. Each layer builds on the one below, adding progressively more insight and monetization potential. Raw data at the bottom; actionable trading signals at the top.</p>
+
+    <div class="callout">
+      <div class="callout-title">Core Thesis</div>
+      <p>Competitors either charge $799/month (Glassnode) or give you raw data without intelligence layers (free explorers). CryptoPrism delivers Layer 3-4 intelligence at $29/month using BigQuery public datasets — 80% of the value at 5% of the cost.</p>
+    </div>
+
+    <!-- Layer 1 -->
+    <div class="layer-card">
+      <div class="layer-header">
+        <div class="layer-num">L1</div>
+        <div>
+          <div class="layer-title">Raw Daily Data</div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">12 metrics per chain per day from BigQuery &rarr; PostgreSQL</div>
+        </div>
+        <div class="layer-tier"><span class="badge badge-free">Free (limited)</span></div>
+      </div>
+      <div class="layer-desc">
+        Daily metrics extracted from 34 BigQuery public blockchain datasets and stored in the <code>onchain_daily_metrics</code> table. Refreshed daily at 06:00 UTC via Cloud Scheduler. Currently 2,207+ rows across 14 chains.
+      </div>
+      <table>
+        <thead><tr><th>Metric</th><th>Description</th><th>Unit</th></tr></thead>
+        <tbody>
+          <tr><td class="val">active_addresses</td><td>Unique addresses transacting per day</td><td>Count</td></tr>
+          <tr><td class="val">whale_txs</td><td>Transactions above threshold (&gt;100 BTC, &gt;500 ETH)</td><td>Count</td></tr>
+          <tr><td class="val">tx_volume</td><td>Total transaction volume</td><td>Native + USD</td></tr>
+          <tr><td class="val">nvt</td><td>Network Value to Transactions ratio</td><td>Ratio</td></tr>
+          <tr><td class="val">mvrv</td><td>Market Value to Realized Value ratio</td><td>Ratio</td></tr>
+          <tr><td class="val">cdd</td><td>Coin Days Destroyed</td><td>Float</td></tr>
+          <tr><td class="val">supply_distribution</td><td>Holder cohort breakdown</td><td>JSON</td></tr>
+          <tr><td class="val">exchange_flow</td><td>Inflow/outflow to exchange addresses</td><td>Native + USD</td></tr>
+          <tr><td class="val">gas_trends</td><td>Average gas price (EVM chains)</td><td>Gwei</td></tr>
+          <tr><td class="val">token_transfers</td><td>Top ERC-20/SPL token transfer volumes</td><td>Count + USD</td></tr>
+          <tr><td class="val">dex_volume</td><td>DEX swap counts and volume</td><td>Count + USD</td></tr>
+          <tr><td class="val">staking_flows</td><td>Beacon chain deposits, validator activity</td><td>ETH + Count</td></tr>
+        </tbody>
+      </table>
+      <div class="layer-example">
+        Example: {"chain": "bitcoin", "metric": "active_addresses", "metric_date": "2026-04-16", "value": 641257, "signal": "neutral"}
+      </div>
+    </div>
+
+    <!-- Layer 2 -->
+    <div class="layer-card">
+      <div class="layer-header">
+        <div class="layer-num">L2</div>
+        <div>
+          <div class="layer-title">Trend Metrics (WoW / MoM / QoQ / YoY)</div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Percentage-change comparisons across standardized time windows</div>
+        </div>
+        <div class="layer-tier"><span class="badge badge-free">Free (direction)</span></div>
+      </div>
+      <div class="layer-desc">
+        Computed entirely from Layer 1 data using SQL window functions. No additional BigQuery queries required. Transforms raw numbers into directional intelligence — the "hook" for free-tier users.
+      </div>
+      <table>
+        <thead><tr><th>Window</th><th>Computation</th><th>Use Case</th></tr></thead>
+        <tbody>
+          <tr><td class="val">WoW</td><td>Current 7d avg vs previous 7d avg</td><td>Short-term momentum</td></tr>
+          <tr><td class="val">MoM</td><td>Current 30d avg vs previous 30d avg</td><td>Monthly trend</td></tr>
+          <tr><td class="val">QoQ</td><td>Current 90d avg vs previous 90d avg</td><td>Quarterly shift</td></tr>
+          <tr><td class="val">YoY</td><td>Current 365d avg vs previous 365d avg</td><td>Structural change</td></tr>
+        </tbody>
+      </table>
+      <div class="layer-example">
+        Example: "BTC active addresses up 12.4% MoM, down 3.1% WoW"<br>
+        Free users see: trend direction + percentage (no raw numbers)<br>
+        Pro users see: full data including raw averages
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <!-- Layer 3 -->
+    <div class="layer-card">
+      <div class="layer-header">
+        <div class="layer-num">L3</div>
+        <div>
+          <div class="layer-title">Cross-Chain Correlation</div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Capital rotation, ecosystem divergence, whale synchronization</div>
+        </div>
+        <div class="layer-tier"><span class="badge badge-pro">Pro</span></div>
+      </div>
+      <div class="layer-desc">
+        Comparative analytics across multiple chains that surface market-wide intelligence. Computed by normalizing metrics to Z-scores and comparing across chains. This is the "so what" layer.
+      </div>
+      <h4>Signal Categories</h4>
+      <table>
+        <thead><tr><th>Signal Type</th><th>What It Detects</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td class="val">Capital Rotation</td><td>Bridge flow shifts between chains</td><td class="green">"ETH&rarr;Arbitrum bridge flow +45% WoW"</td></tr>
+          <tr><td class="val">Ecosystem Divergence</td><td>Normalized growth rate differences</td><td class="green">"SOL active addrs 2x vs 6mo ago, ETH flat"</td></tr>
+          <tr><td class="val">Whale Sync</td><td>Simultaneous whale activity across chains</td><td class="green">"BTC+ETH whale txs spiking simultaneously"</td></tr>
+          <tr><td class="val">Dominance Shift</td><td>Active address share changes over time</td><td class="green">"Tron share: 48% (up from 38% QoQ)"</td></tr>
+        </tbody>
+      </table>
+      <div class="layer-example">
+        Computation: Normalize metrics to Z-scores (std devs from 90d mean) &rarr; compare across chains &rarr; flag when divergence &gt; 2.0 sigma
+      </div>
+    </div>
+
+    <!-- Layer 4 -->
+    <div class="layer-card">
+      <div class="layer-header">
+        <div class="layer-num">L4</div>
+        <div>
+          <div class="layer-title">Divergence Signals (Price vs On-Chain)</div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Actionable trading intelligence — the $799/month killer</div>
+        </div>
+        <div class="layer-tier"><span class="badge badge-premium">Premium</span></div>
+      </div>
+      <div class="layer-desc">
+        The highest-value layer. Detects when on-chain fundamentals diverge from price action. Requires on-chain data (L1) + price data (CoinGecko) + historical context (4-year backfill). Feeds directly into Saarthi AI companion responses.
+      </div>
+      <h4>Signal Types</h4>
+      <table>
+        <thead><tr><th>Signal</th><th>Trigger</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td class="val">Price-Activity Divergence</td><td>Price up but activity down (or vice versa)</td><td class="amber">Rally on thin participation = bearish</td></tr>
+          <tr><td class="val">Whale Accumulation</td><td>Exchange outflow rising, price flat</td><td class="green">Silent accumulation = bullish</td></tr>
+          <tr><td class="val">MVRV Zone Transition</td><td>Moving between accumulation/bull/euphoria</td><td class="amber">Historical precedent comparison</td></tr>
+          <tr><td class="val">NVT Divergence</td><td>Network usage declining vs market cap</td><td class="red">Overvaluation risk signal</td></tr>
+        </tbody>
+      </table>
+      <div class="layer-example">
+        Example: "BTC price +15.2% MoM but active addresses -8.1%. The rally is thinning out. Last time we saw this divergence magnitude (Sep 2025), price corrected 18% over 3 weeks."
+      </div>
+    </div>
+
+    <!-- Layer Summary -->
+    <h3>Layer Summary</h3>
+    <table>
+      <thead><tr><th>Layer</th><th>What</th><th>Computation</th><th>User Tier</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td class="val green">L1</td><td>12 metrics/chain/day</td><td>BigQuery &rarr; PostgreSQL</td><td><span class="badge badge-free">Free</span></td><td>Baseline data</td></tr>
+        <tr><td class="val green">L2</td><td>WoW/MoM/QoQ/YoY</td><td>SQL window functions</td><td><span class="badge badge-free">Free</span></td><td>"Which way?"</td></tr>
+        <tr><td class="val green">L3</td><td>Cross-chain signals</td><td>Normalized Z-scores</td><td><span class="badge badge-pro">Pro</span></td><td>"So what?"</td></tr>
+        <tr><td class="val green">L4</td><td>Price vs on-chain</td><td>Multi-source correlation</td><td><span class="badge badge-premium">Premium</span></td><td>"What do I do?"</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<!-- CHAPTER 2: BIGQUERY SCHEMA REFERENCE -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 02</div>
+    <h2>BigQuery Schema Reference</h2>
+    <p>Complete schema documentation for all BigQuery public blockchain datasets used by the on-chain pipeline. Organized by chain type with critical query optimization notes.</p>
+
+    <!-- UTXO Chains -->
+    <h3>UTXO Chains (BTC, LTC)</h3>
+    <div class="schema-block">
+      <div class="schema-title">crypto_bitcoin.transactions / crypto_litecoin.transactions</div>
+      <div class="schema-subtitle">Community-maintained datasets. Same schema for both chains.</div>
+      <table>
+        <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="val">hash</td><td>STRING</td><td>Transaction hash</td></tr>
+          <tr><td class="val">block_timestamp</td><td>TIMESTAMP</td><td>Block mining time</td></tr>
+          <tr><td class="val">block_timestamp_month</td><td>DATE</td><td><span class="badge badge-warn">PARTITION KEY</span> Must filter on this</td></tr>
+          <tr><td class="val">inputs</td><td>RECORD[]</td><td>Transaction inputs (spent_output_key, value)</td></tr>
+          <tr><td class="val">outputs</td><td>RECORD[]</td><td>Transaction outputs (addresses[], value)</td></tr>
+          <tr><td class="val">output_value</td><td>FLOAT</td><td>Total output value (satoshis/litoshis)</td></tr>
+          <tr><td class="val">fee</td><td>FLOAT</td><td>Transaction fee</td></tr>
+          <tr><td class="val">is_coinbase</td><td>BOOLEAN</td><td>Miner reward transaction flag</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn">
+        <div class="callout-title">Critical: Partition Pruning</div>
+        <p>BTC table is 281 GB. Without <code>block_timestamp_month</code> filter, a 7-day query scans entire table ($1.76). With partition filter: 1.8 GB scanned. <strong>Always filter on block_timestamp_month first.</strong></p>
+      </div>
+    </div>
+
+    <!-- Google EVM -->
+    <h3>Google-Managed EVM Chains</h3>
+    <p>Standardized <code>goog_blockchain_*</code> schema. Covers: ETH, Polygon, Arbitrum, Optimism, Avalanche, Tron, Cronos, Fantom.</p>
+
+    <div class="schema-block">
+      <div class="schema-title">goog_blockchain_*.transactions</div>
+      <table>
+        <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="val">block_timestamp</td><td>TIMESTAMP</td><td><span class="badge badge-warn">PARTITION KEY</span> (DAY)</td></tr>
+          <tr><td class="val">from_address</td><td>STRING</td><td>Sender address</td></tr>
+          <tr><td class="val">to_address</td><td>STRING</td><td>Recipient address</td></tr>
+          <tr><td class="val">value</td><td>STRUCT</td><td><span class="badge badge-fail">STRUCT!</span> Use <code>.bignumeric_value</code></td></tr>
+          <tr><td class="val">gas_price</td><td>STRUCT</td><td><span class="badge badge-fail">STRUCT!</span> Use <code>.bignumeric_value</code></td></tr>
+          <tr><td class="val">gas / gas_used</td><td>INTEGER</td><td>Gas limit / actual consumption</td></tr>
+          <tr><td class="val">status</td><td>INTEGER</td><td>1 = success, 0 = reverted</td></tr>
+        </tbody>
+      </table>
+      <div class="callout danger">
+        <div class="callout-title">Critical: STRUCT Values</div>
+        <p><code>value</code> and <code>gas_price</code> are STRUCT types: <code>{string_value, bignumeric_value}</code>. Must access <code>value.bignumeric_value / 1e18</code> for ETH amounts. Using <code>value</code> directly causes errors.</p>
+      </div>
+    </div>
+
+    <div class="schema-block">
+      <div class="schema-title">goog_blockchain_*.token_transfers</div>
+      <table>
+        <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="val">address</td><td>STRING</td><td>Token contract address</td></tr>
+          <tr><td class="val">from_address</td><td>STRING</td><td>Sender</td></tr>
+          <tr><td class="val">to_address</td><td>STRING</td><td>Recipient</td></tr>
+          <tr><td class="val">quantity</td><td>BIGNUMERIC</td><td>Raw transfer amount (need decimals)</td></tr>
+          <tr><td class="val">event_type</td><td>STRING</td><td>'ERC-20', 'ERC-721', 'ERC-1155'</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <!-- Custom Chains -->
+    <h3>Custom Schema Chains</h3>
+
+    <div class="schema-block">
+      <div class="schema-title">Solana &mdash; crypto_solana_mainnet_us</div>
+      <div class="schema-subtitle">Transactions table: 786 TB. Use Token Transfers instead ($0.04/day vs $1.19/day)</div>
+      <table>
+        <thead><tr><th>Table</th><th>Key Columns</th><th>Partition</th><th>Cost/Day</th></tr></thead>
+        <tbody>
+          <tr><td class="val">Transactions</td><td>signature, fee, status, accounts[], compute_units_consumed</td><td>block_timestamp (DAY)</td><td class="red">$1.19</td></tr>
+          <tr><td class="val">Token Transfers</td><td>source, destination, authority, value, decimals, mint</td><td>block_timestamp (DAY)</td><td class="green">$0.04</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-block">
+      <div class="schema-title">Sui &mdash; crypto_sui_mainnet_us</div>
+      <div class="schema-subtitle">WARNING: timestamp_ms is INT64 (milliseconds), not TIMESTAMP. Must convert with TIMESTAMP_MILLIS()</div>
+      <table>
+        <thead><tr><th>Table</th><th>Key Columns</th><th>Gotcha</th></tr></thead>
+        <tbody>
+          <tr><td class="val">TRANSACTION</td><td>timestamp_ms, sender, total_gas_cost, execution_success</td><td class="amber">INT64 timestamp!</td></tr>
+          <tr><td class="val">transaction_values_view</td><td>transaction_digest, value</td><td>Join for whale detection</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-block">
+      <div class="schema-title">NEAR &mdash; crypto_near_mainnet_us</div>
+      <div class="schema-subtitle">WARNING: Partition column is block_date (DATE type), not block_timestamp</div>
+      <table>
+        <thead><tr><th>Table</th><th>Key Columns</th><th>Gotcha</th></tr></thead>
+        <tbody>
+          <tr><td class="val">transactions</td><td>signer_account_id, receiver_account_id, receipt_conversion_tokens_burnt</td><td class="amber">DATE partition!</td></tr>
+          <tr><td class="val">ft_events</td><td>contract_account_id, affected_account_id, delta_amount, cause</td><td>Fungible token events</td></tr>
+          <tr><td class="val">ft_balances_daily</td><td>epoch_date, account_id, liquid</td><td>Supply distribution</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-block">
+      <div class="schema-title">Aptos &amp; MultiversX</div>
+      <table>
+        <thead><tr><th>Chain</th><th>Table</th><th>Key Columns</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="val">Aptos</td><td>transactions</td><td>sender, gas_used, gas_unit_price, tx_type, success</td><td>Filter tx_type='user_transaction'</td></tr>
+          <tr><td class="val">MultiversX</td><td>operations</td><td>sender, receiver, feeNum, valueNum, status</td><td>Values already in EGLD (decimal)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<!-- CHAPTER 3: POSTGRESQL SCHEMA -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 03</div>
+    <h2>PostgreSQL Schema (8 Tables)</h2>
+    <p>All tables hosted on GCP Cloud SQL (<code>dbcp</code> instance). Schema designed for fast time-series queries with composite unique constraints preventing duplicate inserts.</p>
+
+    <div class="cards cards-3" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="card">
+        <div class="card-val">8</div>
+        <div class="card-lbl">Tables</div>
+      </div>
+      <div class="card">
+        <div class="card-val">2,207+</div>
+        <div class="card-lbl">Daily Metric Rows</div>
+      </div>
+      <div class="card">
+        <div class="card-val">14</div>
+        <div class="card-lbl">Chains Active</div>
+      </div>
+      <div class="card">
+        <div class="card-val">39</div>
+        <div class="card-lbl">Exchange Labels</div>
+      </div>
+    </div>
+
+    <table>
+      <thead><tr><th>#</th><th>Table</th><th>Purpose</th><th>Unique Key</th><th>Rows</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="val">1</td>
+          <td class="val">onchain_daily_metrics</td>
+          <td>Core daily metrics per chain</td>
+          <td><code>(chain, metric, metric_date)</code></td>
+          <td class="val green">2,207+</td>
+        </tr>
+        <tr>
+          <td class="val">2</td>
+          <td class="val">onchain_whale_txs</td>
+          <td>Individual whale transaction records</td>
+          <td><code>(tx_hash)</code></td>
+          <td class="val">~7,000+</td>
+        </tr>
+        <tr>
+          <td class="val">3</td>
+          <td class="val">onchain_exchange_flow</td>
+          <td>Daily exchange inflow/outflow</td>
+          <td><code>(chain, flow_date)</code></td>
+          <td class="val">~200+</td>
+        </tr>
+        <tr>
+          <td class="val">4</td>
+          <td class="val">onchain_supply_distribution</td>
+          <td>Holder cohort snapshots</td>
+          <td><code>(chain, snapshot_date, cohort)</code></td>
+          <td class="val">~500+</td>
+        </tr>
+        <tr>
+          <td class="val">5</td>
+          <td class="val">onchain_utxo_metrics</td>
+          <td>MVRV, SOPR, NUPL, CDD (BTC/LTC)</td>
+          <td><code>(chain, metric, metric_date)</code></td>
+          <td class="val">~400+</td>
+        </tr>
+        <tr>
+          <td class="val">6</td>
+          <td class="val">exchange_address_labels</td>
+          <td>Known exchange wallet addresses</td>
+          <td><code>(chain, address)</code></td>
+          <td class="val">39</td>
+        </tr>
+        <tr>
+          <td class="val">7</td>
+          <td class="val">onchain_scores</td>
+          <td>Composite on-chain scores (0-100)</td>
+          <td><code>(chain, token_id, score_date)</code></td>
+          <td class="val">~150+</td>
+        </tr>
+        <tr>
+          <td class="val">8</td>
+          <td class="val">onchain_pipeline_runs</td>
+          <td>Pipeline execution metadata</td>
+          <td><code>(auto-increment)</code></td>
+          <td class="val">~300+</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Key Table Schemas</h3>
+
+    <div class="schema-block">
+      <div class="schema-title">onchain_daily_metrics</div>
+      <table>
+        <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="val">chain</td><td>VARCHAR(20)</td><td>Chain identifier</td></tr>
+          <tr><td class="val">metric</td><td>VARCHAR(50)</td><td>Metric name</td></tr>
+          <tr><td class="val">metric_date</td><td>DATE</td><td>Measurement date</td></tr>
+          <tr><td class="val">value</td><td>FLOAT</td><td>Value in native units</td></tr>
+          <tr><td class="val">value_usd</td><td>FLOAT</td><td>Value in USD</td></tr>
+          <tr><td class="val">signal</td><td>VARCHAR(20)</td><td>bullish / bearish / neutral</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-block">
+      <div class="schema-title">onchain_scores</div>
+      <div class="schema-subtitle">CryptoScore on-chain component: 4 equal-weight sub-scores</div>
+      <table>
+        <thead><tr><th>Sub-Score</th><th>Weight</th><th>Inputs</th></tr></thead>
+        <tbody>
+          <tr><td class="val">network_activity</td><td>25%</td><td>active_addresses, tx_count, tx_volume</td></tr>
+          <tr><td class="val">whale_behavior</td><td>25%</td><td>whale_txs, exchange_flow, large_holder_changes</td></tr>
+          <tr><td class="val">holder_conviction</td><td>25%</td><td>supply_distribution, cdd, exchange_reserve</td></tr>
+          <tr><td class="val">usage_growth</td><td>25%</td><td>WoW/MoM trends on all metrics</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-block">
+      <div class="schema-title">onchain_pipeline_runs</div>
+      <div class="schema-subtitle">Operational metadata for monitoring and cost tracking</div>
+      <table>
+        <thead><tr><th>Pipeline</th><th>Frequency</th><th>Duration</th><th>Avg Cost</th></tr></thead>
+        <tbody>
+          <tr><td class="val">daily_metrics</td><td>24h at 06:00 UTC</td><td>2-5 min/chain</td><td>$0.01-1.76</td></tr>
+          <tr><td class="val">whale_scan</td><td>24h at 06:15 UTC</td><td>1-3 min/chain</td><td>$0.005-0.50</td></tr>
+          <tr><td class="val">exchange_flow</td><td>24h at 06:30 UTC</td><td>2-4 min/chain</td><td>$0.01-0.80</td></tr>
+          <tr><td class="val">supply_snapshot</td><td>Weekly (Sun 06:00)</td><td>5-10 min/chain</td><td>$0.05-2.00</td></tr>
+          <tr><td class="val">utxo_advanced</td><td>24h at 07:00 UTC</td><td>3-8 min (BTC/LTC)</td><td>$0.50-1.80</td></tr>
+          <tr><td class="val">score_compute</td><td>24h at 08:00 UTC</td><td>30s/chain</td><td>$0 (local SQL)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<!-- CHAPTER 4: METRIC COVERAGE MATRIX -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 04</div>
+    <h2>Metric Coverage Matrix</h2>
+    <p>21 chains x 14 metrics. Green = live and producing data. Amber = schema ready, pending backfill or Analytics Hub enrollment. Gray = not applicable to chain type.</p>
+
+    <table style="font-size: 9pt;">
+      <thead>
+        <tr>
+          <th>Chain</th>
+          <th>Active Addr</th>
+          <th>Whale Tx</th>
+          <th>Tx Vol</th>
+          <th>NVT</th>
+          <th>MVRV</th>
+          <th>CDD</th>
+          <th>Supply Dist</th>
+          <th>Exch Flow</th>
+          <th>Gas</th>
+          <th>Token Xfer</th>
+          <th>DEX Vol</th>
+          <th>Staking</th>
+          <th>Score</th>
+          <th>Trends</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="val">Bitcoin</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="green">&#9679;</td><td class="green">&#9679;</td></tr>
+        <tr><td class="val">Ethereum</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td></tr>
+        <tr><td class="val">Tron</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td class="green">&#9679;</td><td class="green">&#9679;</td></tr>
+        <tr><td class="val">Polygon</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td class="green">&#9679;</td><td class="green">&#9679;</td></tr>
+        <tr><td class="val">Litecoin</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="green">&#9679;</td><td class="green">&#9679;</td></tr>
+        <tr><td class="val">Optimism</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td class="green">&#9679;</td><td class="green">&#9679;</td></tr>
+        <tr><td class="val">Solana</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td></tr>
+        <tr><td class="val">Arbitrum</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td></tr>
+        <tr><td class="val">Avalanche</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td></tr>
+        <tr><td class="val">Sui</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td></tr>
+        <tr><td class="val">NEAR</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td></tr>
+        <tr><td class="val">Aptos</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td></tr>
+        <tr><td class="val">MultiversX</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td></tr>
+        <tr><td class="val">Cronos</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td></tr>
+        <tr><td class="val">Fantom</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td class="green">&#9679;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td class="amber">&#9679;</td><td class="amber">&#9679;</td></tr>
+        <tr><td class="val">Dogecoin</td><td class="red">&#9679;</td><td class="red">&#9679;</td><td class="red">&#9679;</td><td class="red">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="red">&#9679;</td><td class="red">&#9679;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td style="color:var(--text-muted);">&#9675;</td><td class="red">&#9679;</td><td class="red">&#9679;</td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:12px; font-size:10px; color:var(--text-muted);">
+      <span style="color:var(--emerald);">&#9679;</span> Live &nbsp;&nbsp;
+      <span style="color:var(--amber);">&#9679;</span> Schema ready / pending backfill &nbsp;&nbsp;
+      <span style="color:var(--rose);">&#9679;</span> Stale dataset &nbsp;&nbsp;
+      <span style="color:var(--text-muted);">&#9675;</span> Not applicable to chain type
+    </div>
+  </section>
+</div>
+
+<!-- CHAPTER 5: COST ANALYSIS -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 05</div>
+    <h2>Cost Analysis</h2>
+    <p>Daily operational cost breakdown. Cloud Run chains use BigQuery directly; Solana uses GitHub Actions for cost optimization.</p>
+
+    <div class="cards" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card">
+        <div class="card-val">$0.18</div>
+        <div class="card-lbl">Cloud Run / Day</div>
+        <div class="card-sub">All chains except SOL</div>
+      </div>
+      <div class="card">
+        <div class="card-val">$0.04</div>
+        <div class="card-lbl">Solana / Day</div>
+        <div class="card-sub">Via GitHub Actions</div>
+      </div>
+      <div class="card">
+        <div class="card-val">$0.22</div>
+        <div class="card-lbl">Total / Day</div>
+        <div class="card-sub">$6.60/month ongoing</div>
+      </div>
+    </div>
+
+    <h3>Daily Cost by Chain</h3>
+    <table>
+      <thead><tr><th>Chain</th><th>Method</th><th>Data/Query</th><th>Daily Cost</th><th>Monthly Cost</th></tr></thead>
+      <tbody>
+        <tr><td class="val">Bitcoin</td><td>Cloud Run + BigQuery</td><td>~1.8 GB</td><td class="val amber">$0.08</td><td class="val">$2.40</td></tr>
+        <tr><td class="val">Litecoin</td><td>Cloud Run + BigQuery</td><td>~1.2 GB</td><td class="val amber">$0.05</td><td class="val">$1.50</td></tr>
+        <tr><td class="val">Ethereum</td><td>Cloud Run + BigQuery</td><td>~0.3 GB</td><td class="val green">$0.01</td><td class="val">$0.30</td></tr>
+        <tr><td class="val">Polygon</td><td>Cloud Run + BigQuery</td><td>~0.2 GB</td><td class="val green">$0.007</td><td class="val">$0.21</td></tr>
+        <tr><td class="val">Tron</td><td>Cloud Run + BigQuery</td><td>~0.3 GB</td><td class="val green">$0.008</td><td class="val">$0.24</td></tr>
+        <tr><td class="val">Optimism</td><td>Cloud Run + BigQuery</td><td>~0.05 GB</td><td class="val green">$0.002</td><td class="val">$0.06</td></tr>
+        <tr><td class="val">Other EVM (6)</td><td>Cloud Run + BigQuery</td><td>~0.3 GB total</td><td class="val green">$0.03</td><td class="val">$0.90</td></tr>
+        <tr><td class="val">Sui/NEAR/Aptos/MX</td><td>Cloud Run + BigQuery</td><td>~0.1 GB total</td><td class="val green">$0.01</td><td class="val">$0.30</td></tr>
+        <tr><td class="val">Solana</td><td>GitHub Actions</td><td>Token Transfers (~8 GB)</td><td class="val green">$0.04</td><td class="val">$1.20</td></tr>
+        <tr style="border-top:2px solid var(--emerald);"><td class="val" style="color:var(--emerald);">TOTAL</td><td></td><td></td><td class="val" style="color:var(--emerald);">$0.22</td><td class="val" style="color:var(--emerald);">$6.60</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Budget Projection (12 Months)</h3>
+    <table>
+      <thead><tr><th>Category</th><th>Cost</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="val">90-Day Backfill</td><td class="val amber">$67.07</td><td>One-time (BTC $45.93, LTC $17.62, others $3.52)</td></tr>
+        <tr><td class="val">Monthly Operations</td><td class="val green">$6.60/mo</td><td>All 21 chains, daily refresh</td></tr>
+        <tr><td class="val">12-Month Ops Total</td><td class="val">$79.20</td><td>$6.60 x 12 months</td></tr>
+        <tr><td class="val">Cloud Run</td><td class="val">$15-25/mo</td><td>API service hosting</td></tr>
+        <tr><td class="val">Cloud SQL</td><td class="val">$30-40/mo</td><td>PostgreSQL instance</td></tr>
+        <tr><td class="val">Redis</td><td class="val">$10-15/mo</td><td>Memorystore 1GB</td></tr>
+        <tr style="border-top:2px solid var(--emerald);"><td class="val" style="color:var(--emerald);">12-MONTH TOTAL</td><td class="val" style="color:var(--emerald);">~$850-1,000</td><td style="color:var(--emerald);">Covered by $1,000 GCP credits</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <div class="callout-title">Budget Summary</div>
+      <p>Entire on-chain analytics infrastructure costs $0 cash for the first 12-18 months. $1,000 GCP credits cover everything: BigQuery queries, Cloud Run, Cloud SQL, Redis. After credits expire, monthly cost is approximately $77-85/month — fundable from first 3 Pro subscribers at $29/month.</p>
+    </div>
+  </section>
+</div>
+
+<!-- CHAPTER 6: ARCHITECTURE DIAGRAM -->
+<div class="page-break"></div>
+<div class="container">
+  <section>
+    <div class="section-num">Chapter 06</div>
+    <h2>Architecture Diagram</h2>
+    <p>End-to-end data flow from BigQuery public datasets through to the frontend dashboard.</p>
+
+    <div class="arch-diagram">
+      <!-- Data Sources Row -->
+      <div style="text-align:center; margin-bottom:8px;">
+        <span style="font-family:'JetBrains Mono'; font-size:9px; color:var(--text-muted); letter-spacing:2px; text-transform:uppercase;">Data Sources</span>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box">
+          <div class="arch-label">BigQuery</div>
+          <div class="arch-sub">34 blockchain datasets</div>
+        </div>
+        <div class="arch-box">
+          <div class="arch-label">CoinGecko</div>
+          <div class="arch-sub">Price + market cap</div>
+        </div>
+        <div class="arch-box">
+          <div class="arch-label">DeFiLlama</div>
+          <div class="arch-sub">TVL + DEX volume</div>
+        </div>
+        <div class="arch-box">
+          <div class="arch-label">Binance/Bybit</div>
+          <div class="arch-sub">Derivatives data</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow-down">&#9660;</div>
+
+      <!-- Pipeline Row -->
+      <div style="text-align:center; margin-bottom:8px;">
+        <span style="font-family:'JetBrains Mono'; font-size:9px; color:var(--text-muted); letter-spacing:2px; text-transform:uppercase;">Pipeline Layer</span>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box primary">
+          <div class="arch-label">Cloud Scheduler</div>
+          <div class="arch-sub">12 cron jobs</div>
+        </div>
+        <div class="arch-arrow">&#9654;</div>
+        <div class="arch-box primary">
+          <div class="arch-label">Cloud Run Pipeline</div>
+          <div class="arch-sub">FastAPI + BigQuery client</div>
+        </div>
+        <div class="arch-arrow">&#9654;</div>
+        <div class="arch-box">
+          <div class="arch-label">GitHub Actions</div>
+          <div class="arch-sub">Solana (cost opt)</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow-down">&#9660;</div>
+
+      <!-- Storage Row -->
+      <div style="text-align:center; margin-bottom:8px;">
+        <span style="font-family:'JetBrains Mono'; font-size:9px; color:var(--text-muted); letter-spacing:2px; text-transform:uppercase;">Storage Layer</span>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box primary">
+          <div class="arch-label">PostgreSQL</div>
+          <div class="arch-sub">Cloud SQL (8 tables)</div>
+        </div>
+        <div class="arch-arrow">&#9654;</div>
+        <div class="arch-box primary">
+          <div class="arch-label">Redis</div>
+          <div class="arch-sub">Memorystore 1GB cache</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow-down">&#9660;</div>
+
+      <!-- API Row -->
+      <div style="text-align:center; margin-bottom:8px;">
+        <span style="font-family:'JetBrains Mono'; font-size:9px; color:var(--text-muted); letter-spacing:2px; text-transform:uppercase;">API Layer</span>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box primary">
+          <div class="arch-label">FastAPI</div>
+          <div class="arch-sub">17 REST endpoints</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow-down">&#9660;</div>
+
+      <!-- Frontend Row -->
+      <div style="text-align:center; margin-bottom:8px;">
+        <span style="font-family:'JetBrains Mono'; font-size:9px; color:var(--text-muted); letter-spacing:2px; text-transform:uppercase;">Frontend</span>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box">
+          <div class="arch-label">Next.js 15</div>
+          <div class="arch-sub">app.cryptoprism.io</div>
+        </div>
+        <div class="arch-box">
+          <div class="arch-label">Saarthi AI</div>
+          <div class="arch-sub">Claude API context</div>
+        </div>
+        <div class="arch-box">
+          <div class="arch-label">Alerts</div>
+          <div class="arch-sub">Telegram + Email</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Data Flow Summary</h3>
+    <div class="callout info">
+      <div class="callout-title">Pipeline Sequence (Daily at 06:00 UTC)</div>
+      <p>
+        1. Cloud Scheduler triggers Cloud Run pipeline endpoint<br>
+        2. Pipeline queries BigQuery for previous day's data (partition-pruned)<br>
+        3. Results written to PostgreSQL (8 tables, UPSERT on unique constraints)<br>
+        4. Computed metrics (trends, scores) calculated via SQL<br>
+        5. Results cached in Redis (1h TTL for trends, 24h for daily metrics)<br>
+        6. API serves cached data; cache miss triggers DB query<br>
+        7. Saarthi AI reads context endpoint for on-chain intelligence<br>
+        8. Divergence signals (L4) trigger alerts via Telegram + Email
+      </p>
+    </div>
+
+    <h3>Key Design Decisions</h3>
+    <table>
+      <thead><tr><th>Decision</th><th>Choice</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td class="val">Hosting</td><td>Firebase + Cloud Run</td><td>Vercel Hobby plan prohibits commercial use</td></tr>
+        <tr><td class="val">Derivatives</td><td>Binance + Bybit direct</td><td>Same data as CoinGlass, $0 cost</td></tr>
+        <tr><td class="val">AI Model</td><td>Claude API (Haiku/Sonnet)</td><td>Direct API, not Agent SDK — Saarthi is workflow</td></tr>
+        <tr><td class="val">Solana Pipeline</td><td>GitHub Actions</td><td>Token Transfers: $0.04/day vs $1.19 Transactions</td></tr>
+        <tr><td class="val">Auth</td><td>Firebase Auth</td><td>Google OAuth + email link, zero cost</td></tr>
+        <tr><td class="val">Cache</td><td>Memorystore Redis 1GB</td><td>Sub-50ms response time for API</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<div class="page-break"></div>
+<div class="container">
+  <section style="text-align:center; padding: 60px 0;">
+    <div style="font-family:'JetBrains Mono'; font-size:10px; letter-spacing:3px; color:var(--emerald); text-transform:uppercase; margin-bottom:20px;">End of Report</div>
+    <h2 style="font-size:24px;">CryptoPrism On-Chain Analytics</h2>
+    <p style="font-size:14px; max-width:500px; margin:20px auto;">Architecture & Intelligence Layers Report</p>
+    <p style="font-size:11px; color:var(--text-muted);">
+      Generated: 2026-04-17 &nbsp;|&nbsp; 4 Intelligence Layers &nbsp;|&nbsp; 21 Chains<br>
+      8 PostgreSQL Tables &nbsp;|&nbsp; 34 BigQuery Datasets &nbsp;|&nbsp; $0.22/day operational cost
+    </p>
+    <div style="margin-top:40px;">
+      <span style="font-family:'Space Grotesk'; font-size:20px; font-weight:700;">Crypto<span style="color:var(--emerald);">Prism</span>.io</span>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>

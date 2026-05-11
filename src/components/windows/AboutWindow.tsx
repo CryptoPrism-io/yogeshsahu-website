@@ -1,6 +1,6 @@
 "use client";
 
-import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
+import Image from "next/image";
 
 const ventures = [
   {
@@ -38,9 +38,12 @@ export default function AboutWindow() {
     <div className="p-6 md:p-8">
       <div className="mb-7 border-b pb-7" style={{ borderColor: "var(--ys-border)" }}>
         <div className="flex items-start gap-5">
-          <ImagePlaceholder
-            variant="profile"
-            className="h-28 w-28 shrink-0 rounded-2xl"
+          <Image
+            src="/images/profile.jpg"
+            alt="Yogesh Sahu"
+            width={112}
+            height={112}
+            className="h-28 w-28 shrink-0 rounded-2xl object-cover"
           />
           <div>
             <h1 className="mb-3 leading-[0.9] tracking-[-0.04em]">

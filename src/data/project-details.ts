@@ -1,4 +1,7 @@
 import { projects } from "@/lib/projects";
+import type { Gallery } from "@/lib/projects";
+import { caseStudies } from "@/data/case-studies";
+import type { CaseStudyContent } from "@/data/case-studies/types";
 
 export interface ProjectDetail {
   id: string;
@@ -12,7 +15,10 @@ export interface ProjectDetail {
   href: string;
   githubHref: string;
   image?: string;
-  sections: { title: string; content: string }[];
+  gallery?: Gallery;
+  reportHref?: string;
+  reports?: { label: string; href: string }[];
+  caseStudy?: CaseStudyContent;
 }
 
 export const projectDetails: Record<string, ProjectDetail> = Object.fromEntries(
@@ -29,7 +35,11 @@ export const projectDetails: Record<string, ProjectDetail> = Object.fromEntries(
       language: p.language,
       href: p.href,
       githubHref: p.githubHref,
-      sections: [],
+      image: p.image,
+      gallery: p.gallery,
+      reportHref: p.reportHref,
+      reports: p.reports,
+      caseStudy: caseStudies[p.id],
     },
   ])
 );
