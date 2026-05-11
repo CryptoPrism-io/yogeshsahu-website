@@ -79,62 +79,64 @@ export default function MobileHome() {
   return (
     <div className="fixed inset-0 overflow-y-auto" style={{ background: "var(--ys-surface)" }}>
       <motion.header
-        className="relative flex min-h-[760px] flex-col overflow-hidden"
+        className="relative flex flex-col overflow-hidden"
         style={{ background: "var(--ys-bg)" }}
         variants={fadeUp(0, 18)}
         initial="initial"
         animate="animate"
       >
-        {/* Index block — top-left masthead metadata */}
-        <div className="px-5 pt-12">
-          <p
-            className="text-[10px] uppercase leading-[1.4] tracking-[0.18em]"
-            style={{ fontFamily: "var(--font-mono)", color: "rgba(255,244,233,0.7)" }}
-          >
-            INDEX № 01 / YS
-            <br />
-            PORTFOLIO — 2026
-          </p>
-          <div
-            className="mt-2 h-px w-[55%]"
-            style={{ background: "rgba(255,244,233,0.55)" }}
-          />
-        </div>
-
-        {/* Headshot — top-right, with teal registration arc */}
-        <div className="absolute right-5 top-[68px] flex h-[180px] w-[180px] items-center justify-center">
-          <div
-            className="pointer-events-none absolute inset-0 rounded-full"
-            style={{
-              border: "1.5px solid transparent",
-              borderTopColor: "var(--ys-highlight)",
-              transform: "rotate(38deg)",
-            }}
-          />
-          <div
-            className="relative h-40 w-40 overflow-hidden rounded-full"
-            style={{ border: "1px solid rgba(255,244,233,0.85)" }}
-          >
-            <Image
-              src="/images/profile.jpg"
-              alt="Yogesh Sahu"
-              width={160}
-              height={160}
-              className="h-full w-full object-cover"
-              priority
+        {/* Top row — index block (left) + headshot (right) on the same row */}
+        <div className="flex items-start justify-between gap-3 px-5 pt-12">
+          <div className="flex-1 pt-1">
+            <p
+              className="text-[10px] uppercase leading-[1.4] tracking-[0.18em]"
+              style={{ fontFamily: "var(--font-mono)", color: "rgba(255,244,233,0.7)" }}
+            >
+              INDEX № 01 / YS
+              <br />
+              PORTFOLIO — 2026
+            </p>
+            <div
+              className="mt-2 h-px w-[70%]"
+              style={{ background: "rgba(255,244,233,0.55)" }}
             />
+          </div>
+
+          {/* Headshot with teal registration arc */}
+          <div className="relative flex h-[136px] w-[136px] shrink-0 items-center justify-center">
+            <div
+              className="pointer-events-none absolute inset-[-6px] rounded-full"
+              style={{
+                border: "1.5px solid transparent",
+                borderTopColor: "var(--ys-highlight)",
+                transform: "rotate(38deg)",
+              }}
+            />
+            <div
+              className="relative h-[124px] w-[124px] overflow-hidden rounded-full"
+              style={{ border: "1px solid rgba(255,244,233,0.85)" }}
+            >
+              <Image
+                src="/images/profile.jpg"
+                alt="Yogesh Sahu"
+                width={124}
+                height={124}
+                className="h-full w-full object-cover"
+                priority
+              />
+            </div>
           </div>
         </div>
 
-        {/* Name lockup — fills the lower-left two-thirds */}
-        <div className="flex flex-grow flex-col justify-end px-5 pb-7">
+        {/* Name lockup — sits directly below the top row, no gap to bottom */}
+        <div className="px-5 pb-6 pt-8">
           <h1>
             <span
               className="block font-black italic"
               style={{
                 fontFamily: "var(--font-serif-display)",
                 color: "var(--ys-surface)",
-                fontSize: "clamp(5rem, 24vw, 6.25rem)",
+                fontSize: "clamp(4.5rem, 21vw, 6rem)",
                 lineHeight: 0.82,
                 letterSpacing: "-0.045em",
                 textShadow: "0 2px 0 #1f140d",
@@ -142,13 +144,13 @@ export default function MobileHome() {
             >
               Yogesh
             </span>
-            <span className="-mt-3 flex justify-end pr-8">
+            <span className="-mt-2 flex justify-end pr-6">
               <span
                 className="font-black uppercase"
                 style={{
                   fontFamily: "var(--font-headline)",
                   color: "var(--ys-surface)",
-                  fontSize: "clamp(2.4rem, 12vw, 3.1rem)",
+                  fontSize: "clamp(2.3rem, 11.5vw, 3rem)",
                   lineHeight: 1,
                   letterSpacing: "-0.025em",
                   textShadow: "0 2px 0 #1f140d",
@@ -159,7 +161,7 @@ export default function MobileHome() {
             </span>
           </h1>
           <p
-            className="mt-5 text-[10.5px] font-bold uppercase tracking-[0.22em]"
+            className="mt-4 text-[10.5px] font-bold uppercase tracking-[0.22em]"
             style={{ fontFamily: "var(--font-mono)", color: "rgba(255,244,233,0.82)" }}
           >
             — Founder · AI-Native Builder · CTO
