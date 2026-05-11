@@ -79,135 +79,158 @@ export default function MobileHome() {
   return (
     <div className="fixed inset-0 overflow-y-auto" style={{ background: "var(--ys-surface)" }}>
       <motion.header
-        className="px-5 pt-12 pb-8"
+        className="relative flex min-h-[760px] flex-col overflow-hidden"
         style={{ background: "var(--ys-bg)" }}
         variants={fadeUp(0, 18)}
         initial="initial"
         animate="animate"
       >
-        {/* Headshot — focal point with warm halo + breathing concentric rings */}
-        <div className="relative mx-auto mb-6 h-36 w-36">
-          {/* Warm radial glow behind */}
+        {/* Index block — top-left masthead metadata */}
+        <div className="px-5 pt-12">
+          <p
+            className="text-[10px] uppercase leading-[1.4] tracking-[0.18em]"
+            style={{ fontFamily: "var(--font-mono)", color: "rgba(255,244,233,0.7)" }}
+          >
+            INDEX № 01 / YS
+            <br />
+            PORTFOLIO — 2026
+          </p>
           <div
-            className="pointer-events-none absolute inset-[-28px] rounded-full"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(255,250,244,0.22) 0%, rgba(255,250,244,0) 65%)",
-            }}
-          />
-          {/* Outer breathing dashed ring */}
-          <motion.div
-            className="pointer-events-none absolute inset-[-14px] rounded-full border border-dashed"
-            style={{ borderColor: "rgba(255,248,241,0.42)" }}
-            animate={{ scale: [1, 1.05, 1], opacity: [0.7, 1, 0.7] }}
-            transition={{ duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-          />
-          {/* Solid inner ring */}
-          <div
-            className="pointer-events-none absolute inset-[-4px] rounded-full border-2"
-            style={{ borderColor: "rgba(255,248,241,0.78)" }}
-          />
-          {/* Photo */}
-          <Image
-            src="/images/profile.jpg"
-            alt="Yogesh Sahu"
-            width={144}
-            height={144}
-            className="relative h-36 w-36 rounded-full object-cover"
-            priority
+            className="mt-2 h-px w-[55%]"
+            style={{ background: "rgba(255,244,233,0.55)" }}
           />
         </div>
 
-        {/* Negative-space lockup — italic serif left, caps sans right, overlapping */}
-        <h1 className="mb-3">
-          <span
-            className="block text-left font-black italic"
+        {/* Headshot — top-right, with teal registration arc */}
+        <div className="absolute right-5 top-[68px] flex h-[180px] w-[180px] items-center justify-center">
+          <div
+            className="pointer-events-none absolute inset-0 rounded-full"
             style={{
-              fontFamily: "var(--font-serif-display)",
-              color: "var(--ys-surface)",
-              fontSize: "5.2rem",
-              lineHeight: "0.88",
-              letterSpacing: "-0.05em",
-              textShadow: "0 2px 0 rgba(15,8,4,0.18)",
+              border: "1.5px solid transparent",
+              borderTopColor: "var(--ys-highlight)",
+              transform: "rotate(38deg)",
             }}
+          />
+          <div
+            className="relative h-40 w-40 overflow-hidden rounded-full"
+            style={{ border: "1px solid rgba(255,244,233,0.85)" }}
           >
-            Yogesh
-          </span>
-          <span
-            className="block text-right font-black uppercase"
-            style={{
-              fontFamily: "var(--font-headline)",
-              color: "var(--ys-surface)",
-              fontSize: "2.9rem",
-              lineHeight: "1",
-              letterSpacing: "-0.02em",
-              marginTop: "-1.05rem",
-              textShadow: "0 2px 0 rgba(15,8,4,0.18)",
-            }}
+            <Image
+              src="/images/profile.jpg"
+              alt="Yogesh Sahu"
+              width={160}
+              height={160}
+              className="h-full w-full object-cover"
+              priority
+            />
+          </div>
+        </div>
+
+        {/* Name lockup — fills the lower-left two-thirds */}
+        <div className="flex flex-grow flex-col justify-end px-5 pb-7">
+          <h1>
+            <span
+              className="block font-black italic"
+              style={{
+                fontFamily: "var(--font-serif-display)",
+                color: "var(--ys-surface)",
+                fontSize: "clamp(5rem, 24vw, 6.25rem)",
+                lineHeight: 0.82,
+                letterSpacing: "-0.045em",
+                textShadow: "0 2px 0 #1f140d",
+              }}
+            >
+              Yogesh
+            </span>
+            <span className="-mt-3 flex justify-end pr-8">
+              <span
+                className="font-black uppercase"
+                style={{
+                  fontFamily: "var(--font-headline)",
+                  color: "var(--ys-surface)",
+                  fontSize: "clamp(2.4rem, 12vw, 3.1rem)",
+                  lineHeight: 1,
+                  letterSpacing: "-0.025em",
+                  textShadow: "0 2px 0 #1f140d",
+                }}
+              >
+                Sahu
+              </span>
+            </span>
+          </h1>
+          <p
+            className="mt-5 text-[10.5px] font-bold uppercase tracking-[0.22em]"
+            style={{ fontFamily: "var(--font-mono)", color: "rgba(255,244,233,0.82)" }}
           >
-            Sahu
-          </span>
-        </h1>
+            — Founder · AI-Native Builder · CTO
+          </p>
+        </div>
 
-        {/* Role — credit line, em-dash prefix, left-aligned to sustain asymmetry */}
-        <p
-          className="mb-6 text-left text-[10px] font-bold uppercase tracking-[0.22em]"
-          style={{ fontFamily: "var(--font-mono)", color: "rgba(255,239,225,0.78)" }}
-        >
-          — Founder · AI-Native Builder · CTO
-        </p>
-
-        {/* Rotating stat card */}
+        {/* Stat band — full-width letterpress band */}
         <div
-          className="rounded-2xl border px-5 py-6 backdrop-blur-md"
+          className="flex items-end justify-between px-5 py-5"
           style={{
-            borderColor: "rgba(255,244,233,0.32)",
-            background: "rgba(28,17,11,0.5)",
-            boxShadow:
-              "0 18px 38px -22px rgba(15,8,4,0.55), inset 0 1px 0 rgba(255,244,233,0.14)",
+            background: "rgba(31,20,13,0.42)",
+            borderTop: "1px solid rgba(31,20,13,0.4)",
           }}
         >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={statIndex}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.45, ease: "easeOut" }}
-            >
-              <p
-                className="text-[2.6rem] font-black leading-none"
-                style={{ fontFamily: "var(--font-headline)", color: "var(--ys-surface)" }}
+          <div className="flex items-end gap-3">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={`val-${statIndex}`}
+                className="inline-block font-black italic"
+                style={{
+                  fontFamily: "var(--font-serif-display)",
+                  color: "var(--ys-surface)",
+                  fontSize: "3.6rem",
+                  lineHeight: 0.82,
+                  letterSpacing: "-0.04em",
+                  textShadow: "0 2px 0 #1f140d",
+                }}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
                 {activeStat.value}
-              </p>
-              <p
-                className="mt-1.5 text-[11px] font-bold uppercase tracking-[0.18em]"
-                style={{ fontFamily: "var(--font-mono)", color: "rgba(255,244,233,0.88)" }}
+              </motion.span>
+            </AnimatePresence>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`lbl-${statIndex}`}
+                className="flex flex-col leading-tight"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
-                {activeStat.label}
-              </p>
-              <p
-                className="mt-2 text-[12px] leading-[1.55]"
-                style={{ fontFamily: "var(--font-body)", color: "rgba(255,239,225,0.74)" }}
-              >
-                {activeStat.context}
-              </p>
-            </motion.div>
-          </AnimatePresence>
+                <span
+                  className="text-[9.5px] font-bold uppercase tracking-[0.18em]"
+                  style={{ fontFamily: "var(--font-mono)", color: "rgba(255,244,233,0.88)" }}
+                >
+                  {activeStat.label}
+                </span>
+                <span
+                  className="mt-1 text-[10px] tracking-[0.04em]"
+                  style={{ fontFamily: "var(--font-mono)", color: "rgba(255,244,233,0.6)" }}
+                >
+                  {activeStat.context}
+                </span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-          {/* Progress pills */}
-          <div className="mt-5 flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 pb-1">
             {HERO_STATS.map((_, i) => (
               <motion.div
                 key={i}
-                className="h-[3px] rounded-full"
+                className="h-[3px]"
                 animate={{
                   width: i === statIndex ? 28 : 10,
-                  opacity: i === statIndex ? 0.95 : 0.32,
+                  opacity: i === statIndex ? 1 : 0.35,
                 }}
-                transition={{ duration: 0.45, ease: "easeOut" }}
-                style={{ background: "rgba(255,250,244,1)" }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                style={{ background: "var(--ys-surface)" }}
               />
             ))}
           </div>
