@@ -67,10 +67,19 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
           setPointer({ x: 280, y: 240 });
         }}
       >
+        {/* Dark radial scrim — gives the mandala a warm "well" to sit in */}
         <div
-          className="pointer-events-none absolute inset-0 rounded-[42px] opacity-90 blur-3xl transition-opacity duration-300"
+          className="pointer-events-none absolute inset-0 rounded-[42px]"
           style={{
-            background: `radial-gradient(circle at ${(pointer.x / 560) * 100}% ${(pointer.y / 540) * 100}%, rgba(255,244,233,0.22), rgba(255,244,233,0) 34%)`,
+            background:
+              "radial-gradient(ellipse 60% 55% at 50% 48%, rgba(18, 10, 6, 0.62) 0%, rgba(18, 10, 6, 0.36) 38%, rgba(18, 10, 6, 0) 72%)",
+          }}
+        />
+        {/* Cursor-following highlight */}
+        <div
+          className="pointer-events-none absolute inset-0 rounded-[42px] opacity-80 blur-3xl transition-opacity duration-300"
+          style={{
+            background: `radial-gradient(circle at ${(pointer.x / 560) * 100}% ${(pointer.y / 540) * 100}%, rgba(255,244,233,0.18), rgba(255,244,233,0) 32%)`,
           }}
         />
         <motion.div
@@ -172,10 +181,34 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
               transition={{ duration: 2.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
             />
 
-            <text x="280" y="42" textAnchor="middle" fill="rgba(255,244,233,0.78)" style={{ fontFamily: "var(--font-mono)", fontSize: "11px", fontWeight: 600, letterSpacing: "0.28em" }}>
+            <text
+              x="280"
+              y="42"
+              textAnchor="middle"
+              fill="rgba(255,250,244,0.92)"
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "0.26em",
+                filter: "drop-shadow(0 1px 2px rgba(15,8,4,0.55))",
+              }}
+            >
               DOMAIN MAP
             </text>
-            <text x="280" y="474" textAnchor="middle" fill="rgba(255,244,233,0.62)" style={{ fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.16em" }}>
+            <text
+              x="280"
+              y="474"
+              textAnchor="middle"
+              fill="rgba(255,244,233,0.78)"
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "9px",
+                fontWeight: 600,
+                letterSpacing: "0.14em",
+                filter: "drop-shadow(0 1px 2px rgba(15,8,4,0.5))",
+              }}
+            >
               HOVER TO TRACE / CLICK TO OPEN PROOF GRAPH
             </text>
 
@@ -224,8 +257,14 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                   x={domain.x}
                   y={domain.y - 42}
                   textAnchor="middle"
-                  fill={activeDomain === domain.id ? "rgba(255,250,244,0.98)" : "rgba(255,243,232,0.86)"}
-                  style={{ fontFamily: "var(--font-mono)", fontSize: "10px", fontWeight: 600, letterSpacing: "0.18em" }}
+                  fill={activeDomain === domain.id ? "rgba(255,250,244,1)" : "rgba(255,247,238,0.92)"}
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "10px",
+                    fontWeight: activeDomain === domain.id ? 700 : 600,
+                    letterSpacing: "0.16em",
+                    filter: "drop-shadow(0 1px 2px rgba(15,8,4,0.6))",
+                  }}
                 >
                   {domain.label}
                 </text>
@@ -313,8 +352,14 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                       x={node.x}
                       y={node.y + (node.y > 280 ? 24 : -18)}
                       textAnchor="middle"
-                      fill={activeSubdomain === node.id ? "rgba(255,250,244,0.98)" : "rgba(255,243,232,0.78)"}
-                      style={{ fontFamily: "var(--font-mono)", fontSize: "9px", fontWeight: 600, letterSpacing: "0.14em" }}
+                      fill={activeSubdomain === node.id ? "rgba(255,250,244,1)" : "rgba(255,245,234,0.86)"}
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "9.5px",
+                        fontWeight: activeSubdomain === node.id ? 700 : 600,
+                        letterSpacing: "0.1em",
+                        filter: "drop-shadow(0 1px 2px rgba(15,8,4,0.55))",
+                      }}
                     >
                       {node.label}
                     </text>
@@ -322,6 +367,51 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                 ))}
               </g>
             ))}
+
+            {/* Trace pulse — bright dash travels from mandala center out to the active subdomain */}
+            <motion.line
+              key={`trace-${activeSubdomainConfig.id}`}
+              x1={280}
+              y1={240}
+              x2={activeSubdomainConfig.x}
+              y2={activeSubdomainConfig.y}
+              stroke="rgba(255, 250, 244, 0.36)"
+              strokeWidth={5}
+              strokeLinecap="round"
+              style={{ strokeDasharray: "24 240" }}
+              initial={{ strokeDashoffset: 264 }}
+              animate={{ strokeDashoffset: -264 }}
+              transition={{ duration: 2.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            />
+            <motion.line
+              key={`trace-core-${activeSubdomainConfig.id}`}
+              x1={280}
+              y1={240}
+              x2={activeSubdomainConfig.x}
+              y2={activeSubdomainConfig.y}
+              stroke="rgba(255, 250, 244, 0.95)"
+              strokeWidth={1.6}
+              strokeLinecap="round"
+              style={{ strokeDasharray: "12 252" }}
+              initial={{ strokeDashoffset: 264 }}
+              animate={{ strokeDashoffset: -264 }}
+              transition={{ duration: 2.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            />
+
+            {/* Breathing halo around the active subdomain node */}
+            <motion.circle
+              key={`halo-${activeSubdomainConfig.id}`}
+              cx={activeSubdomainConfig.x}
+              cy={activeSubdomainConfig.y}
+              r="14"
+              fill="none"
+              stroke="rgba(255, 250, 244, 0.5)"
+              strokeWidth="1.4"
+              initial={{ scale: 0.7, opacity: 0.8 }}
+              animate={{ scale: [0.7, 1.9], opacity: [0.8, 0] }}
+              transition={{ duration: 1.8, repeat: Number.POSITIVE_INFINITY, ease: "easeOut" }}
+              style={{ transformOrigin: `${activeSubdomainConfig.x}px ${activeSubdomainConfig.y}px` }}
+            />
           </svg>
           <svg
             className="pointer-events-none absolute inset-0 h-full w-full"
