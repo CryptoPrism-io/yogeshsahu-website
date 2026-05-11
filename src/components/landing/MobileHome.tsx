@@ -118,17 +118,56 @@ export default function MobileHome() {
           />
         </div>
 
-        {/* Brand-mark name — italic serif + caps sans, same as desktop About */}
-        <h1 className="mb-2 text-center leading-[0.88] tracking-[-0.02em]">
+        {/* Editorial brand mark — monumental scale + horizontal accent bar */}
+        <h1 className="mb-3 text-center leading-[0.82]">
           <span
-            className="block text-[2.6rem] font-black italic"
-            style={{ fontFamily: "var(--font-serif-display)", color: "rgba(255,248,241,0.96)" }}
+            className="block text-[4.4rem] font-black italic"
+            style={{
+              fontFamily: "var(--font-serif-display)",
+              color: "var(--ys-surface)",
+              letterSpacing: "-0.045em",
+              textShadow: "0 2px 0 rgba(15,8,4,0.18)",
+            }}
           >
             Yogesh
           </span>
+          <span className="my-1.5 flex items-center justify-center gap-2.5" aria-hidden>
+            <span
+              className="inline-block"
+              style={{
+                width: "44px",
+                height: "3px",
+                background: "var(--ys-surface)",
+                opacity: 0.92,
+              }}
+            />
+            <span
+              className="inline-block rotate-45"
+              style={{
+                width: "9px",
+                height: "9px",
+                background: "var(--ys-highlight)",
+                boxShadow: "0 0 14px rgba(11,141,128,0.55)",
+              }}
+            />
+            <span
+              className="inline-block"
+              style={{
+                width: "44px",
+                height: "3px",
+                background: "var(--ys-surface)",
+                opacity: 0.92,
+              }}
+            />
+          </span>
           <span
-            className="block text-[2.1rem] font-black uppercase"
-            style={{ fontFamily: "var(--font-headline)", color: "var(--ys-surface)" }}
+            className="block text-[3rem] font-black uppercase"
+            style={{
+              fontFamily: "var(--font-headline)",
+              color: "var(--ys-surface)",
+              letterSpacing: "-0.02em",
+              textShadow: "0 2px 0 rgba(15,8,4,0.18)",
+            }}
           >
             Sahu
           </span>
