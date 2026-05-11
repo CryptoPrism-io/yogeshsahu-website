@@ -33,42 +33,44 @@ const outcomes = [
   { value: "50K+", label: "game downloads" },
 ];
 
-export default function AboutWindow() {
+export default function AboutWindow({ hideHeader = false }: { hideHeader?: boolean } = {}) {
   return (
     <div className="p-6 md:p-8">
-      <div className="mb-7 border-b pb-7" style={{ borderColor: "var(--ys-border)" }}>
-        <div className="flex items-start gap-5">
-          <Image
-            src="/images/profile.jpg"
-            alt="Yogesh Sahu"
-            width={112}
-            height={112}
-            className="h-28 w-28 shrink-0 rounded-2xl object-cover"
-          />
-          <div>
-            <h1 className="mb-3 leading-[0.9] tracking-[-0.04em]">
-              <span
-                className="block text-[clamp(2.6rem,5.6vw,4.2rem)] font-black italic"
-                style={{ fontFamily: "var(--font-serif-display)", color: "var(--ys-accent)" }}
+      {!hideHeader && (
+        <div className="mb-7 border-b pb-7" style={{ borderColor: "var(--ys-border)" }}>
+          <div className="flex items-start gap-5">
+            <Image
+              src="/images/profile.jpg"
+              alt="Yogesh Sahu"
+              width={112}
+              height={112}
+              className="h-28 w-28 shrink-0 rounded-2xl object-cover"
+            />
+            <div>
+              <h1 className="mb-3 leading-[0.9] tracking-[-0.04em]">
+                <span
+                  className="block text-[clamp(2.6rem,5.6vw,4.2rem)] font-black italic"
+                  style={{ fontFamily: "var(--font-serif-display)", color: "var(--ys-accent)" }}
+                >
+                  Yogesh
+                </span>
+                <span
+                  className="block text-[clamp(2.3rem,4.8vw,3.8rem)] font-bold uppercase"
+                  style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
+                >
+                  Sahu
+                </span>
+              </h1>
+              <p
+                className="text-[10px] font-bold uppercase tracking-[0.22em]"
+                style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
               >
-                Yogesh
-              </span>
-              <span
-                className="block text-[clamp(2.3rem,4.8vw,3.8rem)] font-bold uppercase"
-                style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
-              >
-                Sahu
-              </span>
-            </h1>
-            <p
-              className="text-[10px] font-bold uppercase tracking-[0.22em]"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-            >
-              FOUNDER | MANAGING DIRECTOR | CTO
-            </p>
+                FOUNDER | MANAGING DIRECTOR | CTO
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <p
         className="mb-7 max-w-lg text-[14px] leading-[1.9]"

@@ -163,7 +163,7 @@ export default function MobileHome() {
       </section>
 
       <MobileSection title="About" icon={<FileText size={16} />} defaultOpen>
-        <AboutWindow />
+        <AboutWindow hideHeader />
       </MobileSection>
 
       <MobileSection title="Projects" icon={<FolderOpen size={16} />} defaultOpen>
