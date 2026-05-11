@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Mail, Briefcase, FileText, Terminal, Award, FolderOpen } from "lucide-react";
 import { fadeUp } from "@/lib/motion";
@@ -10,8 +10,15 @@ import ContactWindow from "@/components/windows/ContactWindow";
 import ExperienceWindow from "@/components/windows/ExperienceWindow";
 import CredentialsWindow from "@/components/windows/CredentialsWindow";
 import DiagnosticWindow from "@/components/windows/DiagnosticWindow";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
+
+const HERO_STATS = [
+  { value: "6+", label: "production apps", context: "shipped in 6 months — not MVPs" },
+  { value: "1B+", label: "datapoints / day", context: "processed at CryptoPrism" },
+  { value: "2M+", label: "lines of code", context: "across 12 production projects" },
+  { value: "4", label: "institutions built at", context: "Times of India · Barclays · Strathclyde · Isha" },
+] as const;
 
 function MobileSection({ title, icon, children, defaultOpen = false }: {
   title: string;
@@ -58,73 +65,137 @@ function MobileSection({ title, icon, children, defaultOpen = false }: {
 }
 
 export default function MobileHome() {
+  const [statIndex, setStatIndex] = useState(0);
+
+  useEffect(() => {
+    const tick = setInterval(() => {
+      setStatIndex((i) => (i + 1) % HERO_STATS.length);
+    }, 3500);
+    return () => clearInterval(tick);
+  }, []);
+
+  const activeStat = HERO_STATS[statIndex];
+
   return (
     <div className="fixed inset-0 overflow-y-auto" style={{ background: "var(--ys-surface)" }}>
       <motion.header
-        className="px-5 pt-16 pb-6"
+        className="px-5 pt-12 pb-8"
         style={{ background: "var(--ys-bg)" }}
         variants={fadeUp(0, 18)}
         initial="initial"
         animate="animate"
       >
-        <div className="mb-4 flex items-center gap-4">
+        {/* Headshot — focal point with warm halo + breathing concentric rings */}
+        <div className="relative mx-auto mb-6 h-36 w-36">
+          {/* Warm radial glow behind */}
+          <div
+            className="pointer-events-none absolute inset-[-28px] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(255,250,244,0.22) 0%, rgba(255,250,244,0) 65%)",
+            }}
+          />
+          {/* Outer breathing dashed ring */}
+          <motion.div
+            className="pointer-events-none absolute inset-[-14px] rounded-full border border-dashed"
+            style={{ borderColor: "rgba(255,248,241,0.42)" }}
+            animate={{ scale: [1, 1.05, 1], opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 4.2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+          />
+          {/* Solid inner ring */}
+          <div
+            className="pointer-events-none absolute inset-[-4px] rounded-full border-2"
+            style={{ borderColor: "rgba(255,248,241,0.78)" }}
+          />
+          {/* Photo */}
           <Image
             src="/images/profile.jpg"
             alt="Yogesh Sahu"
-            width={80}
-            height={80}
-            className="h-20 w-20 shrink-0 rounded-full object-cover"
+            width={144}
+            height={144}
+            className="relative h-36 w-36 rounded-full object-cover"
+            priority
           />
-          <div>
-            <h1
-              className="mb-1 text-[2rem] font-black uppercase leading-[0.95]"
-              style={{ fontFamily: "var(--font-headline)", color: "var(--ys-surface)" }}
-            >
-              Yogesh Sahu
-            </h1>
-            <p
-              className="text-[9px] font-bold uppercase tracking-[0.22em]"
-              style={{ fontFamily: "var(--font-mono)", color: "rgba(255,239,225,0.6)" }}
-            >
-              FOUNDER | AI-NATIVE BUILDER | CTO
-            </p>
-          </div>
         </div>
+
+        {/* Brand-mark name — italic serif + caps sans, same as desktop About */}
+        <h1 className="mb-2 text-center leading-[0.88] tracking-[-0.02em]">
+          <span
+            className="block text-[2.6rem] font-black italic"
+            style={{ fontFamily: "var(--font-serif-display)", color: "rgba(255,248,241,0.96)" }}
+          >
+            Yogesh
+          </span>
+          <span
+            className="block text-[2.1rem] font-black uppercase"
+            style={{ fontFamily: "var(--font-headline)", color: "var(--ys-surface)" }}
+          >
+            Sahu
+          </span>
+        </h1>
+
+        {/* Role */}
         <p
-          className="mb-5 text-[13px] leading-[1.8]"
-          style={{ fontFamily: "var(--font-body)", color: "rgba(255,239,225,0.82)" }}
+          className="mb-6 text-center text-[9.5px] font-bold uppercase tracking-[0.22em]"
+          style={{ fontFamily: "var(--font-mono)", color: "rgba(255,239,225,0.72)" }}
         >
-          I build and ship AI-native B2B and B2C products end-to-end — 6+ production-grade apps
-          in 6 months, not MVPs.
+          Founder · AI-Native Builder · CTO
         </p>
-        <div className="grid grid-cols-3 gap-2">
-          {[
-            { value: "6+", label: "production apps shipped" },
-            { value: "2M+", label: "lines of code" },
-            { value: "1B+", label: "datapoints/day" },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="rounded-xl border px-3 py-2.5"
-              style={{
-                borderColor: "rgba(255,244,233,0.18)",
-                background: "rgba(255,248,241,0.12)",
-              }}
+
+        {/* Rotating stat card */}
+        <div
+          className="rounded-2xl border px-5 py-6 backdrop-blur-md"
+          style={{
+            borderColor: "rgba(255,244,233,0.32)",
+            background: "rgba(28,17,11,0.5)",
+            boxShadow:
+              "0 18px 38px -22px rgba(15,8,4,0.55), inset 0 1px 0 rgba(255,244,233,0.14)",
+          }}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={statIndex}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.45, ease: "easeOut" }}
             >
               <p
-                className="text-[1rem] font-bold"
+                className="text-[2.6rem] font-black leading-none"
                 style={{ fontFamily: "var(--font-headline)", color: "var(--ys-surface)" }}
               >
-                {item.value}
+                {activeStat.value}
               </p>
               <p
-                className="text-[8px] uppercase tracking-[0.1em]"
-                style={{ fontFamily: "var(--font-mono)", color: "rgba(255,239,225,0.6)" }}
+                className="mt-1.5 text-[11px] font-bold uppercase tracking-[0.18em]"
+                style={{ fontFamily: "var(--font-mono)", color: "rgba(255,244,233,0.88)" }}
               >
-                {item.label}
+                {activeStat.label}
               </p>
-            </div>
-          ))}
+              <p
+                className="mt-2 text-[12px] leading-[1.55]"
+                style={{ fontFamily: "var(--font-body)", color: "rgba(255,239,225,0.74)" }}
+              >
+                {activeStat.context}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Progress pills */}
+          <div className="mt-5 flex items-center gap-1.5">
+            {HERO_STATS.map((_, i) => (
+              <motion.div
+                key={i}
+                className="h-[3px] rounded-full"
+                animate={{
+                  width: i === statIndex ? 28 : 10,
+                  opacity: i === statIndex ? 0.95 : 0.32,
+                }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+                style={{ background: "rgba(255,250,244,1)" }}
+              />
+            ))}
+          </div>
         </div>
       </motion.header>
 
