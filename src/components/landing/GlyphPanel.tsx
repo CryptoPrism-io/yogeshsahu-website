@@ -74,31 +74,32 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
           }}
         />
         <motion.div
-          className="pointer-events-none absolute left-8 right-8 top-0 z-[2] flex items-center justify-between gap-4 rounded-full border px-4 py-2 backdrop-blur-md xl:left-10 xl:right-10"
+          className="pointer-events-none absolute left-8 right-8 top-0 z-[2] flex items-center justify-between gap-4 rounded-full border px-4 py-2.5 backdrop-blur-xl xl:left-10 xl:right-10"
           animate={{ x: -parallaxX * 0.35, y: -parallaxY * 0.35 }}
           transition={{ type: "spring", stiffness: 120, damping: 18, mass: 0.4 }}
           style={{
-            borderColor: "var(--ys-glass-border)",
-            background: "var(--ys-glass-bg)",
+            borderColor: "rgba(255, 244, 233, 0.34)",
+            background: "rgba(28, 17, 11, 0.58)",
+            boxShadow: "0 18px 38px -22px rgba(15, 8, 4, 0.55), inset 0 1px 0 rgba(255, 244, 233, 0.16)",
           }}
         >
           <p
-            className="shrink-0 text-[8px] uppercase tracking-[0.18em]"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ys-glass-text-muted)" }}
+            className="shrink-0 text-[9px] font-semibold uppercase tracking-[0.2em]"
+            style={{ fontFamily: "var(--font-mono)", color: "rgba(255, 239, 225, 0.78)" }}
           >
             Interactive Domain
           </p>
           <div className="min-w-0 flex-1">
             <p
-              className="truncate text-[10px] font-bold uppercase tracking-[0.1em]"
-              style={{ fontFamily: "var(--font-headline)", color: "var(--ys-glass-text)" }}
+              className="truncate text-[11px] font-bold uppercase tracking-[0.12em]"
+              style={{ fontFamily: "var(--font-headline)", color: "rgba(255, 250, 244, 1)" }}
             >
               {infoTitle}
             </p>
           </div>
           <p
-            className="max-w-[48%] truncate text-right text-[10px]"
-            style={{ fontFamily: "var(--font-body)", color: "var(--ys-glass-text-soft)" }}
+            className="max-w-[48%] truncate text-right text-[11px] leading-[1.4]"
+            style={{ fontFamily: "var(--font-body)", color: "rgba(255, 244, 233, 0.92)" }}
           >
             {infoBody}
           </p>
@@ -342,32 +343,33 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
               <motion.button
                 key={proof.id}
                 onClick={() => openLandingProof(proof)}
-                className="focus-ring rounded-2xl border px-4 py-3 text-left backdrop-blur-md transition-colors"
+                className="focus-ring rounded-2xl border px-4 py-3 text-left backdrop-blur-xl transition-colors"
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.28, delay: index * 0.05 }}
                 whileHover={{ y: -3, scale: 1.01 }}
                 whileTap={{ scale: 0.985 }}
                 style={{
-                  borderColor: "var(--ys-glass-border)",
-                  background: "var(--ys-glass-bg)",
+                  borderColor: "rgba(255, 244, 233, 0.32)",
+                  background: "rgba(28, 17, 11, 0.58)",
+                  boxShadow: "0 14px 32px -22px rgba(15, 8, 4, 0.55), inset 0 1px 0 rgba(255, 244, 233, 0.14)",
                 }}
               >
                 <p
-                  className="mb-1 text-[9px] uppercase tracking-[0.16em]"
-                  style={{ fontFamily: "var(--font-mono)", color: "var(--ys-glass-text-muted)" }}
+                  className="mb-1 text-[9px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ fontFamily: "var(--font-mono)", color: "rgba(255, 239, 225, 0.78)" }}
                 >
                   {proof.meta}
                 </p>
                 <p
-                  className="mb-1 text-[11px] font-bold uppercase tracking-[0.08em]"
-                  style={{ fontFamily: "var(--font-headline)", color: "var(--ys-glass-text)" }}
+                  className="mb-1 text-[11px] font-bold uppercase tracking-[0.1em]"
+                  style={{ fontFamily: "var(--font-headline)", color: "rgba(255, 250, 244, 1)" }}
                 >
                   {proof.title}
                 </p>
                 <p
                   className="text-[11px] leading-[1.55]"
-                  style={{ fontFamily: "var(--font-body)", color: "var(--ys-glass-text-soft)" }}
+                  style={{ fontFamily: "var(--font-body)", color: "rgba(255, 244, 233, 0.92)" }}
                 >
                   {proof.note}
                 </p>
