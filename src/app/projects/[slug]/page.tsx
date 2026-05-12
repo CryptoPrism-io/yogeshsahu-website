@@ -139,10 +139,11 @@ export default async function ProjectPage({
             }}
           >
             <p
-              className="text-[1.2rem] font-bold"
+              className="text-[1.2rem] font-bold tabular-nums"
               style={{
                 fontFamily: "var(--font-headline)",
                 color: "var(--ys-accent)",
+                fontFeatureSettings: '"tnum"',
               }}
             >
               {project.stat}
