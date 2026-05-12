@@ -13,13 +13,15 @@ export default function CaseCard({ project }: { project: Project }) {
       }}
     >
       {project.image && (
-        <Image
-          src={project.image}
-          alt={project.name}
-          width={700}
-          height={250}
-          className="mb-3 w-full rounded-lg object-cover"
-        />
+        <div className="relative mb-3 aspect-[7/3] w-full overflow-hidden rounded-lg">
+          <Image
+            src={project.image}
+            alt={project.name}
+            fill
+            sizes="(min-width: 1024px) 360px, 100vw"
+            className="object-cover"
+          />
+        </div>
       )}
       <p
         className="mb-1 text-[10px] font-bold uppercase tracking-[0.12em]"
@@ -41,8 +43,8 @@ export default function CaseCard({ project }: { project: Project }) {
       </p>
       <div className="flex items-center justify-between">
         <span
-          className="text-[1rem] font-bold"
-          style={{ fontFamily: "var(--font-headline)", color: "var(--ys-accent)" }}
+          className="text-[1rem] font-bold tabular-nums"
+          style={{ fontFamily: "var(--font-headline)", color: "var(--ys-accent)", fontFeatureSettings: '"tnum"' }}
         >
           {project.stat}
         </span>

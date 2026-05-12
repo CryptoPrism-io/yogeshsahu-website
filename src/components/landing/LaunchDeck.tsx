@@ -77,8 +77,8 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               }}
             >
               <p
-                className="text-[1.1rem] font-bold"
-                style={{ fontFamily: "var(--font-headline)", color: "var(--ys-accent)" }}
+                className="text-[1.1rem] font-bold tabular-nums"
+                style={{ fontFamily: "var(--font-headline)", color: "var(--ys-accent)", fontFeatureSettings: '"tnum"' }}
               >
                 {item.value}
               </p>
