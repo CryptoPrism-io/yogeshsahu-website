@@ -44,6 +44,26 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
     }
   };
 
+  // Iris/gaze — each node has an inner pupil that orients toward the cursor.
+  // Closer cursor = brighter, larger pupil. Nodes always "look" at the user.
+  const irisFor = (nx: number, ny: number, scale: "domain" | "subdomain") => {
+    const dx = pointer.x - nx;
+    const dy = pointer.y - ny;
+    const dist = Math.hypot(dx, dy);
+    const intensity = 0.15 + 0.85 * Math.max(0, Math.min(1, 1 - dist / 140));
+    const maxOff = scale === "domain" ? 2.8 : 2.2;
+    const peakR = scale === "domain" ? 2.6 : 1.9;
+    const baseR = scale === "domain" ? 1.4 : 1.1;
+    const r = baseR + (peakR - baseR) * intensity;
+    if (dist < 0.5) return { x: nx, y: ny, intensity, r };
+    return {
+      x: nx + (dx / dist) * maxOff,
+      y: ny + (dy / dist) * maxOff,
+      intensity,
+      r,
+    };
+  };
+
   const handleMouseMove = (event: ReactMouseEvent<HTMLDivElement>) => {
     const bounds = containerRef.current?.getBoundingClientRect();
     if (!bounds) {
@@ -255,6 +275,18 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                     strokeWidth={activeDomain === domain.id ? "2.8" : "2.2"}
                   />
                   <circle cx={domain.x} cy={domain.y} r="5.5" fill={domain.tone} />
+                  {(() => {
+                    const iris = irisFor(domain.x, domain.y, "domain");
+                    return (
+                      <circle
+                        cx={iris.x}
+                        cy={iris.y}
+                        r={iris.r}
+                        fill={`rgba(255, 250, 244, ${(0.18 + iris.intensity * 0.78).toFixed(3)})`}
+                        style={{ pointerEvents: "none" }}
+                      />
+                    );
+                  })()}
                 </motion.g>
                 <text
                   x={domain.x}
@@ -350,6 +382,18 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                           ease: "easeInOut",
                         }}
                       />
+                      {(() => {
+                        const iris = irisFor(node.x, node.y, "subdomain");
+                        return (
+                          <circle
+                            cx={iris.x}
+                            cy={iris.y}
+                            r={iris.r}
+                            fill={`rgba(255, 250, 244, ${(0.18 + iris.intensity * 0.78).toFixed(3)})`}
+                            style={{ pointerEvents: "none" }}
+                          />
+                        );
+                      })()}
                     </motion.g>
                     <text
                       x={node.x}
