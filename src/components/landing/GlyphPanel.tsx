@@ -137,7 +137,7 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
           </p>
         </motion.div>
         <motion.div
-          className="focus-ring group relative block h-[calc(100%-80px)] w-full transition-transform duration-200 hover:-translate-y-0.5"
+          className="focus-ring group relative block h-[calc(100%-200px)] w-full transition-transform duration-200 hover:-translate-y-0.5"
           animate={{ x: parallaxX, y: parallaxY }}
           transition={{ type: "spring", stiffness: 110, damping: 20, mass: 0.55 }}
         >
@@ -512,11 +512,12 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
             })}
           </svg>
 
-          <motion.div
-            className="absolute bottom-6 left-[38px] right-[38px] z-[2] grid grid-cols-3 gap-3"
-            animate={{ x: parallaxX * 1.15, y: parallaxY * 1.15 }}
-            transition={{ type: "spring", stiffness: 110, damping: 18, mass: 0.5 }}
-          >
+        </motion.div>
+        <motion.div
+          className="absolute bottom-4 left-[38px] right-[38px] z-[2] grid grid-cols-3 gap-3"
+          animate={{ x: parallaxX * 1.15, y: parallaxY * 1.15 }}
+          transition={{ type: "spring", stiffness: 110, damping: 18, mass: 0.5 }}
+        >
             {activeProofs.map((proof, index) => (
               <motion.button
                 key={proof.id}
@@ -553,7 +554,6 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                 </p>
               </motion.button>
             ))}
-          </motion.div>
         </motion.div>
       </div>
     </motion.aside>
