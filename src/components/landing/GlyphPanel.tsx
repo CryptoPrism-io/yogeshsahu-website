@@ -219,21 +219,6 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
             >
               DOMAIN MAP
             </text>
-            <text
-              x="280"
-              y="474"
-              textAnchor="middle"
-              fill="rgba(255,244,233,0.78)"
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "9px",
-                fontWeight: 600,
-                letterSpacing: "0.14em",
-                filter: "drop-shadow(0 1px 2px rgba(15,8,4,0.5))",
-              }}
-            >
-              HOVER TO TRACE / CLICK A NODE TO OPEN ITS PROOF
-            </text>
 
             {DOMAIN_GRAPH.map((domain, domainIndex) => (
               <g key={domain.id}>
@@ -473,12 +458,15 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                 return null;
               }
 
-              const controlY = activeSubdomainConfig.y + 94;
+              const targetY = anchor.y - 18;
+              const verticalSpan = targetY - activeSubdomainConfig.y;
+              const c1y = activeSubdomainConfig.y + verticalSpan * 0.42;
+              const c2y = activeSubdomainConfig.y + verticalSpan * 0.78;
 
               return (
                 <g key={proof.id}>
                   <motion.path
-                    d={`M${activeSubdomainConfig.x} ${activeSubdomainConfig.y} C ${activeSubdomainConfig.x} ${controlY}, ${anchor.x} ${controlY + 34}, ${anchor.x} ${anchor.y - 18}`}
+                    d={`M${activeSubdomainConfig.x} ${activeSubdomainConfig.y} C ${activeSubdomainConfig.x} ${c1y}, ${anchor.x} ${c2y}, ${anchor.x} ${targetY}`}
                     stroke="rgba(255,244,233,0.26)"
                     strokeWidth="1.6"
                     strokeLinecap="round"

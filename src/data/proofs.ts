@@ -220,7 +220,7 @@ export const SUBDOMAIN_PROOFS: Record<SubdomainId, LandingProofCard[]> = {
 };
 
 export const PROOF_CARD_ANCHORS = [
-  { x: 122, y: 446 },
-  { x: 280, y: 446 },
-  { x: 438, y: 446 },
+  { x: 122, y: 520 },
+  { x: 280, y: 520 },
+  { x: 438, y: 520 },
 ] as const;
