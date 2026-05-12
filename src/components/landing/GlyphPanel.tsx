@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+import { useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { DOMAIN_GRAPH, DOMAIN_DETAILS, type DomainId, type SubdomainId } from "@/data/domain-graph";
 import { SUBDOMAIN_PROOFS, PROOF_CARD_ANCHORS, type LandingProofCard } from "@/data/proofs";
 import { fadeUp } from "@/lib/motion";
@@ -20,6 +20,45 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
   const activeProofs = SUBDOMAIN_PROOFS[activeSubdomainConfig.id];
   const parallaxX = (pointer.x - 280) / 30;
   const parallaxY = (pointer.y - 240) / 34;
+
+  // All node positions (domain + subdomain) — used to compute nearest-node magnetism
+  const allNodes = useMemo(() => {
+    const list: { x: number; y: number; tone: string }[] = [];
+    DOMAIN_GRAPH.forEach((d) => {
+      list.push({ x: d.x, y: d.y, tone: d.tone });
+      d.subdomains.forEach((s) => list.push({ x: s.x, y: s.y, tone: d.tone }));
+    });
+    return list;
+  }, []);
+
+  // Find nearest node and compute the cursor companion's "docked" position adjacent to it
+  let nearest = allNodes[0];
+  let nearestDist = Number.POSITIVE_INFINITY;
+  for (const n of allNodes) {
+    const dx = pointer.x - n.x;
+    const dy = pointer.y - n.y;
+    const d = Math.hypot(dx, dy);
+    if (d < nearestDist) {
+      nearestDist = d;
+      nearest = n;
+    }
+  }
+  const ENGAGE_RADIUS = 92;
+  const DOCK_RADIUS = 26;
+  const engagement = Math.max(0, Math.min(1, 1 - nearestDist / ENGAGE_RADIUS));
+  const vx = pointer.x - nearest.x;
+  const vy = pointer.y - nearest.y;
+  const vlen = Math.max(1, Math.hypot(vx, vy));
+  const dockedX = nearest.x + (vx / vlen) * DOCK_RADIUS;
+  const dockedY = nearest.y + (vy / vlen) * DOCK_RADIUS;
+  const twinX = pointer.x * (1 - engagement) + dockedX * engagement;
+  const twinY = pointer.y * (1 - engagement) + dockedY * engagement;
+  // S-curve control point — perpendicular offset to the bridge midpoint
+  const bx = nearest.x - twinX;
+  const by = nearest.y - twinY;
+  const blen = Math.max(1, Math.hypot(bx, by));
+  const bridgeCpX = (twinX + nearest.x) / 2 + (-by / blen) * 14;
+  const bridgeCpY = (twinY + nearest.y) / 2 + (bx / blen) * 14;
 
   const openLandingProof = (proof: LandingProofCard) => {
     if (proof.windowId) {
@@ -76,13 +115,6 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
           style={{
             background:
               "radial-gradient(ellipse 60% 55% at 50% 48%, rgba(140, 60, 28, 0.42) 0%, rgba(140, 60, 28, 0.22) 38%, rgba(140, 60, 28, 0) 72%)",
-          }}
-        />
-        {/* Cursor-following highlight */}
-        <div
-          className="pointer-events-none absolute inset-0 rounded-[42px] opacity-80 blur-3xl transition-opacity duration-300"
-          style={{
-            background: `radial-gradient(circle at ${(pointer.x / 560) * 100}% ${(pointer.y / 540) * 100}%, rgba(255,244,233,0.18), rgba(255,244,233,0) 32%)`,
           }}
         />
         <motion.div
@@ -175,14 +207,6 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
             <circle cx="361" cy="272" r="1.6" fill="rgba(255,244,233,0.5)" />
             <circle cx="442" cy="198" r="1.6" fill="rgba(255,244,233,0.5)" />
             <circle cx="280" cy="240" r="2.2" fill="rgba(255,244,233,0.42)" />
-            <motion.circle
-              cx={pointer.x}
-              cy={pointer.y}
-              r="82"
-              fill="rgba(255,244,233,0.06)"
-              animate={{ opacity: [0.18, 0.32, 0.18] }}
-              transition={{ duration: 2.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-            />
 
             <text
               x="280"
@@ -415,6 +439,45 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
               transition={{ duration: 1.8, repeat: Number.POSITIVE_INFINITY, ease: "easeOut" }}
               style={{ transformOrigin: `${activeSubdomainConfig.x}px ${activeSubdomainConfig.y}px` }}
             />
+
+            {/* Yin-yang bridge — soft S-curve between cursor companion and nearest node */}
+            {engagement > 0.05 && (
+              <path
+                d={`M ${twinX} ${twinY} Q ${bridgeCpX} ${bridgeCpY} ${nearest.x} ${nearest.y}`}
+                stroke="rgba(255, 250, 244, 0.78)"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                fill="none"
+                style={{ opacity: engagement * 0.9 }}
+              />
+            )}
+
+            {/* Cursor companion — the cream "twin" half of the yin-yang pair */}
+            <g style={{ pointerEvents: "none" }}>
+              <motion.circle
+                cx={twinX}
+                cy={twinY}
+                r="22"
+                fill="rgba(255, 244, 233, 0.14)"
+                animate={{ opacity: [0.32, 0.58, 0.32], r: [22, 27, 22] }}
+                transition={{ duration: 2.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+              />
+              <circle
+                cx={twinX}
+                cy={twinY}
+                r={8.5 + engagement * 1.5}
+                fill="rgba(255, 250, 244, 0.96)"
+                stroke="rgba(255, 244, 233, 0.55)"
+                strokeWidth="1.2"
+              />
+              <circle
+                cx={twinX}
+                cy={twinY}
+                r={2.6 + engagement * 1.4}
+                fill={nearest.tone}
+                fillOpacity={0.22 + engagement * 0.62}
+              />
+            </g>
           </svg>
           <svg
             className="pointer-events-none absolute inset-0 h-full w-full"
