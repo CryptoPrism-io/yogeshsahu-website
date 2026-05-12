@@ -137,7 +137,7 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
           </p>
         </motion.div>
         <motion.div
-          className="focus-ring group relative block h-[calc(100%-200px)] w-full transition-transform duration-200 hover:-translate-y-0.5"
+          className="focus-ring group relative block h-[calc(100%-110px)] w-full transition-transform duration-200 hover:-translate-y-0.5"
           animate={{ x: parallaxX, y: parallaxY }}
           transition={{ type: "spring", stiffness: 110, damping: 20, mass: 0.55 }}
         >
