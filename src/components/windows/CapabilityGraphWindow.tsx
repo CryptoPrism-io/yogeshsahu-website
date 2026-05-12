@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, FileText, FolderOpen, User } from "lucide-react";
+import { ArrowUpRight, ChevronRight, FileText, FolderOpen, User } from "lucide-react";
 import { fadeUp } from "@/lib/motion";
 
 type CapabilityId = "finance" | "leadership" | "technology";
@@ -137,15 +137,7 @@ const CAPABILITIES: Record<
   },
 };
 
-const NODES: Array<{
-  id: CapabilityId;
-  x: number;
-  y: number;
-}> = [
-  { id: "finance", x: 94, y: 80 },
-  { id: "leadership", x: 224, y: 80 },
-  { id: "technology", x: 354, y: 80 },
-];
+const DOMAIN_ORDER: CapabilityId[] = ["finance", "leadership", "technology"];
 
 export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowProps) {
   const [activeNode, setActiveNode] = useState<CapabilityId>("technology");
@@ -188,7 +180,7 @@ export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowP
   return (
     <div className="p-6 md:p-8">
       <motion.div
-          className="mb-6 rounded-xl border p-5"
+        className="mb-6 rounded-xl border p-5"
         variants={fadeUp(0, 12)}
         initial="initial"
         animate="animate"
@@ -198,7 +190,7 @@ export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowP
           className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em]"
           style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
         >
-          Capability Graph
+          Capability Detail
         </p>
         <h2
           className="mb-3 text-[1.85rem] font-black italic leading-[1.05]"
@@ -212,372 +204,243 @@ export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowP
           className="max-w-3xl text-[13px] leading-[1.85]"
           style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
         >
-          The landing-page mark is now a hierarchy, not a badge. Three primary domains define the operating
-          model, and each one expands into subdomains with direct proof of work behind it.
+          The landing-page mandala is the live graph. This window is the detail view for any node you select on it.
         </p>
       </motion.div>
 
-      <div className="grid gap-4 xl:grid-cols-[0.95fr_1.05fr]">
-        <motion.div
-          className="rounded-xl border p-5"
-          variants={fadeUp(0.08, 10)}
-          initial="initial"
-          animate="animate"
-          style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
+      <motion.div
+        className="mb-5 flex flex-wrap items-center gap-2 rounded-xl border p-3"
+        variants={fadeUp(0.06, 10)}
+        initial="initial"
+        animate="animate"
+        style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
+      >
+        <p
+          className="mr-2 text-[10px] font-bold uppercase tracking-[0.18em]"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
         >
-          <div className="mb-4 flex items-center justify-between">
-            <p
-              className="text-[10px] font-bold uppercase tracking-[0.18em]"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-            >
-              Interactive Map
-            </p>
-            <p
-              className="text-[9px] uppercase tracking-[0.14em]"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-            >
-              domains on top / subdomains underneath
-            </p>
-          </div>
-
-          <div className="rounded-[28px] border p-4" style={{ borderColor: "var(--ys-border)" }}>
-            <svg viewBox="0 0 448 352" className="h-auto w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M52 146H396" stroke="rgba(31,20,13,0.08)" strokeWidth="1" strokeDasharray="5 10" />
-              <path d="M52 248H396" stroke="rgba(31,20,13,0.06)" strokeWidth="1" strokeDasharray="5 12" />
-
-              {NODES.map((node) => {
-                const config = CAPABILITIES[node.id];
-                const activeStroke = activeNode === node.id ? "rgba(31,20,13,0.88)" : "rgba(31,20,13,0.3)";
-                const activeRing = activeNode === node.id ? "rgba(255,244,233,0.98)" : "rgba(255,244,233,0.76)";
-
-                return (
-                  <g key={node.id}>
-                    <path
-                      d={`M${node.x} ${node.y + 20}L${node.x} 156`}
-                      stroke="rgba(31,20,13,0.18)"
-                      strokeWidth="1.4"
-                      strokeLinecap="round"
-                    />
-                    <g
-                      onClick={() => {
-                        setActiveNode(node.id);
-                        setActiveSubdomain(CAPABILITIES[node.id].subdomains[0].id);
-                      }}
-                      className="cursor-pointer"
-                    >
-                      <circle cx={node.x} cy={node.y} r="21" fill="rgba(255,248,241,0.94)" stroke={activeRing} strokeWidth="8" />
-                      <circle cx={node.x} cy={node.y} r="17" fill={config.color} fillOpacity="0.12" stroke={activeStroke} strokeWidth="2.4" />
-                      <circle cx={node.x} cy={node.y} r="5.5" fill={config.color} />
-                      <text
-                        x={node.x}
-                        y={node.y - 34}
-                        textAnchor="middle"
-                        fill={activeNode === node.id ? "rgba(31,20,13,0.72)" : "rgba(31,20,13,0.44)"}
-                        style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.18em" }}
-                      >
-                        {config.name.toUpperCase()}
-                      </text>
-                    </g>
-                    {config.subdomains.map((subdomain, index) => {
-                      const x = node.x + (index - 1) * 42;
-                      const y = index === 1 ? 286 : 226;
-                      const isSubdomainActive = activeSubdomain === subdomain.id;
-
-                      return (
-                        <g
-                          key={subdomain.label}
-                          onClick={() => {
-                            setActiveNode(node.id);
-                            setActiveSubdomain(subdomain.id);
-                          }}
-                          className="cursor-pointer"
-                        >
-                          <path
-                            d={`M${node.x} 156L${x} ${y}`}
-                            stroke={isSubdomainActive ? "rgba(31,20,13,0.46)" : activeNode === node.id ? "rgba(31,20,13,0.38)" : "rgba(31,20,13,0.16)"}
-                            strokeWidth={isSubdomainActive ? "1.8" : "1.4"}
-                            strokeLinecap="round"
-                          />
-                          <circle
-                            cx={x}
-                            cy={y}
-                            r={isSubdomainActive ? "10" : "8.5"}
-                            fill="rgba(255,248,241,0.94)"
-                            stroke={isSubdomainActive ? "rgba(31,20,13,0.28)" : "rgba(31,20,13,0.16)"}
-                            strokeWidth="1.4"
-                          />
-                          <circle cx={x} cy={y} r={isSubdomainActive ? "4.2" : "3.2"} fill={config.color} />
-                          <text
-                            x={x}
-                            y={y + (index === 1 ? 22 : -14)}
-                            textAnchor="middle"
-                            fill={isSubdomainActive ? "rgba(31,20,13,0.84)" : "rgba(31,20,13,0.54)"}
-                            style={{ fontFamily: "var(--font-mono)", fontSize: "8px", letterSpacing: "0.12em" }}
-                          >
-                            {subdomain.label.toUpperCase()}
-                          </text>
-                        </g>
-                      );
-                    })}
-                  </g>
-                );
-              })}
-            </svg>
-          </div>
-
-          <div className="mt-4 grid gap-2 sm:grid-cols-3">
-            {NODES.map((node) => {
-              const config = CAPABILITIES[node.id];
-              const isActive = activeNode === node.id;
-
-              return (
-                <button
-                  key={node.id}
-                  onClick={() => {
-                    setActiveNode(node.id);
-                    setActiveSubdomain(CAPABILITIES[node.id].subdomains[0].id);
-                  }}
-                  className="focus-ring rounded-xl border px-3 py-3 text-left transition-colors"
-                  style={{
-                    borderColor: isActive ? "rgba(31,20,13,0.28)" : "var(--ys-border)",
-                    background: isActive ? "rgba(255, 248, 241, 0.98)" : "var(--ys-surface)",
-                  }}
-                >
-                  <p
-                    className="mb-1 text-[10px] font-bold uppercase tracking-[0.14em]"
-                    style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-                  >
-                    {config.name}
-                  </p>
-                  <p
-                    className="text-[11px] leading-[1.55]"
-                    style={{ fontFamily: "var(--font-body)", color: "var(--ys-text)" }}
-                  >
-                    {config.skills.slice(0, 2).join(" / ")}
-                  </p>
-                </button>
-              );
-            })}
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="rounded-xl border p-5"
-          variants={fadeUp(0.14, 10)}
-          initial="initial"
-          animate="animate"
-          style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
-        >
-          <div className="mb-5 flex items-start justify-between gap-4">
-            <div>
-              <p
-                className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em]"
-                style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-              >
-                Active Node
-              </p>
-              <h3
-                className="max-w-[22ch] text-[1.45rem] font-black leading-[1.05]"
-                style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
-              >
-                {active.title}
-              </h3>
-            </div>
-            <span
-              className="rounded-full border px-3 py-1 text-[9px] font-bold uppercase tracking-[0.14em]"
+          Domain
+        </p>
+        {DOMAIN_ORDER.map((id) => {
+          const config = CAPABILITIES[id];
+          const isActive = activeNode === id;
+          return (
+            <button
+              key={id}
+              onClick={() => {
+                setActiveNode(id);
+                setActiveSubdomain(CAPABILITIES[id].subdomains[0].id);
+              }}
+              className="focus-ring rounded-full border px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] transition-colors"
               style={{
                 fontFamily: "var(--font-mono)",
-                borderColor: "var(--ys-border)",
-                color: "var(--ys-text-soft)",
+                borderColor: isActive ? "rgba(31,20,13,0.32)" : "var(--ys-border)",
+                background: isActive ? "rgba(255,244,233,0.98)" : "var(--ys-surface)",
+                color: isActive ? "var(--ys-text)" : "var(--ys-text-soft)",
               }}
             >
-              {active.name}
-            </span>
-          </div>
+              <span
+                className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full align-middle"
+                style={{ background: config.color }}
+              />
+              {config.name}
+            </button>
+          );
+        })}
+        <ChevronRight size={14} strokeWidth={1.8} color="var(--ys-text-soft)" />
+        {active.subdomains.map((subdomain) => {
+          const isActive = activeSubdomain === subdomain.id;
+          return (
+            <button
+              key={subdomain.id}
+              onClick={() => setActiveSubdomain(subdomain.id)}
+              className="focus-ring rounded-full border px-3 py-1.5 text-[11px] uppercase tracking-[0.12em] transition-colors"
+              style={{
+                fontFamily: "var(--font-mono)",
+                borderColor: isActive ? "rgba(31,20,13,0.24)" : "var(--ys-border)",
+                background: isActive ? "rgba(255,244,233,0.98)" : "var(--ys-surface)",
+                color: isActive ? "var(--ys-text)" : "var(--ys-text-soft)",
+                fontWeight: isActive ? 700 : 500,
+              }}
+            >
+              {subdomain.label}
+            </button>
+          );
+        })}
+      </motion.div>
 
+      <motion.div
+        className="rounded-xl border p-5"
+        variants={fadeUp(0.14, 10)}
+        initial="initial"
+        animate="animate"
+        style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
+      >
+        <div className="mb-5 flex items-start justify-between gap-4">
+          <div>
+            <p
+              className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em]"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+            >
+              Active Node
+            </p>
+            <h3
+              className="max-w-[28ch] text-[1.45rem] font-black leading-[1.05]"
+              style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
+            >
+              {active.title}
+            </h3>
+          </div>
+          <span
+            className="rounded-full border px-3 py-1 text-[9px] font-bold uppercase tracking-[0.14em]"
+            style={{
+              fontFamily: "var(--font-mono)",
+              borderColor: "var(--ys-border)",
+              color: "var(--ys-text-soft)",
+            }}
+          >
+            {active.name}
+          </span>
+        </div>
+
+        <p
+          className="mb-5 text-[13px] leading-[1.8]"
+          style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
+        >
+          {active.summary}
+        </p>
+
+        <div className="mb-5 rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}>
+          <div className="mb-3 flex items-center gap-2">
+            <FileText size={14} strokeWidth={1.8} color="var(--ys-accent)" />
+            <p
+              className="text-[10px] font-bold uppercase tracking-[0.16em]"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+            >
+              Core Skills
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {active.skills.map((skill) => (
+              <span
+                key={skill}
+                className="rounded-full border px-2.5 py-1 text-[10px]"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  borderColor: "var(--ys-border)",
+                  color: "var(--ys-text)",
+                  background: "rgba(255,248,241,0.94)",
+                }}
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-5 rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}>
+          <div className="mb-3 flex items-center gap-2">
+            <User size={14} strokeWidth={1.8} color="var(--ys-highlight)" />
+            <p
+              className="text-[10px] font-bold uppercase tracking-[0.16em]"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+            >
+              Active Focus — {activeSubdomainDetail.label}
+            </p>
+          </div>
           <p
-            className="mb-5 text-[13px] leading-[1.8]"
+            className="text-[12px] leading-[1.75]"
             style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
           >
-            {active.summary}
+            {activeSubdomainDetail.detail}
           </p>
+        </div>
 
-          <div className="mb-5 rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}>
-            <div className="mb-3 flex items-center gap-2">
-              <FileText size={14} strokeWidth={1.8} color="var(--ys-accent)" />
+        <div className="mb-5">
+          <div className="mb-3 flex items-center gap-2">
+            <FolderOpen size={14} strokeWidth={1.8} color="var(--ys-highlight)" />
+            <p
+              className="text-[10px] font-bold uppercase tracking-[0.16em]"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+            >
+              Proof Links
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            {active.proofs.map((proof) => (
+              <button
+                key={proof.label}
+                onClick={() => openProof(proof)}
+                className="focus-ring rounded-xl border p-4 text-left transition-colors"
+                style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}
+              >
+                <div className="mb-1 flex items-center justify-between gap-3">
+                  <p
+                    className="text-[12px] font-bold uppercase tracking-[0.08em]"
+                    style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
+                  >
+                    {proof.label}
+                  </p>
+                  <ArrowUpRight size={14} strokeWidth={1.8} color="var(--ys-accent-strong)" />
+                </div>
+                <p
+                  className="text-[12px] leading-[1.7]"
+                  style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
+                >
+                  {proof.note}
+                </p>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid gap-2 sm:grid-cols-2">
+          <button
+            onClick={() => onOpen("projects")}
+            className="focus-ring rounded-xl border px-4 py-3 text-left transition-colors"
+            style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}
+          >
+            <div className="mb-1 flex items-center gap-2">
+              <FolderOpen size={14} strokeWidth={1.8} color="var(--ys-accent)" />
               <p
                 className="text-[10px] font-bold uppercase tracking-[0.16em]"
                 style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
               >
-                Core Skills
+                Related Window
               </p>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {active.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-full border px-2.5 py-1 text-[10px]"
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    borderColor: "var(--ys-border)",
-                    color: "var(--ys-text)",
-                    background: "rgba(255,248,241,0.94)",
-                  }}
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
+            <p
+              className="text-[12px] font-bold uppercase tracking-[0.08em]"
+              style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
+            >
+              Open projects
+            </p>
+          </button>
 
-          <div className="mb-5 rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}>
-            <div className="mb-3 flex items-center gap-2">
-              <FolderOpen size={14} strokeWidth={1.8} color="var(--ys-accent-strong)" />
-              <p
-                className="text-[10px] font-bold uppercase tracking-[0.16em]"
-                style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-              >
-                Subdomains
-              </p>
-            </div>
-            <div className="grid gap-2 sm:grid-cols-3">
-              {active.subdomains.map((subdomain) => (
-                <button
-                  key={subdomain.label}
-                  onClick={() => setActiveSubdomain(subdomain.id)}
-                  className="focus-ring rounded-lg border p-3 text-left transition-colors"
-                  style={{
-                    borderColor: activeSubdomain === subdomain.id ? "rgba(31,20,13,0.22)" : "var(--ys-border)",
-                    background: activeSubdomain === subdomain.id ? "rgba(255,244,233,0.98)" : "rgba(255,248,241,0.94)",
-                  }}
-                >
-                  <p
-                    className="mb-1 text-[10px] font-bold uppercase tracking-[0.14em]"
-                    style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text)" }}
-                  >
-                    {subdomain.label}
-                  </p>
-                  <p
-                    className="text-[11px] leading-[1.6]"
-                    style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
-                  >
-                    {subdomain.detail}
-                  </p>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="mb-5 rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}>
-            <div className="mb-3 flex items-center gap-2">
+          <button
+            onClick={() => onOpen("about")}
+            className="focus-ring rounded-xl border px-4 py-3 text-left transition-colors"
+            style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}
+          >
+            <div className="mb-1 flex items-center gap-2">
               <User size={14} strokeWidth={1.8} color="var(--ys-highlight)" />
               <p
                 className="text-[10px] font-bold uppercase tracking-[0.16em]"
                 style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
               >
-                Active Focus
+                Related Window
               </p>
             </div>
             <p
-              className="mb-1 text-[12px] font-bold uppercase tracking-[0.08em]"
+              className="text-[12px] font-bold uppercase tracking-[0.08em]"
               style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
             >
-              {activeSubdomainDetail.label}
+              Open profile
             </p>
-            <p
-              className="text-[12px] leading-[1.75]"
-              style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
-            >
-              {activeSubdomainDetail.detail}
-            </p>
-          </div>
-
-          <div className="mb-5">
-            <div className="mb-3 flex items-center gap-2">
-              <FolderOpen size={14} strokeWidth={1.8} color="var(--ys-highlight)" />
-              <p
-                className="text-[10px] font-bold uppercase tracking-[0.16em]"
-                style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-              >
-                Proof Links
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-3">
-              {active.proofs.map((proof) => (
-                <button
-                  key={proof.label}
-                  onClick={() => openProof(proof)}
-                  className="focus-ring rounded-xl border p-4 text-left transition-colors"
-                  style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}
-                >
-                  <div className="mb-1 flex items-center justify-between gap-3">
-                    <p
-                      className="text-[12px] font-bold uppercase tracking-[0.08em]"
-                      style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
-                    >
-                      {proof.label}
-                    </p>
-                    <ArrowUpRight size={14} strokeWidth={1.8} color="var(--ys-accent-strong)" />
-                  </div>
-                  <p
-                    className="text-[12px] leading-[1.7]"
-                    style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
-                  >
-                    {proof.note}
-                  </p>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid gap-2 sm:grid-cols-2">
-            <button
-              onClick={() => onOpen("projects")}
-              className="focus-ring rounded-xl border px-4 py-3 text-left transition-colors"
-              style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}
-            >
-              <div className="mb-1 flex items-center gap-2">
-                <FolderOpen size={14} strokeWidth={1.8} color="var(--ys-accent)" />
-                <p
-                  className="text-[10px] font-bold uppercase tracking-[0.16em]"
-                  style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-                >
-                  Related Window
-                </p>
-              </div>
-              <p
-                className="text-[12px] font-bold uppercase tracking-[0.08em]"
-                style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
-              >
-                Open projects
-              </p>
-            </button>
-
-            <button
-              onClick={() => onOpen("about")}
-              className="focus-ring rounded-xl border px-4 py-3 text-left transition-colors"
-              style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}
-            >
-              <div className="mb-1 flex items-center gap-2">
-                <User size={14} strokeWidth={1.8} color="var(--ys-highlight)" />
-                <p
-                  className="text-[10px] font-bold uppercase tracking-[0.16em]"
-                  style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-                >
-                  Related Window
-                </p>
-              </div>
-              <p
-                className="text-[12px] font-bold uppercase tracking-[0.08em]"
-                style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
-              >
-                Open profile
-              </p>
-            </button>
-          </div>
-        </motion.div>
-      </div>
+          </button>
+        </div>
+      </motion.div>
     </div>
   );
 }
