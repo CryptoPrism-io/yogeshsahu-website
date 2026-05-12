@@ -21,15 +21,6 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
   const parallaxX = (pointer.x - 280) / 30;
   const parallaxY = (pointer.y - 240) / 34;
 
-  const openCapabilityGraph = (domainId: DomainId, subdomainId?: SubdomainId) => {
-    window.dispatchEvent(
-      new CustomEvent("capability-focus", {
-        detail: { domainId, subdomainId: subdomainId ?? null },
-      }),
-    );
-    onOpen("capability-graph");
-  };
-
   const openLandingProof = (proof: LandingProofCard) => {
     if (proof.windowId) {
       onOpen(proof.windowId);
@@ -38,6 +29,18 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
 
     if (proof.href) {
       window.open(proof.href, "_blank", "noopener,noreferrer");
+    }
+  };
+
+  // Domain click → breadth view (Projects window). Subdomain click → depth view (first proof for that subdomain).
+  const handleDomainClick = (_domainId: DomainId) => {
+    onOpen("projects");
+  };
+
+  const handleSubdomainClick = (subdomainId: SubdomainId) => {
+    const firstProof = SUBDOMAIN_PROOFS[subdomainId]?.[0];
+    if (firstProof) {
+      openLandingProof(firstProof);
     }
   };
 
@@ -67,12 +70,12 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
           setPointer({ x: 280, y: 240 });
         }}
       >
-        {/* Dark radial scrim — gives the mandala a warm "well" to sit in */}
+        {/* Warm terracotta well — same hue as the page, just slightly deeper */}
         <div
           className="pointer-events-none absolute inset-0 rounded-[42px]"
           style={{
             background:
-              "radial-gradient(ellipse 60% 55% at 50% 48%, rgba(18, 10, 6, 0.62) 0%, rgba(18, 10, 6, 0.36) 38%, rgba(18, 10, 6, 0) 72%)",
+              "radial-gradient(ellipse 60% 55% at 50% 48%, rgba(140, 60, 28, 0.42) 0%, rgba(140, 60, 28, 0.22) 38%, rgba(140, 60, 28, 0) 72%)",
           }}
         />
         {/* Cursor-following highlight */}
@@ -209,7 +212,7 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                 filter: "drop-shadow(0 1px 2px rgba(15,8,4,0.5))",
               }}
             >
-              HOVER TO TRACE / CLICK TO OPEN PROOF GRAPH
+              HOVER TO TRACE / CLICK A NODE TO OPEN ITS PROOF
             </text>
 
             {DOMAIN_GRAPH.map((domain, domainIndex) => (
@@ -239,7 +242,7 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                     setActiveDomain(domain.id);
                     setActiveSubdomain(domain.subdomains[0].id);
                   }}
-                  onClick={() => openCapabilityGraph(domain.id)}
+                  onClick={() => handleDomainClick(domain.id)}
                 >
                   <circle cx={domain.x} cy={domain.y} r="22" fill="rgba(255,248,241,0.94)" stroke="rgba(255,244,233,0.84)" strokeWidth="9" />
                   <circle
@@ -319,7 +322,7 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                         setActiveDomain(domain.id);
                         setActiveSubdomain(node.id);
                       }}
-                      onClick={() => openCapabilityGraph(domain.id, node.id)}
+                      onClick={() => handleSubdomainClick(node.id)}
                     >
                       <circle
                         cx={node.x}
