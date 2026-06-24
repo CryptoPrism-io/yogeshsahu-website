@@ -28,11 +28,11 @@ export default function MenuBar() {
     <header
       className="fixed top-0 left-0 right-0 z-[9999] flex h-11 items-center justify-between border-b px-5"
       style={{
-        borderColor: "rgba(215, 189, 168, 0.4)",
-        background: "var(--ys-shell-glass)",
-        backdropFilter: "blur(16px) saturate(1.3)",
-        WebkitBackdropFilter: "blur(16px) saturate(1.3)",
-        boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
+        borderColor: "rgba(215, 189, 168, 0.18)",
+        background: "rgba(30, 14, 6, 0.42)",
+        backdropFilter: "blur(24px) saturate(1.6)",
+        WebkitBackdropFilter: "blur(24px) saturate(1.6)",
+        boxShadow: "0 1px 0 rgba(215, 189, 168, 0.12), 0 4px 24px rgba(0,0,0,0.18)",
       }}
     >
       <a
