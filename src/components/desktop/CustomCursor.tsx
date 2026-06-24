@@ -35,8 +35,8 @@ export default function CustomCursor() {
       dot.style.top = `${target.current.y}px`;
 
       // Ring lerps behind
-      ring.current.x += (target.current.x - ring.current.x) * 0.12;
-      ring.current.y += (target.current.y - ring.current.y) * 0.12;
+      ring.current.x += (target.current.x - ring.current.x) * 0.2;
+      ring.current.y += (target.current.y - ring.current.y) * 0.2;
       ringEl.style.left = `${ring.current.x}px`;
       ringEl.style.top = `${ring.current.y}px`;
 
@@ -76,13 +76,13 @@ export default function CustomCursor() {
         ref={dotRef}
         className="pointer-events-none fixed z-[99999] hidden md:block"
         style={{
-          width: 5,
-          height: 5,
+          width: 6,
+          height: 6,
           borderRadius: "50%",
-          background: "rgba(255, 245, 232, 0.95)",
+          background: "#FFF4E9",
           transform: "translate(-50%, -50%)",
           willChange: "left, top",
-          mixBlendMode: "difference",
+          boxShadow: "0 0 0 1px rgba(30, 10, 4, 0.5)",
         }}
       />
 
@@ -94,7 +94,7 @@ export default function CustomCursor() {
           width: 30,
           height: 30,
           borderRadius: "50%",
-          border: "1px solid rgba(255, 245, 232, 0.55)",
+          border: "1.5px solid rgba(255, 244, 233, 0.8)",
           transform: "translate(-50%, -50%)",
           transition: "width 200ms cubic-bezier(0.22, 1, 0.36, 1), height 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 150ms ease",
           willChange: "left, top, width, height",
