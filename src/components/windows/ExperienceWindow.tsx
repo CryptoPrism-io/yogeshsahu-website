@@ -115,13 +115,13 @@ export default function ExperienceWindow() {
                   )}
                 </div>
 
-                <p className="text-[13px] font-bold" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>
+                <p className="text-[15px] font-bold" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>
                   {item.role}
                 </p>
-                <p className="mb-2 text-[11px]" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-accent)" }}>
+                <p className="mb-2 text-[13px]" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-accent)" }}>
                   {item.company}
                 </p>
-                <p className="mb-3 text-[12px] leading-[1.7]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
+                <p className="mb-3 text-[14px] leading-[1.75]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
                   {item.desc}
                 </p>
 

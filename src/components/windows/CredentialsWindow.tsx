@@ -222,7 +222,7 @@ export default function CredentialsWindow() {
                     </div>
                     <div className="min-w-0">
                       <p
-                        className="mb-0.5 text-[11.5px] font-bold leading-tight"
+                        className="mb-0.5 text-[13px] font-bold leading-tight"
                         style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
                       >
                         {item.name}
@@ -234,7 +234,7 @@ export default function CredentialsWindow() {
                         {item.org}
                       </p>
                       <p
-                        className="text-[10.5px] leading-[1.5]"
+                        className="text-[12px] leading-[1.6]"
                         style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
                       >
                         {item.detail}

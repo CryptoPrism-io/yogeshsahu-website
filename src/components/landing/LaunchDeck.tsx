@@ -27,7 +27,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           background: "var(--ys-card-bg)",
           backdropFilter: "blur(20px) saturate(1.12)",
           WebkitBackdropFilter: "blur(20px) saturate(1.12)",
-          boxShadow: "0 24px 56px rgba(34, 18, 11, 0.24)",
+          boxShadow: "0 1px 2px rgba(31,17,11,0.06), 0 4px 8px rgba(31,17,11,0.10), 0 16px 32px rgba(31,17,11,0.14), 0 48px 80px rgba(31,17,11,0.18)",
         }}
       >
         <div className="mb-4 flex items-start gap-4">
@@ -55,7 +55,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           </div>
         </div>
         <p
-          className="mb-5 max-w-[50ch] text-[13px] leading-[1.8]"
+          className="mb-5 max-w-[50ch] text-[15px] leading-[1.75]"
           style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
         >
           I build and ship AI-native B2B and B2C products end-to-end — 6+ production-grade apps
@@ -77,13 +77,13 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               }}
             >
               <p
-                className="text-[1.1rem] font-bold tabular-nums"
+                className="text-[1.35rem] font-bold tabular-nums"
                 style={{ fontFamily: "var(--font-headline)", color: "var(--ys-accent)", fontFeatureSettings: '"tnum"' }}
               >
                 {item.value}
               </p>
               <p
-                className="text-[9px] uppercase tracking-[0.12em]"
+                className="text-[10px] uppercase tracking-[0.12em]"
                 style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
               >
                 {item.label}

@@ -275,7 +275,7 @@ export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowP
         </div>
 
         <p
-          className="mb-5 text-[13px] leading-[1.8]"
+          className="mb-5 text-[15px] leading-[1.75]"
           style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
         >
           {active.summary}
@@ -320,7 +320,7 @@ export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowP
             </p>
           </div>
           <p
-            className="text-[12px] leading-[1.75]"
+            className="text-[14px] leading-[1.75]"
             style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
           >
             {activeSubdomainDetail.detail}
@@ -356,7 +356,7 @@ export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowP
                   <ArrowUpRight size={14} strokeWidth={1.8} color="var(--ys-accent-strong)" />
                 </div>
                 <p
-                  className="text-[12px] leading-[1.7]"
+                  className="text-[14px] leading-[1.75]"
                   style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
                 >
                   {proof.note}

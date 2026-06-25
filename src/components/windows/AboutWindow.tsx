@@ -73,7 +73,7 @@ export default function AboutWindow({ hideHeader = false }: { hideHeader?: boole
       )}
 
       <p
-        className="mb-7 max-w-lg text-[14px] leading-[1.9]"
+        className="mb-7 max-w-lg text-[15px] leading-[1.75]"
         style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
       >
         Builder first. I founded two companies, shipped products to market, and operate at the
@@ -118,7 +118,7 @@ export default function AboutWindow({ hideHeader = false }: { hideHeader?: boole
                 </span>
               </div>
               <p
-                className="mb-2 text-[12px] leading-[1.8]"
+                className="mb-2 text-[14px] leading-[1.75]"
                 style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
               >
                 {v.body}
@@ -167,7 +167,7 @@ export default function AboutWindow({ hideHeader = false }: { hideHeader?: boole
                 {item.label}
               </p>
               <p
-                className="text-[12px] leading-[1.8]"
+                className="text-[14px] leading-[1.75]"
                 style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
               >
                 {item.body}

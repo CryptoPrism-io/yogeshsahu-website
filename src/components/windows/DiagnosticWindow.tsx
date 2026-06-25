@@ -71,7 +71,7 @@ export default function DiagnosticWindow({ onStart }: DiagnosticWindowProps) {
           for teams moving faster than their systems.
         </h2>
         <p
-          className="max-w-2xl text-[13px] leading-[1.85]"
+          className="max-w-2xl text-[15px] leading-[1.75]"
           style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
         >
           This is for clients who need a hands-on chief solutions architect who can shape the work before
@@ -102,7 +102,7 @@ export default function DiagnosticWindow({ onStart }: DiagnosticWindowProps) {
                 style={{ borderColor: "var(--ys-highlight)" }}
               >
                 <p
-                  className="text-[12px] leading-[1.75]"
+                  className="text-[14px] leading-[1.75]"
                   style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
                 >
                   {signal}
@@ -141,13 +141,13 @@ export default function DiagnosticWindow({ onStart }: DiagnosticWindowProps) {
             Fixed scope | 5 business days
           </p>
           <div className="space-y-2">
-            <p className="text-[12px] leading-[1.75]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
+            <p className="text-[14px] leading-[1.75]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
               Payment terms: 50% upfront, 50% on delivery.
             </p>
-            <p className="text-[12px] leading-[1.75]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
+            <p className="text-[14px] leading-[1.75]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
               Output: AI roadmap, architecture direction, alignment risks, and a clear recommendation on what to do next.
             </p>
-            <p className="text-[12px] leading-[1.75]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
+            <p className="text-[14px] leading-[1.75]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
               Follow-on paths: architecture leadership, focused delivery work, or a sharper hiring brief.
             </p>
           </div>
@@ -240,7 +240,7 @@ export default function DiagnosticWindow({ onStart }: DiagnosticWindowProps) {
               Core Promise
             </p>
             <p
-              className="text-[13px] leading-[1.85]"
+              className="text-[15px] leading-[1.75]"
               style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
             >
               This engagement is designed to create immediate clarity, visible risk reduction, and a clean

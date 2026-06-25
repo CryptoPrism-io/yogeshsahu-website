@@ -21,3 +21,27 @@ export const fadeUp = (delay = 0, distance = 16): Variants => ({
     },
   },
 });
+
+export const springFadeUp = (delay = 0, distance = 14): Variants => ({
+  initial: { opacity: 0, y: distance },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 380,
+      damping: 32,
+      delay,
+    },
+  },
+});
+
+export const staggerContainer: Variants = {
+  initial: {},
+  animate: {
+    transition: {
+      staggerChildren: 0.04,
+      delayChildren: 0.05,
+    },
+  },
+};

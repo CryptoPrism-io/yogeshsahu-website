@@ -27,7 +27,7 @@ export default function ProjectsWindow() {
           Selected Work
         </p>
         <p
-          className="text-[12px] leading-[1.7]"
+          className="text-[14px] leading-[1.75]"
           style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
         >
           Twelve case studies across three leadership clusters. Each opens with a decision, a bet, and an outcome — engineering depth in support.
@@ -119,7 +119,7 @@ export default function ProjectsWindow() {
                     </span>
                   </div>
                   <p
-                    className="mb-3 text-[12px] leading-[1.75]"
+                    className="mb-3 text-[14px] leading-[1.75]"
                     style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
                   >
                     {project.description}

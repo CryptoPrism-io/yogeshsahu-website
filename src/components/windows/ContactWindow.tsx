@@ -41,7 +41,7 @@ export default function ContactWindow() {
           leadership without fixed-cost regret.
         </h2>
         <p
-          className="text-[13px] leading-[1.9]"
+          className="text-[15px] leading-[1.75]"
           style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
         >
           Built for clients who need a hands-on chief solutions architect, not a slide-deck architect.
@@ -63,7 +63,7 @@ export default function ContactWindow() {
         >
           Entry Offer
         </p>
-        <p className="text-[12px] leading-[1.8]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
+        <p className="text-[14px] leading-[1.75]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
           5 business days. Fixed scope. Discovery, architecture review, delivery risks, and a practical 90-day execution plan.
         </p>
       </div>
@@ -77,7 +77,7 @@ export default function ContactWindow() {
             >
               {item.label}
             </p>
-            <p className="text-[12px]" style={{ color: "var(--ys-text-soft)", fontFamily: "var(--font-body)" }}>
+            <p className="text-[14px] leading-[1.75]" style={{ color: "var(--ys-text-soft)", fontFamily: "var(--font-body)" }}>
               {item.body}
             </p>
           </div>
