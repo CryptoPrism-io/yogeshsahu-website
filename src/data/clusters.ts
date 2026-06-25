@@ -26,7 +26,7 @@ export const CLUSTERS: Record<ClusterId, ClusterMeta> = {
     archetype: 'Solution Architect',
     thesis:
       'Owned the architecture and rollout of ERP/CRM systems that real businesses run on — scope, schema, deployment, sign-off.',
-    order: 2,
+    order: 3,
   },
   C: {
     id: 'C',
@@ -35,11 +35,11 @@ export const CLUSTERS: Record<ClusterId, ClusterMeta> = {
     archetype: 'Product Visionary',
     thesis:
       'Made consumer bets across edtech, cultural AI, civic tech and gaming — chose the audience, the format, and the metric of success.',
-    order: 3,
+    order: 2,
   },
 };
 
-export const CLUSTER_ORDER: ClusterId[] = ['A', 'B', 'C'];
+export const CLUSTER_ORDER: ClusterId[] = ['A', 'C', 'B'];
 
 export function getClusterMeta(id: ClusterId): ClusterMeta {
   return CLUSTERS[id];
