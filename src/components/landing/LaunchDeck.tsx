@@ -31,36 +31,31 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
         }}
       >
         {/* Photo hero */}
-        <div className="relative w-full" style={{ height: 192 }}>
+        <div className="relative w-full" style={{ height: 200 }}>
           <Image
             src="/images/profile.jpg"
             alt="Yogesh Sahu"
             fill
             className="object-cover"
-            style={{ objectPosition: "center 45%" }}
+            style={{ objectPosition: "center 30%" }}
             priority
           />
-          <div
-            className="absolute inset-x-0 bottom-0 px-5 pb-4 pt-16"
-            style={{ background: "linear-gradient(to bottom, transparent 0%, var(--ys-card-bg) 100%)" }}
-          >
-            <p
-              className="mb-1 text-[9px] font-bold uppercase tracking-[0.22em]"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-            >
-              FOUNDER | AI-NATIVE BUILDER | CTO
-            </p>
-            <h1
-              className="text-[clamp(2rem,5.4vw,3rem)] font-black uppercase leading-[0.92]"
-              style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
-            >
-              Yogesh Sahu
-            </h1>
-          </div>
         </div>
 
         {/* Content */}
-        <div className="px-5 pb-5 pt-3">
+        <div className="px-5 pb-5 pt-4">
+          <p
+            className="mb-1 text-[9px] font-bold uppercase tracking-[0.22em]"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+          >
+            FOUNDER | AI-NATIVE BUILDER | CTO
+          </p>
+          <h1
+            className="mb-4 text-[clamp(2rem,5.4vw,3rem)] font-black uppercase leading-[0.92]"
+            style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
+          >
+            Yogesh Sahu
+          </h1>
         <motion.p
           className="mb-5 max-w-[50ch] text-[15px] leading-[1.75]"
           initial={{ opacity: 0, y: 8 }}
