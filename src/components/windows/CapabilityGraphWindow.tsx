@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowUpRight, ChevronRight, FileText, FolderOpen, User } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, FileText, FolderOpen, User } from "lucide-react";
 import { fadeUp } from "@/lib/motion";
 
 type CapabilityId = "finance" | "leadership" | "technology";
@@ -179,66 +179,87 @@ export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowP
 
   return (
     <div className="p-6 md:p-8">
-      <motion.div
-        className="mb-5 flex flex-wrap items-center gap-2 rounded-xl border p-3"
-        variants={fadeUp(0.06, 10)}
-        initial="initial"
-        animate="animate"
+      {/* ── Row 1: Primary domain tabs ── */}
+      <div
+        className="mb-0 overflow-hidden rounded-t-xl border border-b-0"
         style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
       >
+        <div className="flex items-stretch">
+          {DOMAIN_ORDER.map((id, i) => {
+            const config = CAPABILITIES[id];
+            const isActive = activeNode === id;
+            return (
+              <button
+                key={id}
+                onClick={() => {
+                  setActiveNode(id);
+                  setActiveSubdomain(CAPABILITIES[id].subdomains[0].id);
+                }}
+                className="focus-ring relative flex flex-1 items-center justify-center gap-2.5 px-4 py-3.5 transition-colors"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  fontWeight: isActive ? 700 : 500,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: isActive ? "var(--ys-text)" : "var(--ys-text-soft)",
+                  background: isActive ? "var(--ys-surface)" : "transparent",
+                  borderRight: i < DOMAIN_ORDER.length - 1 ? `1px solid var(--ys-border)` : "none",
+                  borderBottom: isActive ? "2px solid var(--ys-accent)" : "2px solid transparent",
+                }}
+              >
+                <span
+                  className="h-2 w-2 rounded-full shrink-0"
+                  style={{ background: config.color }}
+                />
+                {config.name}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ── Row 2: Subdomain secondary nav ── */}
+      <div
+        className="mb-5 flex items-center gap-0 overflow-hidden rounded-b-xl border"
+        style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}
+      >
         <p
-          className="mr-2 text-[10px] font-bold uppercase tracking-[0.18em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+          className="shrink-0 border-r px-4 py-2.5 text-[9px] font-bold uppercase tracking-[0.22em]"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)", borderColor: "var(--ys-border)" }}
         >
-          Domain
+          Focus
         </p>
-        {DOMAIN_ORDER.map((id) => {
-          const config = CAPABILITIES[id];
-          const isActive = activeNode === id;
-          return (
-            <button
-              key={id}
-              onClick={() => {
-                setActiveNode(id);
-                setActiveSubdomain(CAPABILITIES[id].subdomains[0].id);
-              }}
-              className="focus-ring rounded-full border px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] transition-colors"
-              style={{
-                fontFamily: "var(--font-mono)",
-                borderColor: isActive ? "rgba(31,20,13,0.32)" : "var(--ys-border)",
-                background: isActive ? "rgba(255,244,233,0.98)" : "var(--ys-surface)",
-                color: isActive ? "var(--ys-text)" : "var(--ys-text-soft)",
-              }}
-            >
-              <span
-                className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full align-middle"
-                style={{ background: config.color }}
-              />
-              {config.name}
-            </button>
-          );
-        })}
-        <ChevronRight size={14} strokeWidth={1.8} color="var(--ys-text-soft)" />
-        {active.subdomains.map((subdomain) => {
-          const isActive = activeSubdomain === subdomain.id;
-          return (
-            <button
-              key={subdomain.id}
-              onClick={() => setActiveSubdomain(subdomain.id)}
-              className="focus-ring rounded-full border px-3 py-1.5 text-[11px] uppercase tracking-[0.12em] transition-colors"
-              style={{
-                fontFamily: "var(--font-mono)",
-                borderColor: isActive ? "rgba(31,20,13,0.24)" : "var(--ys-border)",
-                background: isActive ? "rgba(255,244,233,0.98)" : "var(--ys-surface)",
-                color: isActive ? "var(--ys-text)" : "var(--ys-text-soft)",
-                fontWeight: isActive ? 700 : 500,
-              }}
-            >
-              {subdomain.label}
-            </button>
-          );
-        })}
-      </motion.div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeNode}
+            className="flex items-center gap-1 px-3 py-2"
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 8 }}
+            transition={{ duration: 0.15 }}
+          >
+            {active.subdomains.map((subdomain) => {
+              const isActive = activeSubdomain === subdomain.id;
+              return (
+                <button
+                  key={subdomain.id}
+                  onClick={() => setActiveSubdomain(subdomain.id)}
+                  className="focus-ring rounded-lg px-3.5 py-1.5 text-[11px] uppercase tracking-[0.1em] transition-all"
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontWeight: isActive ? 700 : 500,
+                    background: isActive ? "var(--ys-text)" : "transparent",
+                    color: isActive ? "var(--ys-surface)" : "var(--ys-text-soft)",
+                  }}
+                >
+                  {subdomain.label}
+                </button>
+              );
+            })}
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
       <motion.div
         className="rounded-xl border p-5"
