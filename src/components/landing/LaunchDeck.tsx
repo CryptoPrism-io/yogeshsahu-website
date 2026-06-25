@@ -1,57 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { Briefcase, FolderKanban, Mail, Stethoscope, Terminal, User } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { fadeUp, MOTION_DURATION, MOTION_EASE_QUICK } from "@/lib/motion";
-
-type Tone = "accent" | "teal" | "neutral";
-
-const TONE: Record<Tone, { border: string; bg: string; color: string }> = {
-  accent: {
-    border: "var(--ys-btn-accent-border)",
-    bg: "var(--ys-btn-accent-bg)",
-    color: "var(--ys-accent-strong)",
-  },
-  teal: {
-    border: "var(--ys-btn-teal-border)",
-    bg: "var(--ys-btn-teal-bg)",
-    color: "var(--ys-highlight)",
-  },
-  neutral: {
-    border: "var(--ys-card-border-strong)",
-    bg: "var(--ys-card-bg)",
-    color: "var(--ys-text)",
-  },
-};
 
 export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void }) {
   const metrics = [
     { value: "6+", label: "apps shipped" },
     { value: "2M+", label: "lines of code" },
-    { value: "1B+", label: "datapoints/day" },
-  ];
-
-  const links: {
-    id: string;
-    label: string;
-    Icon: typeof FolderKanban;
-    tone: Tone;
-    href?: string;
-    action?: () => void;
-  }[] = [
-    { id: "projects", label: "Projects", Icon: FolderKanban, tone: "accent", action: () => onOpen("projects") },
-    { id: "diagnostic", label: "Diagnose", Icon: Stethoscope, tone: "teal", action: () => onOpen("diagnostic") },
-    { id: "about", label: "Profile", Icon: User, tone: "neutral", action: () => onOpen("about") },
-    { id: "terminal", label: "Terminal", Icon: Terminal, tone: "neutral", action: () => onOpen("terminal") },
-    { id: "contact", label: "Contact", Icon: Mail, tone: "neutral", action: () => onOpen("contact") },
-    { id: "work", label: "Work", Icon: Briefcase, tone: "neutral", href: "/work" },
+    { value: "1B+", label: "datapoints / day" },
   ];
 
   return (
     <motion.section
-      className="absolute left-3 right-3 top-3 z-[2] md:left-auto md:right-4 md:top-4 md:w-[500px] xl:w-[480px]"
+      className="absolute left-3 right-3 top-3 z-[2] md:left-auto md:right-4 md:top-4 md:w-[540px] xl:w-[560px]"
       variants={fadeUp(0, 24)}
       initial="initial"
       animate="animate"
@@ -67,42 +30,24 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             "0 1px 2px rgba(31,17,11,0.06), 0 4px 8px rgba(31,17,11,0.10), 0 16px 32px rgba(31,17,11,0.14), 0 48px 80px rgba(31,17,11,0.18)",
         }}
       >
-        <div className="flex flex-col gap-2.5">
-          {/* Top bento: portrait + identity */}
-          <div className="grid gap-2.5" style={{ gridTemplateColumns: "0.82fr 1.3fr" }}>
+        <div className="grid items-stretch gap-2.5" style={{ gridTemplateColumns: "0.96fr 1.04fr" }}>
+          {/* Left column: identity + stats + CTA */}
+          <div className="flex flex-col gap-2.5">
             <motion.div
-              className="relative overflow-hidden rounded-xl border"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              style={{ borderColor: "var(--ys-card-border-strong)" }}
-            >
-              <Image
-                src="/images/profile.jpg"
-                alt="Yogesh Sahu"
-                fill
-                sizes="200px"
-                className="object-cover"
-                style={{ objectPosition: "center 22%" }}
-                priority
-              />
-            </motion.div>
-
-            <motion.div
-              className="flex flex-col justify-center rounded-xl border px-4 py-4"
+              className="flex flex-1 flex-col justify-center rounded-xl border px-4 py-4"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.36, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
               style={{ borderColor: "var(--ys-card-border-strong)", background: "var(--ys-surface-strong)" }}
             >
               <p
-                className="mb-1 text-[9px] font-bold uppercase tracking-[0.18em]"
+                className="mb-1 text-[9px] font-bold uppercase tracking-[0.16em]"
                 style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
               >
                 Founder | AI-Native Builder | CTO
               </p>
               <h1
-                className="mb-2 text-[clamp(1.5rem,3.6vw,2.1rem)] font-black uppercase leading-[0.92]"
+                className="mb-2 text-[clamp(1.6rem,3.6vw,2.2rem)] font-black uppercase leading-[0.9]"
                 style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
               >
                 Yogesh Sahu
@@ -115,86 +60,80 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                 in 6 months, not MVPs.
               </p>
             </motion.div>
-          </div>
 
-          {/* Achievements */}
-          <div className="grid grid-cols-3 gap-2.5">
-            {metrics.map((item, idx) => (
-              <motion.div
-                key={item.label}
-                className="rounded-xl border px-3 py-3"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.32, delay: 0.14 + idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                style={{ borderColor: "var(--ys-card-border-strong)", background: "var(--ys-surface-strong)" }}
-              >
-                <p
-                  className="text-[1.4rem] font-bold leading-none tabular-nums"
-                  style={{
-                    fontFamily: "var(--font-headline)",
-                    color: "var(--ys-accent)",
-                    fontFeatureSettings: '"tnum"',
-                  }}
+            {/* Achievements */}
+            <div className="grid grid-cols-3 gap-2">
+              {metrics.map((item, idx) => (
+                <motion.div
+                  key={item.label}
+                  className="overflow-hidden rounded-xl border px-2.5 py-2.5"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.32, delay: 0.14 + idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ borderColor: "var(--ys-card-border-strong)", background: "var(--ys-surface-strong)" }}
                 >
-                  {item.value}
-                </p>
-                <p
-                  className="mt-1.5 text-[9px] uppercase leading-tight tracking-[0.1em]"
-                  style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-                >
-                  {item.label}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Icon links */}
-          <div className="grid grid-cols-6 gap-2">
-            {links.map((link, idx) => {
-              const tone = TONE[link.tone];
-              const inner = (
-                <>
-                  <link.Icon size={18} strokeWidth={1.75} />
-                  <span
-                    className="text-[8.5px] font-bold uppercase tracking-[0.06em]"
-                    style={{ fontFamily: "var(--font-mono)" }}
+                  <p
+                    className="text-[1.3rem] font-bold leading-none tabular-nums"
+                    style={{
+                      fontFamily: "var(--font-headline)",
+                      color: "var(--ys-accent)",
+                      fontFeatureSettings: '"tnum"',
+                    }}
                   >
-                    {link.label}
-                  </span>
-                </>
-              );
-              const className =
-                "focus-ring flex flex-col items-center justify-center gap-1.5 rounded-xl border px-1 py-3 transition-colors";
-              const style = { borderColor: tone.border, background: tone.bg, color: tone.color };
-              const motionProps = {
-                initial: { opacity: 0, y: 8 },
-                animate: { opacity: 1, y: 0 },
-                transition: { duration: 0.28, delay: 0.3 + idx * 0.05, ease: MOTION_EASE_QUICK },
-                whileHover: { y: -3, scale: 1.04 },
-                whileTap: { scale: 0.95 },
-              } as const;
-
-              return link.href ? (
-                <motion.div key={link.id} {...motionProps}>
-                  <Link href={link.href} className={className} style={style} aria-label={link.label} title={link.label}>
-                    {inner}
-                  </Link>
+                    {item.value}
+                  </p>
+                  <p
+                    className="mt-1.5 text-[8.5px] uppercase leading-tight tracking-[0.08em]"
+                    style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+                  >
+                    {item.label}
+                  </p>
                 </motion.div>
-              ) : (
-                <motion.button
-                  key={link.id}
-                  onClick={link.action}
-                  className={className}
-                  style={style}
-                  aria-label={`Open ${link.label}`}
-                  title={link.label}
-                  {...motionProps}
-                >
-                  {inner}
-                </motion.button>
-              );
-            })}
+              ))}
+            </div>
+
+            {/* Primary CTA */}
+            <motion.button
+              onClick={() => onOpen("diagnostic")}
+              className="focus-ring flex items-center justify-between rounded-xl border px-4 py-3 text-left"
+              aria-label="Start a diagnostic"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -2, scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
+              style={{
+                borderColor: "var(--ys-btn-teal-border)",
+                background: "var(--ys-btn-teal-bg)",
+                color: "var(--ys-highlight)",
+                fontFamily: "var(--font-headline)",
+                transitionDuration: MOTION_DURATION.quick,
+                transitionTimingFunction: `cubic-bezier(${MOTION_EASE_QUICK.join(",")})`,
+              }}
+            >
+              <span className="text-[12px] font-bold uppercase tracking-[0.08em]">Start a Diagnostic</span>
+              <ArrowRight size={15} />
+            </motion.button>
           </div>
+
+          {/* Right column: hero portrait */}
+          <motion.div
+            className="relative overflow-hidden rounded-xl border"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            style={{ borderColor: "var(--ys-card-border-strong)" }}
+          >
+            <Image
+              src="/images/profile.jpg"
+              alt="Yogesh Sahu"
+              fill
+              sizes="320px"
+              className="object-cover"
+              style={{ objectPosition: "center 24%" }}
+              priority
+            />
+          </motion.div>
         </div>
       </div>
     </motion.section>
