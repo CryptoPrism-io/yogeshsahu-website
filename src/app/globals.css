@@ -217,3 +217,29 @@ body {
   white-space: nowrap;
   border-width: 0;
 }
+
+/* ──────────────────────────────────────────────────────────────
+   Editorial entrance primitives (from the Identity Panel design).
+   Reusable across pages — apply with inline `animation: ip-* …`.
+   ────────────────────────────────────────────────────────────── */
+@keyframes ip-rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes ip-line { from { transform: translateY(112%); } to { transform: none; } }
+@keyframes ip-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes ip-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ip-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.8); } }
+
+/* Print-style hover lift used by editorial cards. */
+.ip-lift { transition: transform 0.3s cubic-bezier(0.16, 0.84, 0.44, 1); }
+.ip-lift:hover { transform: translateY(-3px); }
+
+/* Hide scrollbars while keeping scroll (for overflow-safe floating panels). */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  [style*="ip-rise"], [style*="ip-line"], [style*="ip-draw"], [style*="ip-fade"] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
