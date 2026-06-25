@@ -117,23 +117,24 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             </motion.button>
           </div>
 
-          {/* Right column: hero portrait */}
+          {/* Right column: hero portrait (full square, aspect preserved) */}
           <motion.div
-            className="relative overflow-hidden rounded-xl border"
+            className="relative flex items-center justify-center overflow-hidden rounded-xl border p-2"
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            style={{ borderColor: "var(--ys-card-border-strong)" }}
+            style={{ borderColor: "var(--ys-card-border-strong)", background: "var(--ys-surface-strong)" }}
           >
-            <Image
-              src="/images/profile.jpg"
-              alt="Yogesh Sahu"
-              fill
-              sizes="320px"
-              className="object-cover"
-              style={{ objectPosition: "center 24%" }}
-              priority
-            />
+            <div className="relative aspect-square w-full overflow-hidden rounded-lg">
+              <Image
+                src="/images/profile.jpg"
+                alt="Yogesh Sahu"
+                fill
+                sizes="320px"
+                className="object-cover"
+                priority
+              />
+            </div>
           </motion.div>
         </div>
       </div>
