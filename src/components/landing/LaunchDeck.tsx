@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { fadeUp, MOTION_DURATION, MOTION_EASE_QUICK } from "@/lib/motion";
+import CareerHighlights from "./CareerHighlights";
 
 export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void }) {
   const metrics = [
@@ -136,6 +137,8 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           </motion.div>
         </div>
       </div>
+
+      <CareerHighlights />
     </motion.section>
   );
 }
