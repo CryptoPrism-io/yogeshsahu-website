@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { type CSSProperties, type RefObject, useEffect, useRef, useState } from "react";
+import { rhythmDelays } from "@/lib/motion";
 
 const EASE = "cubic-bezier(.16,.84,.44,1)";
 const MONO = "var(--font-mono)";
@@ -87,17 +88,20 @@ function Metric({
   zero,
   label,
   divider,
+  delay,
 }: {
   countRef: RefObject<HTMLDivElement | null>;
   zero: string;
   label: string;
   divider: boolean;
+  delay: number;
 }) {
   return (
     <div
       style={{
         padding: divider ? "13px 0 13px 20px" : "13px 0",
         borderLeft: divider ? "1px solid var(--ys-border)" : undefined,
+        animation: `ip-rise .6s ${EASE} ${delay}s both`,
       }}
     >
       <div
@@ -130,9 +134,14 @@ function Metric({
 }
 
 export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void }) {
-  const m1 = useCountUp(6, "+", 1000, 650);
-  const m2 = useCountUp(2, "M+", 1100, 720);
-  const m3 = useCountUp(1, "B+", 1200, 790);
+  // One shared fast→slow→fast timeline (smoothstep) for the whole panel.
+  // 15 beats: header, rule, name×2, bio, metric-rule, m1-3, CTA, career-rule,
+  // career-header, featured, kari, gamerz. The left nav (GlyphPanel) overlaps
+  // this same window with its own rhythm.
+  const R = rhythmDelays(15, 0, 1.05);
+  const m1 = useCountUp(6, "+", 900, R[6] * 1000);
+  const m2 = useCountUp(2, "M+", 950, R[7] * 1000);
+  const m3 = useCountUp(1, "B+", 1000, R[8] * 1000);
 
   const [clock, setClock] = useState("");
   const [arrow, setArrow] = useState(0);
@@ -197,11 +206,11 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           }}
         />
 
-        {/* registration corner marks */}
-        <RegMark pos="tl" delay={1.2} />
-        <RegMark pos="tr" delay={1.25} />
-        <RegMark pos="bl" delay={1.3} />
-        <RegMark pos="br" delay={1.35} />
+        {/* registration corner marks — snap in last */}
+        <RegMark pos="tl" delay={R[14] + 0.05} />
+        <RegMark pos="tr" delay={R[14] + 0.09} />
+        <RegMark pos="bl" delay={R[14] + 0.13} />
+        <RegMark pos="br" delay={R[14] + 0.17} />
 
         <div style={{ position: "relative" }}>
           {/* header strip */}
@@ -211,7 +220,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               justifyContent: "space-between",
               alignItems: "center",
               gap: 16,
-              animation: `ip-fade .6s ease .05s both`,
+              animation: `ip-fade .6s ease ${R[0]}s both`,
             }}
           >
             <span style={{ ...mono(11, "0.15em", "var(--ys-text-soft)"), lineHeight: 1.3 }}>
@@ -246,7 +255,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               <span suppressHydrationWarning>{clock || "—"}</span>
             </span>
           </div>
-          <div style={{ ...RULE(0.12), marginTop: 12 }} />
+          <div style={{ ...RULE(R[1]), marginTop: 12 }} />
 
           {/* hero */}
           <div
@@ -271,10 +280,10 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                 }}
               >
                 <span style={{ display: "block", overflow: "hidden" }}>
-                  <span style={{ display: "block", animation: `ip-line .9s ${EASE} .15s both` }}>YOGESH</span>
+                  <span style={{ display: "block", animation: `ip-line .9s ${EASE} ${R[2]}s both` }}>YOGESH</span>
                 </span>
                 <span style={{ display: "block", overflow: "hidden" }}>
-                  <span style={{ display: "block", animation: `ip-line .9s ${EASE} .26s both` }}>SAHU</span>
+                  <span style={{ display: "block", animation: `ip-line .9s ${EASE} ${R[3]}s both` }}>SAHU</span>
                 </span>
               </h1>
               <p
@@ -284,7 +293,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                   lineHeight: 1.5,
                   color: "var(--ys-text-soft)",
                   maxWidth: "30ch",
-                  animation: `ip-rise .8s ${EASE} .42s both`,
+                  animation: `ip-rise .8s ${EASE} ${R[4]}s both`,
                 }}
               >
                 I build and ship AI-native B2B and B2C products end-to-end — 6+ production-grade apps in 6 months,{" "}
@@ -302,7 +311,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               </p>
             </div>
 
-            <div style={{ animation: `ip-rise .9s ${EASE} .24s both` }}>
+            <div style={{ animation: `ip-rise .9s ${EASE} ${R[2]}s both` }}>
               <div
                 style={{
                   position: "relative",
@@ -330,11 +339,11 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           </div>
 
           {/* metrics */}
-          <div style={RULE(0.5)} />
+          <div style={RULE(R[5])} />
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)" }}>
-            <Metric countRef={m1} zero="0+" label="Apps shipped" divider={false} />
-            <Metric countRef={m2} zero="0M+" label="Lines of code" divider />
-            <Metric countRef={m3} zero="0B+" label="Datapoints / day" divider />
+            <Metric countRef={m1} zero="0+" label="Apps shipped" divider={false} delay={R[6]} />
+            <Metric countRef={m2} zero="0M+" label="Lines of code" divider delay={R[7]} />
+            <Metric countRef={m3} zero="0B+" label="Datapoints / day" divider delay={R[8]} />
           </div>
 
           {/* CTA */}
@@ -356,7 +365,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               padding: "13px 20px",
               borderRadius: 3,
               marginTop: 6,
-              animation: `ip-rise .7s ${EASE} .8s both`,
+              animation: `ip-rise .7s ${EASE} ${R[9]}s both`,
             }}
           >
             <span style={{ fontFamily: MONO, fontSize: 13, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase" }}>
@@ -377,7 +386,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
 
           {/* career highlights */}
           <section style={{ marginTop: 20 }}>
-            <div style={RULE(0.9)} />
+            <div style={RULE(R[10])} />
             <div
               style={{
                 display: "flex",
@@ -385,7 +394,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                 alignItems: "center",
                 paddingTop: 16,
                 marginBottom: 14,
-                animation: `ip-fade .6s ease .95s both`,
+                animation: `ip-fade .6s ease ${R[11]}s both`,
               }}
             >
               <span style={mono(11, "0.15em", "var(--ys-text-soft)")}>Career Highlights</span>
@@ -403,7 +412,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             {/* featured */}
             <div
               className="ip-lift"
-              style={{ paddingBottom: 14, borderBottom: "1px solid var(--ys-border)", animation: `ip-rise .7s ${EASE} 1s both` }}
+              style={{ paddingBottom: 14, borderBottom: "1px solid var(--ys-border)", animation: `ip-rise .7s ${EASE} ${R[12]}s both` }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
                 <span style={mono(11, "0.14em", "var(--ys-text-soft)")}>CryptoPrism</span>
@@ -420,7 +429,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
 
             {/* two narrow */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-              <div className="ip-lift" style={{ padding: "14px 20px 0 0", animation: `ip-rise .7s ${EASE} 1.08s both` }}>
+              <div className="ip-lift" style={{ padding: "14px 20px 0 0", animation: `ip-rise .7s ${EASE} ${R[13]}s both` }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 9 }}>
                   <span style={mono(10, "0.12em", "var(--ys-text)")}>Kari &amp; Lost Shrines</span>
                   <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", color: "#c9ad97" }}>02</span>
@@ -434,7 +443,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               </div>
               <div
                 className="ip-lift"
-                style={{ padding: "14px 0 0 20px", borderLeft: "1px solid var(--ys-border)", animation: `ip-rise .7s ${EASE} 1.15s both` }}
+                style={{ padding: "14px 0 0 20px", borderLeft: "1px solid var(--ys-border)", animation: `ip-rise .7s ${EASE} ${R[14]}s both` }}
               >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 9 }}>
                   <span style={mono(10, "0.12em", "var(--ys-text)")}>Gamerz Nation</span>
