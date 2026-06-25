@@ -45,3 +45,21 @@ export const staggerContainer: Variants = {
     },
   },
 };
+
+export const staggerItem: Variants = {
+  initial: { opacity: 0, y: 12 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: MOTION_DURATION.base, ease: MOTION_EASE_STANDARD },
+  },
+};
+
+export const fadeDown = (delay = 0): Variants => ({
+  initial: { opacity: 0, y: -8 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: MOTION_DURATION.base, delay, ease: MOTION_EASE_STANDARD },
+  },
+});

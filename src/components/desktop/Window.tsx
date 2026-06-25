@@ -4,7 +4,7 @@ import { motion, useDragControls } from "framer-motion";
 import { Copy, Minus, Square, X } from "lucide-react";
 import { type ReactNode, useEffect, useState } from "react";
 import type { WindowState } from "@/hooks/useWindowManager";
-import { MOTION_DURATION, MOTION_EASE_STANDARD } from "@/lib/motion";
+import { MOTION_DURATION, MOTION_EASE_STANDARD, MOTION_EASE_QUICK } from "@/lib/motion";
 
 interface WindowProps {
   state: WindowState;
@@ -72,6 +72,7 @@ export default function Window({
         boxShadow: state.isMaximized ? "none" : windowShadow,
         borderColor: isFocused ? "rgba(215, 189, 168, 0.9)" : "rgba(215, 189, 168, 0.62)",
       }}
+      exit={{ opacity: 0, scale: 0.94, y: -6, transition: { duration: 0.14, ease: MOTION_EASE_QUICK } }}
       transition={{
         duration: state.isMaximized ? MOTION_DURATION.quick : MOTION_DURATION.base,
         ease: MOTION_EASE_STANDARD,

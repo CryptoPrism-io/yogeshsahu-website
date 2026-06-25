@@ -54,14 +54,17 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             </h1>
           </div>
         </div>
-        <p
+        <motion.p
           className="mb-5 max-w-[50ch] text-[15px] leading-[1.75]"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.32, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
         >
           I build and ship AI-native B2B and B2C products end-to-end — 6+ production-grade apps
           in 6 months, not MVPs. I lead teams and customers to success across fintech, data
           infrastructure, and applied AI.
-        </p>
+        </motion.p>
 
         <div className="mb-5 grid grid-cols-3 gap-2">
           {metrics.map((item, idx) => (
@@ -92,7 +95,12 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
+        <motion.div
+          className="grid grid-cols-2 gap-2"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.32, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
+        >
           <motion.button
             onClick={() => onOpen("projects")}
             className="focus-ring flex items-center justify-between rounded-xl border px-3 py-2.5 text-left transition-colors"
@@ -182,7 +190,12 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           >
             Open Terminal
           </motion.button>
-        </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.32, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
+        >
         <Link
           href="/work"
           className="mt-3 flex items-center justify-between rounded-xl border px-3 py-2.5 text-left transition-colors hover:opacity-90"
@@ -206,6 +219,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           </div>
           <ArrowRight size={14} />
         </Link>
+        </motion.div>
       </div>
     </motion.section>
   );

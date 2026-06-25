@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import CustomCursor from "@/components/desktop/CustomCursor";
 import Dock from "@/components/desktop/Dock";
 import MenuBar from "@/components/desktop/MenuBar";
@@ -56,21 +57,23 @@ export default function Home() {
         <LaunchDeck onOpen={openWindow} />
         <GlyphPanel onOpen={openWindow} />
 
-        {openWindows.map((w) => (
-          <Window
-            key={w.id}
-            state={{ ...w, icon: "" }}
-            isFocused={w.zIndex === topZIndex}
-            titleIcon={ICON_MAP[w.id]}
-            onClose={() => closeWindow(w.id)}
-            onMinimize={() => minimizeWindow(w.id)}
-            onMaximize={() => maximizeWindow(w.id)}
-            onFocus={() => focusWindow(w.id)}
-            onDragEnd={(pos) => updatePosition(w.id, pos)}
-          >
-            {WINDOW_CONTENT[w.id](openWindow)}
-          </Window>
-        ))}
+        <AnimatePresence>
+          {openWindows.map((w) => (
+            <Window
+              key={w.id}
+              state={{ ...w, icon: "" }}
+              isFocused={w.zIndex === topZIndex}
+              titleIcon={ICON_MAP[w.id]}
+              onClose={() => closeWindow(w.id)}
+              onMinimize={() => minimizeWindow(w.id)}
+              onMaximize={() => maximizeWindow(w.id)}
+              onFocus={() => focusWindow(w.id)}
+              onDragEnd={(pos) => updatePosition(w.id, pos)}
+            >
+              {WINDOW_CONTENT[w.id](openWindow)}
+            </Window>
+          ))}
+        </AnimatePresence>
       </main>
 
       <Dock windows={dockWindows} iconMap={ICON_MAP} onOpen={openWindow} onFocus={focusWindow} />

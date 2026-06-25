@@ -1,12 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import type { Project } from "@/lib/projects";
+
+const MotionLink = motion(Link);
 
 export default function CaseCard({ project }: { project: Project }) {
   return (
-    <Link
+    <MotionLink
       href={`/projects/${project.id}`}
-      className="block rounded-xl border p-4 transition-colors hover:opacity-90"
+      className="block rounded-xl border p-4"
+      whileHover={{ y: -5, boxShadow: "0 12px 36px rgba(34,18,10,0.16), 0 4px 12px rgba(34,18,10,0.1)" }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 340, damping: 26 }}
       style={{
         borderColor: "var(--ys-border)",
         background: "var(--ys-surface-strong)",
@@ -55,6 +63,6 @@ export default function CaseCard({ project }: { project: Project }) {
           {project.statLabel}
         </span>
       </div>
-    </Link>
+    </MotionLink>
   );
 }
