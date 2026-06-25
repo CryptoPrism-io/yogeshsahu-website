@@ -21,7 +21,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
       animate="animate"
     >
       <div
-        className="rounded-2xl border p-5 md:p-6"
+        className="overflow-hidden rounded-2xl border"
         style={{
           borderColor: "var(--ys-card-border)",
           background: "var(--ys-card-bg)",
@@ -30,30 +30,37 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           boxShadow: "0 1px 2px rgba(31,17,11,0.06), 0 4px 8px rgba(31,17,11,0.10), 0 16px 32px rgba(31,17,11,0.14), 0 48px 80px rgba(31,17,11,0.18)",
         }}
       >
-        <div className="mb-4 flex items-start gap-4">
+        {/* Photo hero */}
+        <div className="relative w-full" style={{ height: 192 }}>
           <Image
             src="/images/profile.jpg"
             alt="Yogesh Sahu"
-            width={96}
-            height={96}
-            className="h-24 w-24 shrink-0 rounded-2xl object-cover"
+            fill
+            className="object-cover"
+            style={{ objectPosition: "center 35%" }}
             priority
           />
-          <div>
+          <div
+            className="absolute inset-x-0 bottom-0 px-5 pb-4 pt-16"
+            style={{ background: "linear-gradient(to bottom, transparent 0%, var(--ys-card-bg) 100%)" }}
+          >
             <p
-              className="mb-2 text-[10px] font-bold uppercase tracking-[0.22em]"
+              className="mb-1 text-[9px] font-bold uppercase tracking-[0.22em]"
               style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
             >
               FOUNDER | AI-NATIVE BUILDER | CTO
             </p>
             <h1
-              className="text-[clamp(2rem,5.4vw,3.2rem)] font-black uppercase leading-[0.95]"
+              className="text-[clamp(2rem,5.4vw,3rem)] font-black uppercase leading-[0.92]"
               style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
             >
               Yogesh Sahu
             </h1>
           </div>
         </div>
+
+        {/* Content */}
+        <div className="px-5 pb-5 pt-3">
         <motion.p
           className="mb-5 max-w-[50ch] text-[15px] leading-[1.75]"
           initial={{ opacity: 0, y: 8 }}
@@ -220,6 +227,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           <ArrowRight size={14} />
         </Link>
         </motion.div>
+        </div>
       </div>
     </motion.section>
   );
