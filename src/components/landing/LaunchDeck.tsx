@@ -37,7 +37,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             alt="Yogesh Sahu"
             fill
             className="object-cover"
-            style={{ objectPosition: "center 35%" }}
+            style={{ objectPosition: "center 45%" }}
             priority
           />
           <div
