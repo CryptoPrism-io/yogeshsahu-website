@@ -180,35 +180,6 @@ export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowP
   return (
     <div className="p-6 md:p-8">
       <motion.div
-        className="mb-6 rounded-xl border p-5"
-        variants={fadeUp(0, 12)}
-        initial="initial"
-        animate="animate"
-        style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
-      >
-        <p
-          className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-        >
-          Capability Detail
-        </p>
-        <h2
-          className="mb-3 text-[1.85rem] font-black italic leading-[1.05]"
-          style={{ fontFamily: "var(--font-serif-display)", color: "var(--ys-text)" }}
-        >
-          One operating shape.
-          <br />
-          Three proof-backed nodes.
-        </h2>
-        <p
-          className="max-w-3xl text-[13px] leading-[1.85]"
-          style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
-        >
-          The landing-page mandala is the live graph. This window is the detail view for any node you select on it.
-        </p>
-      </motion.div>
-
-      <motion.div
         className="mb-5 flex flex-wrap items-center gap-2 rounded-xl border p-3"
         variants={fadeUp(0.06, 10)}
         initial="initial"
