@@ -59,12 +59,15 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
       style={{ width: "min(52vw, 680px)", height: "min(78vh, 680px)", opacity: 1 }}
     >
       <div className="flex h-full flex-col">
-        <p
+        <motion.p
           className="mb-4 text-[9px] font-bold uppercase tracking-[0.28em]"
           style={{ fontFamily: "var(--font-mono)", color: "rgba(255,244,233,0.42)" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 1.4, ease: [0.22, 1, 0.36, 1] }}
         >
           Navigation Portal
-        </p>
+        </motion.p>
 
         <div
           style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}
@@ -145,9 +148,11 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
             );
 
             const entranceProps = {
-              initial: { opacity: 0, y: 10 },
+              // Hold until the right-hand identity panel is almost settled (~1.5s),
+              // then cascade the nav rows in with the same editorial easing.
+              initial: { opacity: 0, y: 16 },
               animate: { opacity: 1, y: 0 },
-              transition: { delay: 0.18 + i * 0.045, duration: 0.3, ease: [0.22, 1, 0.36, 1] as const },
+              transition: { delay: 1.5 + i * 0.09, duration: 0.5, ease: [0.16, 0.84, 0.44, 1] as const },
               style: { flex: "1 1 0%" as const, display: "flex" as const, minHeight: 0 },
             };
 
