@@ -1,212 +1,144 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { fadeUp, MOTION_DURATION, MOTION_EASE_QUICK } from "@/lib/motion";
+import CareerHighlights from "./CareerHighlights";
 
 export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void }) {
   const metrics = [
-    { value: "6+", label: "production apps shipped" },
+    { value: "6+", label: "apps shipped" },
     { value: "2M+", label: "lines of code" },
-    { value: "1B+", label: "datapoints/day" },
+    { value: "1B+", label: "datapoints / day" },
   ];
 
   return (
     <motion.section
-      className="absolute left-3 right-3 top-3 z-[2] md:left-auto md:right-4 md:top-4 md:w-[500px] xl:w-[480px]"
+      className="absolute left-3 right-3 top-3 z-[2] md:left-auto md:right-4 md:top-4 md:w-[540px] xl:w-[560px]"
       variants={fadeUp(0, 24)}
       initial="initial"
       animate="animate"
     >
       <div
-        className="rounded-2xl border p-5 md:p-6"
+        className="rounded-2xl border p-2.5"
         style={{
           borderColor: "var(--ys-card-border)",
           background: "var(--ys-card-bg)",
           backdropFilter: "blur(20px) saturate(1.12)",
           WebkitBackdropFilter: "blur(20px) saturate(1.12)",
-          boxShadow: "0 1px 2px rgba(31,17,11,0.06), 0 4px 8px rgba(31,17,11,0.10), 0 16px 32px rgba(31,17,11,0.14), 0 48px 80px rgba(31,17,11,0.18)",
+          boxShadow:
+            "0 1px 2px rgba(31,17,11,0.06), 0 4px 8px rgba(31,17,11,0.10), 0 16px 32px rgba(31,17,11,0.14), 0 48px 80px rgba(31,17,11,0.18)",
         }}
       >
-        <div className="mb-4 flex items-start gap-4">
-          <Image
-            src="/images/profile.jpg"
-            alt="Yogesh Sahu"
-            width={96}
-            height={96}
-            className="h-24 w-24 shrink-0 rounded-2xl object-cover"
-            priority
-          />
-          <div>
-            <p
-              className="mb-2 text-[10px] font-bold uppercase tracking-[0.22em]"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-            >
-              FOUNDER | AI-NATIVE BUILDER | CTO
-            </p>
-            <h1
-              className="text-[clamp(2rem,5.4vw,3.2rem)] font-black uppercase leading-[0.95]"
-              style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
-            >
-              Yogesh Sahu
-            </h1>
-          </div>
-        </div>
-        <p
-          className="mb-5 max-w-[50ch] text-[15px] leading-[1.75]"
-          style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
-        >
-          I build and ship AI-native B2B and B2C products end-to-end — 6+ production-grade apps
-          in 6 months, not MVPs. I lead teams and customers to success across fintech, data
-          infrastructure, and applied AI.
-        </p>
-
-        <div className="mb-5 grid grid-cols-3 gap-2">
-          {metrics.map((item, idx) => (
+        <div className="grid items-stretch gap-2.5" style={{ gridTemplateColumns: "0.96fr 1.04fr" }}>
+          {/* Left column: identity + stats + CTA */}
+          <div className="flex flex-col gap-2.5">
             <motion.div
-              key={item.label}
-              className="rounded-xl border px-3 py-3"
+              className="flex flex-1 flex-col justify-center rounded-xl border px-4 py-4"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.12 + idx * 0.08 }}
-              style={{
-                borderColor: "var(--ys-card-border-strong)",
-                background: "var(--ys-card-bg)",
-              }}
+              transition={{ duration: 0.36, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+              style={{ borderColor: "var(--ys-card-border-strong)", background: "var(--ys-surface-strong)" }}
             >
               <p
-                className="text-[1.35rem] font-bold tabular-nums"
-                style={{ fontFamily: "var(--font-headline)", color: "var(--ys-accent)", fontFeatureSettings: '"tnum"' }}
-              >
-                {item.value}
-              </p>
-              <p
-                className="text-[10px] uppercase tracking-[0.12em]"
+                className="mb-1 text-[9px] font-bold uppercase tracking-[0.16em]"
                 style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
               >
-                {item.label}
+                Founder | AI-Native Builder | CTO
+              </p>
+              <h1
+                className="mb-2 text-[clamp(1.6rem,3.6vw,2.2rem)] font-black uppercase leading-[0.9]"
+                style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
+              >
+                Yogesh Sahu
+              </h1>
+              <p
+                className="text-[12.5px] leading-[1.6]"
+                style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
+              >
+                I build and ship AI-native B2B and B2C products end-to-end — 6+ production-grade apps
+                in 6 months, not MVPs.
               </p>
             </motion.div>
-          ))}
-        </div>
 
-        <div className="grid grid-cols-2 gap-2">
-          <motion.button
-            onClick={() => onOpen("projects")}
-            className="focus-ring flex items-center justify-between rounded-xl border px-3 py-2.5 text-left transition-colors"
-            aria-label="Open projects window"
-            whileHover={{ y: -2, scale: 1.01 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: MOTION_DURATION.quick, ease: MOTION_EASE_QUICK }}
-            style={{
-              borderColor: "var(--ys-btn-accent-border)",
-              background: "var(--ys-btn-accent-bg)",
-              color: "var(--ys-accent-strong)",
-              fontFamily: "var(--font-headline)",
-            }}
-          >
-            <span className="text-[12px] font-bold uppercase tracking-[0.08em]">See Projects</span>
-            <ArrowRight size={14} />
-          </motion.button>
-          <motion.button
-            onClick={() => onOpen("contact")}
-            className="focus-ring flex items-center justify-between rounded-xl border px-3 py-2.5 text-left transition-colors"
-            aria-label="Open contact window"
-            whileHover={{ y: -2, scale: 1.01 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: MOTION_DURATION.quick, ease: MOTION_EASE_QUICK }}
-            style={{
-              borderColor: "var(--ys-btn-teal-border)",
-              background: "var(--ys-btn-teal-bg)",
-              color: "var(--ys-highlight)",
-              fontFamily: "var(--font-headline)",
-            }}
-          >
-            <span className="text-[12px] font-bold uppercase tracking-[0.08em]">Start Diagnostic</span>
-            <ArrowRight size={14} />
-          </motion.button>
-          <motion.button
-            onClick={() => onOpen("diagnostic")}
-            className="focus-ring col-span-2 flex items-center justify-between rounded-xl border px-3 py-2.5 text-left transition-colors"
-            aria-label="Open diagnostic window"
-            whileHover={{ y: -2, scale: 1.01 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: MOTION_DURATION.quick, ease: MOTION_EASE_QUICK }}
-            style={{
-              borderColor: "var(--ys-btn-accent-border)",
-              background: "var(--ys-card-bg)",
-              color: "var(--ys-text)",
-              fontFamily: "var(--font-headline)",
-            }}
-          >
-            <div>
-              <span className="mb-0.5 block text-[12px] font-bold uppercase tracking-[0.08em]">View 5-day scope</span>
-              <span
-                className="block text-[9px] uppercase tracking-[0.12em]"
-                style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-              >
-                discovery, architecture, delivery, pricing
-              </span>
+            {/* Achievements */}
+            <div className="grid grid-cols-3 gap-2">
+              {metrics.map((item, idx) => (
+                <motion.div
+                  key={item.label}
+                  className="overflow-hidden rounded-xl border px-2.5 py-2.5"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.32, delay: 0.14 + idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ borderColor: "var(--ys-card-border-strong)", background: "var(--ys-surface-strong)" }}
+                >
+                  <p
+                    className="text-[1.3rem] font-bold leading-none tabular-nums"
+                    style={{
+                      fontFamily: "var(--font-headline)",
+                      color: "var(--ys-accent)",
+                      fontFeatureSettings: '"tnum"',
+                    }}
+                  >
+                    {item.value}
+                  </p>
+                  <p
+                    className="mt-1.5 text-[8.5px] uppercase leading-tight tracking-[0.08em]"
+                    style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+                  >
+                    {item.label}
+                  </p>
+                </motion.div>
+              ))}
             </div>
-            <ArrowRight size={14} />
-          </motion.button>
-          <motion.button
-            onClick={() => onOpen("about")}
-            className="focus-ring rounded-xl border px-3 py-2.5 text-left text-[11px] font-bold uppercase tracking-[0.08em] transition-colors"
-            aria-label="Open about window"
-            whileHover={{ y: -1, scale: 1.01 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: MOTION_DURATION.quick, ease: MOTION_EASE_QUICK }}
-            style={{
-              borderColor: "var(--ys-card-border-strong)",
-              color: "var(--ys-text)",
-              fontFamily: "var(--font-headline)",
-            }}
-          >
-            Open Profile
-          </motion.button>
-          <motion.button
-            onClick={() => onOpen("terminal")}
-            className="focus-ring rounded-xl border px-3 py-2.5 text-left text-[11px] font-bold uppercase tracking-[0.08em] transition-colors"
-            aria-label="Open terminal window"
-            whileHover={{ y: -1, scale: 1.01 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: MOTION_DURATION.quick, ease: MOTION_EASE_QUICK }}
-            style={{
-              borderColor: "var(--ys-card-border-strong)",
-              color: "var(--ys-text)",
-              fontFamily: "var(--font-headline)",
-            }}
-          >
-            Open Terminal
-          </motion.button>
-        </div>
-        <Link
-          href="/work"
-          className="mt-3 flex items-center justify-between rounded-xl border px-3 py-2.5 text-left transition-colors hover:opacity-90"
-          style={{
-            borderColor: "var(--ys-card-border-strong)",
-            background: "var(--ys-card-bg)",
-            color: "var(--ys-text)",
-            fontFamily: "var(--font-headline)",
-          }}
-        >
-          <div>
-            <span className="mb-0.5 block text-[12px] font-bold uppercase tracking-[0.08em]">
-              /work hub
-            </span>
-            <span
-              className="block text-[9px] uppercase tracking-[0.12em]"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+
+            {/* Primary CTA */}
+            <motion.button
+              onClick={() => onOpen("diagnostic")}
+              className="focus-ring flex items-center justify-between rounded-xl border px-4 py-3 text-left"
+              aria-label="Start a diagnostic"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -2, scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
+              style={{
+                borderColor: "var(--ys-btn-teal-border)",
+                background: "var(--ys-btn-teal-bg)",
+                color: "var(--ys-highlight)",
+                fontFamily: "var(--font-headline)",
+                transitionDuration: MOTION_DURATION.quick,
+                transitionTimingFunction: `cubic-bezier(${MOTION_EASE_QUICK.join(",")})`,
+              }}
             >
-              12 case studies · 3 leadership clusters
-            </span>
+              <span className="text-[12px] font-bold uppercase tracking-[0.08em]">Start a Diagnostic</span>
+              <ArrowRight size={15} />
+            </motion.button>
           </div>
-          <ArrowRight size={14} />
-        </Link>
+
+          {/* Right column: hero portrait */}
+          <motion.div
+            className="relative overflow-hidden rounded-xl border"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            style={{ borderColor: "var(--ys-card-border-strong)" }}
+          >
+            <Image
+              src="/images/profile.jpg"
+              alt="Yogesh Sahu"
+              fill
+              sizes="320px"
+              className="object-cover"
+              style={{ objectPosition: "center 24%" }}
+              priority
+            />
+          </motion.div>
+        </div>
       </div>
+
+      <CareerHighlights />
     </motion.section>
   );
 }

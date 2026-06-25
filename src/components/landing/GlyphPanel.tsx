@@ -89,6 +89,7 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                 initial={false}
                 whileHover="hovered"
               >
+
                 {/* Sweep fill */}
                 <motion.span
                   className="pointer-events-none absolute inset-0"
@@ -143,29 +144,38 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
               </motion.div>
             );
 
+            const entranceProps = {
+              initial: { opacity: 0, y: 10 },
+              animate: { opacity: 1, y: 0 },
+              transition: { delay: 0.18 + i * 0.045, duration: 0.3, ease: [0.22, 1, 0.36, 1] as const },
+              style: { flex: "1 1 0%" as const, display: "flex" as const, minHeight: 0 },
+            };
+
             if (item.type === "link") {
               return (
-                <Link
-                  key={item.num}
-                  href={item.href}
-                  style={{ flex: "1 1 0%", display: "flex", minHeight: 0 }}
-                  onMouseEnter={() => setHoveredIndex(i)}
-                >
-                  {inner}
-                </Link>
+                <motion.div key={item.num} {...entranceProps}>
+                  <Link
+                    href={item.href}
+                    style={{ flex: 1, display: "flex", minHeight: 0 }}
+                    onMouseEnter={() => setHoveredIndex(i)}
+                  >
+                    {inner}
+                  </Link>
+                </motion.div>
               );
             }
 
             return (
-              <button
-                key={item.num}
-                onClick={() => onOpen(item.id)}
-                className="text-left"
-                style={{ flex: "1 1 0%", display: "flex", minHeight: 0, background: "none", border: "none", padding: 0 }}
-                onMouseEnter={() => setHoveredIndex(i)}
-              >
-                {inner}
-              </button>
+              <motion.div key={item.num} {...entranceProps}>
+                <button
+                  onClick={() => onOpen(item.id)}
+                  className="text-left"
+                  style={{ flex: 1, display: "flex", minHeight: 0, background: "none", border: "none", padding: 0 }}
+                  onMouseEnter={() => setHoveredIndex(i)}
+                >
+                  {inner}
+                </button>
+              </motion.div>
             );
           })}
         </div>

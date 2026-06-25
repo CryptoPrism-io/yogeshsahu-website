@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { fadeDown } from "@/lib/motion";
 
 export default function MenuBar() {
   const [time, setTime] = useState("");
@@ -25,8 +27,11 @@ export default function MenuBar() {
   }, []);
 
   return (
-    <header
+    <motion.header
       className="fixed top-0 left-0 right-0 z-[9999] flex h-11 items-center justify-between border-b px-5"
+      variants={fadeDown(0)}
+      initial="initial"
+      animate="animate"
       style={{
         borderColor: "rgba(215, 189, 168, 0.18)",
         background: "rgba(30, 14, 6, 0.42)",
@@ -78,6 +83,6 @@ export default function MenuBar() {
           {time}
         </span>
       </div>
-    </header>
+    </motion.header>
   );
 }
