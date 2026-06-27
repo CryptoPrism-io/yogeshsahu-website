@@ -25,7 +25,7 @@ export default function WorkPage() {
         className="fixed top-0 left-0 right-0 z-50 border-b px-5 py-3"
         style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}
       >
-        <div className="mx-auto flex max-w-5xl items-center justify-between">
+        <div className="mx-auto flex max-w-[1180px] items-center justify-between">
           <div className="flex items-center gap-3">
             <Link
               href="/"
@@ -61,7 +61,7 @@ export default function WorkPage() {
 
       <WorkPageHeader />
 
-      <div className="mx-auto max-w-5xl px-5 pb-16">
+      <div className="mx-auto max-w-[1180px] px-10 pb-[100px]">
         {CLUSTER_ORDER.map((id) => (
           <ClusterSection
             key={id}
@@ -75,7 +75,7 @@ export default function WorkPage() {
         className="border-t px-5 py-8"
         style={{ borderColor: "var(--ys-border)" }}
       >
-        <div className="mx-auto flex max-w-5xl items-center justify-between">
+        <div className="mx-auto flex max-w-[1180px] items-center justify-between">
           <Link
             href="/"
             className="text-[11px] font-bold uppercase tracking-[0.1em] underline"
