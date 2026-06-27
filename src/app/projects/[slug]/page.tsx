@@ -80,7 +80,7 @@ export default async function ProjectPage({
           backdropFilter: "blur(12px)",
         }}
       >
-        <div className="mx-auto flex max-w-4xl items-center justify-between">
+        <div className="mx-auto flex max-w-[1100px] items-center justify-between">
           <div className="flex items-center gap-3">
             <Link
               href="/work"
@@ -120,7 +120,7 @@ export default async function ProjectPage({
         </div>
       </nav>
 
-      <header className="mx-auto max-w-4xl px-5 pt-20 pb-10">
+      <header className="mx-auto max-w-[1100px] px-5 pt-20 pb-10">
         <p
           className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em]"
           style={{
@@ -131,10 +131,13 @@ export default async function ProjectPage({
           {project.tags.join(" / ")}
         </p>
         <h1
-          className="mb-4 text-[clamp(1.8rem,5vw,3rem)] font-black uppercase leading-[0.95]"
+          className="mb-5 font-bold uppercase"
           style={{
             fontFamily: "var(--font-headline)",
             color: "var(--ys-text)",
+            fontSize: "clamp(40px,6.4vw,84px)",
+            lineHeight: 0.92,
+            letterSpacing: "-0.03em",
           }}
         >
           {project.name}
@@ -148,16 +151,17 @@ export default async function ProjectPage({
         >
           {project.tagline}
         </p>
-        <div className="flex items-center gap-4">
+        <div className="mb-14 flex flex-wrap items-stretch gap-3.5">
           <div
-            className="rounded-xl border px-4 py-3"
+            className="border px-[22px] py-4"
             style={{
-              borderColor: "var(--ys-border)",
+              borderColor: "#e9d3bf",
               background: "var(--ys-surface-strong)",
+              minWidth: 150,
             }}
           >
             <p
-              className="text-[1.2rem] font-bold tabular-nums"
+              className="text-[26px] font-bold tabular-nums leading-none"
               style={{
                 fontFamily: "var(--font-headline)",
                 color: "var(--ys-accent)",
@@ -167,7 +171,7 @@ export default async function ProjectPage({
               {project.stat}
             </p>
             <p
-              className="text-[9px] uppercase tracking-[0.12em]"
+              className="mt-[7px] text-[10px] uppercase tracking-[0.12em]"
               style={{
                 fontFamily: "var(--font-mono)",
                 color: "var(--ys-text-soft)",
@@ -181,9 +185,9 @@ export default async function ProjectPage({
               href={project.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl border px-4 py-3 text-[11px] font-bold uppercase tracking-[0.08em] transition-colors hover:opacity-80"
+              className="flex items-center border px-[26px] text-[12px] uppercase tracking-[0.14em] transition-colors hover:opacity-80"
               style={{
-                fontFamily: "var(--font-headline)",
+                fontFamily: "var(--font-mono)",
                 borderColor: "var(--ys-btn-accent-border)",
                 background: "var(--ys-btn-accent-bg)",
                 color: "var(--ys-accent-strong)",
@@ -197,9 +201,9 @@ export default async function ProjectPage({
               href={project.githubHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl border px-4 py-3 text-[11px] font-bold uppercase tracking-[0.08em] transition-colors hover:opacity-80"
+              className="flex items-center border px-[26px] text-[12px] uppercase tracking-[0.14em] transition-colors hover:opacity-80"
               style={{
-                fontFamily: "var(--font-headline)",
+                fontFamily: "var(--font-mono)",
                 borderColor: "var(--ys-border)",
                 color: "var(--ys-text)",
               }}
@@ -212,9 +216,9 @@ export default async function ProjectPage({
               href={project.reportHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl border px-4 py-3 text-[11px] font-bold uppercase tracking-[0.08em] transition-colors hover:opacity-80"
+              className="flex items-center border px-[26px] text-[12px] uppercase tracking-[0.14em] transition-colors hover:opacity-80"
               style={{
-                fontFamily: "var(--font-headline)",
+                fontFamily: "var(--font-mono)",
                 borderColor: "var(--ys-btn-teal-border)",
                 background: "var(--ys-btn-teal-bg)",
                 color: "var(--ys-highlight)",
@@ -226,7 +230,7 @@ export default async function ProjectPage({
         </div>
       </header>
 
-      <div className="mx-auto max-w-4xl px-5 pb-8">
+      <div className="mx-auto max-w-[1100px] px-5 pb-8">
         {project.image ? (
           <Image
             src={project.image}
@@ -250,7 +254,7 @@ export default async function ProjectPage({
       )}
 
       {project.reports && project.reports.length > 0 && (
-        <div className="mx-auto max-w-4xl px-5 pb-10">
+        <div className="mx-auto max-w-[1100px] px-5 pb-10">
           <h2
             className="mb-4 text-[14px] font-bold uppercase tracking-[0.1em]"
             style={{
@@ -289,7 +293,7 @@ export default async function ProjectPage({
       )}
 
       {project.caseStudy && (
-        <div className="mx-auto max-w-4xl px-5 pt-2">
+        <div className="mx-auto max-w-[1100px] px-5 pt-2">
           <LeadershipLens lens={project.caseStudy.leadershipLens} />
         </div>
       )}
@@ -298,30 +302,38 @@ export default async function ProjectPage({
         <CaseStudyBlocks sections={project.caseStudy.sections} />
       )}
 
-      <footer
-        className="border-t px-5 py-8"
-        style={{ borderColor: "var(--ys-border)" }}
-      >
-        <div className="mx-auto flex max-w-4xl items-center justify-between">
+      <footer className="mx-auto max-w-[1100px] px-10 pb-20" style={{ marginTop: 90 }}>
+        <div
+          className="flex flex-wrap items-end justify-between gap-6"
+          style={{ borderTop: "1px solid var(--ys-border)", paddingTop: 46 }}
+        >
+          <div>
+            <p
+              className="mb-3 text-[11px] uppercase tracking-[0.2em]"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+            >
+              Next
+            </p>
+            <Link
+              href="/work"
+              className="font-bold uppercase transition-colors hover:text-[var(--ys-accent)]"
+              style={{
+                fontFamily: "var(--font-headline)",
+                color: "var(--ys-text)",
+                fontSize: "clamp(28px,4vw,44px)",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              All Work →
+            </Link>
+          </div>
           <Link
             href="/"
-            className="text-[11px] font-bold uppercase tracking-[0.1em] underline"
-            style={{
-              fontFamily: "var(--font-headline)",
-              color: "var(--ys-accent)",
-            }}
+            className="px-[26px] py-[18px] text-[12px] uppercase tracking-[0.16em] transition-opacity hover:opacity-90"
+            style={{ fontFamily: "var(--font-mono)", background: "var(--ys-highlight)", color: "var(--ys-surface)" }}
           >
-            Back to Home
+            Start a Diagnostic →
           </Link>
-          <span
-            className="text-[10px] uppercase tracking-[0.15em]"
-            style={{
-              fontFamily: "var(--font-mono)",
-              color: "var(--ys-text-soft)",
-            }}
-          >
-            yogeshsahu.xyz
-          </span>
         </div>
       </footer>
     </main>
