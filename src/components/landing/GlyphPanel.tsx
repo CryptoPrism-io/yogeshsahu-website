@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { rhythmDelays } from "@/lib/motion";
 
 const NAV_ITEMS = [
   {
@@ -53,18 +54,25 @@ const NAV_ITEMS = [
 export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
+  // Overlap the identity panel's entrance, with the same fast→slow→fast rhythm:
+  // rows burst in, breathe through the middle, then snap shut.
+  const rowDelays = rhythmDelays(NAV_ITEMS.length, 0.35, 0.85);
+
   return (
     <motion.aside
       className="absolute left-6 top-[58px] z-[0] hidden lg:block xl:left-10 xl:top-[66px]"
       style={{ width: "min(52vw, 680px)", height: "min(78vh, 680px)", opacity: 1 }}
     >
       <div className="flex h-full flex-col">
-        <p
+        <motion.p
           className="mb-4 text-[9px] font-bold uppercase tracking-[0.28em]"
           style={{ fontFamily: "var(--font-mono)", color: "rgba(255,244,233,0.42)" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.28, ease: [0.16, 0.84, 0.44, 1] }}
         >
           Navigation Portal
-        </p>
+        </motion.p>
 
         <div
           style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}
@@ -145,9 +153,10 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
             );
 
             const entranceProps = {
-              initial: { opacity: 0, y: 10 },
+              // Overlap the identity panel; fast→slow→fast gaps via rhythmDelays.
+              initial: { opacity: 0, y: 16 },
               animate: { opacity: 1, y: 0 },
-              transition: { delay: 0.18 + i * 0.045, duration: 0.3, ease: [0.22, 1, 0.36, 1] as const },
+              transition: { delay: rowDelays[i], duration: 0.5, ease: [0.16, 0.84, 0.44, 1] as const },
               style: { flex: "1 1 0%" as const, display: "flex" as const, minHeight: 0 },
             };
 

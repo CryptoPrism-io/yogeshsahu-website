@@ -63,3 +63,17 @@ export const fadeDown = (delay = 0): Variants => ({
     transition: { duration: MOTION_DURATION.base, delay, ease: MOTION_EASE_STANDARD },
   },
 });
+
+/**
+ * Fast → slow → fast stagger. Spaces `count` delays from `start` to `start + span`
+ * along a smoothstep curve, so consecutive items have tight gaps at the start,
+ * wide gaps through the middle, then tight gaps again at the end — a reveal that
+ * bursts, breathes, then snaps shut. Used to give both columns a shared rhythm.
+ */
+export const rhythmDelays = (count: number, start = 0, span = 1): number[] => {
+  if (count <= 1) return [start];
+  const smoothstep = (t: number) => t * t * (3 - 2 * t);
+  return Array.from({ length: count }, (_, i) =>
+    Number((start + span * smoothstep(i / (count - 1))).toFixed(3)),
+  );
+};
