@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { CAPABILITIES, DOMAIN_ORDER, type CapabilityId, type ProofLink } from "@/data/capabilities";
@@ -10,8 +10,35 @@ interface CapabilityGraphWindowProps {
 }
 
 export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowProps) {
-  const [activeNode, setActiveNode] = useState<CapabilityId>("technology");
+  const [activeNode, setActiveNode] = useState<CapabilityId>(DOMAIN_ORDER[0]);
   const active = CAPABILITIES[activeNode];
+
+  // Auto-preview: flash through each domain (0.8s apiece), then settle back on
+  // the first tab. A manual tab click cancels the rotation for good.
+  const userInteracted = useRef(false);
+  useEffect(() => {
+    const reduce =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+
+    let i = 0;
+    const timer = setInterval(() => {
+      if (userInteracted.current) {
+        clearInterval(timer);
+        return;
+      }
+      i += 1;
+      if (i >= DOMAIN_ORDER.length) {
+        setActiveNode(DOMAIN_ORDER[0]); // full pass done — rest on the first tab
+        clearInterval(timer);
+        return;
+      }
+      setActiveNode(DOMAIN_ORDER[i]);
+    }, 800);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const openProof = (proof: ProofLink) => {
     if (proof.openWindow) {
@@ -37,7 +64,10 @@ export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowP
             return (
               <button
                 key={id}
-                onClick={() => setActiveNode(id)}
+                onClick={() => {
+                  userInteracted.current = true;
+                  setActiveNode(id);
+                }}
                 className="focus-ring relative flex flex-1 items-center justify-center gap-2.5 px-4 py-3.5 transition-colors"
                 style={{
                   fontFamily: "var(--font-mono)",
