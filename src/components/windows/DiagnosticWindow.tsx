@@ -1,7 +1,10 @@
 "use client";
 
+import { type CSSProperties, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
+
+const EASE = "cubic-bezier(.16,.84,.44,1)";
 
 const FIT_SIGNALS = [
   "Product and engineering leaders in fast-moving, regulated, or funded environments",
@@ -13,10 +16,12 @@ const FIT_SIGNALS = [
 const DELIVERABLES = [
   "AI integration map from workflow to enterprise use case",
   "Architecture review and decision memo",
+  "Build-vs-buy and tech-stack recommendations",
+  "Ranked risk register with severity and effort",
   "Product-engineering alignment risks",
-  "90-day execution plan",
-  "Priorities across system, team, and stakeholder flow",
-  "Executive debrief",
+  "90-day execution plan, sequenced and scoped",
+  "Hiring brief for the gaps that matter",
+  "Recorded executive debrief your team can replay",
 ];
 
 const TIMELINE = [
@@ -42,20 +47,52 @@ const TIMELINE = [
   },
 ];
 
+/** Accent registration tick anchored just inside a card corner (editorial brutalist). */
+function Tick({ pos, color = "var(--ys-accent)" }: { pos: "tl" | "tr" | "bl" | "br"; color?: string }) {
+  const v = pos[0] === "t" ? { top: 9 } : { bottom: 9 };
+  const h = pos[1] === "l" ? { left: 9 } : { right: 9 };
+  const b =
+    pos === "tl"
+      ? { borderTop: `1.5px solid ${color}`, borderLeft: `1.5px solid ${color}` }
+      : pos === "tr"
+        ? { borderTop: `1.5px solid ${color}`, borderRight: `1.5px solid ${color}` }
+        : pos === "bl"
+          ? { borderBottom: `1.5px solid ${color}`, borderLeft: `1.5px solid ${color}` }
+          : { borderBottom: `1.5px solid ${color}`, borderRight: `1.5px solid ${color}` };
+  return <span aria-hidden style={{ position: "absolute", width: 8, height: 8, ...v, ...h, ...b }} />;
+}
+
+/** Sharp-cornered card chrome with a long, low drop shadow — the right-panel language. */
+const card = (extra?: CSSProperties): CSSProperties => ({
+  position: "relative",
+  border: "1px solid var(--ys-border)",
+  borderRadius: 4,
+  background: "var(--ys-surface-strong)",
+  boxShadow: "0 20px 48px -32px rgba(42,23,15,0.55)",
+  ...extra,
+});
+
 interface DiagnosticWindowProps {
   onStart: () => void;
 }
 
 export default function DiagnosticWindow({ onStart }: DiagnosticWindowProps) {
+  const [nudge, setNudge] = useState(0);
+
   return (
     <div className="p-6 md:p-8">
+      {/* Offer header */}
       <motion.div
-        className="mb-6 rounded-xl border p-5"
+        className="mb-6 p-5"
         variants={fadeUp(0, 12)}
         initial="initial"
         animate="animate"
-        style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
+        style={card()}
       >
+        <Tick pos="tl" />
+        <Tick pos="tr" />
+        <Tick pos="bl" />
+        <Tick pos="br" />
         <p
           className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em]"
           style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
@@ -82,11 +119,11 @@ export default function DiagnosticWindow({ onStart }: DiagnosticWindowProps) {
 
       <div className="mb-6 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
         <motion.div
-          className="rounded-xl border p-5"
+          className="p-5"
           variants={fadeUp(0.06, 10)}
           initial="initial"
           animate="animate"
-          style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
+          style={card()}
         >
           <p
             className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em]"
@@ -113,15 +150,20 @@ export default function DiagnosticWindow({ onStart }: DiagnosticWindowProps) {
         </motion.div>
 
         <motion.div
-          className="rounded-xl border p-5"
+          className="p-5"
           variants={fadeUp(0.12, 10)}
           initial="initial"
           animate="animate"
-          style={{
-            borderColor: "rgba(11, 141, 128, 0.28)",
+          style={card({
+            borderColor: "rgba(11, 141, 128, 0.32)",
             background: "rgba(11, 141, 128, 0.08)",
-          }}
+            boxShadow: "0 20px 48px -30px rgba(11, 141, 128, 0.45)",
+          })}
         >
+          <Tick pos="tl" color="var(--ys-highlight)" />
+          <Tick pos="tr" color="var(--ys-highlight)" />
+          <Tick pos="bl" color="var(--ys-highlight)" />
+          <Tick pos="br" color="var(--ys-highlight)" />
           <p
             className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em]"
             style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
@@ -132,20 +174,20 @@ export default function DiagnosticWindow({ onStart }: DiagnosticWindowProps) {
             className="mb-1 text-[2rem] font-bold leading-none"
             style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
           >
-            USD 5k-7.5k
+            USD 999
           </p>
           <p
             className="mb-4 text-[11px] uppercase tracking-[0.12em]"
             style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
           >
-            Fixed scope | 5 business days
+            Flat fee | 5 business days
           </p>
           <div className="space-y-2">
             <p className="text-[14px] leading-[1.75]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
-              Payment terms: 50% upfront, 50% on delivery.
+              Output: AI roadmap, architecture direction, ranked risks, a 90-day plan, and a clear recommendation on what to do next.
             </p>
             <p className="text-[14px] leading-[1.75]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
-              Output: AI roadmap, architecture direction, alignment risks, and a clear recommendation on what to do next.
+              Included: a 30-minute follow-up call two weeks later, plus async Q&amp;A while you act on the plan.
             </p>
             <p className="text-[14px] leading-[1.75]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
               Follow-on paths: architecture leadership, focused delivery work, or a sharper hiring brief.
@@ -156,11 +198,11 @@ export default function DiagnosticWindow({ onStart }: DiagnosticWindowProps) {
 
       <div className="mb-6 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
         <motion.div
-          className="rounded-xl border p-5"
+          className="p-5"
           variants={fadeUp(0.18, 10)}
           initial="initial"
           animate="animate"
-          style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
+          style={card()}
         >
           <p
             className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em]"
@@ -172,7 +214,7 @@ export default function DiagnosticWindow({ onStart }: DiagnosticWindowProps) {
             {DELIVERABLES.map((item) => (
               <div key={item} className="flex items-start gap-2.5">
                 <span
-                  className="mt-[5px] inline-block h-1.5 w-1.5 rounded-full"
+                  className="mt-[5px] inline-block h-1.5 w-1.5"
                   style={{ background: "var(--ys-accent)" }}
                 />
                 <p
@@ -187,11 +229,11 @@ export default function DiagnosticWindow({ onStart }: DiagnosticWindowProps) {
         </motion.div>
 
         <motion.div
-          className="rounded-xl border p-5"
+          className="p-5"
           variants={fadeUp(0.24, 10)}
           initial="initial"
           animate="animate"
-          style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
+          style={card()}
         >
           <p
             className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em]"
@@ -225,12 +267,16 @@ export default function DiagnosticWindow({ onStart }: DiagnosticWindowProps) {
       </div>
 
       <motion.div
-        className="rounded-xl border p-5"
+        className="p-5"
         variants={fadeUp(0.3, 10)}
         initial="initial"
         animate="animate"
-        style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
+        style={card()}
       >
+        <Tick pos="tl" />
+        <Tick pos="tr" />
+        <Tick pos="bl" />
+        <Tick pos="br" />
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-xl">
             <p
@@ -252,14 +298,26 @@ export default function DiagnosticWindow({ onStart }: DiagnosticWindowProps) {
 
           <button
             onClick={onStart}
-            className="focus-ring rounded-lg px-5 py-3 text-[11px] font-bold uppercase tracking-[0.1em] transition-colors"
+            onMouseEnter={() => setNudge(6)}
+            onMouseLeave={() => setNudge(0)}
+            className="focus-ring flex shrink-0 items-center gap-3 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.1em]"
             style={{
               fontFamily: "var(--font-headline)",
               background: "var(--ys-text)",
               color: "var(--ys-surface)",
+              borderRadius: 3,
             }}
           >
-            Start Architecture Inquiry
+            <span>Start Architecture Inquiry</span>
+            <span
+              style={{
+                display: "inline-block",
+                transform: `translateX(${nudge}px)`,
+                transition: `transform .25s ${EASE}`,
+              }}
+            >
+              →
+            </span>
           </button>
         </div>
       </motion.div>
