@@ -30,8 +30,8 @@ const NAV_ITEMS = [
   },
   {
     num: "04",
-    label: "Diagnostic",
-    desc: "5-day scope · Discovery to Pricing",
+    label: "Work With Me",
+    desc: "Diagnostic sprint · idea → shipped",
     type: "window" as const,
     id: "diagnostic",
   },
