@@ -3,6 +3,7 @@ import { projectDetails } from "@/data/project-details";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowLeft } from "lucide-react";
 import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 import LeadershipLens from "@/components/work/LeadershipLens";
 import CaseStudyBlocks from "@/components/work/CaseStudyBlocks";
@@ -80,16 +81,33 @@ export default async function ProjectPage({
         }}
       >
         <div className="mx-auto flex max-w-4xl items-center justify-between">
-          <Link
-            href="/"
-            className="text-[12px] font-bold uppercase tracking-[0.1em]"
-            style={{
-              fontFamily: "var(--font-headline)",
-              color: "var(--ys-text)",
-            }}
-          >
-            YS.
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/work"
+              aria-label="Back to Work"
+              className="focus-ring flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] transition-colors hover:bg-[var(--ys-surface-strong)]"
+              style={{
+                fontFamily: "var(--font-mono)",
+                borderColor: "var(--ys-border)",
+                color: "var(--ys-text-soft)",
+              }}
+            >
+              <ArrowLeft size={13} strokeWidth={2} />
+              Back
+            </Link>
+            <span aria-hidden style={{ width: 1, height: 16, background: "var(--ys-border)" }} />
+            <Link
+              href="/"
+              aria-label="Home"
+              className="text-[12px] font-bold uppercase tracking-[0.1em]"
+              style={{
+                fontFamily: "var(--font-headline)",
+                color: "var(--ys-text)",
+              }}
+            >
+              YS.
+            </Link>
+          </div>
           <span
             className="text-[10px] uppercase tracking-[0.15em]"
             style={{
