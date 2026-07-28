@@ -79,10 +79,10 @@ function enrichmentScore(item: { linkedin?: string; email?: string; website?: st
 
 export default function InvestorPool({ initialFilters }: { initialFilters?: { type?: string; sector?: string; region?: string; linkedinOnly?: boolean; emailOnly?: boolean } }) {
   const [search, setSearch] = useState("");
-  const [selectedType, setSelectedType] = useState(initialFilters?.type && ["Angel Investor", "Individual Investor", "VC / Fund", "Incubator & Accelerator"].includes(initialFilters.type) ? initialFilters.type : "All");
-  const [selectedSector, setSelectedSector] = useState(initialFilters?.sector && ["AI / ML", "Fintech", "Web3 / Crypto", "SaaS", "Deep Tech"].includes(initialFilters.sector) ? initialFilters.sector : "All");
-  const [selectedRegion, setSelectedRegion] = useState("All");
-  const [selectedCheque, setSelectedCheque] = useState("All");
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const [selectedCheques, setSelectedCheques] = useState<string[]>([]);
   const [linkedinOnly, setLinkedinOnly] = useState(initialFilters?.linkedinOnly || false);
   const [emailOnly, setEmailOnly] = useState(initialFilters?.emailOnly || false);
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
@@ -108,23 +108,25 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
         item.location.toLowerCase().includes(search.toLowerCase()) ||
         item.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
 
-      const matchesType = selectedType === "All" || item.type === selectedType;
+      const matchesType = selectedTypes.length === 0 || selectedTypes.includes(item.type);
 
       const matchesSector =
-        selectedSector === "All" ||
-        item.tags.some((t) => t.toLowerCase().includes(selectedSector.toLowerCase())) ||
-        item.role.toLowerCase().includes(selectedSector.toLowerCase());
+        selectedSectors.length === 0 ||
+        selectedSectors.some((s) =>
+          item.tags.some((t) => t.toLowerCase().includes(s.toLowerCase())) ||
+          item.role.toLowerCase().includes(s.toLowerCase())
+        );
 
-      const matchesRegion = selectedRegion === "All" || getRegion(item.location) === selectedRegion;
+      const matchesRegion = selectedRegions.length === 0 || selectedRegions.includes(getRegion(item.location));
 
-      const matchesCheque = selectedCheque === "All" || chequeBucket(item.cheque || "") === selectedCheque;
+      const matchesCheque = selectedCheques.length === 0 || selectedCheques.includes(chequeBucket(item.cheque || ""));
 
       const hasLinkedin = !linkedinOnly || !!item.linkedin;
       const hasEmail = !emailOnly || !!item.email;
 
       return matchesSearch && matchesType && matchesSector && matchesRegion && matchesCheque && hasLinkedin && hasEmail;
     });
-  }, [search, selectedType, selectedSector, selectedRegion, selectedCheque, linkedinOnly, emailOnly]);
+  }, [search, selectedTypes, selectedSectors, selectedRegions, selectedCheques, linkedinOnly, emailOnly]);
 
   const totalPages = Math.ceil(filteredData.length / pageSize) || 1;
   const paginatedData = useMemo(() => {
@@ -179,7 +181,7 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             <button
-              onClick={() => downloadCSV(filteredData, `investors-${selectedType.toLowerCase().replace(/[^a-z]/g, '')}.csv`)}
+              onClick={() => downloadCSV(filteredData, `investors-${selectedTypes[0]?.toLowerCase().replace(/[^a-z]/g, '') || 'all'}.csv`)}
               className="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-xs font-mono font-semibold transition-all hover:scale-[1.02] shadow-sm"
               style={{ background: "var(--ys-accent)", color: "#ffffff" }}
               id="export-csv-btn"
@@ -187,7 +189,7 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
               <Download size={14} /> Export CSV ({filteredData.length})
             </button>
             <button
-              onClick={() => downloadExcel(filteredData, `investors-${selectedType.toLowerCase().replace(/[^a-z]/g, '')}.xls`)}
+              onClick={() => downloadExcel(filteredData, `investors-${selectedTypes[0]?.toLowerCase().replace(/[^a-z]/g, '') || 'all'}.xls`)}
               className="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-xs font-mono font-semibold transition-all hover:bg-[var(--ys-surface-strong)]"
               style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)", color: "var(--ys-text)" }}
               id="export-excel-btn"
@@ -277,12 +279,22 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
             <Filter size={13} style={{ color: "var(--ys-text-soft)" }} className="shrink-0" />
             {/* Type */}
             <span className="text-[11px] font-mono uppercase tracking-wider shrink-0" style={{ color: "var(--ys-text-soft)" }}>Type:</span>
-            {TYPES.map((t) => (
+            <button
+              onClick={() => { setSelectedTypes([]); setCurrentPage(1); }}
+              className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
+                selectedTypes.length === 0
+                  ? "bg-[var(--ys-accent)] text-white font-bold"
+                  : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
+              }`}
+            >
+              All
+            </button>
+            {TYPES.filter(t => t !== "All").map((t) => (
               <button
                 key={t}
-                onClick={() => { setSelectedType(t); setCurrentPage(1); }}
+                onClick={() => { setSelectedTypes(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t]); setCurrentPage(1); }}
                 className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
-                  selectedType === t
+                  selectedTypes.includes(t)
                     ? "bg-[var(--ys-accent)] text-white font-bold"
                     : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
                 }`}
@@ -295,12 +307,22 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
           <div className="flex flex-wrap items-center gap-2" style={{ animation: "ip-rise 0.4s ease-out both", animationDelay: "50ms" }}>
             {/* Sector */}
             <span className="text-[11px] font-mono uppercase tracking-wider shrink-0" style={{ color: "var(--ys-text-soft)" }}>Sector:</span>
-            {SECTORS.map((s) => (
+            <button
+              onClick={() => { setSelectedSectors([]); setCurrentPage(1); }}
+              className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
+                selectedSectors.length === 0
+                  ? "bg-[var(--ys-highlight)] text-white font-bold"
+                  : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
+              }`}
+            >
+              All
+            </button>
+            {SECTORS.filter(s => s !== "All").map((s) => (
               <button
                 key={s}
-                onClick={() => { setSelectedSector(s); setCurrentPage(1); }}
+                onClick={() => { setSelectedSectors(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]); setCurrentPage(1); }}
                 className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
-                  selectedSector === s
+                  selectedSectors.includes(s)
                     ? "bg-[var(--ys-highlight)] text-white font-bold"
                     : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
                 }`}
@@ -313,12 +335,22 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
           <div className="flex flex-wrap items-center gap-2" style={{ animation: "ip-rise 0.4s ease-out both", animationDelay: "100ms" }}>
             {/* Region */}
             <span className="text-[11px] font-mono uppercase tracking-wider shrink-0" style={{ color: "var(--ys-text-soft)" }}>Region:</span>
-            {REGIONS.map((r) => (
+            <button
+              onClick={() => { setSelectedRegions([]); setCurrentPage(1); }}
+              className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
+                selectedRegions.length === 0
+                  ? "bg-[var(--ys-accent)] text-white font-bold"
+                  : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
+              }`}
+            >
+              All
+            </button>
+            {REGIONS.filter(r => r !== "All").map((r) => (
               <button
                 key={r}
-                onClick={() => { setSelectedRegion(r); setCurrentPage(1); }}
+                onClick={() => { setSelectedRegions(prev => prev.includes(r) ? prev.filter(x => x !== r) : [...prev, r]); setCurrentPage(1); }}
                 className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
-                  selectedRegion === r
+                  selectedRegions.includes(r)
                     ? "bg-[var(--ys-accent)] text-white font-bold"
                     : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
                 }`}
@@ -331,12 +363,22 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
           <div className="flex flex-wrap items-center gap-2" style={{ animation: "ip-rise 0.4s ease-out both", animationDelay: "150ms" }}>
             {/* Cheque Size */}
             <span className="text-[11px] font-mono uppercase tracking-wider shrink-0" style={{ color: "var(--ys-text-soft)" }}>Cheque:</span>
-            {CHEQUE_BUCKETS.map((c) => (
+            <button
+              onClick={() => { setSelectedCheques([]); setCurrentPage(1); }}
+              className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
+                selectedCheques.length === 0
+                  ? "bg-[var(--ys-highlight)] text-white font-bold"
+                  : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
+              }`}
+            >
+              All
+            </button>
+            {CHEQUE_BUCKETS.filter(c => c !== "All").map((c) => (
               <button
                 key={c}
-                onClick={() => { setSelectedCheque(c); setCurrentPage(1); }}
+                onClick={() => { setSelectedCheques(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c]); setCurrentPage(1); }}
                 className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
-                  selectedCheque === c
+                  selectedCheques.includes(c)
                     ? "bg-[var(--ys-highlight)] text-white font-bold"
                     : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
                 }`}
@@ -371,10 +413,10 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
             <button
               onClick={() => {
                 setSearch("");
-                setSelectedType("All");
-                setSelectedSector("All");
-                setSelectedRegion("All");
-                setSelectedCheque("All");
+                setSelectedTypes([]);
+                setSelectedSectors([]);
+                setSelectedRegions([]);
+                setSelectedCheques([]);
                 setLinkedinOnly(false);
                 setEmailOnly(false);
                 setCurrentPage(1);
