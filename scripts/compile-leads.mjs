@@ -46,10 +46,17 @@ function extractTags(focus, cryptoTag, aiTag, fintechTag) {
   return Array.from(new Set(tags)).slice(0, 6);
 }
 
+function normalizeLinkedin(url) {
+  if (!url) return '';
+  const match = url.match(/linkedin\.com\/in\/([^/?]+)/);
+  return match ? match[1].toLowerCase().replace(/[^a-z0-9-]/g, '') : '';
+}
+
 function compileLeads() {
   const records = [];
-  const seenEmails = new Set();
-  const seenNames = new Set();
+  const seenByEmail = new Map();
+  const seenByLinkedin = new Map();
+  const seenByNameNoContact = new Set();
 
   // --- PRIMARY: Canonical investors dataset (9,649 records) ---
   const canonicalPath = path.join(PIPELINE_DIR, 'canonical-investors.json');
@@ -57,18 +64,34 @@ function compileLeads() {
     try {
       const data = JSON.parse(fs.readFileSync(canonicalPath, 'utf8'));
       data.forEach((item, idx) => {
-        const name = cleanText(item.name);
-        if (!name || seenNames.has(name.toLowerCase())) return;
+        let name = cleanText(item.name);
+        const isInstitutional = !name;
+        if (!name) name = cleanText(item.firm) || 'Unknown Fund';
+        // For institutional records, use firm as the display name
 
-        const email = cleanText(item.email || '');
-        const emailKey = email.toLowerCase();
-        if (email && seenEmails.has(emailKey)) return;
+        const email = cleanText(item.email || '').toLowerCase();
+        const linkedinHandle = normalizeLinkedin(item.linkedin);
+
+        // Dedup by email
+        if (email) {
+          if (seenByEmail.has(email)) return;
+        }
+        // Dedup by LinkedIn
+        if (linkedinHandle) {
+          if (seenByLinkedin.has(linkedinHandle)) return;
+        }
+        // Dedup by name only when neither email nor linkedin available
+        const nameKey = name.toLowerCase();
+        if (!email && !linkedinHandle) {
+          if (seenByNameNoContact.has(nameKey)) return;
+        }
 
         const tags = extractTags(item.focus, item.tag_crypto, item.tag_ai, item.tag_fintech);
 
-        let role = cleanText(item.role_title) || normalizeType(item.type);
-        let firm = cleanText(item.firm) || 'Independent';
+        let role = isInstitutional ? 'VC Fund' : (cleanText(item.role_title) || normalizeType(item.type));
+        let firm = isInstitutional ? name : (cleanText(item.firm) || 'Independent');
         let location = cleanText(item.location) || (item.focus ? 'Global' : 'India / Global');
+        let type = isInstitutional ? 'VC / Fund' : normalizeType(item.type);
 
         records.push({
           id: `inv-${records.length + 1}`,
@@ -76,7 +99,7 @@ function compileLeads() {
           firm,
           role,
           location,
-          type: normalizeType(item.type),
+          type,
           score: item.tag_preseed_seed === 'Y' ? 20 : 10,
           linkedin: cleanText(item.linkedin || ''),
           email,
@@ -85,8 +108,9 @@ function compileLeads() {
           description: `${name}${firm !== name ? ` — ${firm}` : ''} | ${item.stage || 'Multi-Stage'} | ${item.cheque || ''}`.trim()
         });
 
-        seenNames.add(name.toLowerCase());
-        if (email) seenEmails.add(emailKey);
+        if (email) seenByEmail.set(email, records.length);
+        if (linkedinHandle) seenByLinkedin.set(linkedinHandle, records.length);
+        if (!email && !linkedinHandle) seenByNameNoContact.add(nameKey);
       });
       console.log(`  canonical-investors.json: ${data.length} loaded, ${records.length} unique kept`);
     } catch (e) {
@@ -104,7 +128,14 @@ function compileLeads() {
       let added = 0;
       linkedinQueue.forEach(item => {
         const cleanedName = cleanText(item.name);
-        if (!cleanedName || seenNames.has(cleanedName.toLowerCase())) return;
+        if (!cleanedName) return;
+
+        const linkedinHandle = normalizeLinkedin(item.linkedin);
+        if (linkedinHandle && seenByLinkedin.has(linkedinHandle)) return;
+
+        const nameKey = cleanedName.toLowerCase();
+        const hasContact = item.email || linkedinHandle;
+        if (!hasContact && seenByNameNoContact.has(nameKey)) return;
 
         const typeRaw = (item.type || '').toLowerCase();
         let formattedType = 'Angel Investor';
@@ -136,7 +167,8 @@ function compileLeads() {
           description: roleText ? `${cleanedName} - ${roleText}` : `${cleanedName} - Angel Investor`
         });
 
-        seenNames.add(cleanedName.toLowerCase());
+        if (linkedinHandle) seenByLinkedin.set(linkedinHandle, records.length);
+        if (!hasContact) seenByNameNoContact.add(nameKey);
         added++;
       });
       console.log(`  linkedin-connect-queue.json: ${linkedinQueue.length} loaded, ${added} unique new`);
@@ -153,7 +185,16 @@ function compileLeads() {
       let added = 0;
       incubators.forEach(item => {
         const cleanedName = cleanText(item.name);
-        if (!cleanedName || seenNames.has(cleanedName.toLowerCase())) return;
+        if (!cleanedName) return;
+
+        const email = cleanText(item.primary_email || (item.all_emails && item.all_emails[0]) || '').toLowerCase();
+        const linkedinHandle = normalizeLinkedin((item.top_urls || []).find(u => u.includes('linkedin.com')) || '');
+
+        if (email && seenByEmail.has(email)) return;
+        if (linkedinHandle && seenByLinkedin.has(linkedinHandle)) return;
+
+        const nameKey = cleanedName.toLowerCase();
+        if (!email && !linkedinHandle && seenByNameNoContact.has(nameKey)) return;
 
         const tags = (item.first_tag || '').split(/\+|\||,/).map(t => t.trim()).filter(t => t && !t.includes('More'));
         const topUrl = Array.isArray(item.top_urls) && item.top_urls.length > 0 ? item.top_urls[0] : '';
@@ -166,14 +207,16 @@ function compileLeads() {
           location: cleanText(item.location) || 'India / Global',
           type: 'Incubator & Accelerator',
           score: item.score || 10,
-          linkedin: (item.top_urls || []).find(u => u.includes('linkedin.com')) || '',
-          email: item.primary_email || (item.all_emails && item.all_emails[0]) || '',
+          linkedin: linkedinHandle ? `https://linkedin.com/in/${linkedinHandle}` : '',
+          email,
           website: topUrl,
           tags: Array.from(new Set(tags)).slice(0, 6),
           description: cleanText(item.description || '')
         });
 
-        seenNames.add(cleanedName.toLowerCase());
+        if (email) seenByEmail.set(email, records.length);
+        if (linkedinHandle) seenByLinkedin.set(linkedinHandle, records.length);
+        if (!email && !linkedinHandle) seenByNameNoContact.add(nameKey);
         added++;
       });
       console.log(`  incubators-raw-scrape.json: ${incubators.length} loaded, ${added} unique new`);
