@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import * as d3 from "d3";
+import { Maximize2, X } from "lucide-react";
 
 interface Investor {
   id: string; name: string; firm: string; role: string;
@@ -54,6 +55,11 @@ function chequeBucket(c: string): string {
   return "Other";
 }
 
+function enrichmentScore(r: { linkedin?: string; email?: string; website?: string; tags: string[]; stage?: string; cheque?: string; location?: string }): number {
+  const checks = [!!r.linkedin, !!r.email, !!r.website, (r.tags?.length ?? 0) > 0, !!r.stage, !!r.cheque, !!r.location && !["Global", "India / Global"].includes(r.location)];
+  return checks.filter(Boolean).length * 15;
+}
+
 const REGIONS = ["India", "USA", "Global", "UK / Europe", "Singapore", "APAC", "Middle East", "Canada", "LATAM", "Africa", "Australia / NZ", "Other"];
 const TYPES = ["VC / Fund", "Angel Investor", "Incubator & Accelerator"];
 const SECTOR_ORDER = ["AI / ML", "Web3 / Crypto", "Fintech", "SaaS", "Deep Tech", "Biotech", "Climate / CleanTech", "EdTech", "Consumer", "Enterprise"];
@@ -75,11 +81,14 @@ export default function InvestorDashboard({
   const [chequeFilter, setChequeFilter] = useState("all");
   const [linkedinOnly, setLinkedinOnly] = useState(false);
   const [emailOnly, setEmailOnly] = useState(false);
+  const [fullscreenChart, setFullscreenChart] = useState<string | null>(null);
 
   const donutRef = useRef<SVGSVGElement>(null);
   const treemapRef = useRef<SVGSVGElement>(null);
   const bubbleRef = useRef<SVGSVGElement>(null);
   const heatmapRef = useRef<SVGSVGElement>(null);
+  const enrichRef = useRef<SVGSVGElement>(null);
+  const fsRef = useRef<SVGSVGElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   const fireFilter = useCallback((overrides: Partial<DashboardFilters>) => {
@@ -405,6 +414,141 @@ export default function InvestorDashboard({
       .text(d => d);
   }, [heatmapData, maxHeatVal, showTooltip, moveTooltip, hideTooltip, fireFilter, total]);
 
+  // --- Fullscreen render ---
+  useEffect(() => {
+    const svg = d3.select(fsRef.current);
+    svg.selectAll("*").remove();
+    if (!fullscreenChart) return;
+
+    const w = window.innerWidth - 80;
+    const h = window.innerHeight - 120;
+    const margin = { top: 20, right: 20, bottom: 40, left: 120 };
+    const iw = w - margin.left - margin.right;
+    const ih = h - margin.top - margin.bottom;
+    const total = filteredData.length;
+
+    if (fullscreenChart === "donut") {
+      if (typeDist.every(d => d.value === 0)) return;
+      const r = Math.min(w, h) / 2 - 60;
+      const color = d3.scaleOrdinal<string>().domain(TYPES).range(COLORS);
+      const g = svg.attr("width", w).attr("height", h)
+        .append("g").attr("transform", `translate(${w / 2},${h / 2})`);
+      const pie = d3.pie<{ label: string; value: number }>().value(d => d.value).sort(null);
+      const arc = d3.arc<d3.PieArcDatum<{ label: string; value: number }>>().innerRadius(r * 0.5).outerRadius(r);
+      g.selectAll("path").data(pie(typeDist)).join("path")
+        .attr("d", arc).attr("fill", d => color(d.data.label))
+        .attr("stroke", "var(--ys-surface)").attr("stroke-width", 2).style("cursor", "pointer")
+        .on("mouseover", function (event, d) {
+          showTooltip(`<strong>${d.data.label}</strong><br/>Count: ${d.data.value}<br/>${(d.data.value / total * 100).toFixed(1)}%`, event);
+        }).on("mousemove", moveTooltip).on("mouseout", hideTooltip)
+        .on("click", function () { setFullscreenChart(null); fireFilter({ type: typeDist.find(t => t.value > 0)?.label }); });
+      const lg = svg.append("g").attr("transform", `translate(20, 20)`);
+      typeDist.forEach((d, i) => {
+        const row = lg.append("g").attr("transform", `translate(0, ${i * 28})`);
+        row.append("rect").attr("width", 14).attr("height", 14).attr("fill", color(d.label)).attr("rx", 2);
+        row.append("text").attr("x", 22).attr("y", 11).text(`${d.label}: ${d.value} (${(d.value / total * 100).toFixed(1)}%)`)
+          .attr("fill", "var(--ys-text)").style("font-size", "14px").style("font-family", "monospace");
+      });
+    }
+
+    if (fullscreenChart === "treemap") {
+      const nonZero = regionDist.filter(d => d.value > 0);
+      if (nonZero.length === 0) return;
+      const root = d3.hierarchy({ label: "root", value: 0, children: nonZero } as any)
+        .sum(d => (d as any).value || 0) as d3.HierarchyRectangularNode<any>;
+      d3.treemap<any>().size([w, h]).padding(4).round(true)(root);
+      svg.attr("width", w).attr("height", h);
+      const color = d3.scaleOrdinal<string>().domain(REGIONS).range(COLORS);
+      svg.selectAll("g").data(root.leaves()).join("g")
+        .attr("transform", d => `translate(${d.x0},${d.y0})`).style("cursor", "pointer")
+        .on("mouseover", function (event, d) {
+          showTooltip(`<strong>${d.data.label}</strong><br/>Count: ${d.data.value}<br/>${(d.data.value / total * 100).toFixed(1)}%`, event);
+        }).on("mousemove", moveTooltip).on("mouseout", hideTooltip)
+        .on("click", function () { setFullscreenChart(null); fireFilter({ region: nonZero[0]?.label }); })
+        .each(function (d) {
+          const g = d3.select(this);
+          const cw = d.x1 - d.x0; const ch = d.y1 - d.y0;
+          g.append("rect").attr("width", cw).attr("height", ch).attr("fill", color(d.data.label)).attr("opacity", 0.85).attr("rx", 4);
+          if (cw > 80 && ch > 50) {
+            g.append("text").attr("x", 10).attr("y", 24).text(d.data.label).attr("fill", "#fff")
+              .style("font-size", "18px").style("font-weight", "bold").style("font-family", "monospace");
+            g.append("text").attr("x", 10).attr("y", 46).text(`${d.data.value.toLocaleString()} investors`)
+              .attr("fill", "rgba(255,255,255,0.8)").style("font-size", "14px").style("font-family", "monospace");
+            g.append("text").attr("x", 10).attr("y", 64).text(`${(d.data.value / total * 100).toFixed(1)}%`)
+              .attr("fill", "rgba(255,255,255,0.6)").style("font-size", "12px").style("font-family", "monospace");
+          }
+        });
+    }
+
+    if (fullscreenChart === "bubbles") {
+      if (sectorDist.length === 0) return;
+      const root = d3.hierarchy({ label: "sectors", children: sectorDist } as any)
+        .sum(d => (d as any).value || 0) as d3.HierarchyCircularNode<any>;
+      d3.pack<any>().size([w - 20, h - 20]).padding(8)(root);
+      svg.attr("width", w).attr("height", h);
+      const color = d3.scaleOrdinal<string>().domain(sectorDist.map(d => d.label)).range(COLORS);
+      svg.append("g").attr("transform", `translate(10,10)`)
+        .selectAll("circle").data(root.leaves()).join("circle")
+        .attr("cx", d => d.x).attr("cy", d => d.y).attr("r", d => d.r)
+        .attr("fill", d => color(d.data.label)).attr("opacity", 0.8)
+        .attr("stroke", "var(--ys-surface)").attr("stroke-width", 2).style("cursor", "pointer")
+        .on("mouseover", function (event, d) {
+          d3.select(this).attr("opacity", 1).attr("stroke-width", 4);
+          showTooltip(`<strong>${d.data.label}</strong><br/>Count: ${d.data.value}<br/>${(d.data.value / total * 100).toFixed(1)}%`, event);
+        }).on("mousemove", moveTooltip).on("mouseout", function () {
+          d3.select(this).attr("opacity", 0.8).attr("stroke-width", 2); hideTooltip();
+        }).on("click", function () { setFullscreenChart(null); fireFilter({ sector: sectorDist[0]?.label }); });
+      svg.append("g").attr("transform", `translate(10,10)`)
+        .selectAll("text").data(root.leaves().filter(d => d.r > 30)).join("text")
+        .attr("x", d => d.x).attr("y", d => d.y + 4).attr("text-anchor", "middle").attr("fill", "#fff")
+        .style("font-size", d => Math.min(d.r / 5, 18) + "px").style("font-weight", "bold")
+        .style("font-family", "monospace").style("pointer-events", "none").text(d => d.data.label);
+    }
+
+    if (fullscreenChart === "heatmap") {
+      const nonZeroRegions = [...new Set(heatmapData.filter(d => d.value > 0).map(d => d.region))];
+      if (nonZeroRegions.length === 0 || maxHeatVal === 0) return;
+      const g = svg.attr("width", w).attr("height", h)
+        .append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+      const regions = nonZeroRegions;
+      const buckets = CHEQUE_BUCKETS;
+      const x = d3.scaleBand<string>().domain(buckets).range([0, iw]).padding(0.08);
+      const y = d3.scaleBand<string>().domain(regions).range([0, ih]).padding(0.08);
+      const getVal = (region: string, bucket: string) => { const f = heatmapData.find(d => d.region === region && d.bucket === bucket); return f ? f.value : 0; };
+      const colorScale = d3.scaleSequential(d3.interpolateYlOrRd).domain([0, maxHeatVal]);
+      g.selectAll("rect").data(regions.flatMap(r => buckets.map(b => ({ region: r, bucket: b }))))
+        .join("rect").attr("x", d => x(d.bucket)!).attr("y", d => y(d.region)!)
+        .attr("width", x.bandwidth()).attr("height", y.bandwidth())
+        .attr("fill", d => { const v = getVal(d.region, d.bucket); return v > 0 ? colorScale(v) : "rgba(255,255,255,0.04)"; })
+        .attr("rx", 3).style("cursor", "pointer")
+        .on("mouseover", function (event, d) {
+          d3.select(this).attr("stroke", "#fff").attr("stroke-width", 2);
+          showTooltip(`<strong>${d.region}</strong> · ${d.bucket}<br/>Count: ${getVal(d.region, d.bucket)}`, event);
+        }).on("mousemove", moveTooltip).on("mouseout", function () { d3.select(this).attr("stroke", "none"); hideTooltip(); })
+        .on("click", function () { setFullscreenChart(null); });
+      g.selectAll("text.cell").data(regions.flatMap(r => buckets.map(b => ({ region: r, bucket: b }))))
+        .join("text").attr("x", d => x(d.bucket)! + x.bandwidth() / 2).attr("y", d => y(d.region)! + y.bandwidth() / 2 + 4)
+        .attr("text-anchor", "middle").attr("fill", d => { const v = getVal(d.region, d.bucket); return v > maxHeatVal * 0.5 ? "#fff" : "var(--ys-text-soft)"; })
+        .style("font-size", "12px").style("font-family", "monospace").style("pointer-events", "none")
+        .text(d => { const v = getVal(d.region, d.bucket); return v > 0 ? v : ""; });
+      g.append("g").call(d3.axisLeft(y).tickSize(0)).attr("color", "var(--ys-text-soft)")
+        .selectAll("text").attr("font-size", "12px").attr("font-family", "monospace");
+      g.append("g").attr("transform", `translate(0,-10)`)
+        .selectAll("text").data(buckets).join("text")
+        .attr("x", d => x(d)! + x.bandwidth() / 2).attr("y", 0).attr("text-anchor", "end")
+        .attr("fill", "var(--ys-text-soft)").style("font-size", "11px").style("font-family", "monospace")
+        .attr("transform", d => `rotate(-30, ${x(d)! + x.bandwidth() / 2}, 0)`).text(d => d);
+    }
+  }, [fullscreenChart, typeDist, regionDist, sectorDist, heatmapData, maxHeatVal, showTooltip, moveTooltip, hideTooltip, fireFilter, filteredData.length]);
+
+  // Escape key exits fullscreen
+  useEffect(() => {
+    if (!fullscreenChart) return;
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setFullscreenChart(null); };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [fullscreenChart]);
+
   return (
     <div className="space-y-6">
       <div ref={tooltipRef} className="fixed z-50 px-3 py-2 rounded-lg text-xs font-mono pointer-events-none shadow-lg border"
@@ -482,37 +626,75 @@ export default function InvestorDashboard({
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-          <h3 className="text-xs font-mono font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--ys-accent-strong)" }}>
-            Investor Types
-          </h3>
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-xs font-mono font-semibold uppercase tracking-widest" style={{ color: "var(--ys-accent-strong)" }}>
+              Investor Types
+            </h3>
+            <button onClick={() => setFullscreenChart("donut")} className="p-1 rounded hover:opacity-70 transition-opacity" style={{ color: "var(--ys-text-soft)" }} title="Fullscreen">
+              <Maximize2 size={12} />
+            </button>
+          </div>
           <p className="text-[10px] font-mono mb-2" style={{ color: "var(--ys-text-soft)" }}>Click a slice to filter by type</p>
           <svg ref={donutRef} className="w-full" style={{ minHeight: 260 }} />
         </div>
 
         <div className="rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-          <h3 className="text-xs font-mono font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--ys-accent-strong)" }}>
-            Regions — Treemap
-          </h3>
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-xs font-mono font-semibold uppercase tracking-widest" style={{ color: "var(--ys-accent-strong)" }}>
+              Regions — Treemap
+            </h3>
+            <button onClick={() => setFullscreenChart("treemap")} className="p-1 rounded hover:opacity-70 transition-opacity" style={{ color: "var(--ys-text-soft)" }} title="Fullscreen">
+              <Maximize2 size={12} />
+            </button>
+          </div>
           <p className="text-[10px] font-mono mb-2" style={{ color: "var(--ys-text-soft)" }}>Click a block to filter by region</p>
           <svg ref={treemapRef} className="w-full" style={{ minHeight: 260 }} />
         </div>
 
         <div className="rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-          <h3 className="text-xs font-mono font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--ys-accent-strong)" }}>
-            Sectors — Packed Bubbles
-          </h3>
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-xs font-mono font-semibold uppercase tracking-widest" style={{ color: "var(--ys-accent-strong)" }}>
+              Sectors — Packed Bubbles
+            </h3>
+            <button onClick={() => setFullscreenChart("bubbles")} className="p-1 rounded hover:opacity-70 transition-opacity" style={{ color: "var(--ys-text-soft)" }} title="Fullscreen">
+              <Maximize2 size={12} />
+            </button>
+          </div>
           <p className="text-[10px] font-mono mb-2" style={{ color: "var(--ys-text-soft)" }}>Click a bubble to filter by sector</p>
           <svg ref={bubbleRef} className="w-full" style={{ minHeight: 260 }} />
         </div>
 
         <div className="rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-          <h3 className="text-xs font-mono font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--ys-accent-strong)" }}>
-            Cheque Size × Region — Heatmap
-          </h3>
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-xs font-mono font-semibold uppercase tracking-widest" style={{ color: "var(--ys-accent-strong)" }}>
+              Cheque Size × Region — Heatmap
+            </h3>
+            <button onClick={() => setFullscreenChart("heatmap")} className="p-1 rounded hover:opacity-70 transition-opacity" style={{ color: "var(--ys-text-soft)" }} title="Fullscreen">
+              <Maximize2 size={12} />
+            </button>
+          </div>
           <p className="text-[10px] font-mono mb-2" style={{ color: "var(--ys-text-soft)" }}>Click a cell to filter by region + cheque range</p>
           <svg ref={heatmapRef} className="w-full" style={{ minHeight: 260 }} />
         </div>
       </div>
+
+      {/* Fullscreen Overlay */}
+      {fullscreenChart && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center" style={{ background: "rgba(0,0,0,0.85)" }}>
+          <div className="relative rounded-2xl border p-6" style={{ background: "var(--ys-surface)", borderColor: "var(--ys-border)", width: "calc(100vw - 40px)", height: "calc(100vh - 40px)" }}>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-sm font-mono font-semibold uppercase tracking-widest" style={{ color: "var(--ys-accent-strong)" }}>
+                {fullscreenChart === "donut" ? "Investor Types" : fullscreenChart === "treemap" ? "Regions" : fullscreenChart === "bubbles" ? "Sectors" : "Cheque Size × Region"}
+              </h3>
+              <button onClick={() => setFullscreenChart(null)} className="p-2 rounded hover:opacity-70 transition-opacity" style={{ color: "var(--ys-text-soft)" }} title="Close (Esc)">
+                <X size={18} />
+              </button>
+            </div>
+            <p className="text-[10px] font-mono mb-2" style={{ color: "var(--ys-text-soft)" }}>Esc to close · Click chart element to filter</p>
+            <svg ref={fsRef} className="w-full" style={{ height: "calc(100vh - 120px)" }} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

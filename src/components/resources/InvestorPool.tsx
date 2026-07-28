@@ -32,16 +32,66 @@ const investorsData = investorsDataRaw as InvestorRecord[];
 
 const TYPES = ["All", "Angel Investor", "Individual Investor", "VC / Fund", "Incubator & Accelerator"];
 const SECTORS = ["All", "AI / ML", "Fintech", "Web3 / Crypto", "SaaS", "Deep Tech"];
+const REGIONS = ["All", "India", "USA", "Global", "UK / Europe", "Singapore", "APAC", "Middle East", "Canada", "LATAM", "Africa", "Australia / NZ", "Other"];
+const CHEQUE_BUCKETS = ["All", "<$50k", "$50k\u2013$250k", "$250k\u2013$1M", "$1M\u2013$10M", "$10M+", "Unknown"];
+
+function getRegion(loc: string): string {
+  const l = (loc || "").toLowerCase();
+  if (/india|mumbai|delhi|bangalore|bengaluru|pune|hyderabad|chennai|kolkata|gurgaon|noida|ahmedabad/.test(l)) return "India";
+  if (/global|multi/.test(l)) return "Global";
+  if (/us|united states|new york|san francisco|california|silicon valley|nyc|bay area|chicago|boston|seattle|austin|los angeles/.test(l)) return "USA";
+  if (/singapore/.test(l)) return "Singapore";
+  if (/uk|united kingdom|london|england|europe|france|germany|netherlands|sweden|spain|italy|switzerland|ireland|belgium/.test(l)) return "UK / Europe";
+  if (/china|hong kong|shanghai|beijing|shenzhen|japan|tokyo|seoul|korea|taiwan/.test(l)) return "APAC";
+  if (/middle east|dubai|uae|saudi|israel|tel aviv/.test(l)) return "Middle East";
+  if (/canada|toronto/.test(l)) return "Canada";
+  if (/australia|sydney|melbourne/.test(l)) return "Australia / NZ";
+  if (/africa|nigeria|kenya|south africa|lagos|nairobi/.test(l)) return "Africa";
+  if (/brazil|são paulo|mexico|latin|argentina|chile|colombia/.test(l)) return "LATAM";
+  return "Other";
+}
+
+function chequeBucket(c: string): string {
+  if (!c) return "Unknown";
+  const l = c.toLowerCase();
+  if (l.includes("boot") || l.includes("grant")) return "Bootstrapped";
+  if (l.includes("5k") || l.includes("10k") || l.includes("25k") || l.includes("35k") || l.includes("50k")) return "<$50k";
+  if (l.includes("75k") || l.includes("100k") || l.includes("150k") || l.includes("200k") || l.includes("250k")) return "$50k\u2013$250k";
+  if (l.includes("300k") || l.includes("500k") || l.includes("750k")) return "$250k\u2013$1M";
+  if (l.includes("1m") || l.includes("2m") || l.includes("3m") || l.includes("5m") || l.includes("8m") || l.includes("10m")) return "$1M\u2013$10M";
+  if (l.includes("15m") || l.includes("20m") || l.includes("25m") || l.includes("50m") || l.includes("100m")) return "$10M+";
+  if (l.includes("m") || /^\d+\s*-\s*\d/.test(c)) return "$1M\u2013$10M";
+  return "Other";
+}
+
+function enrichmentScore(item: { linkedin?: string; email?: string; website?: string; tags: string[]; stage?: string; cheque?: string; location?: string }): number {
+  const checks = [
+    !!item.linkedin,
+    !!item.email,
+    !!item.website,
+    (item.tags?.length ?? 0) > 0,
+    !!item.stage,
+    !!item.cheque,
+    !!item.location && !["Global", "India / Global"].includes(item.location),
+  ];
+  return checks.filter(Boolean).length * 15;
+}
 
 export default function InvestorPool({ initialFilters }: { initialFilters?: { type?: string; sector?: string; region?: string; linkedinOnly?: boolean; emailOnly?: boolean } }) {
   const [search, setSearch] = useState("");
   const [selectedType, setSelectedType] = useState(initialFilters?.type && ["Angel Investor", "Individual Investor", "VC / Fund", "Incubator & Accelerator"].includes(initialFilters.type) ? initialFilters.type : "All");
   const [selectedSector, setSelectedSector] = useState(initialFilters?.sector && ["AI / ML", "Fintech", "Web3 / Crypto", "SaaS", "Deep Tech"].includes(initialFilters.sector) ? initialFilters.sector : "All");
+  const [selectedRegion, setSelectedRegion] = useState("All");
+  const [selectedCheque, setSelectedCheque] = useState("All");
+  const [linkedinOnly, setLinkedinOnly] = useState(initialFilters?.linkedinOnly || false);
+  const [emailOnly, setEmailOnly] = useState(initialFilters?.emailOnly || false);
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
   const [currentPage, setCurrentPage] = useState(1);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [copiedShare, setCopiedShare] = useState(false);
   const [jumpPage, setJumpPage] = useState("");
+  const [sortBy, setSortBy] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const pageSize = 25;
 
   useEffect(() => {
@@ -65,18 +115,26 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
         item.tags.some((t) => t.toLowerCase().includes(selectedSector.toLowerCase())) ||
         item.role.toLowerCase().includes(selectedSector.toLowerCase());
 
-      const hasLinkedin = !initialFilters?.linkedinOnly || !!item.linkedin;
-      const hasEmail = !initialFilters?.emailOnly || !!item.email;
+      const matchesRegion = selectedRegion === "All" || getRegion(item.location) === selectedRegion;
 
-      return matchesSearch && matchesType && matchesSector && hasLinkedin && hasEmail;
+      const matchesCheque = selectedCheque === "All" || chequeBucket(item.cheque || "") === selectedCheque;
+
+      const hasLinkedin = !linkedinOnly || !!item.linkedin;
+      const hasEmail = !emailOnly || !!item.email;
+
+      return matchesSearch && matchesType && matchesSector && matchesRegion && matchesCheque && hasLinkedin && hasEmail;
     });
-  }, [search, selectedType, selectedSector, initialFilters]);
+  }, [search, selectedType, selectedSector, selectedRegion, selectedCheque, linkedinOnly, emailOnly]);
 
   const totalPages = Math.ceil(filteredData.length / pageSize) || 1;
   const paginatedData = useMemo(() => {
+    let sorted = [...filteredData];
+    if (sortBy === "enrich") {
+      sorted.sort((a, b) => sortDir === "desc" ? enrichmentScore(b) - enrichmentScore(a) : enrichmentScore(a) - enrichmentScore(b));
+    }
     const start = (currentPage - 1) * pageSize;
-    return filteredData.slice(start, start + pageSize);
-  }, [filteredData, currentPage]);
+    return sorted.slice(start, start + pageSize);
+  }, [filteredData, currentPage, sortBy, sortDir]);
 
   const handleCopyEmail = (email: string, id: string) => {
     navigator.clipboard.writeText(email);
@@ -88,6 +146,11 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
     navigator.clipboard.writeText(window.location.href);
     setCopiedShare(true);
     setTimeout(() => setCopiedShare(false), 2000);
+  };
+
+  const toggleSort = () => {
+    if (sortBy !== "enrich") { setSortBy("enrich"); setSortDir("desc"); }
+    else { setSortDir(d => d === "desc" ? "asc" : "desc"); }
   };
 
   return (
@@ -208,18 +271,16 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
           </div>
         </div>
 
-        {/* Filter Chips: Type & Sector */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t" style={{ borderColor: "var(--ys-border)" }}>
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 no-scrollbar">
+        {/* Filter Chips: Type, Sector, Region, Cheque, LinkedIn/Email */}
+        <div className="space-y-3 pt-2 border-t" style={{ borderColor: "var(--ys-border)" }}>
+          <div className="flex flex-wrap items-center gap-2">
             <Filter size={13} style={{ color: "var(--ys-text-soft)" }} className="shrink-0" />
+            {/* Type */}
             <span className="text-[11px] font-mono uppercase tracking-wider shrink-0" style={{ color: "var(--ys-text-soft)" }}>Type:</span>
             {TYPES.map((t) => (
               <button
                 key={t}
-                onClick={() => {
-                  setSelectedType(t);
-                  setCurrentPage(1);
-                }}
+                onClick={() => { setSelectedType(t); setCurrentPage(1); }}
                 className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
                   selectedType === t
                     ? "bg-[var(--ys-accent)] text-white font-bold"
@@ -231,15 +292,13 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
             ))}
           </div>
 
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 no-scrollbar">
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Sector */}
             <span className="text-[11px] font-mono uppercase tracking-wider shrink-0" style={{ color: "var(--ys-text-soft)" }}>Sector:</span>
             {SECTORS.map((s) => (
               <button
                 key={s}
-                onClick={() => {
-                  setSelectedSector(s);
-                  setCurrentPage(1);
-                }}
+                onClick={() => { setSelectedSector(s); setCurrentPage(1); }}
                 className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
                   selectedSector === s
                     ? "bg-[var(--ys-highlight)] text-white font-bold"
@@ -249,6 +308,81 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
                 {s}
               </button>
             ))}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Region */}
+            <span className="text-[11px] font-mono uppercase tracking-wider shrink-0" style={{ color: "var(--ys-text-soft)" }}>Region:</span>
+            {REGIONS.map((r) => (
+              <button
+                key={r}
+                onClick={() => { setSelectedRegion(r); setCurrentPage(1); }}
+                className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
+                  selectedRegion === r
+                    ? "bg-[var(--ys-accent)] text-white font-bold"
+                    : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
+                }`}
+              >
+                {r}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Cheque Size */}
+            <span className="text-[11px] font-mono uppercase tracking-wider shrink-0" style={{ color: "var(--ys-text-soft)" }}>Cheque:</span>
+            {CHEQUE_BUCKETS.map((c) => (
+              <button
+                key={c}
+                onClick={() => { setSelectedCheque(c); setCurrentPage(1); }}
+                className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
+                  selectedCheque === c
+                    ? "bg-[var(--ys-highlight)] text-white font-bold"
+                    : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
+                }`}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+
+          {/* LinkedIn & Email Toggles + Clear Button */}
+          <div className="flex flex-wrap items-center gap-3 pt-1">
+            <button
+              onClick={() => { setLinkedinOnly(!linkedinOnly); setCurrentPage(1); }}
+              className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors ${
+                linkedinOnly
+                  ? "bg-[var(--ys-accent)] text-white font-bold"
+                  : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)]"
+              }`}
+            >
+              LinkedIn Only
+            </button>
+            <button
+              onClick={() => { setEmailOnly(!emailOnly); setCurrentPage(1); }}
+              className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors ${
+                emailOnly
+                  ? "bg-[var(--ys-accent)] text-white font-bold"
+                  : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)]"
+              }`}
+            >
+              Email Only
+            </button>
+            <button
+              onClick={() => {
+                setSearch("");
+                setSelectedType("All");
+                setSelectedSector("All");
+                setSelectedRegion("All");
+                setSelectedCheque("All");
+                setLinkedinOnly(false);
+                setEmailOnly(false);
+                setCurrentPage(1);
+              }}
+              className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)]"
+            >
+              Clear All Filters
+            </button>
           </div>
         </div>
       </div>
@@ -272,6 +406,13 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
                 <th className="p-3.5">Firm / Affiliation</th>
                 <th className="p-3.5">Type & Location</th>
                 <th className="p-3.5">Focus / Tags</th>
+                <th className="p-3.5 cursor-pointer select-none" onClick={toggleSort}>
+                  <span className="inline-flex items-center gap-1">
+                    Enrich {sortBy === "enrich" ? (sortDir === "desc" ? "↓" : "↑") : "↕"}
+                  </span>
+                </th>
+                <th className="p-3.5 text-center">LinkedIn</th>
+                <th className="p-3.5 text-center">Email</th>
                 <th className="p-3.5 text-right">Actions</th>
               </tr>
             </thead>
@@ -301,6 +442,23 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
                         </span>
                       ))}
                     </div>
+                  </td>
+                  <td className="p-3.5 text-center">
+                    <span className="text-[13px] font-mono font-bold" style={{ color: enrichmentScore(item) >= 80 ? "var(--ys-highlight)" : enrichmentScore(item) >= 50 ? "var(--ys-accent)" : "var(--ys-text-soft)" }}>
+                      {enrichmentScore(item)}
+                    </span>
+                  </td>
+                  <td className="p-3.5 text-center">
+                    <span className={`inline-flex items-center justify-center ${item.linkedin ? 'opacity-100' : 'opacity-25'}`}
+                          style={{ color: item.linkedin ? "var(--ys-accent-strong)" : "var(--ys-text-soft)" }}>
+                      <LinkedInIcon size={15} />
+                    </span>
+                  </td>
+                  <td className="p-3.5 text-center">
+                    <span className={`inline-flex items-center justify-center ${item.email ? 'opacity-100' : 'opacity-25'}`}
+                          style={{ color: item.email ? "var(--ys-highlight)" : "var(--ys-text-soft)" }}>
+                      <Mail size={15} />
+                    </span>
                   </td>
                   <td className="p-3.5 text-right space-x-2 shrink-0">
                     {item.email && (
@@ -357,6 +515,28 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
                 {item.role && <p className="text-xs line-clamp-2" style={{ color: "var(--ys-text-soft)" }}>{item.role}</p>}
                 
                 <div className="text-[11px] font-mono" style={{ color: "var(--ys-text-soft)" }}>📍 {item.location || "Global"}</div>
+
+                {/* Enrichment Score & Contact Badges */}
+                <div className="flex items-center gap-2 pt-1">
+                  <div className="flex items-center gap-1.5 flex-1">
+                    <span className="text-[10px] font-mono font-bold" style={{ color: enrichmentScore(item) >= 80 ? "var(--ys-highlight)" : enrichmentScore(item) >= 50 ? "var(--ys-accent)" : "var(--ys-text-soft)" }}>
+                      {enrichmentScore(item)}%
+                    </span>
+                    <div className="flex-1 h-1 rounded-full overflow-hidden" style={{ background: "var(--ys-surface-muted)" }}>
+                      <div className="h-full rounded-full" style={{ width: `${enrichmentScore(item)}%`, background: enrichmentScore(item) >= 80 ? "var(--ys-highlight)" : enrichmentScore(item) >= 50 ? "var(--ys-accent)" : "var(--ys-text-soft)" }} />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className={`inline-flex items-center gap-0.5 rounded px-1 py-0.5 text-[8px] font-mono uppercase ${item.linkedin ? 'font-bold' : 'opacity-40'}`}
+                          style={{ color: item.linkedin ? "var(--ys-accent-strong)" : "var(--ys-text-soft)", background: item.linkedin ? "rgba(207, 79, 39, 0.08)" : "transparent" }}>
+                      <LinkedInIcon size={8} />
+                    </span>
+                    <span className={`inline-flex items-center gap-0.5 rounded px-1 py-0.5 text-[8px] font-mono uppercase ${item.email ? 'font-bold' : 'opacity-40'}`}
+                          style={{ color: item.email ? "var(--ys-highlight)" : "var(--ys-text-soft)", background: item.email ? "rgba(11, 141, 128, 0.08)" : "transparent" }}>
+                      <Mail size={8} />
+                    </span>
+                  </div>
+                </div>
 
                 <div className="flex flex-wrap gap-1 pt-1">
                   {item.tags.map((tag, idx) => (

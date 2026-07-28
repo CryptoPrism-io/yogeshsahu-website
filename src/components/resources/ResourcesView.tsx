@@ -122,7 +122,11 @@ export default function ResourcesView() {
           </div>
 
           {investorView === "dashboard" ? (
-            <InvestorDashboard data={investorsData} onFilter={handleDashboardFilter} />
+            <div style={{ width: "100vw", marginLeft: "calc(-50vw + 50%)" }}>
+              <div className="px-4 sm:px-6 lg:px-8">
+                <InvestorDashboard data={investorsData} onFilter={handleDashboardFilter} />
+              </div>
+            </div>
           ) : (
             <InvestorPool key={filterKey} initialFilters={dashboardFilters || undefined} />
           )}
