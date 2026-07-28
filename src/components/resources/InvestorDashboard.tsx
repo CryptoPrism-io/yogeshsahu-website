@@ -200,7 +200,7 @@ export default function InvestorDashboard({
   const total = filteredData.length;
   const maxHeatVal = d3.max(heatmapData, d => d.value) || 1;
 
-  // --- Donut ---
+    // --- Donut ---
   useEffect(() => {
     const svg = d3.select(donutRef.current);
     svg.selectAll("*").remove();
@@ -233,6 +233,14 @@ export default function InvestorDashboard({
         setTypeFilter(d.data.label);
         fireFilter({ type: d.data.label });
       });
+
+    // center annotation: total count
+    g.append("text").attr("text-anchor", "middle").attr("y", -6)
+      .attr("fill", "var(--ys-text)").style("font-size", "18px").style("font-weight", "bold")
+      .style("font-family", "var(--font-headline)").text(total);
+    g.append("text").attr("text-anchor", "middle").attr("y", 12)
+      .attr("fill", "var(--ys-text-soft)").style("font-size", "9px").style("font-family", "monospace")
+      .text("total");
 
     const legend = svg.append("g").attr("transform", `translate(${w - 130}, 16)`);
     typeDist.forEach((d, i) => {
@@ -302,6 +310,11 @@ export default function InvestorDashboard({
     d3.pack<any>().size([w - padding * 2, h - padding * 2]).padding(5)(root);
 
     svg.attr("width", w).attr("height", h);
+
+    // Top annotation
+    svg.append("text").attr("x", 6).attr("y", 14)
+      .attr("fill", "var(--ys-text-soft)").style("font-size", "9px").style("font-family", "monospace")
+      .text(`Top ${sectorDist.length} sectors · ${total.toLocaleString()} total`);
 
     const color = d3.scaleOrdinal<string>().domain(sectorDist.map(d => d.label)).range(COLORS);
 
@@ -405,6 +418,12 @@ export default function InvestorDashboard({
     g.append("g").call(d3.axisLeft(y).tickSize(0)).attr("color", "var(--ys-text-soft)")
       .selectAll("text").attr("font-size", "9px").attr("font-family", "monospace");
 
+    // Y-axis label: Regions
+    g.append("text").attr("x", -margin.left + 4).attr("y", -6)
+      .attr("fill", "var(--ys-text-soft)").style("font-size", "8px").style("font-family", "monospace")
+      .style("font-weight", "bold").text("Regions →");
+
+    // X-axis bucket labels with header
     g.append("g").attr("transform", `translate(0,-6)`)
       .selectAll("text").data(buckets).join("text")
       .attr("x", d => x(d)! + x.bandwidth() / 2).attr("y", 0)
@@ -412,6 +431,18 @@ export default function InvestorDashboard({
       .style("font-size", "8px").style("font-family", "monospace")
       .attr("transform", d => `rotate(-30, ${x(d)! + x.bandwidth() / 2}, 0)`)
       .text(d => d);
+
+    // Color legend reference bar
+    const legendH = 8, legendW = 120;
+    const lgX = w - legendW - margin.right;
+    const lgY = 4;
+    const lgDefs = svg.append("defs");
+    const lgGrad = lgDefs.append("linearGradient").attr("id", "heatmap-legend-grad").attr("x1", "0%").attr("y1", "0%").attr("x2", "100%").attr("y2", "0%");
+    lgGrad.append("stop").attr("offset", "0%").attr("stop-color", d3.interpolateYlOrRd(0));
+    lgGrad.append("stop").attr("offset", "100%").attr("stop-color", d3.interpolateYlOrRd(1));
+    svg.append("rect").attr("x", lgX).attr("y", lgY).attr("width", legendW).attr("height", legendH).attr("fill", "url(#heatmap-legend-grad)").attr("rx", 2);
+    svg.append("text").attr("x", lgX).attr("y", lgY + legendH + 10).attr("fill", "var(--ys-text-soft)").style("font-size", "7px").style("font-family", "monospace")
+      .text(`0 ────────────────────────── ${maxHeatVal}`);
   }, [heatmapData, maxHeatVal, showTooltip, moveTooltip, hideTooltip, fireFilter, total]);
 
   // --- Fullscreen render ---
@@ -458,6 +489,11 @@ export default function InvestorDashboard({
         .sum(d => (d as any).value || 0) as d3.HierarchyRectangularNode<any>;
       d3.treemap<any>().size([w, h]).padding(4).round(true)(root);
       svg.attr("width", w).attr("height", h);
+      // Top annotation: total count across regions
+      svg.append("text").attr("x", 6).attr("y", 14)
+        .attr("fill", "var(--ys-text-soft)").style("font-size", "9px").style("font-family", "monospace")
+        .text(`Total: ${total.toLocaleString()} · ${nonZero.length} regions`);
+
       const color = d3.scaleOrdinal<string>().domain(REGIONS).range(COLORS);
       svg.selectAll("g").data(root.leaves()).join("g")
         .attr("transform", d => `translate(${d.x0},${d.y0})`).style("cursor", "pointer")
@@ -538,6 +574,18 @@ export default function InvestorDashboard({
         .attr("x", d => x(d)! + x.bandwidth() / 2).attr("y", 0).attr("text-anchor", "end")
         .attr("fill", "var(--ys-text-soft)").style("font-size", "11px").style("font-family", "monospace")
         .attr("transform", d => `rotate(-30, ${x(d)! + x.bandwidth() / 2}, 0)`).text(d => d);
+      // Color legend
+      const flgX = w - 220, flgY = h - 30;
+      svg.append("rect").attr("x", flgX).attr("y", flgY).attr("width", 200).attr("height", 10)
+        .attr("fill", d3.interpolateYlOrRd(0)).attr("rx", 2);
+      // gradient fill for legend
+      const fDefs = svg.append("defs");
+      const fGrad = fDefs.append("linearGradient").attr("id", "fs-heat-legend").attr("x1", "0%").attr("y1", "0%").attr("x2", "100%").attr("y2", "0%");
+      fGrad.append("stop").attr("offset", "0%").attr("stop-color", d3.interpolateYlOrRd(0));
+      fGrad.append("stop").attr("offset", "100%").attr("stop-color", d3.interpolateYlOrRd(1));
+      svg.select("rect[height='10']").attr("fill", "url(#fs-heat-legend)");
+      svg.append("text").attr("x", flgX).attr("y", flgY - 4).attr("fill", "var(--ys-text-soft)")
+        .style("font-size", "10px").style("font-family", "monospace").text(`0 ────────────────────── ${maxHeatVal}`);
     }
   }, [fullscreenChart, typeDist, regionDist, sectorDist, heatmapData, maxHeatVal, showTooltip, moveTooltip, hideTooltip, fireFilter, filteredData.length]);
 
