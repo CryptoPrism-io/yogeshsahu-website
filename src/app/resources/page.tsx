@@ -79,7 +79,7 @@ export default function ResourcesPage() {
       </nav>
 
       {/* Main Content Area */}
-      <div className="mx-auto max-w-[1180px] px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+      <div className="mx-auto max-w-[90vw] px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         <ResourcesView />
       </div>
 
