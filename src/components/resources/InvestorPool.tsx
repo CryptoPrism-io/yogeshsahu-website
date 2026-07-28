@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   Search,
   Download,
@@ -33,16 +33,20 @@ const investorsData = investorsDataRaw as InvestorRecord[];
 const TYPES = ["All", "Angel Investor", "Individual Investor", "VC / Fund", "Incubator & Accelerator"];
 const SECTORS = ["All", "AI / ML", "Fintech", "Web3 / Crypto", "SaaS", "Deep Tech"];
 
-export default function InvestorPool() {
+export default function InvestorPool({ initialFilters }: { initialFilters?: { type?: string; sector?: string; region?: string; linkedinOnly?: boolean; emailOnly?: boolean } }) {
   const [search, setSearch] = useState("");
-  const [selectedType, setSelectedType] = useState("All");
-  const [selectedSector, setSelectedSector] = useState("All");
+  const [selectedType, setSelectedType] = useState(initialFilters?.type && ["Angel Investor", "Individual Investor", "VC / Fund", "Incubator & Accelerator"].includes(initialFilters.type) ? initialFilters.type : "All");
+  const [selectedSector, setSelectedSector] = useState(initialFilters?.sector && ["AI / ML", "Fintech", "Web3 / Crypto", "SaaS", "Deep Tech"].includes(initialFilters.sector) ? initialFilters.sector : "All");
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
   const [currentPage, setCurrentPage] = useState(1);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [copiedShare, setCopiedShare] = useState(false);
   const [jumpPage, setJumpPage] = useState("");
   const pageSize = 25;
+
+  useEffect(() => {
+    if (initialFilters?.region) setSearch(initialFilters.region);
+  }, [initialFilters?.region]);
 
   const filteredData = useMemo(() => {
     return investorsData.filter((item) => {
@@ -61,9 +65,12 @@ export default function InvestorPool() {
         item.tags.some((t) => t.toLowerCase().includes(selectedSector.toLowerCase())) ||
         item.role.toLowerCase().includes(selectedSector.toLowerCase());
 
-      return matchesSearch && matchesType && matchesSector;
+      const hasLinkedin = !initialFilters?.linkedinOnly || !!item.linkedin;
+      const hasEmail = !initialFilters?.emailOnly || !!item.email;
+
+      return matchesSearch && matchesType && matchesSector && hasLinkedin && hasEmail;
     });
-  }, [search, selectedType, selectedSector]);
+  }, [search, selectedType, selectedSector, initialFilters]);
 
   const totalPages = Math.ceil(filteredData.length / pageSize) || 1;
   const paginatedData = useMemo(() => {

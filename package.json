@@ -12,6 +12,7 @@
     "automation:glassdoor:profile": "node automation/scripts/glassdoor-profile-fill.mjs"
   },
   "dependencies": {
+    "d3": "^7.9.0",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.8.0",
     "next": "16.2.3",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/d3": "^7.4.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
