@@ -105,6 +105,8 @@ function compileLeads() {
           email,
           website: cleanText(item.website || ''),
           tags,
+          stage: cleanText(item.stage || ''),
+          cheque: cleanText(item.cheque || ''),
           description: `${name}${firm !== name ? ` — ${firm}` : ''} | ${item.stage || 'Multi-Stage'} | ${item.cheque || ''}`.trim()
         });
 

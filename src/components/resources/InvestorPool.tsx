@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   Search,
   Download,
@@ -32,17 +32,71 @@ const investorsData = investorsDataRaw as InvestorRecord[];
 
 const TYPES = ["All", "Angel Investor", "Individual Investor", "VC / Fund", "Incubator & Accelerator"];
 const SECTORS = ["All", "AI / ML", "Fintech", "Web3 / Crypto", "SaaS", "Deep Tech"];
+const REGIONS = ["All", "India", "USA", "Global", "UK / Europe", "Singapore", "APAC", "Middle East", "Canada", "LATAM", "Africa", "Australia / NZ", "Other"];
+const CHEQUE_BUCKETS = ["All", "<$50k", "$50k\u2013$250k", "$250k\u2013$1M", "$1M\u2013$10M", "$10M+", "Unknown"];
 
-export default function InvestorPool() {
+function getRegion(loc: string): string {
+  const l = (loc || "").toLowerCase();
+  if (/india|mumbai|delhi|bangalore|bengaluru|pune|hyderabad|chennai|kolkata|gurgaon|noida|ahmedabad/.test(l)) return "India";
+  if (/global|multi/.test(l)) return "Global";
+  if (/us|united states|new york|san francisco|california|silicon valley|nyc|bay area|chicago|boston|seattle|austin|los angeles/.test(l)) return "USA";
+  if (/singapore/.test(l)) return "Singapore";
+  if (/uk|united kingdom|london|england|europe|france|germany|netherlands|sweden|spain|italy|switzerland|ireland|belgium/.test(l)) return "UK / Europe";
+  if (/china|hong kong|shanghai|beijing|shenzhen|japan|tokyo|seoul|korea|taiwan/.test(l)) return "APAC";
+  if (/middle east|dubai|uae|saudi|israel|tel aviv/.test(l)) return "Middle East";
+  if (/canada|toronto/.test(l)) return "Canada";
+  if (/australia|sydney|melbourne/.test(l)) return "Australia / NZ";
+  if (/africa|nigeria|kenya|south africa|lagos|nairobi/.test(l)) return "Africa";
+  if (/brazil|são paulo|mexico|latin|argentina|chile|colombia/.test(l)) return "LATAM";
+  return "Other";
+}
+
+function chequeBucket(c: string): string {
+  if (!c) return "Unknown";
+  const l = c.toLowerCase();
+  if (l.includes("boot") || l.includes("grant")) return "Bootstrapped";
+  if (l.includes("5k") || l.includes("10k") || l.includes("25k") || l.includes("35k") || l.includes("50k")) return "<$50k";
+  if (l.includes("75k") || l.includes("100k") || l.includes("150k") || l.includes("200k") || l.includes("250k")) return "$50k\u2013$250k";
+  if (l.includes("300k") || l.includes("500k") || l.includes("750k")) return "$250k\u2013$1M";
+  if (l.includes("1m") || l.includes("2m") || l.includes("3m") || l.includes("5m") || l.includes("8m") || l.includes("10m")) return "$1M\u2013$10M";
+  if (l.includes("15m") || l.includes("20m") || l.includes("25m") || l.includes("50m") || l.includes("100m")) return "$10M+";
+  if (l.includes("m") || /^\d+\s*-\s*\d/.test(c)) return "$1M\u2013$10M";
+  return "Other";
+}
+
+function enrichmentScore(item: { linkedin?: string; email?: string; website?: string; tags: string[]; stage?: string; cheque?: string; location?: string }): number {
+  const checks = [
+    !!item.linkedin,
+    !!item.email,
+    !!item.website,
+    (item.tags?.length ?? 0) > 0,
+    !!item.stage,
+    !!item.cheque,
+    !!item.location && !["Global", "India / Global"].includes(item.location),
+  ];
+  return checks.filter(Boolean).length * 15;
+}
+
+export default function InvestorPool({ initialFilters }: { initialFilters?: { type?: string; sector?: string; region?: string; linkedinOnly?: boolean; emailOnly?: boolean } }) {
   const [search, setSearch] = useState("");
-  const [selectedType, setSelectedType] = useState("All");
-  const [selectedSector, setSelectedSector] = useState("All");
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const [selectedCheques, setSelectedCheques] = useState<string[]>([]);
+  const [linkedinOnly, setLinkedinOnly] = useState(initialFilters?.linkedinOnly || false);
+  const [emailOnly, setEmailOnly] = useState(initialFilters?.emailOnly || false);
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
   const [currentPage, setCurrentPage] = useState(1);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [copiedShare, setCopiedShare] = useState(false);
   const [jumpPage, setJumpPage] = useState("");
+  const [sortBy, setSortBy] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const pageSize = 25;
+
+  useEffect(() => {
+    if (initialFilters?.region) setSearch(initialFilters.region);
+  }, [initialFilters?.region]);
 
   const filteredData = useMemo(() => {
     return investorsData.filter((item) => {
@@ -54,22 +108,35 @@ export default function InvestorPool() {
         item.location.toLowerCase().includes(search.toLowerCase()) ||
         item.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
 
-      const matchesType = selectedType === "All" || item.type === selectedType;
+      const matchesType = selectedTypes.length === 0 || selectedTypes.includes(item.type);
 
       const matchesSector =
-        selectedSector === "All" ||
-        item.tags.some((t) => t.toLowerCase().includes(selectedSector.toLowerCase())) ||
-        item.role.toLowerCase().includes(selectedSector.toLowerCase());
+        selectedSectors.length === 0 ||
+        selectedSectors.some((s) =>
+          item.tags.some((t) => t.toLowerCase().includes(s.toLowerCase())) ||
+          item.role.toLowerCase().includes(s.toLowerCase())
+        );
 
-      return matchesSearch && matchesType && matchesSector;
+      const matchesRegion = selectedRegions.length === 0 || selectedRegions.includes(getRegion(item.location));
+
+      const matchesCheque = selectedCheques.length === 0 || selectedCheques.includes(chequeBucket(item.cheque || ""));
+
+      const hasLinkedin = !linkedinOnly || !!item.linkedin;
+      const hasEmail = !emailOnly || !!item.email;
+
+      return matchesSearch && matchesType && matchesSector && matchesRegion && matchesCheque && hasLinkedin && hasEmail;
     });
-  }, [search, selectedType, selectedSector]);
+  }, [search, selectedTypes, selectedSectors, selectedRegions, selectedCheques, linkedinOnly, emailOnly]);
 
   const totalPages = Math.ceil(filteredData.length / pageSize) || 1;
   const paginatedData = useMemo(() => {
+    let sorted = [...filteredData];
+    if (sortBy === "enrich") {
+      sorted.sort((a, b) => sortDir === "desc" ? enrichmentScore(b) - enrichmentScore(a) : enrichmentScore(a) - enrichmentScore(b));
+    }
     const start = (currentPage - 1) * pageSize;
-    return filteredData.slice(start, start + pageSize);
-  }, [filteredData, currentPage]);
+    return sorted.slice(start, start + pageSize);
+  }, [filteredData, currentPage, sortBy, sortDir]);
 
   const handleCopyEmail = (email: string, id: string) => {
     navigator.clipboard.writeText(email);
@@ -81,6 +148,11 @@ export default function InvestorPool() {
     navigator.clipboard.writeText(window.location.href);
     setCopiedShare(true);
     setTimeout(() => setCopiedShare(false), 2000);
+  };
+
+  const toggleSort = () => {
+    if (sortBy !== "enrich") { setSortBy("enrich"); setSortDir("desc"); }
+    else { setSortDir(d => d === "desc" ? "asc" : "desc"); }
   };
 
   return (
@@ -103,13 +175,13 @@ export default function InvestorPool() {
               Explore Investors & Export Lead Lists
             </h2>
             <p className="text-sm leading-relaxed" style={{ color: "var(--ys-text-soft)" }}>
-              Curated, verified pool of global angel investors, VCs, individual family offices, and tech incubators. Search, filter, and export into CSV or Excel for outreach.
+              Curated, verified pool of global angel investors, VCs, individual family offices, and tech incubators. Search, filter, and export into CSV or Excel for outreach. <span className="opacity-60">High = 4+ data fields filled · Med = 3 fields · Basic {"<"}3 fields</span>
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             <button
-              onClick={() => downloadCSV(filteredData, `investors-${selectedType.toLowerCase().replace(/[^a-z]/g, '')}.csv`)}
+              onClick={() => downloadCSV(filteredData, `investors-${selectedTypes[0]?.toLowerCase().replace(/[^a-z]/g, '') || 'all'}.csv`)}
               className="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-xs font-mono font-semibold transition-all hover:scale-[1.02] shadow-sm"
               style={{ background: "var(--ys-accent)", color: "#ffffff" }}
               id="export-csv-btn"
@@ -117,7 +189,7 @@ export default function InvestorPool() {
               <Download size={14} /> Export CSV ({filteredData.length})
             </button>
             <button
-              onClick={() => downloadExcel(filteredData, `investors-${selectedType.toLowerCase().replace(/[^a-z]/g, '')}.xls`)}
+              onClick={() => downloadExcel(filteredData, `investors-${selectedTypes[0]?.toLowerCase().replace(/[^a-z]/g, '') || 'all'}.xls`)}
               className="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-xs font-mono font-semibold transition-all hover:bg-[var(--ys-surface-strong)]"
               style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)", color: "var(--ys-text)" }}
               id="export-excel-btn"
@@ -147,7 +219,7 @@ export default function InvestorPool() {
       </div>
 
       {/* Search & Filter Controls */}
-      <div className="space-y-4 rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
+      <div className="space-y-4 rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)", animation: "ip-rise 0.4s ease-out both" }}>
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
           {/* Search Input */}
           <div className="relative flex-1">
@@ -201,20 +273,28 @@ export default function InvestorPool() {
           </div>
         </div>
 
-        {/* Filter Chips: Type & Sector */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t" style={{ borderColor: "var(--ys-border)" }}>
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 no-scrollbar">
+        {/* Filter Chips: Type, Sector, Region, Cheque, LinkedIn/Email */}
+        <div className="space-y-3 pt-2 border-t" style={{ borderColor: "var(--ys-border)" }}>
+          <div className="flex flex-wrap items-center gap-2" style={{ animation: "ip-rise 0.4s ease-out both" }}>
             <Filter size={13} style={{ color: "var(--ys-text-soft)" }} className="shrink-0" />
+            {/* Type */}
             <span className="text-[11px] font-mono uppercase tracking-wider shrink-0" style={{ color: "var(--ys-text-soft)" }}>Type:</span>
-            {TYPES.map((t) => (
+            <button
+              onClick={() => { setSelectedTypes([]); setCurrentPage(1); }}
+              className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
+                selectedTypes.length === 0
+                  ? "bg-[var(--ys-accent)] text-white font-bold"
+                  : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
+              }`}
+            >
+              All
+            </button>
+            {TYPES.filter(t => t !== "All").map((t) => (
               <button
                 key={t}
-                onClick={() => {
-                  setSelectedType(t);
-                  setCurrentPage(1);
-                }}
+                onClick={() => { setSelectedTypes(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t]); setCurrentPage(1); }}
                 className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
-                  selectedType === t
+                  selectedTypes.includes(t)
                     ? "bg-[var(--ys-accent)] text-white font-bold"
                     : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
                 }`}
@@ -224,17 +304,25 @@ export default function InvestorPool() {
             ))}
           </div>
 
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 no-scrollbar">
+          <div className="flex flex-wrap items-center gap-2" style={{ animation: "ip-rise 0.4s ease-out both", animationDelay: "50ms" }}>
+            {/* Sector */}
             <span className="text-[11px] font-mono uppercase tracking-wider shrink-0" style={{ color: "var(--ys-text-soft)" }}>Sector:</span>
-            {SECTORS.map((s) => (
+            <button
+              onClick={() => { setSelectedSectors([]); setCurrentPage(1); }}
+              className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
+                selectedSectors.length === 0
+                  ? "bg-[var(--ys-highlight)] text-white font-bold"
+                  : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
+              }`}
+            >
+              All
+            </button>
+            {SECTORS.filter(s => s !== "All").map((s) => (
               <button
                 key={s}
-                onClick={() => {
-                  setSelectedSector(s);
-                  setCurrentPage(1);
-                }}
+                onClick={() => { setSelectedSectors(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]); setCurrentPage(1); }}
                 className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
-                  selectedSector === s
+                  selectedSectors.includes(s)
                     ? "bg-[var(--ys-highlight)] text-white font-bold"
                     : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
                 }`}
@@ -243,14 +331,123 @@ export default function InvestorPool() {
               </button>
             ))}
           </div>
+
+          <div className="flex flex-wrap items-center gap-2" style={{ animation: "ip-rise 0.4s ease-out both", animationDelay: "100ms" }}>
+            {/* Region */}
+            <span className="text-[11px] font-mono uppercase tracking-wider shrink-0" style={{ color: "var(--ys-text-soft)" }}>Region:</span>
+            <button
+              onClick={() => { setSelectedRegions([]); setCurrentPage(1); }}
+              className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
+                selectedRegions.length === 0
+                  ? "bg-[var(--ys-accent)] text-white font-bold"
+                  : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
+              }`}
+            >
+              All
+            </button>
+            {REGIONS.filter(r => r !== "All").map((r) => (
+              <button
+                key={r}
+                onClick={() => { setSelectedRegions(prev => prev.includes(r) ? prev.filter(x => x !== r) : [...prev, r]); setCurrentPage(1); }}
+                className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
+                  selectedRegions.includes(r)
+                    ? "bg-[var(--ys-accent)] text-white font-bold"
+                    : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
+                }`}
+              >
+                {r}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2" style={{ animation: "ip-rise 0.4s ease-out both", animationDelay: "150ms" }}>
+            {/* Cheque Size */}
+            <span className="text-[11px] font-mono uppercase tracking-wider shrink-0" style={{ color: "var(--ys-text-soft)" }}>Cheque:</span>
+            <button
+              onClick={() => { setSelectedCheques([]); setCurrentPage(1); }}
+              className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
+                selectedCheques.length === 0
+                  ? "bg-[var(--ys-highlight)] text-white font-bold"
+                  : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
+              }`}
+            >
+              All
+            </button>
+            {CHEQUE_BUCKETS.filter(c => c !== "All").map((c) => (
+              <button
+                key={c}
+                onClick={() => { setSelectedCheques(prev => prev.includes(c) ? prev.filter(x => x !== c) : [...prev, c]); setCurrentPage(1); }}
+                className={`rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors shrink-0 ${
+                  selectedCheques.includes(c)
+                    ? "bg-[var(--ys-highlight)] text-white font-bold"
+                    : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)] hover:bg-[var(--ys-surface-muted)]"
+                }`}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+
+          {/* LinkedIn & Email Toggles + Clear Button */}
+          <div className="flex flex-wrap items-center gap-3 pt-1">
+            <button
+              onClick={() => { setLinkedinOnly(!linkedinOnly); setCurrentPage(1); }}
+              className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors ${
+                linkedinOnly
+                  ? "bg-[var(--ys-accent)] text-white font-bold"
+                  : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)]"
+              }`}
+            >
+              LinkedIn Only
+            </button>
+            <button
+              onClick={() => { setEmailOnly(!emailOnly); setCurrentPage(1); }}
+              className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors ${
+                emailOnly
+                  ? "bg-[var(--ys-accent)] text-white font-bold"
+                  : "border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)]"
+              }`}
+            >
+              Email Only
+            </button>
+            <button
+              onClick={() => {
+                setSearch("");
+                setSelectedTypes([]);
+                setSelectedSectors([]);
+                setSelectedRegions([]);
+                setSelectedCheques([]);
+                setLinkedinOnly(false);
+                setEmailOnly(false);
+                setCurrentPage(1);
+              }}
+              className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] font-mono transition-colors border border-[var(--ys-border)] bg-[var(--ys-surface)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)]"
+            >
+              Clear All Filters
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Dataset Results Summary */}
-      <div className="flex items-center justify-between text-xs font-mono px-1" style={{ color: "var(--ys-text-soft)" }}>
+      <div className="flex items-center justify-between flex-wrap gap-2 text-xs font-mono px-1" style={{ color: "var(--ys-text-soft)", animation: "ip-rise 0.4s ease-out both", animationDelay: "200ms" }}>
         <span>
           Showing {paginatedData.length} of {filteredData.length} investors (Total database: {investorsData.length.toLocaleString()})
         </span>
+        <div className="flex items-center gap-3">
+          <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px]"
+                style={{ background: "rgba(11, 141, 128, 0.08)", color: "var(--ys-highlight)" }}>
+            <Sparkles size={10} /> {filteredData.filter(i => enrichmentScore(i) >= 80).length} High
+          </span>
+          <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px]"
+                style={{ background: "rgba(207, 79, 39, 0.08)", color: "var(--ys-accent)" }}>
+            {filteredData.filter(i => enrichmentScore(i) >= 50 && enrichmentScore(i) < 80).length} Med
+          </span>
+          <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px]"
+                style={{ background: "var(--ys-surface-muted)", color: "var(--ys-text-soft)" }}>
+            {filteredData.filter(i => enrichmentScore(i) < 50).length} Basic
+          </span>
+        </div>
         <span>Page {currentPage} of {totalPages}</span>
       </div>
 
@@ -259,20 +456,39 @@ export default function InvestorPool() {
         <div className="overflow-x-auto rounded-xl border" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)" }}>
           <table className="w-full text-left text-xs" style={{ color: "var(--ys-text)" }}>
             <thead className="border-b uppercase text-[10px] font-mono tracking-wider"
-                   style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-muted)", color: "var(--ys-text)" }}>
+                   style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-muted)", color: "var(--ys-text)", animation: "ip-rise 0.35s ease-out both", animationDelay: "0ms" }}>
               <tr>
                 <th className="p-3.5">Investor / Org</th>
                 <th className="p-3.5">Firm / Affiliation</th>
                 <th className="p-3.5">Type & Location</th>
                 <th className="p-3.5">Focus / Tags</th>
+                <th className="p-3.5 cursor-pointer select-none" onClick={toggleSort}>
+                  <span className="inline-flex items-center gap-1">
+                    Enrich {sortBy === "enrich" ? (sortDir === "desc" ? "↓" : "↑") : "↕"}
+                  </span>
+                </th>
+                <th className="p-3.5 text-center">LinkedIn</th>
+                <th className="p-3.5 text-center">Email</th>
                 <th className="p-3.5 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y" style={{ borderColor: "var(--ys-border)" }}>
-              {paginatedData.map((item) => (
-                <tr key={item.id} className="hover:bg-[var(--ys-surface-strong)] transition-colors">
+              {paginatedData.map((item, idx) => (
+                <tr key={item.id} className="hover:bg-[var(--ys-surface-strong)] transition-all duration-[var(--ys-base)] hover:translate-y-[-1px]"
+                    style={{ animation: "ip-rise 0.35s ease-out both", animationDelay: `${idx * 25}ms` }}>
                   <td className="p-3.5 font-medium max-w-[220px]">
-                    <div className="font-bold text-sm" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>{item.name}</div>
+                    <div className="flex items-center gap-2">
+                      <div className="font-bold text-sm" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>{item.name}</div>
+                      <span className={`rounded px-1.5 py-0.5 text-[8px] font-mono font-bold uppercase tracking-wider ${
+                        enrichmentScore(item) >= 80 ? '' : 'opacity-60'
+                      }`}
+                            style={{
+                              background: enrichmentScore(item) >= 80 ? "rgba(11, 141, 128, 0.12)" : enrichmentScore(item) >= 50 ? "rgba(207, 79, 39, 0.08)" : "var(--ys-surface-muted)",
+                              color: enrichmentScore(item) >= 80 ? "var(--ys-highlight)" : enrichmentScore(item) >= 50 ? "var(--ys-accent)" : "var(--ys-text-soft)",
+                            }}>
+                        {enrichmentScore(item) >= 80 ? "HIGH" : enrichmentScore(item) >= 50 ? "MED" : "LOW"}
+                      </span>
+                    </div>
                     {item.role && <div className="text-[11px] truncate" style={{ color: "var(--ys-text-soft)" }}>{item.role}</div>}
                   </td>
                   <td className="p-3.5 max-w-[180px]" style={{ color: "var(--ys-text-soft)" }}>
@@ -294,6 +510,23 @@ export default function InvestorPool() {
                         </span>
                       ))}
                     </div>
+                  </td>
+                  <td className="p-3.5 text-center">
+                    <span className="text-[13px] font-mono font-bold" style={{ color: enrichmentScore(item) >= 80 ? "var(--ys-highlight)" : enrichmentScore(item) >= 50 ? "var(--ys-accent)" : "var(--ys-text-soft)" }}>
+                      {enrichmentScore(item)}
+                    </span>
+                  </td>
+                  <td className="p-3.5 text-center">
+                    <span className={`inline-flex items-center justify-center ${item.linkedin ? 'opacity-100' : 'opacity-25'}`}
+                          style={{ color: item.linkedin ? "var(--ys-accent-strong)" : "var(--ys-text-soft)" }}>
+                      <LinkedInIcon size={15} />
+                    </span>
+                  </td>
+                  <td className="p-3.5 text-center">
+                    <span className={`inline-flex items-center justify-center ${item.email ? 'opacity-100' : 'opacity-25'}`}
+                          style={{ color: item.email ? "var(--ys-highlight)" : "var(--ys-text-soft)" }}>
+                      <Mail size={15} />
+                    </span>
                   </td>
                   <td className="p-3.5 text-right space-x-2 shrink-0">
                     {item.email && (
@@ -329,18 +562,29 @@ export default function InvestorPool() {
       ) : (
         /* Grid View */
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {paginatedData.map((item) => (
+          {paginatedData.map((item, idx) => (
             <div
               key={item.id}
-              className="flex flex-col justify-between rounded-xl border p-4 space-y-3 transition-all hover:border-[var(--ys-accent)]"
-              style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}
+              className="flex flex-col justify-between rounded-xl border p-4 space-y-3 transition-all duration-[var(--ys-base)] hover:border-[var(--ys-accent)] hover:translate-y-[-2px] hover:shadow-lg"
+              style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)", animation: "ip-rise 0.35s ease-out both", animationDelay: `${idx * 25}ms` }}
             >
               <div className="space-y-2">
                 <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <h3 className="font-bold text-sm" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>{item.name}</h3>
-                    <p className="text-xs" style={{ color: "var(--ys-text-soft)" }}>{item.firm}</p>
-                  </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-bold text-sm" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>{item.name}</h3>
+                        <span className={`rounded px-1.5 py-0.5 text-[8px] font-mono font-bold uppercase tracking-wider ${
+                          enrichmentScore(item) >= 80 ? '' : 'opacity-60'
+                        }`}
+                              style={{
+                                background: enrichmentScore(item) >= 80 ? "rgba(11, 141, 128, 0.12)" : enrichmentScore(item) >= 50 ? "rgba(207, 79, 39, 0.08)" : "var(--ys-surface-muted)",
+                                color: enrichmentScore(item) >= 80 ? "var(--ys-highlight)" : enrichmentScore(item) >= 50 ? "var(--ys-accent)" : "var(--ys-text-soft)",
+                              }}>
+                          {enrichmentScore(item) >= 80 ? "HIGH" : enrichmentScore(item) >= 50 ? "MED" : "LOW"}
+                        </span>
+                      </div>
+                      <p className="text-xs" style={{ color: "var(--ys-text-soft)" }}>{item.firm}</p>
+                    </div>
                   <span className="rounded border px-2 py-0.5 text-[9px] font-mono uppercase tracking-wider"
                         style={{ background: "rgba(207, 79, 39, 0.08)", borderColor: "rgba(207, 79, 39, 0.2)", color: "var(--ys-accent-strong)" }}>
                     {item.type}
@@ -350,6 +594,28 @@ export default function InvestorPool() {
                 {item.role && <p className="text-xs line-clamp-2" style={{ color: "var(--ys-text-soft)" }}>{item.role}</p>}
                 
                 <div className="text-[11px] font-mono" style={{ color: "var(--ys-text-soft)" }}>📍 {item.location || "Global"}</div>
+
+                {/* Enrichment Score & Contact Badges */}
+                <div className="flex items-center gap-2 pt-1">
+                  <div className="flex items-center gap-1.5 flex-1">
+                    <span className="text-[10px] font-mono font-bold" style={{ color: enrichmentScore(item) >= 80 ? "var(--ys-highlight)" : enrichmentScore(item) >= 50 ? "var(--ys-accent)" : "var(--ys-text-soft)" }}>
+                      {enrichmentScore(item)}%
+                    </span>
+                    <div className="flex-1 h-1 rounded-full overflow-hidden" style={{ background: "var(--ys-surface-muted)" }}>
+                      <div className="h-full rounded-full" style={{ width: `${enrichmentScore(item)}%`, background: enrichmentScore(item) >= 80 ? "var(--ys-highlight)" : enrichmentScore(item) >= 50 ? "var(--ys-accent)" : "var(--ys-text-soft)" }} />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className={`inline-flex items-center gap-0.5 rounded px-1 py-0.5 text-[8px] font-mono uppercase ${item.linkedin ? 'font-bold' : 'opacity-40'}`}
+                          style={{ color: item.linkedin ? "var(--ys-accent-strong)" : "var(--ys-text-soft)", background: item.linkedin ? "rgba(207, 79, 39, 0.08)" : "transparent" }}>
+                      <LinkedInIcon size={8} />
+                    </span>
+                    <span className={`inline-flex items-center gap-0.5 rounded px-1 py-0.5 text-[8px] font-mono uppercase ${item.email ? 'font-bold' : 'opacity-40'}`}
+                          style={{ color: item.email ? "var(--ys-highlight)" : "var(--ys-text-soft)", background: item.email ? "rgba(11, 141, 128, 0.08)" : "transparent" }}>
+                      <Mail size={8} />
+                    </span>
+                  </div>
+                </div>
 
                 <div className="flex flex-wrap gap-1 pt-1">
                   {item.tags.map((tag, idx) => (

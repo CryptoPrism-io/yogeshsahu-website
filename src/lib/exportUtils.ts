@@ -11,6 +11,8 @@ export interface InvestorRecord {
   website?: string;
   tags: string[];
   description?: string;
+  cheque?: string;
+  stage?: string;
 }
 
 /**
@@ -28,7 +30,7 @@ function escapeCSVCell(val: string | number | undefined): string {
 export function downloadCSV(data: InvestorRecord[], filename = 'investors-directory.csv') {
   if (!data || data.length === 0) return;
 
-  const headers = ['Name', 'Firm / Organization', 'Role / Focus', 'Type', 'Location', 'Email', 'LinkedIn', 'Website', 'Tags', 'Score'];
+  const headers = ['Name', 'Firm / Organization', 'Role / Focus', 'Type', 'Location', 'Cheque', 'Stage', 'Email', 'LinkedIn', 'Website', 'Tags', 'Score'];
   
   const rows = data.map(item => [
     escapeCSVCell(item.name),
@@ -36,6 +38,8 @@ export function downloadCSV(data: InvestorRecord[], filename = 'investors-direct
     escapeCSVCell(item.role),
     escapeCSVCell(item.type),
     escapeCSVCell(item.location),
+    escapeCSVCell(item.cheque),
+    escapeCSVCell(item.stage),
     escapeCSVCell(item.email),
     escapeCSVCell(item.linkedin),
     escapeCSVCell(item.website),
@@ -62,7 +66,7 @@ export function downloadCSV(data: InvestorRecord[], filename = 'investors-direct
 export function downloadExcel(data: InvestorRecord[], filename = 'investors-directory.xls') {
   if (!data || data.length === 0) return;
 
-  const headers = ['Name', 'Firm / Organization', 'Role / Focus', 'Type', 'Location', 'Email', 'LinkedIn', 'Website', 'Tags', 'Score'];
+  const headers = ['Name', 'Firm / Organization', 'Role / Focus', 'Type', 'Location', 'Cheque', 'Stage', 'Email', 'LinkedIn', 'Website', 'Tags', 'Score'];
 
   let tableHtml = `
     <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
@@ -106,6 +110,8 @@ export function downloadExcel(data: InvestorRecord[], filename = 'investors-dire
         <td>${escapeXml(item.role)}</td>
         <td>${escapeXml(item.type)}</td>
         <td>${escapeXml(item.location)}</td>
+        <td>${escapeXml(item.cheque || '')}</td>
+        <td>${escapeXml(item.stage || '')}</td>
         <td>${escapeXml(item.email || '')}</td>
         <td>${escapeXml(item.linkedin || '')}</td>
         <td>${escapeXml(item.website || '')}</td>
