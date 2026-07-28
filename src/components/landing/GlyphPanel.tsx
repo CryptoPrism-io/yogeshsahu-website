@@ -49,6 +49,13 @@ const NAV_ITEMS = [
     type: "window" as const,
     id: "contact",
   },
+  {
+    num: "07",
+    label: "Resources",
+    desc: "2,500+ Investor pool · Decks · Playbooks",
+    type: "link" as const,
+    href: "/resources",
+  },
 ];
 
 export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void }) {
