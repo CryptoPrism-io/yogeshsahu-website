@@ -561,8 +561,9 @@ export default function InvestorDashboard({
           { label: "Has LinkedIn", value: filteredData.filter(r => r.linkedin).length, color: "#4A90E2" },
           { label: "Has Email", value: filteredData.filter(r => r.email).length, color: "#0B8D80" },
           { label: "VC / Funds", value: filteredData.filter(r => r.type === "VC / Fund").length, color: "#F5A623" },
-        ].map(stat => (
-          <div key={stat.label} className="rounded-xl border px-4 py-3" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
+        ].map((stat, i) => (
+          <div key={stat.label} className="rounded-xl border px-4 py-3"
+               style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)", animation: "ip-rise 0.35s ease-out both", animationDelay: `${i * 60}ms` }}>
             <div className="text-[10px] font-mono uppercase tracking-widest" style={{ color: stat.color }}>{stat.label}</div>
             <div className="text-2xl font-bold mt-1" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>
               {stat.value.toLocaleString()}
@@ -625,7 +626,7 @@ export default function InvestorDashboard({
 
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
+        <div className="rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)", animation: "ip-rise 0.4s ease-out both" }}>
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-xs font-mono font-semibold uppercase tracking-widest" style={{ color: "var(--ys-accent-strong)" }}>
               Investor Types
@@ -638,7 +639,7 @@ export default function InvestorDashboard({
           <svg ref={donutRef} className="w-full" style={{ minHeight: 260 }} />
         </div>
 
-        <div className="rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
+        <div className="rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)", animation: "ip-rise 0.4s ease-out both", animationDelay: "80ms" }}>
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-xs font-mono font-semibold uppercase tracking-widest" style={{ color: "var(--ys-accent-strong)" }}>
               Regions — Treemap
@@ -651,7 +652,7 @@ export default function InvestorDashboard({
           <svg ref={treemapRef} className="w-full" style={{ minHeight: 260 }} />
         </div>
 
-        <div className="rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
+        <div className="rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)", animation: "ip-rise 0.4s ease-out both", animationDelay: "160ms" }}>
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-xs font-mono font-semibold uppercase tracking-widest" style={{ color: "var(--ys-accent-strong)" }}>
               Sectors — Packed Bubbles
@@ -664,7 +665,7 @@ export default function InvestorDashboard({
           <svg ref={bubbleRef} className="w-full" style={{ minHeight: 260 }} />
         </div>
 
-        <div className="rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
+        <div className="rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)", animation: "ip-rise 0.4s ease-out both", animationDelay: "240ms" }}>
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-xs font-mono font-semibold uppercase tracking-widest" style={{ color: "var(--ys-accent-strong)" }}>
               Cheque Size × Region — Heatmap
@@ -680,8 +681,8 @@ export default function InvestorDashboard({
 
       {/* Fullscreen Overlay */}
       {fullscreenChart && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center" style={{ background: "rgba(0,0,0,0.85)" }}>
-          <div className="relative rounded-2xl border p-6" style={{ background: "var(--ys-surface)", borderColor: "var(--ys-border)", width: "calc(100vw - 40px)", height: "calc(100vh - 40px)" }}>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center" style={{ background: "rgba(0,0,0,0.85)", animation: "ip-fade 0.25s ease-out both" }}>
+          <div className="relative rounded-2xl border p-6" style={{ background: "var(--ys-surface)", borderColor: "var(--ys-border)", width: "calc(100vw - 40px)", height: "calc(100vh - 40px)", animation: "ip-rise 0.3s ease-out both" }}>
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-mono font-semibold uppercase tracking-widest" style={{ color: "var(--ys-accent-strong)" }}>
                 {fullscreenChart === "donut" ? "Investor Types" : fullscreenChart === "treemap" ? "Regions" : fullscreenChart === "bubbles" ? "Sectors" : "Cheque Size × Region"}
