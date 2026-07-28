@@ -173,7 +173,7 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
               Explore Investors & Export Lead Lists
             </h2>
             <p className="text-sm leading-relaxed" style={{ color: "var(--ys-text-soft)" }}>
-              Curated, verified pool of global angel investors, VCs, individual family offices, and tech incubators. Search, filter, and export into CSV or Excel for outreach.
+              Curated, verified pool of global angel investors, VCs, individual family offices, and tech incubators. Search, filter, and export into CSV or Excel for outreach. <span className="opacity-60">High = 4+ data fields filled · Med = 3 fields · Basic {"<"}3 fields</span>
             </p>
           </div>
 
@@ -388,10 +388,24 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
       </div>
 
       {/* Dataset Results Summary */}
-      <div className="flex items-center justify-between text-xs font-mono px-1" style={{ color: "var(--ys-text-soft)" }}>
+      <div className="flex items-center justify-between flex-wrap gap-2 text-xs font-mono px-1" style={{ color: "var(--ys-text-soft)" }}>
         <span>
           Showing {paginatedData.length} of {filteredData.length} investors (Total database: {investorsData.length.toLocaleString()})
         </span>
+        <div className="flex items-center gap-3">
+          <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px]"
+                style={{ background: "rgba(11, 141, 128, 0.08)", color: "var(--ys-highlight)" }}>
+            <Sparkles size={10} /> {filteredData.filter(i => enrichmentScore(i) >= 80).length} High
+          </span>
+          <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px]"
+                style={{ background: "rgba(207, 79, 39, 0.08)", color: "var(--ys-accent)" }}>
+            {filteredData.filter(i => enrichmentScore(i) >= 50 && enrichmentScore(i) < 80).length} Med
+          </span>
+          <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px]"
+                style={{ background: "var(--ys-surface-muted)", color: "var(--ys-text-soft)" }}>
+            {filteredData.filter(i => enrichmentScore(i) < 50).length} Basic
+          </span>
+        </div>
         <span>Page {currentPage} of {totalPages}</span>
       </div>
 
@@ -420,7 +434,18 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
               {paginatedData.map((item) => (
                 <tr key={item.id} className="hover:bg-[var(--ys-surface-strong)] transition-colors">
                   <td className="p-3.5 font-medium max-w-[220px]">
-                    <div className="font-bold text-sm" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>{item.name}</div>
+                    <div className="flex items-center gap-2">
+                      <div className="font-bold text-sm" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>{item.name}</div>
+                      <span className={`rounded px-1.5 py-0.5 text-[8px] font-mono font-bold uppercase tracking-wider ${
+                        enrichmentScore(item) >= 80 ? '' : 'opacity-60'
+                      }`}
+                            style={{
+                              background: enrichmentScore(item) >= 80 ? "rgba(11, 141, 128, 0.12)" : enrichmentScore(item) >= 50 ? "rgba(207, 79, 39, 0.08)" : "var(--ys-surface-muted)",
+                              color: enrichmentScore(item) >= 80 ? "var(--ys-highlight)" : enrichmentScore(item) >= 50 ? "var(--ys-accent)" : "var(--ys-text-soft)",
+                            }}>
+                        {enrichmentScore(item) >= 80 ? "HIGH" : enrichmentScore(item) >= 50 ? "MED" : "LOW"}
+                      </span>
+                    </div>
                     {item.role && <div className="text-[11px] truncate" style={{ color: "var(--ys-text-soft)" }}>{item.role}</div>}
                   </td>
                   <td className="p-3.5 max-w-[180px]" style={{ color: "var(--ys-text-soft)" }}>
@@ -502,10 +527,21 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
             >
               <div className="space-y-2">
                 <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <h3 className="font-bold text-sm" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>{item.name}</h3>
-                    <p className="text-xs" style={{ color: "var(--ys-text-soft)" }}>{item.firm}</p>
-                  </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-bold text-sm" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>{item.name}</h3>
+                        <span className={`rounded px-1.5 py-0.5 text-[8px] font-mono font-bold uppercase tracking-wider ${
+                          enrichmentScore(item) >= 80 ? '' : 'opacity-60'
+                        }`}
+                              style={{
+                                background: enrichmentScore(item) >= 80 ? "rgba(11, 141, 128, 0.12)" : enrichmentScore(item) >= 50 ? "rgba(207, 79, 39, 0.08)" : "var(--ys-surface-muted)",
+                                color: enrichmentScore(item) >= 80 ? "var(--ys-highlight)" : enrichmentScore(item) >= 50 ? "var(--ys-accent)" : "var(--ys-text-soft)",
+                              }}>
+                          {enrichmentScore(item) >= 80 ? "HIGH" : enrichmentScore(item) >= 50 ? "MED" : "LOW"}
+                        </span>
+                      </div>
+                      <p className="text-xs" style={{ color: "var(--ys-text-soft)" }}>{item.firm}</p>
+                    </div>
                   <span className="rounded border px-2 py-0.5 text-[9px] font-mono uppercase tracking-wider"
                         style={{ background: "rgba(207, 79, 39, 0.08)", borderColor: "rgba(207, 79, 39, 0.2)", color: "var(--ys-accent-strong)" }}>
                     {item.type}
