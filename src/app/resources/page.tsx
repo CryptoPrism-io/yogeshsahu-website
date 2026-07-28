@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function ResourcesPage() {
   return (
-    <main className="min-h-screen overflow-y-auto" style={{ background: "var(--ys-surface)", color: "var(--ys-text)" }}>
+    <main className="h-screen overflow-y-auto" style={{ background: "var(--ys-surface)", color: "var(--ys-text)" }}>
       {/* Top Navigation */}
       <nav
         className="fixed top-0 left-0 right-0 z-50 border-b px-5 py-3"

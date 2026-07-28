@@ -41,6 +41,7 @@ export default function InvestorPool() {
   const [currentPage, setCurrentPage] = useState(1);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [copiedShare, setCopiedShare] = useState(false);
+  const [jumpPage, setJumpPage] = useState("");
   const pageSize = 25;
 
   const filteredData = useMemo(() => {
@@ -392,7 +393,7 @@ export default function InvestorPool() {
       )}
 
       {/* Pagination Bar */}
-      <div className="flex items-center justify-between pt-4 border-t" style={{ borderColor: "var(--ys-border)" }}>
+      <div className="flex items-center justify-between pt-4 border-t flex-wrap gap-3" style={{ borderColor: "var(--ys-border)" }}>
         <button
           onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
           disabled={currentPage === 1}
@@ -402,9 +403,31 @@ export default function InvestorPool() {
           Previous
         </button>
 
-        <span className="text-xs font-mono" style={{ color: "var(--ys-text-soft)" }}>
-          Page {currentPage} of {totalPages}
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-mono" style={{ color: "var(--ys-text-soft)" }}>
+            Page {currentPage} of {totalPages}
+          </span>
+          <span className="text-[10px] font-mono" style={{ color: "var(--ys-text-soft)" }}>Jump to:</span>
+          <input
+            type="number"
+            min={1}
+            max={totalPages}
+            value={jumpPage}
+            onChange={(e) => setJumpPage(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                const p = parseInt(jumpPage, 10);
+                if (p >= 1 && p <= totalPages) {
+                  setCurrentPage(p);
+                  setJumpPage("");
+                }
+              }
+            }}
+            placeholder="#"
+            className="w-14 rounded-lg border px-2 py-1.5 text-xs font-mono text-center outline-none transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)", color: "var(--ys-text)" }}
+          />
+        </div>
 
         <button
           onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}

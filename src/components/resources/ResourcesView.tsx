@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Users, FileCode, BookOpen, Wrench, Sparkles, CheckCircle2, ArrowRight } from "lucide-react";
+import { Users, FileCode, BookOpen, Wrench, Sparkles } from "lucide-react";
 import InvestorPool from "./InvestorPool";
-import Link from "next/link";
 
 type TabType = "investors" | "decks" | "playbooks" | "toolkit";
 
@@ -73,136 +72,44 @@ export default function ResourcesView() {
       {activeTab === "investors" && <InvestorPool />}
 
       {activeTab === "decks" && (
-        <div className="space-y-6">
-          <div className="rounded-2xl border p-6 md:p-8 space-y-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest" style={{ color: "var(--ys-accent-strong)" }}>
-              <Sparkles size={14} /> Founder Resources
-            </div>
-            <h2 className="text-2xl font-bold" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>
-              High-Traction Seed & Series-A Pitch Deck Blueprints
-            </h2>
-            <p className="text-sm max-w-3xl leading-relaxed" style={{ color: "var(--ys-text-soft)" }}>
-              Curated slide-by-slide structure used by top AI & Fintech startups to convey product-market fit, unit economics, technical moats, and vision to angel networks and VC partners.
-            </p>
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed py-20 px-6 text-center" style={{ borderColor: "var(--ys-border)" }}>
+          <div className="rounded-xl border px-4 py-2 text-xs font-mono uppercase tracking-widest mb-4" style={{ borderColor: "var(--ys-border)", color: "var(--ys-accent-strong)", background: "rgba(207, 79, 39, 0.06)" }}>
+            <Sparkles size={14} className="inline mr-2" />Coming Soon
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="rounded-xl border p-5 space-y-3" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-              <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-base" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>10-Slide Seed Pitch Deck Checklist</h3>
-                <span className="rounded px-2 py-0.5 text-[10px] font-mono border"
-                      style={{ background: "rgba(207, 79, 39, 0.08)", borderColor: "rgba(207, 79, 39, 0.25)", color: "var(--ys-accent-strong)" }}>
-                  Template
-                </span>
-              </div>
-              <ul className="space-y-2 text-xs" style={{ color: "var(--ys-text-soft)" }}>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="shrink-0" style={{ color: "var(--ys-highlight)" }} /> 1. Title & One-Line Value Proposition</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="shrink-0" style={{ color: "var(--ys-highlight)" }} /> 2. The Urgent Problem & Market Pain</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="shrink-0" style={{ color: "var(--ys-highlight)" }} /> 3. The Product Solution & AI/Tech Demo</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="shrink-0" style={{ color: "var(--ys-highlight)" }} /> 4. Market Size (TAM, SAM, SOM)</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="shrink-0" style={{ color: "var(--ys-highlight)" }} /> 5. Business Model & Unit Economics</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="shrink-0" style={{ color: "var(--ys-highlight)" }} /> 6. Proprietary Tech / AI Architecture Moat</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="shrink-0" style={{ color: "var(--ys-highlight)" }} /> 7. Early Traction & Metrics</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="shrink-0" style={{ color: "var(--ys-highlight)" }} /> 8. Competitive Landscape</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="shrink-0" style={{ color: "var(--ys-highlight)" }} /> 9. Core Founder & Technical Team</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="shrink-0" style={{ color: "var(--ys-highlight)" }} /> 10. The Ask & Milestones Timeline</li>
-              </ul>
-            </div>
-
-            <div className="rounded-xl border p-5 space-y-4 flex flex-col justify-between" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-base" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>Fractional CTO Deck Audit</h3>
-                  <span className="rounded px-2 py-0.5 text-[10px] font-mono border"
-                        style={{ background: "rgba(11, 141, 128, 0.1)", borderColor: "rgba(11, 141, 128, 0.3)", color: "var(--ys-highlight)" }}>
-                    Advisory
-                  </span>
-                </div>
-                <p className="text-xs leading-relaxed" style={{ color: "var(--ys-text-soft)" }}>
-                  Before pitching to VCs, ensure your technical architecture, AI scalability plan, and security compliance hold up under institutional investor due diligence.
-                </p>
-              </div>
-
-              <div className="pt-4 border-t" style={{ borderColor: "var(--ys-border)" }}>
-                <Link
-                  href="/work"
-                  className="inline-flex items-center justify-center gap-2 w-full rounded-lg text-xs font-mono font-semibold py-2.5 transition-colors"
-                  style={{ background: "var(--ys-accent)", color: "#ffffff" }}
-                >
-                  Review Technical Case Studies <ArrowRight size={14} />
-                </Link>
-              </div>
-            </div>
-          </div>
+          <h2 className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>
+            Pitch Deck Blueprints
+          </h2>
+          <p className="text-sm max-w-md" style={{ color: "var(--ys-text-soft)" }}>
+            Slide-by-slide pitch deck templates, sample decks, and fundraising collateral — being prepared for Q3 2026.
+          </p>
         </div>
       )}
 
       {activeTab === "playbooks" && (
-        <div className="space-y-6">
-          <div className="rounded-2xl border p-6 md:p-8 space-y-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest" style={{ color: "var(--ys-highlight)" }}>
-              <Sparkles size={14} /> Architecture Playbooks
-            </div>
-            <h2 className="text-2xl font-bold" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>
-              Fractional CTO & AI Engineering Frameworks
-            </h2>
-            <p className="text-sm max-w-3xl leading-relaxed" style={{ color: "var(--ys-text-soft)" }}>
-              Step-by-step technical playbooks for scaling AI applications, fintech payment compliance, high-throughput microservices, and lean engineering teams.
-            </p>
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed py-20 px-6 text-center" style={{ borderColor: "var(--ys-border)" }}>
+          <div className="rounded-xl border px-4 py-2 text-xs font-mono uppercase tracking-widest mb-4" style={{ borderColor: "var(--ys-border)", color: "var(--ys-highlight)", background: "rgba(11, 141, 128, 0.06)" }}>
+            <Sparkles size={14} className="inline mr-2" />Coming Soon
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            <div className="rounded-xl border p-5 space-y-3" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-              <div className="text-xs font-mono" style={{ color: "var(--ys-accent)" }}>Playbook #01</div>
-              <h3 className="font-semibold text-base" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>LLM & Multi-Agent Stack Blueprint</h3>
-              <p className="text-xs leading-relaxed" style={{ color: "var(--ys-text-soft)" }}>
-                Architecting deterministic LLM pipelines, vector indexing, RAG fallback chains, and sub-agent orchestration for zero latency.
-              </p>
-            </div>
-
-            <div className="rounded-xl border p-5 space-y-3" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-              <div className="text-xs font-mono" style={{ color: "var(--ys-accent)" }}>Playbook #02</div>
-              <h3 className="font-semibold text-base" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>Fintech Ledger & Payments Compliance</h3>
-              <p className="text-xs leading-relaxed" style={{ color: "var(--ys-text-soft)" }}>
-                Double-entry immutable ledgers, RBI/PCI-DSS compliance pipelines, webhook resilience, and real-time fraud scoring.
-              </p>
-            </div>
-
-            <div className="rounded-xl border p-5 space-y-3" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-              <div className="text-xs font-mono" style={{ color: "var(--ys-accent)" }}>Playbook #03</div>
-              <h3 className="font-semibold text-base" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>Zero to 100k WAU Infra Scaling</h3>
-              <p className="text-xs leading-relaxed" style={{ color: "var(--ys-text-soft)" }}>
-                Cost-effective cloud infrastructure setups (AWS / GCP / Cloudflare Edge), caching strategies, and automated CI/CD.
-              </p>
-            </div>
-          </div>
+          <h2 className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>
+            Architecture Playbooks
+          </h2>
+          <p className="text-sm max-w-md" style={{ color: "var(--ys-text-soft)" }}>
+            Technical deep-dives, reference architectures, and infrastructure blueprints — being prepared for Q3 2026.
+          </p>
         </div>
       )}
 
       {activeTab === "toolkit" && (
-        <div className="space-y-6">
-          <div className="rounded-2xl border p-6 md:p-8 space-y-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest" style={{ color: "var(--ys-accent)" }}>
-              <Sparkles size={14} /> Solopreneur & Engineer Stack
-            </div>
-            <h2 className="text-2xl font-bold" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>
-              Curated Tools for Founders & Tech Builders
-            </h2>
-            <p className="text-sm max-w-3xl leading-relaxed" style={{ color: "var(--ys-text-soft)" }}>
-              Handpicked tools, open-source AI repos, infrastructure providers, and automation scripts to accelerate MVP development without bloating headcount.
-            </p>
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed py-20 px-6 text-center" style={{ borderColor: "var(--ys-border)" }}>
+          <div className="rounded-xl border px-4 py-2 text-xs font-mono uppercase tracking-widest mb-4" style={{ borderColor: "var(--ys-border)", color: "var(--ys-accent)", background: "rgba(207, 79, 39, 0.06)" }}>
+            <Sparkles size={14} className="inline mr-2" />Coming Soon
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="rounded-xl border p-4 space-y-2" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-              <h4 className="font-semibold text-sm" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>🤖 AI & Agentic Development</h4>
-              <p className="text-xs" style={{ color: "var(--ys-text-soft)" }}>LangChain, LlamaIndex, Ollama, Vercel AI SDK, Supabase Vector, Pinecone.</p>
-            </div>
-            <div className="rounded-xl border p-4 space-y-2" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)" }}>
-              <h4 className="font-semibold text-sm" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>⚡ Core Tech Stack</h4>
-              <p className="text-xs" style={{ color: "var(--ys-text-soft)" }}>Next.js 16, TypeScript, Tailwind CSS, Framer Motion, PostgreSQL, Redis, Cloudflare Workers.</p>
-            </div>
-          </div>
+          <h2 className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>
+            Founder & Engineer Toolkit
+          </h2>
+          <p className="text-sm max-w-md" style={{ color: "var(--ys-text-soft)" }}>
+            Curated tools, open-source stacks, and automation scripts — being prepared for Q3 2026.
+          </p>
         </div>
       )}
     </div>
