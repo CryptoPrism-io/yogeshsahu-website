@@ -92,6 +92,7 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
   const [jumpPage, setJumpPage] = useState("");
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
+  const [minEnrichScore, setMinEnrichScore] = useState(0);
   const pageSize = 25;
 
   useEffect(() => {
@@ -123,10 +124,11 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
 
       const hasLinkedin = !linkedinOnly || !!item.linkedin;
       const hasEmail = !emailOnly || !!item.email;
+      const passesEnrich = enrichmentScore(item) >= minEnrichScore;
 
-      return matchesSearch && matchesType && matchesSector && matchesRegion && matchesCheque && hasLinkedin && hasEmail;
+      return matchesSearch && matchesType && matchesSector && matchesRegion && matchesCheque && hasLinkedin && hasEmail && passesEnrich;
     });
-  }, [search, selectedTypes, selectedSectors, selectedRegions, selectedCheques, linkedinOnly, emailOnly]);
+  }, [search, selectedTypes, selectedSectors, selectedRegions, selectedCheques, linkedinOnly, emailOnly, minEnrichScore]);
 
   const totalPages = Math.ceil(filteredData.length / pageSize) || 1;
   const paginatedData = useMemo(() => {
@@ -429,25 +431,54 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
         </div>
       </div>
 
+      {/* Enrichment Score Slider */}
+      <div className="rounded-xl border p-4" style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-strong)", animation: "ip-rise 0.4s ease-out both", animationDelay: "200ms" }}>
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-3 min-w-0 shrink">
+            <span className="text-[11px] font-mono uppercase tracking-wider shrink-0" style={{ color: "var(--ys-text-soft)" }}>Enrichment ≥</span>
+            <span className="inline-flex items-center justify-center rounded-md px-2.5 py-1 text-[13px] font-mono font-bold min-w-[3ch] tabular-nums"
+                  style={{
+                    background: minEnrichScore >= 80 ? "rgba(11, 141, 128, 0.12)" : minEnrichScore >= 50 ? "rgba(207, 79, 39, 0.08)" : "var(--ys-surface-muted)",
+                    color: minEnrichScore >= 80 ? "var(--ys-highlight)" : minEnrichScore >= 50 ? "var(--ys-accent)" : "var(--ys-text-soft)",
+                  }}>
+              {minEnrichScore}
+            </span>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              step={5}
+              value={minEnrichScore}
+              onChange={(e) => { setMinEnrichScore(Number(e.target.value)); setCurrentPage(1); }}
+              className="w-28 sm:w-36 h-1.5 rounded-full appearance-none cursor-pointer"
+              style={{
+                background: `linear-gradient(to right, var(--ys-highlight) ${minEnrichScore}%, var(--ys-surface-muted) ${minEnrichScore}%)`,
+                accentColor: "var(--ys-highlight)",
+              }}
+            />
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px]"
+                  style={{ background: "rgba(11, 141, 128, 0.08)", color: "var(--ys-highlight)" }}>
+              <Sparkles size={10} /> {filteredData.filter(i => enrichmentScore(i) >= 80).length} High
+            </span>
+            <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px]"
+                  style={{ background: "rgba(207, 79, 39, 0.08)", color: "var(--ys-accent)" }}>
+              {filteredData.filter(i => enrichmentScore(i) >= 50 && enrichmentScore(i) < 80).length} Med
+            </span>
+            <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px]"
+                  style={{ background: "var(--ys-surface-muted)", color: "var(--ys-text-soft)" }}>
+              {filteredData.filter(i => enrichmentScore(i) < 50).length} Basic
+            </span>
+          </div>
+        </div>
+      </div>
+
       {/* Dataset Results Summary */}
-      <div className="flex items-center justify-between flex-wrap gap-2 text-xs font-mono px-1" style={{ color: "var(--ys-text-soft)", animation: "ip-rise 0.4s ease-out both", animationDelay: "200ms" }}>
+      <div className="flex items-center justify-between flex-wrap gap-2 text-xs font-mono px-1" style={{ color: "var(--ys-text-soft)", animation: "ip-rise 0.4s ease-out both", animationDelay: "250ms" }}>
         <span>
           Showing {paginatedData.length} of {filteredData.length} investors (Total database: {investorsData.length.toLocaleString()})
         </span>
-        <div className="flex items-center gap-3">
-          <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px]"
-                style={{ background: "rgba(11, 141, 128, 0.08)", color: "var(--ys-highlight)" }}>
-            <Sparkles size={10} /> {filteredData.filter(i => enrichmentScore(i) >= 80).length} High
-          </span>
-          <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px]"
-                style={{ background: "rgba(207, 79, 39, 0.08)", color: "var(--ys-accent)" }}>
-            {filteredData.filter(i => enrichmentScore(i) >= 50 && enrichmentScore(i) < 80).length} Med
-          </span>
-          <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px]"
-                style={{ background: "var(--ys-surface-muted)", color: "var(--ys-text-soft)" }}>
-            {filteredData.filter(i => enrichmentScore(i) < 50).length} Basic
-          </span>
-        </div>
         <span>Page {currentPage} of {totalPages}</span>
       </div>
 
