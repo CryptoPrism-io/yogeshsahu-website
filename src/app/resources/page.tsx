@@ -22,7 +22,19 @@ export const metadata: Metadata = {
 
 export default function ResourcesPage() {
   return (
-    <main className="h-screen overflow-y-auto" style={{ background: "var(--ys-surface)", color: "var(--ys-text)" }}>
+    <main className="h-screen overflow-y-auto relative" style={{ background: "var(--ys-surface)", color: "var(--ys-text)" }}>
+      {/* Atmosphere: warm gradient + dot mesh */}
+      <div className="fixed inset-0 pointer-events-none" style={{
+        background: `
+          radial-gradient(1200px 640px at -10% -15%, rgba(255, 228, 208, 0.5), transparent 55%),
+          radial-gradient(960px 540px at 110% 105%, rgba(130, 42, 14, 0.2), transparent 58%),
+          linear-gradient(145deg, var(--ys-surface) 0%, var(--ys-surface-strong) 100%)
+        `,
+      }} />
+      <div className="fixed inset-0 pointer-events-none" style={{
+        backgroundImage: `radial-gradient(circle at 1px 1px, rgba(180, 140, 120, 0.12) 1px, transparent 0)`,
+        backgroundSize: "48px 48px",
+      }} />
       {/* Top Navigation */}
       <nav
         className="fixed top-0 left-0 right-0 z-50 border-b px-5 py-3"
@@ -79,13 +91,13 @@ export default function ResourcesPage() {
       </nav>
 
       {/* Main Content Area */}
-      <div className="mx-auto max-w-[1180px] px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+      <div className="mx-auto max-w-[1180px] px-4 sm:px-6 lg:px-8 pt-24 pb-16 relative z-10">
         <ResourcesView />
       </div>
 
       {/* Footer */}
       <footer
-        className="border-t px-5 py-8"
+        className="border-t px-5 py-8 relative z-10"
         style={{ borderColor: "var(--ys-border)" }}
       >
         <div className="mx-auto flex max-w-[1180px] items-center justify-between text-xs font-mono" style={{ color: "var(--ys-text-soft)" }}>
