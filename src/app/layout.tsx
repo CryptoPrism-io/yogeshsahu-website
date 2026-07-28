@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Newsreader, Space_Grotesk, Work_Sans } from "next/font/google";
+import { JetBrains_Mono, Newsreader, Sora, Work_Sans } from "next/font/google";
 import { LazyMotion, domAnimation } from "framer-motion";
 import "./globals.css";
 
@@ -10,9 +10,9 @@ const newsreader = Newsreader({
   variable: "--font-serif-display",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const sora = Sora({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   variable: "--font-headline",
 });
 
@@ -92,7 +92,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${newsreader.variable} ${spaceGrotesk.variable} ${workSans.variable} ${jetbrainsMono.variable}`}
+      className={`${newsreader.variable} ${sora.variable} ${workSans.variable} ${jetbrainsMono.variable}`}
     >
       <body className="antialiased overflow-hidden">
         <script
