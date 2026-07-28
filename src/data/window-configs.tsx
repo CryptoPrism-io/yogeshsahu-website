@@ -5,10 +5,12 @@ import CredentialsWindow from "@/components/windows/CredentialsWindow";
 import DiagnosticWindow from "@/components/windows/DiagnosticWindow";
 import ExperienceWindow from "@/components/windows/ExperienceWindow";
 import ProjectsWindow from "@/components/windows/ProjectsWindow";
+import ResourcesWindow from "@/components/windows/ResourcesWindow";
 import TerminalWindow from "@/components/windows/TerminalWindow";
 import { type WindowConfig } from "@/hooks/useWindowManager";
 import {
   Award,
+  BookOpen,
   Briefcase,
   FileText,
   FolderOpen,
@@ -20,6 +22,14 @@ import {
 import type { ReactNode } from "react";
 
 export const WINDOW_CONFIGS: WindowConfig[] = [
+  {
+    id: "resources",
+    title: "Investors & Resources",
+    icon: "resources",
+    defaultOpen: false,
+    defaultPosition: { x: 100, y: 30 },
+    defaultSize: { width: 960, height: 680 },
+  },
   {
     id: "capability-graph",
     title: "Capability Graph",
@@ -87,6 +97,7 @@ export const WINDOW_CONFIGS: WindowConfig[] = [
 ];
 
 export const ICON_MAP: Record<string, ReactNode> = {
+  resources: <BookOpen size={18} strokeWidth={1.5} />,
   "capability-graph": <GitBranch size={18} strokeWidth={1.5} />,
   about: <FileText size={18} strokeWidth={1.5} />,
   projects: <FolderOpen size={18} strokeWidth={1.5} />,
@@ -98,6 +109,7 @@ export const ICON_MAP: Record<string, ReactNode> = {
 };
 
 export const WINDOW_CONTENT: Record<string, (onOpen: (id: string) => void) => ReactNode> = {
+  resources: () => <ResourcesWindow />,
   "capability-graph": (onOpen) => <CapabilityGraphWindow onOpen={onOpen} />,
   about: () => <AboutWindow />,
   projects: () => <ProjectsWindow />,
