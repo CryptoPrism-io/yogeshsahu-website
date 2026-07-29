@@ -176,7 +176,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
   return (
     <section
       className="no-scrollbar absolute left-3 right-3 top-3 z-[2] md:left-auto md:right-4 md:top-4 md:w-[520px] xl:w-[540px]"
-      style={{ maxHeight: "90vh", overflowY: "auto" }}
+      style={{ maxHeight: "60vh", overflowY: "auto", transform: "scale(1.5)", transformOrigin: "top right" }}
       aria-label="Identity panel"
     >
       <article
