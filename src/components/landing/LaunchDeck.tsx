@@ -24,7 +24,6 @@ function Corner({ pos, size = 7, w = 1.5 }: { pos: "tl" | "tr" | "bl" | "br"; si
   return <span style={{ position: "absolute", width: size, height: size, ...v, ...hpos, ...borders }} />;
 }
 
-/** Registration mark anchored to the card edges (absolute to the article). */
 function RegMark({ pos, delay }: { pos: "tl" | "tr" | "bl" | "br"; delay: number }) {
   const v = pos[0] === "t" ? { top: 11 } : { bottom: 11 };
   const hpos = pos[1] === "l" ? { left: 11 } : { right: 11 };
@@ -99,7 +98,7 @@ function Metric({
   return (
     <div
       style={{
-        padding: divider ? "13px 0 13px 20px" : "13px 0",
+        padding: divider ? "16px 0 16px 24px" : "16px 0",
         borderLeft: divider ? "1px solid var(--ys-border)" : undefined,
         animation: `ip-rise .6s ${EASE} ${delay}s both`,
       }}
@@ -109,7 +108,7 @@ function Metric({
         style={{
           fontFamily: HEAD,
           fontWeight: 600,
-          fontSize: 30,
+          fontSize: 38,
           lineHeight: 1,
           color: "var(--ys-accent)",
           letterSpacing: "-0.02em",
@@ -119,9 +118,9 @@ function Metric({
       </div>
       <div
         style={{
-          marginTop: 8,
+          marginTop: 6,
           fontFamily: MONO,
-          fontSize: 9.5,
+          fontSize: 10,
           letterSpacing: "0.13em",
           color: "var(--ys-text-soft)",
           textTransform: "uppercase",
@@ -134,10 +133,6 @@ function Metric({
 }
 
 export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void }) {
-  // One shared fast→slow→fast timeline (smoothstep) for the whole panel.
-  // 15 beats: header, rule, name×2, bio, metric-rule, m1-3, CTA, career-rule,
-  // career-header, featured, kari, gamerz. The left nav (GlyphPanel) overlaps
-  // this same window with its own rhythm.
   const R = rhythmDelays(15, 0, 1.05);
   const m1 = useCountUp(6, "+", 900, R[6] * 1000);
   const m2 = useCountUp(2, "M+", 950, R[7] * 1000);
@@ -175,8 +170,8 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
 
   return (
     <section
-      className="no-scrollbar absolute left-3 right-3 top-3 z-[2] md:left-auto md:right-4 md:top-4 md:w-[520px] xl:w-[540px]"
-      style={{ maxHeight: "60vh", overflowY: "auto", transform: "scale(1.5)", transformOrigin: "top right" }}
+      className="no-scrollbar absolute left-3 right-3 top-3 z-[2] md:left-auto md:right-4 md:top-4 md:w-[600px] xl:w-[660px]"
+      style={{ maxHeight: "90vh", overflowY: "auto" }}
       aria-label="Identity panel"
     >
       <article
@@ -186,7 +181,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           background: "var(--ys-surface)",
           border: "1px solid var(--ys-border)",
           borderRadius: 5,
-          padding: "22px 26px 20px",
+          padding: "26px 30px 24px",
           boxSizing: "border-box",
           overflow: "hidden",
           boxShadow: "0 28px 64px -30px rgba(42,23,15,0.6)",
@@ -261,10 +256,10 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "1fr 168px",
-              gap: 24,
+              gridTemplateColumns: "1fr 200px",
+              gap: 28,
               alignItems: "start",
-              padding: "16px 0 14px",
+              padding: "18px 0 16px",
             }}
           >
             <div>
@@ -273,7 +268,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                   margin: 0,
                   fontFamily: HEAD,
                   fontWeight: 700,
-                  fontSize: 46,
+                  fontSize: 56,
                   lineHeight: 0.9,
                   letterSpacing: "-0.025em",
                   color: "var(--ys-text)",
@@ -288,11 +283,11 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               </h1>
               <p
                 style={{
-                  margin: "16px 0 0",
+                  margin: "14px 0 0",
                   fontSize: 15,
                   lineHeight: 1.5,
                   color: "var(--ys-text-soft)",
-                  maxWidth: "30ch",
+                  maxWidth: "34ch",
                   animation: `ip-rise .8s ${EASE} ${R[4]}s both`,
                 }}
               >
@@ -315,8 +310,8 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               <div
                 style={{
                   position: "relative",
-                  width: 168,
-                  height: 168,
+                  width: 200,
+                  height: 200,
                   border: "1px solid #c5c0b8",
                   background: "#e9e7e3",
                 }}
@@ -325,7 +320,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                   src="/images/profile.jpg"
                   alt="Yogesh Sahu"
                   fill
-                  sizes="168px"
+                  sizes="200px"
                   style={{ objectFit: "cover", filter: "grayscale(1) contrast(1.02)" }}
                   priority
                 />
@@ -362,18 +357,18 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               color: "var(--ys-surface)",
               border: "none",
               cursor: "pointer",
-              padding: "13px 20px",
+              padding: "15px 22px",
               borderRadius: 3,
-              marginTop: 6,
+              marginTop: 8,
               animation: `ip-rise .7s ${EASE} ${R[9]}s both`,
             }}
           >
-            <span style={{ fontFamily: MONO, fontSize: 13, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase" }}>
+            <span style={{ fontFamily: MONO, fontSize: 14, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase" }}>
               Start a Diagnostic
             </span>
             <span
               style={{
-                fontSize: 18,
+                fontSize: 20,
                 lineHeight: 1,
                 display: "inline-block",
                 transform: `translateX(${arrow}px)`,
@@ -384,8 +379,8 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             </span>
           </button>
 
-          {/* career highlights */}
-          <section style={{ marginTop: 20 }}>
+          {/* career highlights — compact */}
+          <section style={{ marginTop: 22 }}>
             <div style={RULE(R[10])} />
             <div
               style={{
@@ -409,52 +404,44 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               </span>
             </div>
 
-            {/* featured */}
             <div
               className="ip-lift"
               style={{ paddingBottom: 14, borderBottom: "1px solid var(--ys-border)", animation: `ip-rise .7s ${EASE} ${R[12]}s both` }}
             >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 8 }}>
                 <span style={mono(11, "0.14em", "var(--ys-text-soft)")}>CryptoPrism</span>
                 <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", color: "#c9ad97" }}>01</span>
               </div>
-              <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 38, lineHeight: 1, color: "var(--ys-highlight)", letterSpacing: "-0.025em" }}>
+              <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 42, lineHeight: 1, color: "var(--ys-highlight)", letterSpacing: "-0.025em" }}>
                 72 PB+
               </div>
-              <p style={{ margin: "13px 0 0", fontSize: 14, lineHeight: 1.5, color: "var(--ys-text-soft)" }}>
-                Built a 72+ petabyte data pipeline and made it accessible to anyone through an NLP-to-SQL chat — query the
-                entire crypto market in plain language.
+              <p style={{ margin: "10px 0 0", fontSize: 14, lineHeight: 1.5, color: "var(--ys-text-soft)" }}>
+                Full-stack crypto intelligence — on-chain analytics, ML trading signals, and automated spot trading bots.
               </p>
             </div>
 
-            {/* two narrow */}
+            {/* two compact */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
               <div className="ip-lift" style={{ padding: "14px 20px 0 0", animation: `ip-rise .7s ${EASE} ${R[13]}s both` }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 9 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
                   <span style={mono(10, "0.12em", "var(--ys-text)")}>Kari &amp; Lost Shrines</span>
                   <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", color: "#c9ad97" }}>02</span>
                 </div>
-                <div style={{ fontFamily: HEAD, fontWeight: 600, fontSize: 26, lineHeight: 1, color: "var(--ys-accent)", letterSpacing: "-0.02em" }}>
+                <div style={{ fontFamily: HEAD, fontWeight: 600, fontSize: 28, lineHeight: 1, color: "var(--ys-accent)", letterSpacing: "-0.02em" }}>
                   2M+
                 </div>
-                <p style={{ margin: "8px 0 0", fontSize: 13.5, lineHeight: 1.45, color: "var(--ys-text-soft)" }}>
-                  2M social reach in 2020.
-                </p>
               </div>
               <div
                 className="ip-lift"
                 style={{ padding: "14px 0 0 20px", borderLeft: "1px solid var(--ys-border)", animation: `ip-rise .7s ${EASE} ${R[14]}s both` }}
               >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 9 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
                   <span style={mono(10, "0.12em", "var(--ys-text)")}>Gamerz Nation</span>
                   <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", color: "#c9ad97" }}>03</span>
                 </div>
-                <div style={{ fontFamily: HEAD, fontWeight: 600, fontSize: 26, lineHeight: 1, color: "var(--ys-accent)", letterSpacing: "-0.02em" }}>
+                <div style={{ fontFamily: HEAD, fontWeight: 600, fontSize: 28, lineHeight: 1, color: "var(--ys-accent)", letterSpacing: "-0.02em" }}>
                   100K+
                 </div>
-                <p style={{ margin: "8px 0 0", fontSize: 13.5, lineHeight: 1.45, color: "var(--ys-text-soft)" }}>
-                  First startup at 22 — 7 franchises and 100K+ revenue in its first year.
-                </p>
               </div>
             </div>
           </section>
