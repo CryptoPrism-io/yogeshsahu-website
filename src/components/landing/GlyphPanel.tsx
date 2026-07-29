@@ -3,76 +3,83 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Briefcase, BookOpen, FolderKanban, Handshake, Mail, User, Zap } from "lucide-react";
 import { rhythmDelays } from "@/lib/motion";
 
 const NAV_ITEMS = [
   {
-    num: "01",
     label: "Projects",
     desc: "12 case studies · AI / Fintech / Infrastructure",
+    icon: "folderKanban",
     type: "window" as const,
     id: "projects",
   },
   {
-    num: "02",
     label: "Work Hub",
     desc: "3 leadership clusters · Architecture & Delivery",
+    icon: "briefcase",
     type: "link" as const,
     href: "/work",
   },
   {
-    num: "03",
     label: "Capabilities",
     desc: "Finance · Technology / AI · Leadership",
+    icon: "zap",
     type: "window" as const,
     id: "capability-graph",
   },
   {
-    num: "04",
     label: "Work With Me",
     desc: "Diagnostic sprint · idea → shipped",
+    icon: "handshake",
     type: "window" as const,
     id: "diagnostic",
   },
   {
-    num: "05",
     label: "About",
     desc: "Founder journey · CTO Profile · Credentials",
+    icon: "user",
     type: "window" as const,
     id: "about",
   },
   {
-    num: "06",
     label: "Contact",
     desc: "Architecture mandates · Book a call",
+    icon: "mail",
     type: "window" as const,
     id: "contact",
   },
   {
-    num: "07",
     label: "Resources",
     desc: "2,500+ Investor pool · Decks · Playbooks",
+    icon: "bookOpen",
     type: "link" as const,
     href: "/resources",
   },
 ];
 
+const ICON_MAP: Record<string, React.ElementType> = {
+  briefcase: Briefcase,
+  bookOpen: BookOpen,
+  folderKanban: FolderKanban,
+  handshake: Handshake,
+  mail: Mail,
+  user: User,
+  zap: Zap,
+};
+
 export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  // Overlap the identity panel's entrance, with the same fast→slow→fast rhythm:
-  // rows burst in, breathe through the middle, then snap shut.
   const rowDelays = rhythmDelays(NAV_ITEMS.length, 0.35, 0.85);
 
   return (
     <motion.aside
       className="absolute left-6 top-[58px] z-[0] hidden lg:block xl:left-10 xl:top-[66px]"
-      style={{ width: "min(52vw, 680px)", height: "min(78vh, 680px)", opacity: 1 }}
+      style={{ width: "min(52vw, 680px)", height: "min(78vh, 680px)" }}
     >
       <div className="flex h-full flex-col">
         <motion.p
-          className="mb-4 text-[9px] font-bold uppercase tracking-[0.28em]"
+          className="mb-3 text-[9px] font-bold uppercase tracking-[0.28em]"
           style={{ fontFamily: "var(--font-mono)", color: "rgba(255,244,233,0.42)" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -90,21 +97,20 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
 
             const inner = (
               <motion.div
-                className="group relative flex items-center gap-5 overflow-hidden cursor-pointer"
+                className="group relative flex items-center gap-4 cursor-pointer"
                 style={{
                   flex: 1,
-                  borderTop: "1px solid rgba(255,244,233,0.12)",
+                  borderTop: "1px solid rgba(255,244,233,0.10)",
                   ...(i === NAV_ITEMS.length - 1
-                    ? { borderBottom: "1px solid rgba(255,244,233,0.12)" }
+                    ? { borderBottom: "1px solid rgba(255,244,233,0.10)" }
                     : {}),
-                  padding: "0 6px",
+                  padding: "0 8px",
                 }}
                 animate={{ opacity: isDimmed ? 0.38 : 1 }}
                 transition={{ type: "spring", stiffness: 300, damping: 28 }}
                 initial={false}
                 whileHover="hovered"
               >
-
                 {/* Sweep fill */}
                 <motion.span
                   className="pointer-events-none absolute inset-0"
@@ -113,54 +119,75 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                   transition={{ duration: 0.22, ease: "easeOut" }}
                 />
 
-                {/* Number */}
-                <span
-                  className="relative shrink-0 text-[10px] font-bold tracking-[0.1em]"
-                  style={{ fontFamily: "var(--font-mono)", color: "rgba(255,244,233,0.22)" }}
+                {/* Icon badge */}
+                <motion.span
+                  className="relative shrink-0 flex items-center justify-center"
+                  style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: 6,
+                    background: "rgba(255,244,233,0.08)",
+                    border: "1px solid rgba(255,244,233,0.10)",
+                    color: "rgba(255,244,233,0.55)",
+                  }}
+                  variants={{
+                    hovered: {
+                      scale: 1.4,
+                      background: "rgba(255,255,255,0.12)",
+                      borderColor: "rgba(255,255,255,0.2)",
+                      color: "rgba(255,255,255,0.9)",
+                    },
+                  }}
+                  transition={{ duration: 0.18, ease: "easeOut" }}
                 >
-                  {item.num}
-                </span>
+                  {(() => {
+                    const IconComp = ICON_MAP[item.icon];
+                    return IconComp ? <IconComp size={13} strokeWidth={2} /> : null;
+                  })()}
+                </motion.span>
 
                 {/* Title */}
-                <span
-                  className="relative flex-1 font-black uppercase leading-none transition-colors duration-150"
+                <motion.span
+                  className="relative flex-1 font-black uppercase leading-none"
                   style={{
                     fontFamily: "var(--font-headline)",
-                    fontSize: "clamp(24px, 3.4vw, 44px)",
+                    fontSize: "clamp(12px, 1.7vw, 22px)",
                     letterSpacing: "-0.025em",
                     color: "rgba(255,250,244,0.90)",
+                    transformOrigin: "left center",
                   }}
+                  variants={{ hovered: { scale: 1.6 } }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
                 >
                   {item.label}
-                </span>
+                </motion.span>
 
                 {/* Right: desc + arrow */}
-                <div className="relative flex shrink-0 items-center gap-4">
+                <div className="relative flex shrink-0 items-center gap-3">
                   <span
-                    className="hidden truncate text-right leading-[1.55] xl:block"
+                    className="hidden truncate text-right leading-[1.5] xl:block"
                     style={{
                       fontFamily: "var(--font-mono)",
-                      fontSize: "11px",
+                      fontSize: "10px",
                       color: "rgba(255,244,233,0.38)",
-                      maxWidth: "220px",
+                      maxWidth: "180px",
                       whiteSpace: "nowrap",
                     }}
                   >
                     {item.desc}
                   </span>
                   <motion.span
-                    variants={{ hovered: { x: 6, color: "rgba(255,250,244,0.9)" } }}
+                    variants={{ hovered: { x: 5, color: "rgba(255,250,244,0.9)" } }}
                     style={{ color: "rgba(255,244,233,0.22)" }}
                     transition={{ duration: 0.18 }}
                   >
-                    <ArrowRight size={20} />
+                    <ArrowRight size={16} />
                   </motion.span>
                 </div>
               </motion.div>
             );
 
             const entranceProps = {
-              // Overlap the identity panel; fast→slow→fast gaps via rhythmDelays.
               initial: { opacity: 0, y: 16 },
               animate: { opacity: 1, y: 0 },
               transition: { delay: rowDelays[i], duration: 0.5, ease: [0.16, 0.84, 0.44, 1] as const },
@@ -169,7 +196,7 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
 
             if (item.type === "link") {
               return (
-                <motion.div key={item.num} {...entranceProps}>
+                <motion.div key={item.label} {...entranceProps}>
                   <Link
                     href={item.href}
                     style={{ flex: 1, display: "flex", minHeight: 0 }}
@@ -182,7 +209,7 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
             }
 
             return (
-              <motion.div key={item.num} {...entranceProps}>
+              <motion.div key={item.label} {...entranceProps}>
                 <button
                   onClick={() => onOpen(item.id)}
                   className="text-left"
