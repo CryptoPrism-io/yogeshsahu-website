@@ -445,10 +445,10 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                   <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", color: "#c9ad97" }}>03</span>
                 </div>
                 <div style={{ fontFamily: HEAD, fontWeight: 600, fontSize: 26, lineHeight: 1, color: "var(--ys-accent)", letterSpacing: "-0.02em" }}>
-                  100K+
+                  $100K+
                 </div>
                 <p style={{ margin: "6px 0 0", fontSize: 13, lineHeight: 1.45, color: "var(--ys-text-soft)" }}>
-                  First startup at 22 — 7 franchises and 100K+ revenue in its first year.
+                  First startup at 22 — 7 franchises and $100K+ revenue in its first year.
                 </p>
               </div>
             </div>
