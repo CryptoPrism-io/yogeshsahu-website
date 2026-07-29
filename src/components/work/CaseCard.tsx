@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Project } from "@/lib/projects";
 import { BRAND_SVG_MAP, BrandSvg } from "@/lib/brand-svgs";
+import { caseStudies } from "@/data/case-studies";
 
 const MotionLink = motion(Link);
 
@@ -50,6 +51,24 @@ export default function CaseCard({ project }: { project: Project }) {
             sizes="(min-width: 1024px) 360px, 100vw"
             className="object-cover"
           />
+        )}
+        {(caseStudies[project.id]?.sections?.length ?? 0) > 0 && (
+          <span
+            style={{
+              position: "absolute",
+              bottom: 6,
+              left: 6,
+              fontFamily: "var(--font-mono)",
+              fontSize: 8.5,
+              letterSpacing: "0.08em",
+              color: "#fff",
+              background: "rgba(42,23,15,.66)",
+              padding: "2px 7px",
+              lineHeight: 1.3,
+            }}
+          >
+            {caseStudies[project.id].sections.length} chapter{caseStudies[project.id].sections.length > 1 ? "s" : ""}
+          </span>
         )}
       </div>
 

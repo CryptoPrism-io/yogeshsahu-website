@@ -22,6 +22,13 @@ const NAV_ITEMS = [
     href: "/work",
   },
   {
+    label: "Thinking",
+    desc: "Architecture notes · Decision logs",
+    icon: "bookOpen",
+    type: "link" as const,
+    href: "/thinking",
+  },
+  {
     label: "Capabilities",
     desc: "Finance · Technology / AI · Leadership",
     icon: "zap",

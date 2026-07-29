@@ -304,6 +304,48 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                   not MVPs.
                 </em>
               </p>
+
+              {/* one-liner subtitle */}
+              <p
+                style={{
+                  margin: "2px 0 0",
+                  fontFamily: MONO,
+                  fontSize: 10,
+                  letterSpacing: "0.12em",
+                  color: "var(--ys-text-soft)",
+                  animation: `ip-rise .8s ${EASE} ${R[4]}s both`,
+                }}
+              >
+                Built for <span style={{ color: "var(--ys-accent)" }}>Times of India</span> · <span style={{ color: "var(--ys-accent)" }}>Barclays</span> · <span style={{ color: "var(--ys-accent)" }}>Isha Foundation</span> · 2× founder, CTO
+              </p>
+
+              {/* brand badges */}
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 6,
+                  marginTop: 10,
+                  animation: `ip-rise .8s ${EASE} ${R[4]}s both`,
+                }}
+              >
+                {["Times of India", "Barclays", "Isha Foundation", "Binance", "Google Cloud"].map((b) => (
+                  <span
+                    key={b}
+                    style={{
+                      fontFamily: MONO,
+                      fontSize: 9,
+                      letterSpacing: "0.08em",
+                      color: "var(--ys-accent-strong)",
+                      border: "1px solid var(--ys-border)",
+                      padding: "3px 8px",
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {b}
+                  </span>
+                ))}
+              </div>
             </div>
 
             <div style={{ animation: `ip-rise .9s ${EASE} ${R[2]}s both` }}>
@@ -450,6 +492,23 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                   First startup at 22 — 7 franchises and $100K+ revenue in its first year.
                 </p>
               </div>
+            </div>
+
+            {/* GitHub micro-card */}
+            <div
+              className="ip-lift"
+              style={{ paddingTop: 14, animation: `ip-rise .7s ${EASE} ${R[12]}s both` }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
+                <span style={mono(11, "0.14em", "var(--ys-text-soft)")}>GitHub · CryptoPrism-io</span>
+                <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", color: "#c9ad97" }}>ORG</span>
+              </div>
+              <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 42, lineHeight: 1, color: "var(--ys-text)", letterSpacing: "-0.025em" }}>
+                6+
+              </div>
+              <p style={{ margin: "8px 0 0", fontSize: 14, lineHeight: 1.5, color: "var(--ys-text-soft)" }}>
+                Six production-grade open-source repos — 1B+ datapoint data pipeline, FastAPI microservices, ML trading bot, and more.
+              </p>
             </div>
           </section>
         </div>

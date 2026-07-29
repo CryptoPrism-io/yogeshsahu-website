@@ -524,10 +524,14 @@ function NavStrip() {
   const label: CSSProperties = mono(10.5, "0.14em", "var(--ys-text)");
   const sub: CSSProperties = mono(8, "0.1em", "var(--ys-text-soft)");
   return (
-    <div className="grid grid-cols-3" style={{ background: "var(--ys-surface-muted)", gap: 1 }}>
+    <div className="grid grid-cols-4" style={{ background: "var(--ys-surface-muted)", gap: 1 }}>
       <Link href="/work" className={cell} style={{ background: "var(--ys-surface)" }}>
         <span style={label}>Work Hub</span>
         <span style={sub}>12 studies</span>
+      </Link>
+      <Link href="/thinking" className={cell} style={{ background: "var(--ys-surface)" }}>
+        <span style={label}>Thinking</span>
+        <span style={sub}>Architecture notes</span>
       </Link>
       <Link href="/resources" className={cell} style={{ background: "var(--ys-surface)" }}>
         <span style={label}>Resources</span>
@@ -704,6 +708,33 @@ export default function MobileHome() {
             >
               —&nbsp; Founder · AI-Native Builder · CTO
             </p>
+            <p
+              className="mt-3"
+              style={{ ...mono(10, "0.14em", "rgba(255,248,241,.74)"), animation: `ip-fade .8s ease .36s both` }}
+            >
+              Built for <span style={{ color: "#ffd9c2" }}>Times of India</span> · <span style={{ color: "#ffd9c2" }}>Barclays</span> · <span style={{ color: "#ffd9c2" }}>Isha Foundation</span>
+            </p>
+            {/* brand badges */}
+            <div
+              className="mt-3 flex flex-wrap gap-2"
+              style={{ animation: `ip-fade .8s ease .4s both` }}
+            >
+              {["Times of India", "Barclays", "Isha Foundation", "Binance", "Google Cloud"].map((b) => (
+                <span
+                  key={b}
+                  className="text-[8.5px] uppercase tracking-[0.08em]"
+                  style={{
+                    fontFamily: MONO,
+                    color: "rgba(255,248,241,.9)",
+                    border: "1px solid rgba(255,248,241,.16)",
+                    padding: "2px 7px",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {b}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* rotating pitch */}
