@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Dock from "@/components/desktop/Dock";
-import MenuBar from "@/components/desktop/MenuBar";
 import Window from "@/components/desktop/Window";
 import { useWindowManager } from "@/hooks/useWindowManager";
 import { WINDOW_CONFIGS, ICON_MAP, WINDOW_CONTENT } from "@/data/window-configs";
@@ -49,9 +48,8 @@ export default function Home() {
         </filter>
         <rect width="100%" height="100%" filter="url(#grain)" />
       </svg>
-      <MenuBar />
 
-      <main id="main-content" className="absolute top-11 left-0 right-0 bottom-0 overflow-hidden">
+      <main id="main-content" className="absolute top-0 left-0 right-0 bottom-0 overflow-hidden">
         <LaunchDeck onOpen={openWindow} />
         <GlyphPanel onOpen={openWindow} />
 

@@ -22,6 +22,7 @@ interface Credential {
   detail: string;
   icon: ReactNode;
   accent: string;
+  brandSlug?: string;
 }
 
 interface CredentialCategory {
@@ -39,6 +40,7 @@ const CATEGORIES: CredentialCategory[] = [
         detail: "Distributed systems, enterprise cloud architecture, and reliability.",
         icon: <Cloud size={20} strokeWidth={1.5} />,
         accent: "var(--ys-accent)",
+        brandSlug: "google-cloud",
       },
       {
         name: "Professional Data Engineer",
@@ -46,6 +48,7 @@ const CATEGORIES: CredentialCategory[] = [
         detail: "BigQuery pipelines, Dataflow orchestration, and data platform design.",
         icon: <Database size={20} strokeWidth={1.5} />,
         accent: "var(--ys-highlight)",
+        brandSlug: "google-cloud",
       },
       {
         name: "AWS Data Engineering",
@@ -53,6 +56,7 @@ const CATEGORIES: CredentialCategory[] = [
         detail: "Data lake architecture, ETL pipelines, and analytics workflows.",
         icon: <Server size={20} strokeWidth={1.5} />,
         accent: "var(--ys-text)",
+        brandSlug: "amazon-web-services",
       },
       {
         name: "Azure Data Infrastructure & Pipelines",
@@ -60,6 +64,7 @@ const CATEGORIES: CredentialCategory[] = [
         detail: "Data Factory, Synapse, and real-time engineering workflows.",
         icon: <Layers size={20} strokeWidth={1.5} />,
         accent: "var(--ys-highlight)",
+        brandSlug: "microsoft-azure",
       },
     ],
   },
@@ -86,6 +91,7 @@ const CATEGORIES: CredentialCategory[] = [
         detail: "DAX modelling, business reporting, and dashboard delivery.",
         icon: <BarChart3 size={20} strokeWidth={1.5} />,
         accent: "var(--ys-text)",
+        brandSlug: "microsoft",
       },
     ],
   },
@@ -112,6 +118,7 @@ const CATEGORIES: CredentialCategory[] = [
         detail: "Certified Scrum Product Owner — agile delivery leadership.",
         icon: <Target size={20} strokeWidth={1.5} />,
         accent: "var(--ys-text)",
+        brandSlug: "scrum-alliance",
       },
     ],
   },
@@ -218,7 +225,15 @@ export default function CredentialsWindow() {
                         border: `1.5px solid color-mix(in srgb, ${item.accent} 18%, transparent)`,
                       }}
                     >
-                      {item.icon}
+                      {item.brandSlug ? (
+                        <img
+                          src={`https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/${item.brandSlug}/default.svg`}
+                          alt={item.org}
+                          className="h-5 w-5 object-contain"
+                        />
+                      ) : (
+                        item.icon
+                      )}
                     </div>
                     <div className="min-w-0">
                       <p

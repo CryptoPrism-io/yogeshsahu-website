@@ -118,7 +118,7 @@ export function useWindowManager(configs: WindowConfig[]) {
           ...w,
           isMaximized: true,
           position: { x: 0, y: 0 },
-          size: { width: vw, height: vh - 36 - 64 },
+          size: { width: vw, height: vh - 64 },
         },
       };
     });

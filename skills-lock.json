@@ -6,6 +6,12 @@
       "sourceType": "github",
       "skillPath": "skills/hallmark/SKILL.md",
       "computedHash": "d3a20aae61e43793d74932c92b63bcad5882e73ec1c8545b858910fd95b25136"
+    },
+    "thesvg": {
+      "source": "glincker/thesvg",
+      "sourceType": "github",
+      "skillPath": "skills/thesvg/SKILL.md",
+      "computedHash": "76af90f24cd8937175ded9bdb58ad25e9197dc774a4177f2f307b9b60230b55f"
     }
   }
 }
