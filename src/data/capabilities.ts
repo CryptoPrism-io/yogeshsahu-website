@@ -106,7 +106,7 @@ export const CAPABILITIES: Record<CapabilityId, CapabilityConfig> = {
       { id: "data", label: "Data", detail: "Pipelines, schemas, movement, and analytical system design." },
       { id: "systems", label: "Systems", detail: "Architecture, APIs, reliability, and production execution." },
     ],
-    color: "var(--ys-text)",
+    color: "#4a7da5",
     proofs: [
       {
         label: "Pratyaksha",
