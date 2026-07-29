@@ -329,7 +329,6 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                 <Corner pos="bl" />
                 <Corner pos="br" />
               </div>
-              <div style={{ marginTop: 8, ...mono(9, "0.1em", "#6e635a") }}>B&amp;W · Headshot</div>
             </div>
           </div>
 
