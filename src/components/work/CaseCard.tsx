@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Project } from "@/lib/projects";
+import { BRAND_SVG_MAP, BrandSvg } from "@/lib/brand-svgs";
 
 const MotionLink = motion(Link);
 
@@ -54,12 +55,21 @@ export default function CaseCard({ project }: { project: Project }) {
 
       {/* body */}
       <div className="flex flex-1 flex-col" style={{ padding: 20 }}>
-        <p
-          className="mb-3 text-[10.5px] uppercase tracking-[0.1em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-        >
-          {project.tags.slice(0, 4).join(" / ")}
-        </p>
+        <div className="mb-3 flex flex-wrap gap-x-2 gap-y-1">
+          {project.tags.slice(0, 4).map((tag) => {
+            const svgSlug = BRAND_SVG_MAP[tag];
+            return (
+              <span
+                key={tag}
+                className="inline-flex items-center gap-1 text-[10.5px] uppercase tracking-[0.1em]"
+                style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+              >
+                {svgSlug && <BrandSvg slug={svgSlug} alt={tag} />}
+                {tag}
+              </span>
+            );
+          })}
+        </div>
         <h3
           className="mb-2.5 text-[21px] font-bold leading-[1.05]"
           style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}

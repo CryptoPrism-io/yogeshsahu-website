@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { CAPABILITIES, DOMAIN_ORDER, type CapabilityId, type ProofLink } from "@/data/capabilities";
+import { BRAND_SVG_MAP, BrandSvg } from "@/lib/brand-svgs";
 
 interface CapabilityGraphWindowProps {
   onOpen: (id: string) => void;
@@ -129,20 +130,24 @@ export default function CapabilityGraphWindow({ onOpen }: CapabilityGraphWindowP
               Core Skills
             </p>
             <div className="flex flex-wrap gap-2">
-              {active.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-full border px-2.5 py-1 text-[10px]"
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    borderColor: "var(--ys-border)",
-                    color: "var(--ys-text)",
-                    background: "rgba(255,248,241,0.94)",
-                  }}
-                >
-                  {skill}
-                </span>
-              ))}
+              {active.skills.map((skill) => {
+                const svgSlug = BRAND_SVG_MAP[skill];
+                return (
+                  <span
+                    key={skill}
+                    className="inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[10px]"
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      borderColor: "var(--ys-border)",
+                      color: "var(--ys-text)",
+                      background: "rgba(255,248,241,0.94)",
+                    }}
+                  >
+                    {svgSlug && <BrandSvg slug={svgSlug} alt={skill} />}
+                    {skill}
+                  </span>
+                );
+              })}
             </div>
           </div>
 

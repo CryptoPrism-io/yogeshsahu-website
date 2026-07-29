@@ -1,5 +1,7 @@
 "use client";
 
+import { BRAND_SVG_MAP, BrandSvg } from "@/lib/brand-svgs";
+
 const TIMELINE = [
   {
     period: "2025 - Present",
@@ -32,6 +34,7 @@ const TIMELINE = [
     desc: "ML pipelines for credit card fraud detection. Fine-tuned models for real-time transaction anomaly detection on large-scale financial datasets.",
     tags: ["Python", "ML", "Data Pipelines", "SQL"],
     active: false,
+    brandSlug: "barclays",
   },
   {
     period: "2022 - 2023",
@@ -64,6 +67,7 @@ const TIMELINE = [
     desc: "Feature management and QA for AAA titles — Just Dance 2017, For Honor, Far Cry 5, Assassin's Creed Odyssey.",
     tags: ["QA", "Gaming", "Unity", "Unreal Engine"],
     active: false,
+    brandSlug: "ubisoft",
   },
 ];
 
@@ -118,7 +122,14 @@ export default function ExperienceWindow() {
                 <p className="text-[15px] font-bold" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}>
                   {item.role}
                 </p>
-                <p className="mb-2 text-[13px]" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-accent)" }}>
+                <p className="mb-2 flex items-center gap-2 text-[13px]" style={{ fontFamily: "var(--font-headline)", color: "var(--ys-accent)" }}>
+                  {item.brandSlug ? (
+                    <img
+                      src={`https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/${item.brandSlug}/default.svg`}
+                      alt={item.company}
+                      className="h-4 w-4 object-contain"
+                    />
+                  ) : null}
                   {item.company}
                 </p>
                 <p className="mb-3 text-[14px] leading-[1.75]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
@@ -126,19 +137,23 @@ export default function ExperienceWindow() {
                 </p>
 
                 <div className="flex flex-wrap gap-1.5">
-                  {item.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded border px-2 py-0.5 text-[9px]"
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        borderColor: "var(--ys-border)",
-                        color: "var(--ys-text-soft)",
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                  {item.tags.map((tag) => {
+                    const svgSlug = BRAND_SVG_MAP[tag];
+                    return (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center gap-1 rounded border px-2 py-0.5 text-[9px]"
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          borderColor: "var(--ys-border)",
+                          color: "var(--ys-text-soft)",
+                        }}
+                      >
+                        {svgSlug && <BrandSvg slug={svgSlug} alt={tag} />}
+                        {tag}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
             </article>

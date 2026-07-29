@@ -21,7 +21,7 @@ const ventures = [
 
 const careerHighlights = [
   { label: "TIMES OF INDIA", body: "Chief Technological Architect. Built AI Bharatverse — interactive AI platform for Indian history exploration." },
-  { label: "BARCLAYS", body: "ML Engineer, Fraud Analytics. Built ML pipelines for credit card fraud detection at scale." },
+  { label: "BARCLAYS", body: "ML Engineer, Fraud Analytics. Built ML pipelines for credit card fraud detection at scale.", brandSlug: "barclays" },
   { label: "ISHA FOUNDATION", body: "Shipped Kari — 50K+ downloads. Mandala Support — 4.2M engagements across 120 countries." },
   { label: "STRATHCLYDE", body: "MSc FinTech, merit, dissertation topper (82/100). AML false positives 87% → 59%." },
 ];
@@ -161,9 +161,16 @@ export default function AboutWindow({ hideHeader = false }: { hideHeader?: boole
               }}
             >
               <p
-                className="mb-1 text-[10px] font-bold uppercase tracking-[0.18em]"
+                className="mb-1 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em]"
                 style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text)" }}
               >
+                {item.brandSlug ? (
+                  <img
+                    src={`https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/${item.brandSlug}/default.svg`}
+                    alt={item.label}
+                    className="h-3.5 w-3.5 object-contain"
+                  />
+                ) : null}
                 {item.label}
               </p>
               <p
