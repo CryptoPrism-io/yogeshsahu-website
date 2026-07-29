@@ -1,6 +1,49 @@
+/* Hallmark · genre: atmospheric · macrostructure: custom-OS-metaphor · design-system: design.md · designed-as-app */
+
 @import "tailwindcss";
 
 :root {
+  /* OKLCH design system tokens (design.md) */
+  --color-paper:         oklch(0.97 0.015 75);
+  --color-paper-2:       oklch(0.98 0.010 75);
+  --color-paper-muted:   oklch(0.90 0.020 70);
+  --color-ink:           oklch(0.05 0.010 30);
+  --color-ink-2:         oklch(0.37 0.040 45);
+  --color-rule:          oklch(0.85 0.020 65);
+  --color-accent:        oklch(0.58 0.110 38);
+  --color-accent-strong: oklch(0.50 0.120 36);
+  --color-focus:         oklch(0.58 0.110 38);
+
+  /* Motion tokens */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-instant: 80ms;
+  --dur-fast:    180ms;
+  --dur-base:    260ms;
+  --dur-slow:    400ms;
+  --dur-reveal:  500ms;
+
+  /* Z-index named scale */
+  --z-base:    1;
+  --z-window:  100;
+  --z-menu:    200;
+  --z-dock:    300;
+  --z-modal:   400;
+  --z-toast:   500;
+
+  /* Spacing named scale */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2rem;
+  --space-xl:  3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 7rem;
+
+  /* Legacy ys- tokens — retained for backward compat during migration */
   --ys-bg: #cc6842;
   --ys-bg-deep: #a84f2d;
   --ys-surface: #fff8f1;
@@ -14,8 +57,8 @@
   --ys-border: #d7bda8;
   --ys-shadow: rgba(31, 17, 11, 0.22);
   --ys-shell-glass: rgba(34, 18, 11, 0.74);
-  --ys-fast: 180ms;
-  --ys-base: 260ms;
+  --ys-fast: var(--dur-fast);
+  --ys-base: var(--dur-base);
   --ys-glass-bg: rgba(122, 63, 42, 0.16);
   --ys-glass-border: rgba(255, 244, 233, 0.14);
   --ys-glass-text: rgba(255, 248, 241, 0.94);
@@ -53,7 +96,7 @@
 
 html, body {
   height: 100%;
-  overflow: hidden;
+  overflow-x: clip;
   margin: 0;
 }
 
@@ -70,14 +113,6 @@ body {
 }
 
 ::selection { background: var(--ys-highlight); color: #ffffff; }
-
-/* Custom cursor: only hide native cursor on devices with a fine pointer (mouse/trackpad). */
-@media (hover: hover) and (pointer: fine) {
-  .desktop-cursor,
-  .desktop-cursor * {
-    cursor: none !important;
-  }
-}
 
 /* Scrollbar inside windows */
 ::-webkit-scrollbar { width: 4px; }
@@ -196,7 +231,7 @@ body {
 /* Typography refinements */
 .font-display {
   font-family: var(--font-serif-display);
-  font-style: italic;
+  font-weight: 700;
 }
 .font-system {
   font-family: var(--font-mono);

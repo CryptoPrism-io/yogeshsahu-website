@@ -1,0 +1,73 @@
+{
+  "project": "yogeshsahu.xyz",
+  "pass": "redesign-2026-07-29",
+  "genre": "atmospheric",
+  "design_system": "design.md",
+  "date": "2026-07-29",
+  "changes": [
+    {
+      "file": "design.md",
+      "action": "created",
+      "detail": "Locked design system — genre, macrostructure families, OKLCH theme, typography (Newsreader/Sora/Work Sans/JetBrains Mono), 4pt spacing, motion rules, per-page allowances"
+    },
+    {
+      "file": "src/app/globals.css",
+      "action": "fixed",
+      "detail": "Added OKLCH color tokens, z-index named scale, 4pt spacing scale, overflow-x:clip, removed italic display (weight 700), removed cursor:none desktop cursor CSS"
+    },
+    {
+      "file": "src/app/page.tsx",
+      "action": "fixed",
+      "detail": "Removed CustomCursor import/usage, removed desktop-cursor class, overflow hidden→clip"
+    },
+    {
+      "file": "src/components/desktop/CustomCursor.tsx",
+      "action": "removed",
+      "detail": "Critical tell — cursor follower dots, removed per hallmark audit"
+    },
+    {
+      "file": "src/components/desktop/Dock.tsx",
+      "action": "fixed",
+      "detail": "Replaced spring easing on dock item width with --ease-out cubic-bezier"
+    },
+    {
+      "file": "src/components/desktop/MenuBar.tsx",
+      "action": "fixed",
+      "detail": "Replaced z-[9999]/z-[99999] with var(--z-menu) / default"
+    },
+    {
+      "file": "src/components/desktop/Window.tsx",
+      "action": "fixed",
+      "detail": "Replaced inline onMouseEnter/onMouseLeave style overrides on Minimize/Maximize/Close buttons with Tailwind hover:bg-* and hover:text-* classes (CSS hover states)"
+    },
+    {
+      "file": "src/components/work/CaseCard.tsx",
+      "action": "fixed",
+      "detail": "Replaced spring easing {type:spring,stiffness:340,damping:26} with {duration:0.18,ease:[0.16,1,0.3,1]}"
+    },
+    {
+      "file": "src/components/landing/MobileHome.tsx",
+      "action": "fixed",
+      "detail": "Removed numbered eyebrows from SectionHead calls (4 instances), replaced italic display headers with fontWeight:700, replaced side-stripe cards with dot-accent bullets, removed universal motion.div fade-up from ventures/track record (kept hero RotatingPitch entrance only)"
+    },
+    {
+      "file": "src/app/work/page.tsx",
+      "action": "redesigned",
+      "detail": "Replaced N1 full-width fixed nav with N5 floating pill (centered, blur backdrop, 999px border-radius); replaced Ft1 masthead footer with Ft5 statement footer (closing display sentence + YS. wordmark + copyright); removed ArrowLeft lucide import"
+    },
+    {
+      "file": "src/components/work/WorkPageHeader.tsx",
+      "action": "fixed",
+      "detail": "Replaced italic em tag with strong (weight 700) per typography rule; replaced inline amber hex colors with --ys-accent/--ys-btn-accent-bg tokens; removed hover:bg-slate-800 and transition-all"
+    },
+    {
+      "file": "src/app/resources/page.tsx",
+      "action": "redesigned",
+      "detail": "Replaced N1 full-width glass nav with N5 floating pill; replaced Ft1 footer with Ft5 statement footer; removed atmosphere gradient/dot-mesh enrichment divs (sub-pages must not use enrichment); removed ArrowLeft/BookOpen lucide imports"
+    }
+  ],
+  "remaining_items": [
+    "Project detail pages (projects/[slug]/page.tsx) — same floating pill nav + statement footer pattern",
+    "Investors page — check for same N1 nav pattern"
+  ]
+}

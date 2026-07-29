@@ -112,7 +112,8 @@ export default function Dock({ windows, iconMap, onOpen, onFocus }: DockProps) {
 
   return (
     <motion.nav
-      className="fixed bottom-3 left-1/2 z-[9999] -translate-x-1/2"
+      className="fixed bottom-3 left-1/2 -translate-x-1/2"
+      style={{ zIndex: "var(--z-dock)" }}
       variants={fadeUp(0.08, 12)}
       initial="initial"
       animate="animate"

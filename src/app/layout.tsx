@@ -94,7 +94,7 @@ export default function RootLayout({
       lang="en"
       className={`${newsreader.variable} ${sora.variable} ${workSans.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="antialiased overflow-hidden">
+      <body className="antialiased overflow-x-clip">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
