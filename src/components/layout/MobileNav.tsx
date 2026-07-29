@@ -87,7 +87,7 @@ export default function MobileNav({ light }: { light?: boolean }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
             onClick={() => setOpen(false)}
-            style={{ position: "fixed", inset: 0, background: "rgba(31,17,11,0.5)", zIndex: 300 }}
+            style={{ position: "fixed", inset: 0, background: "rgba(31,17,11,0.5)", zIndex: 600 }}
           />
         )}
       </AnimatePresence>
@@ -108,7 +108,7 @@ export default function MobileNav({ light }: { light?: boolean }) {
               width: 280,
               background: "var(--ys-surface)",
               borderRight: "1px solid var(--ys-border)",
-              zIndex: 310,
+              zIndex: 610,
               display: "flex",
               flexDirection: "column",
               padding: "28px 24px",
