@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeDown } from "@/lib/motion";
+import { Briefcase, Clock, Mail } from "lucide-react";
 
 export default function MenuBar() {
   const [time, setTime] = useState("");
@@ -59,6 +60,8 @@ export default function MenuBar() {
         >
           YS.
         </span>
+        <span aria-hidden style={{ width: 1, height: 14, background: "rgba(215,189,168,0.3)" }} />
+        <Briefcase size={11} strokeWidth={1.8} style={{ color: "#d8b8a0" }} />
         <span
           className="hidden text-[10px] tracking-wider md:inline"
           style={{ fontFamily: "var(--font-mono)", color: "#d8b8a0" }}
@@ -75,8 +78,11 @@ export default function MenuBar() {
           style={{ fontFamily: "var(--font-mono)", color: "#d8b8a0" }}
         >
           <span className="h-1.5 w-1.5 rounded-full animate-heartbeat" style={{ background: "var(--ys-highlight)" }} />
+          <Mail size={11} strokeWidth={1.8} />
           OPEN TO ARCHITECTURE MANDATES
         </a>
+        <span aria-hidden style={{ width: 1, height: 14, background: "rgba(215,189,168,0.3)" }} />
+        <Clock size={11} strokeWidth={1.8} style={{ color: "#ab8a75" }} />
         <span
           className="text-[11px]"
           style={{ fontFamily: "var(--font-mono)", color: "#ab8a75" }}
