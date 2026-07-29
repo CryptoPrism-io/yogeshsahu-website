@@ -712,7 +712,7 @@ export default function MobileHome() {
               className="mt-3"
               style={{ ...mono(10, "0.14em", "rgba(255,248,241,.74)"), animation: `ip-fade .8s ease .36s both` }}
             >
-              Built for <span style={{ color: "#ffd9c2" }}>Times of India</span> · <span style={{ color: "#ffd9c2" }}>Barclays</span> · <span style={{ color: "#ffd9c2" }}>Isha Foundation</span>
+              Built for <span style={{ color: "#ffd9c2" }}>Times of India</span> · <span style={{ color: "#ffd9c2" }}>Barclays</span> · <span style={{ color: "#ffd9c2" }}>Isha Foundation</span> — I can do the same for you.
             </p>
             {/* brand badges */}
             <div

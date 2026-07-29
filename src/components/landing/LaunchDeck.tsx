@@ -140,6 +140,20 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
 
   const [clock, setClock] = useState("");
   const [arrow, setArrow] = useState(0);
+  const [ghRepos, setGhRepos] = useState<number | null>(null);
+  const [ghStars, setGhStars] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch("https://api.github.com/orgs/CryptoPrism-io/repos?per_page=100&sort=updated")
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setGhRepos(data.length);
+          setGhStars(data.reduce((sum: number, r: { stargazers_count: number }) => sum + r.stargazers_count, 0));
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const fmt = () => {
@@ -316,7 +330,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                   animation: `ip-rise .8s ${EASE} ${R[4]}s both`,
                 }}
               >
-                Built for <span style={{ color: "var(--ys-accent)" }}>Times of India</span> · <span style={{ color: "var(--ys-accent)" }}>Barclays</span> · <span style={{ color: "var(--ys-accent)" }}>Isha Foundation</span> · 2× founder, CTO
+                Built for <span style={{ color: "var(--ys-accent)" }}>Times of India</span> · <span style={{ color: "var(--ys-accent)" }}>Barclays</span> · <span style={{ color: "var(--ys-accent)" }}>Isha Foundation</span> — I can do the same for you.
               </p>
 
               {/* brand badges */}
@@ -503,11 +517,18 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                 <span style={mono(11, "0.14em", "var(--ys-text-soft)")}>GitHub · CryptoPrism-io</span>
                 <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", color: "#c9ad97" }}>ORG</span>
               </div>
-              <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 42, lineHeight: 1, color: "var(--ys-text)", letterSpacing: "-0.025em" }}>
-                6+
+              <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+                <span style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 42, lineHeight: 1, color: "var(--ys-text)", letterSpacing: "-0.025em" }}>
+                  {ghRepos !== null ? ghRepos : "···"}+
+                </span>
+                {ghStars !== null && (
+                  <span style={{ fontFamily: MONO, fontSize: 12, letterSpacing: "0.1em", color: "var(--ys-text-soft)" }}>
+                    ★ {ghStars}
+                  </span>
+                )}
               </div>
               <p style={{ margin: "8px 0 0", fontSize: 14, lineHeight: 1.5, color: "var(--ys-text-soft)" }}>
-                Six production-grade open-source repos — 1B+ datapoint data pipeline, FastAPI microservices, ML trading bot, and more.
+                Production-grade open-source repos — 1B+ datapoint data pipeline, FastAPI microservices, ML trading bot, and more.
               </p>
             </div>
           </section>
