@@ -28,11 +28,12 @@ export default function MenuBar() {
 
   return (
     <motion.header
-      className="fixed top-0 left-0 right-0 z-[9999] flex h-11 items-center justify-between border-b px-5"
+      className="fixed top-0 left-0 right-0 flex h-11 items-center justify-between border-b px-5"
       variants={fadeDown(0)}
       initial="initial"
       animate="animate"
       style={{
+        zIndex: "var(--z-menu)",
         borderColor: "rgba(215, 189, 168, 0.18)",
         background: "rgba(30, 14, 6, 0.42)",
         backdropFilter: "blur(24px) saturate(1.6)",
@@ -42,7 +43,7 @@ export default function MenuBar() {
     >
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-1/2 focus:-translate-y-1/2 focus:z-[99999] focus:rounded-lg focus:px-3 focus:py-1.5 focus:text-[11px] focus:font-bold"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-1/2 focus:-translate-y-1/2 focus:rounded-lg focus:px-3 focus:py-1.5 focus:text-[11px] focus:font-bold"
         style={{
           fontFamily: "var(--font-mono)",
           background: "var(--ys-surface)",

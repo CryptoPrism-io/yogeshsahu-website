@@ -14,7 +14,7 @@ export default function CaseCard({ project }: { project: Project }) {
       className="relative flex h-full flex-col overflow-hidden"
       whileHover={{ y: -3, boxShadow: "0 24px 44px -30px rgba(42,23,15,0.5)" }}
       whileTap={{ scale: 0.99 }}
-      transition={{ type: "spring", stiffness: 340, damping: 26 }}
+      transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
       style={{
         border: "1px solid #e9d3bf",
         background: "var(--ys-surface-strong)",

@@ -46,15 +46,15 @@ export default function WorkPageHeader() {
           }}
         >
           Each case opens with a decision, a bet, and an outcome —{" "}
-          <em
+          <strong
             style={{
               fontFamily: "var(--font-serif-display)",
-              fontStyle: "italic",
+              fontWeight: 700,
               color: "var(--ys-accent-strong)",
             }}
           >
             engineering depth in support, not in the lead.
-          </em>
+          </strong>
         </motion.p>
 
         <motion.div
@@ -64,8 +64,8 @@ export default function WorkPageHeader() {
         >
           <Link
             href="/resources"
-            className="inline-flex items-center gap-2.5 rounded-xl border px-4 py-3 text-xs font-mono font-semibold transition-all hover:bg-slate-800"
-            style={{ borderColor: "rgba(245, 158, 11, 0.4)", color: "#f59e0b", background: "rgba(245, 158, 11, 0.08)" }}
+            className="inline-flex items-center gap-2.5 rounded-xl border px-4 py-3 text-xs font-mono font-semibold transition-colors"
+            style={{ borderColor: "var(--ys-btn-accent-border)", color: "var(--ys-accent)", background: "var(--ys-btn-accent-bg)" }}
           >
             <BookOpen size={15} />
             <span>Explore Global Investor Directory (2,500+)</span>

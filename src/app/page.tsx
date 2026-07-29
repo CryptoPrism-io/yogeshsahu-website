@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import CustomCursor from "@/components/desktop/CustomCursor";
 import Dock from "@/components/desktop/Dock";
 import MenuBar from "@/components/desktop/MenuBar";
 import Window from "@/components/desktop/Window";
@@ -40,16 +39,16 @@ export default function Home() {
   }
 
   return (
-    <div className="desktop-surface desktop-pattern desktop-cursor relative h-screen w-screen overflow-hidden">
+    <div className="desktop-surface desktop-pattern relative h-screen w-screen overflow-x-clip">
       {/* Grain overlay */}
-      <svg className="pointer-events-none fixed inset-0 z-[1] h-full w-full opacity-[0.04]" aria-hidden>
+      <svg className="pointer-events-none fixed inset-0 h-full w-full opacity-[0.04]" aria-hidden
+        style={{ zIndex: 1 }}>
         <filter id="grain">
           <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch" />
           <feColorMatrix type="saturate" values="0" />
         </filter>
         <rect width="100%" height="100%" filter="url(#grain)" />
       </svg>
-      <CustomCursor />
       <MenuBar />
 
       <main id="main-content" className="absolute top-11 left-0 right-0 bottom-0 overflow-hidden">

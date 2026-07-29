@@ -115,20 +115,8 @@ export default function Window({
               e.stopPropagation();
               onMinimize();
             }}
-            className="focus-ring flex h-full items-center justify-center px-3.5 transition-colors"
+            className="focus-ring flex h-full items-center justify-center px-3.5 transition-colors hover:bg-[rgba(215,189,168,0.45)] focus-visible:bg-[rgba(215,189,168,0.45)]"
             style={{ color: "var(--ys-text-soft)" }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(215, 189, 168, 0.45)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "transparent";
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.background = "rgba(215, 189, 168, 0.45)";
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.background = "transparent";
-            }}
             title="Minimize"
             aria-label={`Minimize ${state.title}`}
           >
@@ -140,20 +128,8 @@ export default function Window({
               e.stopPropagation();
               onMaximize();
             }}
-            className="focus-ring flex h-full items-center justify-center px-3.5 transition-colors"
+            className="focus-ring flex h-full items-center justify-center px-3.5 transition-colors hover:bg-[rgba(215,189,168,0.45)] focus-visible:bg-[rgba(215,189,168,0.45)]"
             style={{ color: "var(--ys-text-soft)" }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(215, 189, 168, 0.45)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "transparent";
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.background = "rgba(215, 189, 168, 0.45)";
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.background = "transparent";
-            }}
             title={state.isMaximized ? "Restore" : "Maximize"}
             aria-label={`${state.isMaximized ? "Restore" : "Maximize"} ${state.title}`}
           >
@@ -165,24 +141,8 @@ export default function Window({
               e.stopPropagation();
               onClose();
             }}
-            className="focus-ring flex h-full items-center justify-center rounded-tr-xl px-3.5 transition-colors"
+            className="focus-ring flex h-full items-center justify-center rounded-tr-xl px-3.5 transition-colors hover:bg-[var(--ys-accent)] hover:text-[var(--ys-surface)] focus-visible:bg-[var(--ys-accent)] focus-visible:text-[var(--ys-surface)]"
             style={{ color: "var(--ys-text-soft)" }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "var(--ys-accent)";
-              e.currentTarget.style.color = "var(--ys-surface)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.color = "var(--ys-text-soft)";
-            }}
-            onFocus={(e) => {
-              e.currentTarget.style.background = "var(--ys-accent)";
-              e.currentTarget.style.color = "var(--ys-surface)";
-            }}
-            onBlur={(e) => {
-              e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.color = "var(--ys-text-soft)";
-            }}
             title="Close"
             aria-label={`Close ${state.title}`}
           >

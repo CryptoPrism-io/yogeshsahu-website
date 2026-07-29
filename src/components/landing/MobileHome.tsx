@@ -190,26 +190,17 @@ function RotatingPitch() {
 }
 
 /* ── editorial section header ────────────────────────────────────────── */
-function SectionHead({ num, kicker, title }: { num: string; kicker: string; title: string }) {
+function SectionHead({ kicker, title }: { kicker: string; title: string }) {
   return (
-    <motion.div
-      {...REVEAL}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={REVEAL_T}
-      className="flex items-start justify-between border-t px-[22px] pb-5 pt-8"
-      style={{ borderColor: "var(--ys-surface-muted)" }}
-    >
-      <div>
-        <div style={mono(9.5, "0.2em", "var(--ys-text-soft)")}>{kicker}</div>
-        <h2
-          className="mt-2 text-[27px] font-bold leading-[1.02]"
-          style={{ fontFamily: HEAD, color: "var(--ys-text)", letterSpacing: "-0.02em" }}
-        >
-          {title}
-        </h2>
-      </div>
-      <span style={{ fontFamily: MONO, fontSize: 11, color: "#c9ad97" }}>{num}</span>
-    </motion.div>
+    <div className="border-t px-[22px] pb-5 pt-8" style={{ borderColor: "var(--ys-surface-muted)" }}>
+      <div style={mono(9.5, "0.2em", "var(--ys-text-soft)")}>{kicker}</div>
+      <h2
+        className="mt-2 text-[27px] font-bold leading-[1.02]"
+        style={{ fontFamily: HEAD, color: "var(--ys-text)", letterSpacing: "-0.02em" }}
+      >
+        {title}
+      </h2>
+    </div>
   );
 }
 
@@ -242,24 +233,18 @@ const TRACK: { k: string; v: string; d: string }[] = [
 function VenturesSection() {
   return (
     <section id="mobile-ventures">
-      <SectionHead num="01" kicker="Founder · 2× Company" title="Ventures" />
-      <motion.p
-        {...REVEAL}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={REVEAL_T}
+      <SectionHead kicker="Founder · 2× Company" title="Ventures" />
+      <p
         className="px-[22px] pb-2"
         style={{ fontFamily: BODY, fontSize: 15, lineHeight: 1.6, color: "var(--ys-text-soft)" }}
       >
         Builder first. Two companies founded, products shipped to market — operating at the
         intersection of AI, fintech, and data infrastructure.
-      </motion.p>
+      </p>
 
       {VENTURES.map((v) => (
-        <motion.div
+        <div
           key={v.name}
-          {...REVEAL}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={REVEAL_T}
           className="border-t px-[22px] pb-6 pt-5"
           style={{ borderColor: "var(--ys-surface-muted)" }}
         >
@@ -281,7 +266,7 @@ function VenturesSection() {
             {v.metric}
           </div>
           <p style={{ fontFamily: BODY, fontSize: 14, lineHeight: 1.55, color: "var(--ys-text)" }}>{v.body}</p>
-        </motion.div>
+        </div>
       ))}
 
       {/* track record — one line each, no cards */}
@@ -289,11 +274,8 @@ function VenturesSection() {
         <div style={mono(9.5, "0.2em", "var(--ys-text-soft)")}>Track Record</div>
       </div>
       {TRACK.map((t) => (
-        <motion.div
+        <div
           key={t.k}
-          {...REVEAL}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="px-[22px] py-[15px]"
           style={{ borderTop: "1px solid var(--ys-surface-muted)" }}
         >
@@ -311,7 +293,7 @@ function VenturesSection() {
           <p className="mt-1 text-[12.5px]" style={{ fontFamily: BODY, lineHeight: 1.5, color: "var(--ys-text-soft)" }}>
             {t.d}
           </p>
-        </motion.div>
+        </div>
       ))}
     </section>
   );
@@ -322,24 +304,16 @@ function SelectedWork() {
   const reel = featuredProjects.slice(0, 3);
   return (
     <section id="mobile-work">
-      <SectionHead num="02" kicker="12 Case Studies · 3 Clusters" title="Selected Work" />
-      <motion.p
-        {...REVEAL}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={REVEAL_T}
+      <SectionHead kicker="12 Case Studies · 3 Clusters" title="Selected Work" />
+      <p
         className="px-[22px] pb-2"
         style={{ fontFamily: BODY, fontSize: 15, lineHeight: 1.6, color: "var(--ys-text-soft)" }}
       >
         A few highlights. The full set lives in the Work hub.
-      </motion.p>
+      </p>
 
       {reel.map((p, idx) => (
-        <motion.div
-          key={p.id}
-          {...REVEAL}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <div key={p.id}>
           <Link
             href={`/projects/${p.id}`}
             className="block border-t px-[22px] py-[18px] active:bg-[var(--ys-surface-strong)]"
@@ -370,7 +344,7 @@ function SelectedWork() {
               {p.description}
             </p>
           </Link>
-        </motion.div>
+        </div>
       ))}
 
       <Link
@@ -407,15 +381,10 @@ const MANDATES: { label: string; body: string; color: string }[] = [
 function WorkWithMe() {
   return (
     <section id="mobile-diagnostic" className="scroll-mt-2">
-      <SectionHead num="03" kicker="Paid Entry Offer" title="Work With Me" />
-      <motion.div
-        {...REVEAL}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={REVEAL_T}
-        className="px-[22px]"
-      >
+      <SectionHead kicker="Paid Entry Offer" title="Work With Me" />
+      <div className="px-[22px]">
         <h3
-          className="text-[1.7rem] font-black italic leading-[1.08]"
+          className="text-[1.7rem] font-black leading-[1.08]"
           style={{ fontFamily: SERIF, color: "var(--ys-text)" }}
         >
           Solutions architecture for teams moving faster than their systems.
@@ -447,27 +416,27 @@ function WorkWithMe() {
             </div>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       {/* mandate types */}
       <div className="mt-6">
         {MANDATES.map((m) => (
-          <motion.div
+          <div
             key={m.label}
-            {...REVEAL}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="border-t px-[22px] py-[15px]"
             style={{ borderColor: "var(--ys-surface-muted)" }}
           >
-            <div className="border-l-2 pl-3" style={{ borderColor: m.color }}>
-              <div style={mono(9.5, "0.18em", m.color)}>{m.label}</div>
-              <p className="mt-1 text-[13.5px]" style={{ fontFamily: BODY, lineHeight: 1.55, color: "var(--ys-text)" }}>
-                {m.body}
-              </p>
+            <div className="flex items-start gap-3">
+              <span className="mt-[5px] h-2 w-2 shrink-0 rounded-full" style={{ background: m.color }} />
+              <div>
+                <div style={mono(9.5, "0.18em", m.color)}>{m.label}</div>
+                <p className="mt-1 text-[13.5px]" style={{ fontFamily: BODY, lineHeight: 1.55, color: "var(--ys-text)" }}>
+                  {m.body}
+                </p>
+              </div>
             </div>
-          </motion.div>
-        ))}
+</div>
+      ))}
       </div>
 
       <button
@@ -495,7 +464,7 @@ const CONTACT_LINKS: { label: string; content: string; href: string }[] = [
 function ContactSection() {
   return (
     <section id="mobile-contact" className="scroll-mt-2">
-      <SectionHead num="04" kicker="Architecture Mandates" title="Contact" />
+      <SectionHead kicker="Architecture Mandates" title="Contact" />
       {CONTACT_LINKS.map((c) => (
         <a
           key={c.label}
@@ -517,19 +486,23 @@ function ContactSection() {
 
       {/* availability */}
       <div
-        className="border-t border-l-2 px-[22px] py-4"
-        style={{ borderColor: "var(--ys-surface-muted)", borderLeftColor: "var(--ys-highlight)" }}
+        className="border-t px-[22px] py-4"
+        style={{ borderColor: "var(--ys-surface-muted)" }}
       >
-        <div style={mono(9, "0.14em", "var(--ys-text-soft)")}>Current Availability</div>
-        <div className="mt-1.5 flex items-center gap-2">
-          <span className="inline-block h-2 w-2 rounded-full animate-heartbeat" style={{ background: "var(--ys-highlight)" }} />
-          <span className="text-[13px] font-bold" style={{ fontFamily: HEAD, color: "var(--ys-text)" }}>
-            Open for May 2026 architecture mandates
-          </span>
+        <div className="flex items-start gap-3">
+          <span className="mt-[5px] inline-block h-2 w-2 shrink-0 rounded-full animate-heartbeat" style={{ background: "var(--ys-highlight)" }} />
+          <div>
+            <div style={mono(9, "0.14em", "var(--ys-text-soft)")}>Current Availability</div>
+            <div className="mt-1.5">
+              <span className="text-[13px] font-bold" style={{ fontFamily: HEAD, color: "var(--ys-text)" }}>
+                Open for May 2026 architecture mandates
+              </span>
+            </div>
+            <p className="mt-1" style={mono(10, "0.02em", "var(--ys-text-soft)")}>
+              Best fit: consulting, regulated, and fast-moving teams.
+            </p>
+          </div>
         </div>
-        <p className="mt-1" style={mono(10, "0.02em", "var(--ys-text-soft)")}>
-          Best fit: consulting, regulated, and fast-moving teams.
-        </p>
       </div>
 
       <a
@@ -678,10 +651,10 @@ export default function MobileHome() {
             {/* name lockup */}
             <h1 className="mt-6">
               <span
-                className="block italic"
+                className="block font-bold"
                 style={{
                   fontFamily: SERIF,
-                  fontWeight: 500,
+                  fontWeight: 700,
                   fontSize: "clamp(62px,19vw,104px)",
                   lineHeight: 0.82,
                   letterSpacing: "-0.01em",
