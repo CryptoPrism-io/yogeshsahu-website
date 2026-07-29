@@ -4,6 +4,7 @@ import { CLUSTERS, CLUSTER_ORDER } from "@/data/clusters";
 import { getProjectsByCluster } from "@/lib/projects";
 import ClusterSection from "@/components/work/ClusterSection";
 import WorkPageHeader from "@/components/work/WorkPageHeader";
+import MobileNav from "@/components/layout/MobileNav";
 
 export const metadata: Metadata = {
   title: "Work — Yogesh Sahu",
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <main className="h-screen overflow-y-auto" style={{ background: "var(--ys-surface)" }}>
+      <div className="fixed top-4 left-4 z-50 hidden max-[767px]:block">
+        <MobileNav />
+      </div>
       <nav
         className="fixed top-4 left-1/2 z-50 -translate-x-1/2 inline-flex items-center gap-4 px-4 py-2"
         style={{

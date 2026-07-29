@@ -13,6 +13,7 @@ import {
   type RefObject,
 } from "react";
 import { featuredProjects } from "@/lib/projects";
+import MobileNav from "@/components/layout/MobileNav";
 
 const MONO = "var(--font-mono)";
 const HEAD = "var(--font-headline)";
@@ -517,7 +518,7 @@ function ContactSection() {
   );
 }
 
-/* ── slim utility nav — the only off-page jumps ──────────────────────── */
+/* ── utility nav — off-page navigation strip ────────────────────────── */
 function NavStrip() {
   const cell = "flex flex-col items-center justify-center gap-1 py-[15px] active:bg-[var(--ys-surface-strong)]";
   const label: CSSProperties = mono(10.5, "0.14em", "var(--ys-text)");
@@ -528,10 +529,10 @@ function NavStrip() {
         <span style={label}>Work Hub</span>
         <span style={sub}>12 studies</span>
       </Link>
-      <a href="/yogesh-sahu-cv.pdf" target="_blank" rel="noreferrer" className={cell} style={{ background: "var(--ys-surface)" }}>
-        <span style={label}>CV ↓</span>
-        <span style={sub}>View · PDF</span>
-      </a>
+      <Link href="/resources" className={cell} style={{ background: "var(--ys-surface)" }}>
+        <span style={label}>Resources</span>
+        <span style={sub}>Investor directory</span>
+      </Link>
       <button onClick={() => scrollToId("mobile-contact")} className={cell} style={{ background: "var(--ys-surface)" }}>
         <span style={label}>Contact</span>
         <span style={sub}>Book a call</span>
@@ -594,18 +595,32 @@ export default function MobileHome() {
         <div className="relative z-[2] mx-auto max-w-[480px]">
           {/* slim top bar */}
           <div
-            className="flex h-[52px] items-center justify-between px-[22px]"
+            className="flex h-[52px] items-center px-[8px]"
             style={{ borderBottom: "1px solid rgba(42,23,15,.16)", animation: `ip-fade .6s ease both` }}
           >
-            <span style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 17, letterSpacing: "-0.02em", color: "#fff8f1" }}>
+            <MobileNav light />
+            <span
+              style={{
+                flex: 1,
+                textAlign: "center",
+                fontFamily: HEAD,
+                fontWeight: 700,
+                fontSize: 16,
+                letterSpacing: "-0.02em",
+                color: "#fff8f1",
+              }}
+            >
               YS.
             </span>
-            <span className="flex items-center gap-[7px]" style={mono(10, "0.14em", "rgba(255,248,241,.74)")}>
+            <span
+              className="flex items-center gap-[7px] pr-[14px]"
+              style={mono(10, "0.14em", "rgba(255,248,241,.74)")}
+            >
               <span
                 className="inline-block h-[6px] w-[6px] rounded-full"
                 style={{ background: "var(--ys-highlight)", animation: "ip-pulse 2.4s ease-in-out infinite" }}
               />
-              <span suppressHydrationWarning>OPEN · {clock || "—"}</span>
+              <span suppressHydrationWarning>{clock || "—"}</span>
             </span>
           </div>
 
