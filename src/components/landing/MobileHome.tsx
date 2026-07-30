@@ -537,9 +537,9 @@ function NavStrip() {
         <span style={label}>Journal</span>
         <span style={sub}>Weekly</span>
       </Link>
-      <Link href="/resources" className={cell} style={{ background: "var(--ys-surface)" }}>
-        <span style={label}>Resources</span>
-        <span style={sub}>Investors</span>
+      <Link href="/founders" className={cell} style={{ background: "var(--ys-surface)" }}>
+        <span style={label}>Founders</span>
+        <span style={sub}>Hub</span>
       </Link>
       <button onClick={() => scrollToId("mobile-contact")} className={cell} style={{ background: "var(--ys-surface)" }}>
         <span style={label}>Contact</span>

@@ -24,7 +24,7 @@ import type { ReactNode } from "react";
 export const WINDOW_CONFIGS: WindowConfig[] = [
   {
     id: "resources",
-    title: "Investors & Resources",
+    title: "Founder Hub",
     icon: "resources",
     defaultOpen: false,
     defaultPosition: { x: 100, y: 30 },

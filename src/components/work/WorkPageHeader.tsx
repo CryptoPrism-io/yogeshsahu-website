@@ -63,12 +63,12 @@ export default function WorkPageHeader() {
           transition={{ duration: 0.32, delay: 0.2 }}
         >
           <Link
-            href="/resources"
+            href="/founders"
             className="inline-flex items-center gap-2.5 rounded-xl border px-4 py-3 text-xs font-mono font-semibold transition-colors"
             style={{ borderColor: "var(--ys-btn-accent-border)", color: "var(--ys-accent)", background: "var(--ys-btn-accent-bg)" }}
           >
             <BookOpen size={15} />
-            <span>Explore Global Investor Directory (2,500+)</span>
+            <span>Explore Founder Hub (8.6K+ investors)</span>
             <ArrowRight size={14} />
           </Link>
         </motion.div>

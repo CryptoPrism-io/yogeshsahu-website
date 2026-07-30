@@ -23,7 +23,7 @@ const NAV_ITEMS: { href: string; label: string; desc: string }[] = [
   { href: "/work", label: "Work Hub", desc: "12 case studies" },
   { href: "/thinking", label: "Thinking", desc: "Architecture notes & logs" },
   { href: "/journal", label: "Journal", desc: "Weekly Friday check-in" },
-  { href: "/resources", label: "Resources", desc: "Investor directory & playbooks" },
+  { href: "/founders", label: "Founders", desc: "8.6K+ investors, playbooks, tools" },
 ];
 
 const EXTRA_ITEMS: { href: string; label: string; desc: string; external: boolean }[] = [
