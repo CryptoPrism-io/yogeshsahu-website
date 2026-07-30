@@ -29,6 +29,13 @@ const NAV_ITEMS = [
     href: "/thinking",
   },
   {
+    label: "Journal",
+    desc: "Weekly Friday check-in · Behind the build",
+    icon: "bookOpen",
+    type: "link" as const,
+    href: "/journal",
+  },
+  {
     label: "Capabilities",
     desc: "Finance · Technology / AI · Leadership",
     icon: "zap",

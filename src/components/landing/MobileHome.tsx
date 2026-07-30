@@ -524,22 +524,26 @@ function NavStrip() {
   const label: CSSProperties = mono(10.5, "0.14em", "var(--ys-text)");
   const sub: CSSProperties = mono(8, "0.1em", "var(--ys-text-soft)");
   return (
-    <div className="grid grid-cols-4" style={{ background: "var(--ys-surface-muted)", gap: 1 }}>
+    <div className="grid grid-cols-5" style={{ background: "var(--ys-surface-muted)", gap: 1 }}>
       <Link href="/work" className={cell} style={{ background: "var(--ys-surface)" }}>
-        <span style={label}>Work Hub</span>
+        <span style={label}>Work</span>
         <span style={sub}>12 studies</span>
       </Link>
       <Link href="/thinking" className={cell} style={{ background: "var(--ys-surface)" }}>
         <span style={label}>Thinking</span>
-        <span style={sub}>Architecture notes</span>
+        <span style={sub}>12 notes</span>
+      </Link>
+      <Link href="/journal" className={cell} style={{ background: "var(--ys-surface)" }}>
+        <span style={label}>Journal</span>
+        <span style={sub}>Weekly</span>
       </Link>
       <Link href="/resources" className={cell} style={{ background: "var(--ys-surface)" }}>
         <span style={label}>Resources</span>
-        <span style={sub}>Investor directory</span>
+        <span style={sub}>Investors</span>
       </Link>
       <button onClick={() => scrollToId("mobile-contact")} className={cell} style={{ background: "var(--ys-surface)" }}>
         <span style={label}>Contact</span>
-        <span style={sub}>Book a call</span>
+        <span style={sub}>Book call</span>
       </button>
     </div>
   );
