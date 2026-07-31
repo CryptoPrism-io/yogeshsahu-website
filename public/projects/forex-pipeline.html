@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forex Data Pipeline // yogeshsahu.xyz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/project.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">// yogeshsahu.xyz</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/#about">about</a></li>
+        <li><a href="/#projects">projects</a></li>
+        <li><a href="/#blog">blog</a></li>
+        <li><a href="/#contact">contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="project-hero reveal">
+    <a href="/" class="back-link">← back_to_portfolio</a>
+    <div class="hero-tag">CASE STUDY // DATA PIPELINE</div>
+    <h1 class="project-title">FOREX DATA PIPELINE</h1>
+    <p class="project-tagline">Automated FX market data ingestion — economic calendar scraping to session dashboards</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="stat-value">4</span>
+        <span class="stat-label">FX Sessions</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-value">Economic</span>
+        <span class="stat-label">Calendar</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-value">Automated</span>
+        <span class="stat-label">Ingestion</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-value">Session</span>
+        <span class="stat-label">Overlap Detection</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAYOUT -->
+  <div class="project-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="project-sidebar">
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-card-title">// stack</div>
+        <ul class="stack-list">
+          <li>Python</li>
+          <li>BeautifulSoup / Requests</li>
+          <li>PostgreSQL</li>
+          <li>Pandas</li>
+          <li>pytz / zoneinfo</li>
+          <li>Matplotlib / Plotly</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-card-title">// sessions tracked</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <span class="tl-dot tl-dot--cyan"></span>
+            <span class="tl-text">Sydney (22:00–07:00 UTC)</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot tl-dot--cyan"></span>
+            <span class="tl-text">Tokyo (00:00–09:00 UTC)</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot tl-dot--cyan"></span>
+            <span class="tl-text">London (08:00–17:00 UTC)</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot tl-dot--cyan"></span>
+            <span class="tl-text">New York (13:00–22:00 UTC)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-card-title">// event impact levels</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <span class="tl-dot tl-dot--red"></span>
+            <span class="tl-text">High Impact</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot tl-dot--amber"></span>
+            <span class="tl-text">Medium Impact</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot"></span>
+            <span class="tl-text">Low Impact</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-card-title">// links</div>
+        <div class="sidebar-links">
+          <a href="https://github.com/CryptoPrism-io" class="sidebar-link" target="_blank" rel="noopener">
+            <span class="link-icon">⌥</span> GitHub Org
+          </a>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="project-main">
+
+      <!-- THE PROBLEM -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; the_problem</h2>
+        <p class="doc-p">
+          Forex data is genuinely scattered. Economic calendars live on ForexFactory — behind a web interface
+          designed for human browsing, not programmatic access. Session timings exist in blog posts and
+          spreadsheets. Volatility windows get passed around as rules of thumb.
+        </p>
+        <div class="callout">
+          There was no single source of truth for when to trade and what events to watch. Every decision
+          required tabbing between ForexFactory, a timezone converter, and a manually-updated spreadsheet.
+        </div>
+        <p class="doc-p">
+          The data problem wasn't lack of data — it was fragmentation. ForexFactory has excellent event data.
+          Session overlap calculations are pure math. Neither was hard in isolation. The gap was a pipeline
+          that pulled it all together into a unified, queryable, always-current view.
+        </p>
+      </section>
+
+      <!-- MY APPROACH -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; my_approach</h2>
+        <p class="doc-p">
+          Three-layer architecture, each layer with a single responsibility:
+        </p>
+        <ul class="approach-list">
+          <li class="challenge-item">
+            <span class="ci-label">Layer 1 // ForexFactory Scraper</span>
+            <span class="ci-desc">Scrapes economic events with impact level (high/medium/low), currency affected, actual vs forecast vs previous values, and event time. Handles pagination across weekly views. Respectful rate limiting prevents bans. Session handling maintains cookies across requests.</span>
+          </li>
+          <li class="challenge-item">
+            <span class="ci-label">Layer 2 // Normalization Pipeline</span>
+            <span class="ci-desc">Raw scraped data lands in a staging table. The pipeline normalizes: timezone conversion to UTC, impact level classification, currency pair tagging, null handling for unreleased actual values. Output is a clean events table ready for querying.</span>
+          </li>
+          <li class="challenge-item">
+            <span class="ci-label">Layer 3 // Session Dashboard</span>
+            <span class="ci-desc">Computes live session status (open/closed), overlap windows (London/NY is the key one — 70% of daily volume), and surfaces upcoming high-impact events in the next N hours. Built to be queried, not just displayed.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ARCHITECTURE -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; architecture</h2>
+        <pre class="arch-block">
+┌────────────────────────────────────────────────┐
+│               FOREXFACTORY.COM                  │
+│  Weekly calendar pages (impact, currency,       │
+│  actual, forecast, previous, event time)        │
+└──────────────────────┬─────────────────────────┘
+                       │  HTTP + session cookies
+                       ▼
+┌────────────────────────────────────────────────┐
+│              SCRAPER LAYER                      │
+│  BeautifulSoup HTML parser                      │
+│  Rate-limited requests (respectful crawling)    │
+│  Session handling + weekly pagination           │
+└──────────────────────┬─────────────────────────┘
+                       │  raw event rows
+                       ▼
+┌────────────────────────────────────────────────┐
+│           NORMALIZATION PIPELINE                │
+│  UTC timezone conversion                        │
+│  Impact level classification (H/M/L)            │
+│  Null handling for unreleased actuals           │
+│  Currency pair tagging                          │
+└──────────┬───────────────────────┬─────────────┘
+           │                       │
+           ▼                       ▼
+┌──────────────────┐    ┌──────────────────────┐
+│   PostgreSQL /   │    │   SESSION ENGINE      │
+│   Storage Layer  │    │  Sydney / Tokyo /     │
+│   (events table) │    │  London / New York    │
+└──────────┬───────┘    │  overlap detection   │
+           │            │  DST-aware UTC math  │
+           └──────┬─────┘                      │
+                  ▼                            │
+┌─────────────────────────────────────────────┘
+│           SESSION DASHBOARD
+│  Live session status (open / closed)
+│  Overlap windows highlighted
+│  Upcoming high-impact events (next N hrs)
+│  Volatility window alerts
+└─────────────────────────────────────────────
+        </pre>
+      </section>
+
+      <!-- HARD CHALLENGES -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; hard_challenges</h2>
+
+        <div class="challenge-item">
+          <span class="ci-label">01 // ForexFactory anti-scraping</span>
+          <span class="ci-desc">
+            ForexFactory doesn't publish an API. The site uses JavaScript-rendered tables in some views
+            and standard HTML in others — inconsistent across weeks. The solution was: always request the
+            HTML calendar view directly (not the AJAX endpoint), maintain persistent sessions with realistic
+            headers, and apply per-request delays with jitter. Aggressive crawling triggers 429s; respectful
+            crawling doesn't. This has held stable across multiple months of operation.
+          </span>
+        </div>
+
+        <div class="challenge-item">
+          <span class="ci-label">02 // Timezone hell — DST, UTC offsets, forex session times</span>
+          <span class="ci-desc">
+            Forex session open/close times are defined in local time (London opens at 08:00 London time),
+            but DST shifts that UTC offset twice a year. North American DST and European DST don't switch
+            on the same day, creating a brief annual window where the London/NY overlap is miscalculated
+            if you use fixed offsets. The fix: store everything in UTC. All session boundaries are computed
+            dynamically using pytz/zoneinfo aware datetimes — never hardcoded UTC offsets.
+          </span>
+        </div>
+
+        <div class="challenge-item">
+          <span class="ci-label">03 // Reliable impact level classification from scraped HTML</span>
+          <span class="ci-desc">
+            ForexFactory encodes impact level as a CSS class on a bull icon element — not as text.
+            The classes are: "high", "medium", "low", and "holiday". These CSS class names have been
+            stable, but the surrounding DOM structure has changed at least twice. The scraper targets
+            the icon element specifically and maps class names to enum values, with a fallback to "unknown"
+            and an alert when a new class appears — making future DOM changes detectable immediately.
+          </span>
+        </div>
+
+      </section>
+
+      <!-- RESULTS -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; results</h2>
+        <div class="result-grid">
+          <div class="result-card">
+            <span class="result-value">4</span>
+            <span class="result-metric">FX Sessions Tracked</span>
+            <span class="result-note">Sydney, Tokyo, London, New York — live open/close status</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">3</span>
+            <span class="result-metric">Impact Levels</span>
+            <span class="result-note">High / Medium / Low — classified from ForexFactory HTML</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">Auto</span>
+            <span class="result-metric">Economic Calendar</span>
+            <span class="result-note">Weekly ForexFactory scrape — no manual updates required</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">Live</span>
+            <span class="result-metric">Session Overlap Alerts</span>
+            <span class="result-note">London/NY overlap surfaced — highest volume window</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- LESSONS LEARNED -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; lessons_learned</h2>
+        <p class="doc-p">
+          Timezone handling in finance is genuinely hard. The correct approach is non-negotiable: store
+          everything in UTC, convert to local time only at the display layer. Any shortcut — fixed UTC
+          offsets, local time storage, "it works most of the year" logic — will fail during DST transitions
+          at exactly the moment you're watching a high-impact news release.
+        </p>
+        <div class="callout">
+          London/New York session overlap (13:00–17:00 UTC) accounts for roughly 70% of daily FX volume.
+          This window deserves its own UI emphasis — it's not just another overlap, it's the trading session.
+        </div>
+        <p class="doc-p">
+          Scraping doesn't have to be adversarial. Respectful rate limiting, real session handling, and
+          targeting stable HTML structures (not JavaScript-rendered state) produces scrapers that run for
+          months without breaking. The investment in resilience upfront beats debugging silent failures later.
+        </p>
+        <p class="doc-p">
+          The dashboard's value isn't in any individual data point — it's in having all three layers
+          (events, sessions, overlaps) queryable in one place. The integration is the product.
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span class="footer-left">// yogeshsahu.xyz</span>
+    <span class="footer-right">© 2026 Yogesh Sahu — built in the terminal</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('nav-open');
+      hamburger.classList.toggle('ham-open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close menu on nav link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('nav-open');
+        hamburger.classList.remove('ham-open');
+      });
+    });
+  </script>
+
+</body>
+</html>

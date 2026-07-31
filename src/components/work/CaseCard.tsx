@@ -8,11 +8,18 @@ import { BRAND_SVG_MAP, BrandSvg } from "@/lib/brand-svgs";
 import { caseStudies } from "@/data/case-studies";
 
 const MotionLink = motion(Link);
+const MotionA = motion.a;
 
 export default function CaseCard({ project }: { project: Project }) {
+  const isExternalDoc = Boolean(project.htmlHref);
+  const El = isExternalDoc ? MotionA : MotionLink;
+  const linkProps = isExternalDoc
+    ? { href: project.htmlHref!, target: "_blank" as const, rel: "noopener noreferrer" }
+    : { href: `/projects/${project.id}` };
+
   return (
-    <MotionLink
-      href={`/projects/${project.id}`}
+    <El
+      {...linkProps}
       className="relative flex h-full flex-col overflow-hidden"
       whileHover={{ y: -3, boxShadow: "0 24px 44px -30px rgba(42,23,15,0.5)" }}
       whileTap={{ scale: 0.99 }}
@@ -118,7 +125,15 @@ export default function CaseCard({ project }: { project: Project }) {
             {project.statLabel}
           </span>
         </div>
+        {isExternalDoc && (
+          <span
+            className="mt-2 text-[9px] uppercase tracking-[0.12em]"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ys-accent-strong)" }}
+          >
+            Internal tool · Deep dive ↗
+          </span>
+        )}
       </div>
-    </MotionLink>
+    </El>
   );
 }

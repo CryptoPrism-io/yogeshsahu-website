@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sentiment Backtest Engine // yogeshsahu.xyz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/project.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">// yogeshsahu.xyz</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/#about">about</a></li>
+        <li><a href="/#projects">projects</a></li>
+        <li><a href="/#blog">blog</a></li>
+        <li><a href="/#contact">contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="project-hero reveal">
+    <a href="/" class="back-link">← back_to_portfolio</a>
+    <div class="hero-tag">CASE STUDY // BACKTEST ENGINE</div>
+    <h1 class="project-title">SENTIMENT BACKTEST ENGINE</h1>
+    <p class="project-tagline">Vectorized long/short crypto backtesting driven by NLP sentiment signals</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="stat-value">3</span>
+        <span class="stat-label">Strategies</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-value">vectorbt</span>
+        <span class="stat-label">Powered</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-value">Long + Short</span>
+        <span class="stat-label">Signals</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-value">Ratio</span>
+        <span class="stat-label">Validated Entries</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAYOUT -->
+  <div class="project-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="project-sidebar">
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-card-title">// stack</div>
+        <ul class="stack-list">
+          <li>Python 3.12+</li>
+          <li>vectorbt</li>
+          <li>PostgreSQL</li>
+          <li>SQLAlchemy</li>
+          <li>Pandas</li>
+          <li>NumPy</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-card-title">// timeline</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <span class="tl-dot"></span>
+            <span class="tl-text">v1.0.0 Production Release</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot"></span>
+            <span class="tl-text">4-tuple signal extension</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot"></span>
+            <span class="tl-text">Ratio validation layer</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot"></span>
+            <span class="tl-text">CLI strategy discovery</span>
+          </div>
+          <div class="timeline-item">
+            <span class="tl-dot"></span>
+            <span class="tl-text">4 analysis utilities shipped</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-card-title">// databases</div>
+        <ul class="stack-list">
+          <li>cp_ai (indicators)</li>
+          <li>cp_backtest_h (OHLCV)</li>
+          <li>FE_RATIOS table</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card reveal">
+        <div class="sidebar-card-title">// links</div>
+        <div class="sidebar-links">
+          <a href="https://github.com/CryptoPrism-io/CryptoPrism-DB-Backtest" class="sidebar-link" target="_blank" rel="noopener">
+            <span class="link-icon">⌥</span> GitHub Repo
+          </a>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="project-main">
+
+      <!-- THE PROBLEM -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; the_problem</h2>
+        <p class="doc-p">
+          Most backtesting frameworks are long-only. They assume you buy low and sell high — full stop.
+          But crypto is different: sentiment swings hard, and short-side alpha is real during bearish regimes.
+          The problem was that no off-the-shelf tool could simultaneously:
+        </p>
+        <div class="callout">
+          Integrate NLP sentiment signals with financial ratio validation — and run both long and short strategies in the same vectorized engine without lookahead bias.
+        </div>
+        <p class="doc-p">
+          Raw sentiment signals are noisy. A bearish tweet score doesn't mean the coin is a short — you need
+          ratio context (beta, omega) to confirm conviction. Off-the-shelf tools weren't built for this layered signal logic.
+          Building on vectorbt meant extending it, not forking it.
+        </p>
+      </section>
+
+      <!-- MY APPROACH -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; my_approach</h2>
+        <p class="doc-p">
+          The design principle was separation of concerns. Strategy files emit signals — they don't know
+          about execution, risk, or portfolio accounting. The engine handles everything downstream.
+        </p>
+        <ul class="approach-list">
+          <li class="challenge-item">
+            <span class="ci-label">Signal Extension</span>
+            <span class="ci-desc">Extended vectorbt to support 4-tuple signals: (entry_long, exit_long, entry_short, exit_short). The engine auto-detects whether a strategy returns a 2-tuple or 4-tuple and routes accordingly — no breaking changes to existing strategies.</span>
+          </li>
+          <li class="challenge-item">
+            <span class="ci-label">Ratio Filter Layer</span>
+            <span class="ci-desc">Every sentiment signal passes through a validation gate against FE_RATIOS data (beta/omega ratios). Only signals that meet ratio thresholds proceed to entry. Forward-fill is applied at pipeline start — never inside the signal loop.</span>
+          </li>
+          <li class="challenge-item">
+            <span class="ci-label">Strategy Separation</span>
+            <span class="ci-desc">Strategies live in a strategies/ folder and are discovered automatically via CLI. Adding a new strategy requires zero changes to the engine — just drop a class in the folder.</span>
+          </li>
+          <li class="challenge-item">
+            <span class="ci-label">MA Baseline Strategies</span>
+            <span class="ci-desc">MATimeframes (8h/24h dual crossover) and MAOnlyFast strategies give a non-sentiment baseline to compare against — critical for knowing if sentiment actually adds alpha.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ARCHITECTURE -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; architecture</h2>
+        <pre class="arch-block">
+┌─────────────────────────────────────────────────────────┐
+│                  DATA SOURCES                           │
+│   cp_ai (NLP sentiment)    cp_backtest_h (OHLCV)        │
+└──────────────┬──────────────────────┬───────────────────┘
+               │                      │
+               ▼                      ▼
+┌──────────────────────┐   ┌──────────────────────────┐
+│   FE_RATIOS Table    │   │    OHLCV Data Loader     │
+│  beta / omega ratios │   │  (forward-fill aligned)  │
+└──────────┬───────────┘   └────────────┬─────────────┘
+           │                            │
+           ▼                            │
+┌──────────────────────┐               │
+│  Ratio Filter Gate   │◄──────────────┘
+│  (validates signals) │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────────────────────────┐
+│         STRATEGY SIGNAL GENERATION        │
+│  SentimentLong / SentimentShort /        │
+│  SentimentLongShort / MA strategies      │
+│  (auto-discovered from strategies/)      │
+└──────────────────┬───────────────────────┘
+                   │  2-tuple or 4-tuple signals
+                   ▼
+┌──────────────────────────────────────────┐
+│         EXTENDED VECTORBT ENGINE          │
+│  Portfolio simulation, position sizing,  │
+│  mutual exclusion enforcement            │
+└──────────────────┬───────────────────────┘
+                   │
+                   ▼
+┌──────────────────────────────────────────┐
+│         PERFORMANCE ANALYTICS             │
+│  Sharpe · Profit Factor · Win Rate       │
+│  Max Drawdown · Period Comparison        │
+└──────────────────┬───────────────────────┘
+                   │
+                   ▼
+┌──────────────────────────────────────────┐
+│         POSTGRESQL RESULTS               │
+│  cp_backtest_h — results persisted       │
+│  + 4 analysis utility scripts            │
+└──────────────────────────────────────────┘
+        </pre>
+      </section>
+
+      <!-- HARD CHALLENGES -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; hard_challenges</h2>
+
+        <div class="challenge-item">
+          <span class="ci-label">01 // Extending vectorbt without breaking 2-tuple strategies</span>
+          <span class="ci-desc">
+            vectorbt's portfolio simulation API expects a specific signal shape. Adding short-side support
+            required wrapping the portfolio call to detect signal dimensionality at runtime. If a strategy
+            returns a 2-tuple, the engine routes to the standard long-only path. 4-tuple goes through the
+            extended long/short path. Both paths share the same analytics output — callers see no difference.
+          </span>
+        </div>
+
+        <div class="challenge-item">
+          <span class="ci-label">02 // Lookahead bias in ratio forward-fill</span>
+          <span class="ci-desc">
+            Forward-filling ratio data sounds simple until you realise that Pandas ffill() on a misaligned
+            index can silently peek at future values if the join isn't carefully ordered. The fix: forward-fill
+            is computed once on the full ratio time series before any signal generation begins — never inline
+            during backtesting loops. The filled series is then sliced to the backtest window, ensuring no
+            future data can bleed into past signals.
+          </span>
+        </div>
+
+        <div class="challenge-item">
+          <span class="ci-label">03 // Mutual exclusion in SentimentLongShort</span>
+          <span class="ci-desc">
+            The combined strategy must never simultaneously emit a long entry and a short entry for the same
+            coin on the same bar. This is a correctness constraint, not just a risk constraint. Solved by
+            computing long signals and short signals independently, then applying a mutual exclusion mask:
+            if both fire on the same timestep, both are suppressed and flagged for review.
+          </span>
+        </div>
+
+        <div class="challenge-item">
+          <span class="ci-label">04 // Data alignment across two databases</span>
+          <span class="ci-desc">
+            cp_ai stores sentiment indicators and cp_backtest_h stores OHLCV — different schemas, potentially
+            different timezone conventions. Alignment required explicit UTC normalisation on both sides before
+            any merge, plus assertion checks that the merged DataFrame has no unexpected NaN spikes that would
+            indicate a missed join row.
+          </span>
+        </div>
+
+      </section>
+
+      <!-- RESULTS -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; results</h2>
+        <div class="result-grid">
+          <div class="result-card">
+            <span class="result-value">3</span>
+            <span class="result-metric">Live Strategies</span>
+            <span class="result-note">Long, Short, Combined — all production-deployed</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">4</span>
+            <span class="result-metric">Analysis Tools</span>
+            <span class="result-note">Trade extraction, breakdown, period compare, portfolio metrics</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">Zero</span>
+            <span class="result-metric">Lookahead Bias</span>
+            <span class="result-note">Forward-fill architecture guarantees clean signals</span>
+          </div>
+          <div class="result-card">
+            <span class="result-value">CLI</span>
+            <span class="result-metric">Strategy Discovery</span>
+            <span class="result-note">--list-strategies, --list-ranges, coin/strategy filters</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- LESSONS LEARNED -->
+      <section class="doc-section reveal">
+        <h2 class="section-title">&gt; lessons_learned</h2>
+        <p class="doc-p">
+          vectorbt's portfolio simulation is genuinely fast — backtesting across hundreds of coins and
+          thousands of bars runs in seconds rather than minutes. But the API is dense. The learning curve
+          is steep, and the documentation assumes you already know what a portfolio accessor is. Worth it.
+        </p>
+        <p class="doc-p">
+          Ratio validation cuts false positives dramatically. Without the beta/omega gate, raw sentiment
+          signals produce a lot of noise entries — especially during sideways markets where sentiment swings
+          but price doesn't follow. The filter is the difference between a signal and a trade.
+        </p>
+        <div class="callout">
+          Period comparison analysis (bull vs bear market regimes) is as important as overall Sharpe.
+          A strategy with a mediocre Sharpe might have exceptional bear-market short alpha that the aggregate
+          number hides. The period comparison script was added specifically to surface this.
+        </div>
+        <p class="doc-p">
+          Auto-discovery of strategy files from a folder was a small engineering decision that paid large
+          dividends — it made experimentation frictionless and kept the engine/strategy boundary clean.
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span class="footer-left">// yogeshsahu.xyz</span>
+    <span class="footer-right">© 2026 Yogesh Sahu — built in the terminal</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('nav-open');
+      hamburger.classList.toggle('ham-open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close menu on nav link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('nav-open');
+        hamburger.classList.remove('ham-open');
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -17,10 +17,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const projectRoutes: MetadataRoute.Sitemap = projects.map((p) => ({
-    url: `${BASE}/projects/${p.id}`,
+    url: p.htmlHref ? `${BASE}${p.htmlHref}` : `${BASE}/projects/${p.id}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
-    priority: 0.7,
+    priority: p.htmlHref ? 0.6 : 0.7,
   }));
 
   const postRoutes: MetadataRoute.Sitemap = posts.map((post) => ({

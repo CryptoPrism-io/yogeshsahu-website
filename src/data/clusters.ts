@@ -1,4 +1,4 @@
-export type ClusterId = 'A' | 'B' | 'C';
+export type ClusterId = 'A' | 'B' | 'C' | 'D';
 
 export interface ClusterMeta {
   id: ClusterId;
@@ -37,9 +37,18 @@ export const CLUSTERS: Record<ClusterId, ClusterMeta> = {
       'Made consumer bets across edtech, cultural AI, civic tech and gaming — chose the audience, the format, and the metric of success.',
     order: 2,
   },
+  D: {
+    id: 'D',
+    slug: 'backend-and-internal-tools',
+    name: 'Backend & Internal Tools',
+    archetype: 'Data Engineer',
+    thesis:
+      'The invisible infrastructure — data pipelines, scrapers, backtests, and internal systems with no website, but that the rest of the stack runs on.',
+    order: 4,
+  },
 };
 
-export const CLUSTER_ORDER: ClusterId[] = ['A', 'C', 'B'];
+export const CLUSTER_ORDER: ClusterId[] = ['A', 'C', 'B', 'D'];
 
 export function getClusterMeta(id: ClusterId): ClusterMeta {
   return CLUSTERS[id];
