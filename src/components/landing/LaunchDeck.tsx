@@ -544,10 +544,10 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                   marginBottom: 4,
                 }}
               >
-                <span style={mono(11, "0.15em", "var(--ys-text-soft)")}>Writing & Resources</span>
+                <span style={mono(11, "0.15em", "var(--ys-text-soft)")}>Log & Resources</span>
               </div>
               <a
-                href="/writing"
+                href="/log"
                 className="ip-lift"
                 style={{
                   display: "flex",
@@ -558,7 +558,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                   textDecoration: "none",
                 }}
               >
-                <span style={mono(10.5, "0.12em", "var(--ys-text)")}>Writing</span>
+                <span style={mono(10.5, "0.12em", "var(--ys-text)")}>Log</span>
                 <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", color: "var(--ys-accent-strong)" }}>
                   15 posts · tagged →
                 </span>

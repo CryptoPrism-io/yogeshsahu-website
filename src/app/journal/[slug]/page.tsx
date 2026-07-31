@@ -16,9 +16,9 @@ export default async function JournalPostRedirectPage({
   const { slug } = await params;
   return (
     <RedirectClient
-      to={`/writing/${slug}`}
+      to={`/log/${slug}`}
       title="Journal post moved"
-      body="Journal posts now live under Writing, in one tagged thread."
+      body="Journal posts now live under the Log, in one tagged thread."
     />
   );
 }

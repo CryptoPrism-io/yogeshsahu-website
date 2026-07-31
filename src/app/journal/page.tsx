@@ -9,12 +9,12 @@ export default function JournalRedirectPage() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/writing");
+    router.replace("/log");
   }, [router]);
 
   return (
     <main className="h-screen overflow-y-auto relative" style={{ background: "var(--ys-surface)", color: "var(--ys-text)" }}>
-      <meta httpEquiv="refresh" content="0; url=/writing" />
+      <meta httpEquiv="refresh" content="0; url=/log" />
 
       <div className="fixed top-4 left-4 z-50 hidden max-[767px]:block">
         <MobileNav />
@@ -55,18 +55,18 @@ export default function JournalRedirectPage() {
           className="mb-4 font-bold uppercase"
           style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)", fontSize: "clamp(28px,5vw,48px)", lineHeight: 0.95, letterSpacing: "-0.025em" }}
         >
-          Journal is now Writing
+          Journal is now Log
         </h1>
         <p className="mb-8 text-[15px] leading-[1.7]" style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}>
           Weekly reflections and architecture notes now live together in one
           thread, filterable by type and tag.
         </p>
         <Link
-          href="/writing"
+          href="/log"
           className="inline-block px-6 py-3 text-[12px] uppercase tracking-[0.14em] transition-opacity hover:opacity-80"
           style={{ fontFamily: "var(--font-mono)", fontWeight: 600, background: "var(--ys-highlight)", color: "var(--ys-surface)" }}
         >
-          Go to Writing →
+          Go to Log →
         </Link>
       </div>
     </main>

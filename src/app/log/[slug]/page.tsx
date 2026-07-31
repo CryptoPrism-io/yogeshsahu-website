@@ -17,19 +17,19 @@ export async function generateMetadata({
   const post = getPost(slug);
   if (!post) return { title: "Not Found — yogeshsahu.xyz" };
   return {
-    title: `${post.title} — Writing`,
+    title: `${post.title} — Log`,
     description: post.excerpt,
     openGraph: {
-      title: `${post.title} — Writing`,
+      title: `${post.title} — Log`,
       description: post.excerpt,
       type: "article",
       publishedTime: post.date,
-      url: `https://yogeshsahu.xyz/writing/${post.slug}`,
+      url: `https://yogeshsahu.xyz/log/${post.slug}`,
     },
   };
 }
 
-export default async function WritingPostPage({
+export default async function LogPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -71,17 +71,17 @@ export default async function WritingPostPage({
           className="text-[9px] uppercase tracking-[0.15em]"
           style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
         >
-          Writing · {post.kind === "journal" ? "Journal" : "Thinking"}
+          Log · {post.kind === "journal" ? "Journal" : "Thinking"}
         </span>
       </nav>
 
       <article className="mx-auto max-w-[760px] px-5 pt-24 pb-16">
         <Link
-          href="/writing"
+          href="/log"
           className="mb-8 inline-block text-[9px] uppercase tracking-[0.15em] transition-opacity hover:opacity-60"
           style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
         >
-          ← Writing
+          ← Log
         </Link>
 
         <div className="mb-3 flex flex-wrap items-center gap-3">
@@ -166,7 +166,7 @@ export default async function WritingPostPage({
         >
           {prev ? (
             <Link
-              href={`/writing/${prev.slug}`}
+              href={`/log/${prev.slug}`}
               className="transition-opacity hover:opacity-70"
               style={{ textDecoration: "none", color: "inherit" }}
             >
@@ -188,7 +188,7 @@ export default async function WritingPostPage({
           )}
           {next && (
             <Link
-              href={`/writing/${next.slug}`}
+              href={`/log/${next.slug}`}
               className="transition-opacity hover:opacity-70 sm:text-right"
               style={{ textDecoration: "none", color: "inherit" }}
             >

@@ -360,16 +360,16 @@ function SelectedWork() {
       {/* writing + resources cross-links */}
       <div className="border-t" style={{ borderColor: "var(--ys-surface-muted)" }}>
         <div className="px-[22px] pb-1 pt-6" style={mono(9.5, "0.2em", "var(--ys-text-soft)")}>
-          Writing & Resources
+          Log & Resources
         </div>
         <Link
-          href="/writing"
+          href="/log"
           className="block border-t px-[22px] py-[14px] active:bg-[var(--ys-surface-strong)]"
           style={{ borderColor: "var(--ys-surface-muted)" }}
         >
           <div className="flex items-baseline justify-between">
             <span className="text-[15px] font-bold" style={{ fontFamily: HEAD, color: "var(--ys-text)", letterSpacing: "-0.01em" }}>
-              Writing
+              Log
             </span>
             <span style={mono(9.5, "0.1em", "var(--ys-accent)")}>15 posts →</span>
           </div>
@@ -566,8 +566,8 @@ function NavStrip() {
         <span style={label}>Work</span>
         <span style={sub}>12 studies</span>
       </Link>
-      <Link href="/writing" className={cell} style={{ background: "var(--ys-surface)" }}>
-        <span style={label}>Writing</span>
+      <Link href="/log" className={cell} style={{ background: "var(--ys-surface)" }}>
+        <span style={label}>Log</span>
         <span style={sub}>15 posts</span>
       </Link>
       <Link href="/resources" className={cell} style={{ background: "var(--ys-surface)" }}>

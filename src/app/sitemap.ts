@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${BASE}/`, lastModified: now, changeFrequency: "monthly", priority: 1 },
     { url: `${BASE}/work`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE}/writing`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/log`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/resources`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/investors`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
   ];
@@ -25,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const postRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${BASE}/writing/${post.slug}`,
+    url: `${BASE}/log/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: "yearly" as const,
     priority: 0.5,
