@@ -356,6 +356,58 @@ function SelectedWork() {
         <span style={mono(12, "0.14em", "var(--ys-surface)")}>See all 12 case studies</span>
         <span style={{ fontFamily: HEAD, fontSize: 18 }}>→</span>
       </Link>
+
+      {/* writing + resources cross-links */}
+      <div className="border-t" style={{ borderColor: "var(--ys-surface-muted)" }}>
+        <div className="px-[22px] pb-1 pt-6" style={mono(9.5, "0.2em", "var(--ys-text-soft)")}>
+          Writing & Resources
+        </div>
+        <Link
+          href="/thinking"
+          className="block border-t px-[22px] py-[14px] active:bg-[var(--ys-surface-strong)]"
+          style={{ borderColor: "var(--ys-surface-muted)" }}
+        >
+          <div className="flex items-baseline justify-between">
+            <span className="text-[15px] font-bold" style={{ fontFamily: HEAD, color: "var(--ys-text)", letterSpacing: "-0.01em" }}>
+              Thinking
+            </span>
+            <span style={mono(9.5, "0.1em", "var(--ys-accent)")}>12 notes →</span>
+          </div>
+          <p className="mt-1 text-[12.5px]" style={{ fontFamily: BODY, lineHeight: 1.5, color: "var(--ys-text-soft)" }}>
+            Architecture decisions and cost lessons.
+          </p>
+        </Link>
+        <Link
+          href="/journal"
+          className="block border-t px-[22px] py-[14px] active:bg-[var(--ys-surface-strong)]"
+          style={{ borderColor: "var(--ys-surface-muted)" }}
+        >
+          <div className="flex items-baseline justify-between">
+            <span className="text-[15px] font-bold" style={{ fontFamily: HEAD, color: "var(--ys-text)", letterSpacing: "-0.01em" }}>
+              Journal
+            </span>
+            <span style={mono(9.5, "0.1em", "var(--ys-accent)")}>Weekly →</span>
+          </div>
+          <p className="mt-1 text-[12.5px]" style={{ fontFamily: BODY, lineHeight: 1.5, color: "var(--ys-text-soft)" }}>
+            Friday check-in on building, reading, and figuring things out.
+          </p>
+        </Link>
+        <Link
+          href="/resources"
+          className="block border-t px-[22px] py-[14px] active:bg-[var(--ys-surface-strong)]"
+          style={{ borderColor: "var(--ys-surface-muted)" }}
+        >
+          <div className="flex items-baseline justify-between">
+            <span className="text-[15px] font-bold" style={{ fontFamily: HEAD, color: "var(--ys-text)", letterSpacing: "-0.01em" }}>
+              Resources
+            </span>
+            <span style={mono(9.5, "0.1em", "var(--ys-accent)")}>Hub →</span>
+          </div>
+          <p className="mt-1 text-[12.5px]" style={{ fontFamily: BODY, lineHeight: 1.5, color: "var(--ys-text-soft)" }}>
+            Founder + builder playbooks, investors, toolkit.
+          </p>
+        </Link>
+      </div>
     </section>
   );
 }
@@ -537,8 +589,8 @@ function NavStrip() {
         <span style={label}>Journal</span>
         <span style={sub}>Weekly</span>
       </Link>
-      <Link href="/founders" className={cell} style={{ background: "var(--ys-surface)" }}>
-        <span style={label}>Founders</span>
+      <Link href="/resources" className={cell} style={{ background: "var(--ys-surface)" }}>
+        <span style={label}>Resources</span>
         <span style={sub}>Hub</span>
       </Link>
       <button onClick={() => scrollToId("mobile-contact")} className={cell} style={{ background: "var(--ys-surface)" }}>

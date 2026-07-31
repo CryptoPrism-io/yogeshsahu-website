@@ -64,11 +64,11 @@ const NAV_ITEMS = [
     id: "contact",
   },
   {
-    label: "Founders",
-    desc: "8.6K+ investors · Playbooks · Tools · Community",
+    label: "Resources",
+    desc: "Founder + Builder · Investors · Toolkit",
     icon: "bookOpen",
     type: "link" as const,
-    href: "/founders",
+    href: "/resources",
   },
 ];
 

@@ -531,6 +531,72 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                 Production-grade open-source repos — 1B+ datapoint data pipeline, FastAPI microservices, ML trading bot, and more.
               </p>
             </div>
+
+            {/* writing + resources cross-links */}
+            <div style={{ marginTop: 20, animation: `ip-rise .7s ${EASE} ${R[12]}s both` }}>
+              <div style={RULE(R[12])} />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  paddingTop: 14,
+                  marginBottom: 4,
+                }}
+              >
+                <span style={mono(11, "0.15em", "var(--ys-text-soft)")}>Writing & Resources</span>
+              </div>
+              <a
+                href="/thinking"
+                className="ip-lift"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "baseline",
+                  padding: "11px 0",
+                  borderBottom: "1px solid var(--ys-border)",
+                  textDecoration: "none",
+                }}
+              >
+                <span style={mono(10.5, "0.12em", "var(--ys-text)")}>Thinking</span>
+                <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", color: "var(--ys-accent-strong)" }}>
+                  12 architecture notes →
+                </span>
+              </a>
+              <a
+                href="/journal"
+                className="ip-lift"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "baseline",
+                  padding: "11px 0",
+                  borderBottom: "1px solid var(--ys-border)",
+                  textDecoration: "none",
+                }}
+              >
+                <span style={mono(10.5, "0.12em", "var(--ys-text)")}>Journal</span>
+                <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", color: "var(--ys-accent-strong)" }}>
+                  Weekly Friday check-in →
+                </span>
+              </a>
+              <a
+                href="/resources"
+                className="ip-lift"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "baseline",
+                  padding: "11px 0",
+                  textDecoration: "none",
+                }}
+              >
+                <span style={mono(10.5, "0.12em", "var(--ys-text)")}>Resources</span>
+                <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", color: "var(--ys-accent-strong)" }}>
+                  Founder + Builder hub →
+                </span>
+              </a>
+            </div>
           </section>
         </div>
       </article>

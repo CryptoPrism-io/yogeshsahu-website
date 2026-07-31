@@ -1,28 +1,22 @@
+"use client";
+
 import Link from "next/link";
-import type { Metadata } from "next";
-import FounderHubView from "@/components/resources/ResourcesView";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import MobileNav from "@/components/layout/MobileNav";
 
-export const metadata: Metadata = {
-  title: "Founder Hub — Yogesh Sahu",
-  description:
-    "A curated hub for founders and operators: 8,600+ global investors, founder playbooks for operating/hiring/fundraising/sales, pitch deck templates, tool recommendations, and community.",
-  openGraph: {
-    title: "Founder Hub — Yogesh Sahu",
-    description:
-      "Founder playbooks, investor directory, templates, tools, and community. Built by a 2× founder who's been through the mistakes.",
-    url: "https://yogeshsahu.xyz/founders",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Founder Hub — Yogesh Sahu",
-    description: "8,600+ investors, founder playbooks, templates, tools, and community.",
-  },
-};
+export default function FoundersRedirectPage() {
+  const router = useRouter();
 
-export default function FoundersPage() {
+  useEffect(() => {
+    router.replace("/resources");
+  }, [router]);
+
   return (
     <main className="h-screen overflow-y-auto relative" style={{ background: "var(--ys-surface)", color: "var(--ys-text)" }}>
+      {/* Meta refresh for crawlers / non-JS users */}
+      <meta httpEquiv="refresh" content="0; url=/resources" />
+
       <div className="fixed top-4 left-4 z-50 hidden max-[767px]:block">
         <MobileNav />
       </div>
@@ -50,51 +44,49 @@ export default function FoundersPage() {
           className="text-[9px] uppercase tracking-[0.15em]"
           style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
         >
-          Founder Hub
+          Redirecting...
         </span>
       </nav>
 
-      <div className="mx-auto max-w-[90vw] px-4 sm:px-6 lg:px-8 pt-24 pb-16 relative z-10">
-        <FounderHubView />
+      <div className="mx-auto max-w-[600px] px-5 pt-32 pb-16 text-center">
+        <p
+          className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em]"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-accent)" }}
+        >
+          Page moved
+        </p>
+        <h1
+          className="mb-4 font-bold uppercase"
+          style={{
+            fontFamily: "var(--font-headline)",
+            color: "var(--ys-text)",
+            fontSize: "clamp(28px,5vw,48px)",
+            lineHeight: 0.95,
+            letterSpacing: "-0.025em",
+          }}
+        >
+          Founders is now Resources
+        </h1>
+        <p
+          className="mb-8 text-[15px] leading-[1.7]"
+          style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
+        >
+          We renamed and expanded the hub. Founder content and builder content
+          now live together under Resources.
+        </p>
+        <Link
+          href="/resources"
+          className="inline-block px-6 py-3 text-[12px] uppercase tracking-[0.14em] transition-opacity hover:opacity-80"
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontWeight: 600,
+            background: "var(--ys-highlight)",
+            color: "var(--ys-surface)",
+          }}
+        >
+          Go to Resources →
+        </Link>
       </div>
-
-      <footer
-        className="px-10 py-[72px] relative z-10"
-        style={{ borderTop: "1px solid var(--ys-border)" }}
-      >
-        <div className="mx-auto max-w-[1180px] grid gap-8">
-          <p
-            className="m-0"
-            style={{
-              fontFamily: "var(--font-serif-display)",
-              fontSize: "clamp(1.75rem, 5vw, 3.25rem)",
-              lineHeight: 1,
-              letterSpacing: "-0.02em",
-              color: "var(--ys-text)",
-              maxWidth: "28ch",
-            }}
-          >
-            Build something they&apos;ll remember.
-          </p>
-          <div
-            className="flex justify-between items-baseline pt-2"
-            style={{ borderTop: "1px solid var(--ys-border)" }}
-          >
-            <span
-              className="text-[11px] font-bold uppercase tracking-[0.1em]"
-              style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
-            >
-              YS.
-            </span>
-            <span
-              className="text-[9px] uppercase tracking-[0.15em]"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-            >
-              yogeshsahu.xyz
-            </span>
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }

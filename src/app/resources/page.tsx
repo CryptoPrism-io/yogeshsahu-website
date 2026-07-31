@@ -1,22 +1,30 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import type { Metadata } from "next";
+import FounderHubView from "@/components/resources/ResourcesView";
 import MobileNav from "@/components/layout/MobileNav";
+import { founderPlaybooks } from "@/data/founder-playbooks";
+import { toolkit } from "@/data/toolkit";
 
-export default function ResourcesRedirectPage() {
-  const router = useRouter();
+export const metadata: Metadata = {
+  title: "Resources — Yogesh Sahu",
+  description:
+    "Two hubs, one place. For founders: 8,600+ investors, operating/fundraising/sales playbooks, deck templates, community. For builders: an engineering toolkit, hiring playbooks, and architecture notes.",
+  openGraph: {
+    title: "Resources — Yogesh Sahu",
+    description:
+      "Founder playbooks, investor directory, engineering toolkit, and community. Built by a 2× founder from the mistakes he actually made.",
+    url: "https://yogeshsahu.xyz/resources",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Resources — Yogesh Sahu",
+    description: "Founder Hub + Builder Hub: 8,600+ investors, playbooks, toolkit, community.",
+  },
+};
 
-  useEffect(() => {
-    router.replace("/founders");
-  }, [router]);
-
+export default function ResourcesPage() {
   return (
     <main className="h-screen overflow-y-auto relative" style={{ background: "var(--ys-surface)", color: "var(--ys-text)" }}>
-      {/* Meta refresh for crawlers / non-JS users */}
-      <meta httpEquiv="refresh" content="0; url=/founders" />
-
       <div className="fixed top-4 left-4 z-50 hidden max-[767px]:block">
         <MobileNav />
       </div>
@@ -44,50 +52,93 @@ export default function ResourcesRedirectPage() {
           className="text-[9px] uppercase tracking-[0.15em]"
           style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
         >
-          Redirecting...
+          Resources · Founder + Builder
         </span>
       </nav>
 
-      <div className="mx-auto max-w-[600px] px-5 pt-32 pb-16 text-center">
-        <p
-          className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-accent)" }}
-        >
-          Page moved
-        </p>
-        <h1
-          className="mb-4 font-bold uppercase"
-          style={{
-            fontFamily: "var(--font-headline)",
-            color: "var(--ys-text)",
-            fontSize: "clamp(28px,5vw,48px)",
-            lineHeight: 0.95,
-            letterSpacing: "-0.025em",
-          }}
-        >
-          Resources is now Founder Hub
-        </h1>
-        <p
-          className="mb-8 text-[15px] leading-[1.7]"
-          style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
-        >
-          We renamed and expanded the page. The investor directory is now one
-          tab inside a broader hub of playbooks, templates, tools, and
-          community for founders.
-        </p>
-        <Link
-          href="/founders"
-          className="inline-block px-6 py-3 text-[12px] uppercase tracking-[0.14em] transition-opacity hover:opacity-80"
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontWeight: 600,
-            background: "var(--ys-highlight)",
-            color: "var(--ys-surface)",
-          }}
-        >
-          Go to Founder Hub →
-        </Link>
+      <div className="mx-auto max-w-[90vw] px-4 sm:px-6 lg:px-8 pt-24 pb-16 relative z-10">
+        <FounderHubView />
       </div>
+
+      {/* JSON-LD structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: "Resources — Yogesh Sahu",
+            description:
+              "Founder and builder resources: investor directory, playbooks, toolkit, and community.",
+            url: "https://yogeshsahu.xyz/resources",
+            about: {
+              "@type": "Person",
+              name: "Yogesh Sahu",
+              description: "Founder, AI-native builder, CTO",
+            },
+            mainEntity: [
+              {
+                "@type": "ItemList",
+                name: "Founder Playbooks",
+                itemListElement: founderPlaybooks.map((p, i) => ({
+                  "@type": "ListItem",
+                  position: i + 1,
+                  name: p.title,
+                  url: `https://yogeshsahu.xyz/resources#${p.slug}`,
+                })),
+              },
+              {
+                "@type": "ItemList",
+                name: "Toolkit",
+                itemListElement: toolkit.map((t, i) => ({
+                  "@type": "ListItem",
+                  position: i + 1,
+                  name: t.name,
+                  url: t.url !== "#" ? t.url : undefined,
+                })),
+              },
+            ],
+          }),
+        }}
+      />
+
+      <footer
+        className="px-10 py-[72px] relative z-10"
+        style={{ borderTop: "1px solid var(--ys-border)" }}
+      >
+        <div className="mx-auto max-w-[1180px] grid gap-8">
+          <p
+            className="m-0"
+            style={{
+              fontFamily: "var(--font-serif-display)",
+              fontSize: "clamp(1.75rem, 5vw, 3.25rem)",
+              lineHeight: 1,
+              letterSpacing: "-0.02em",
+              color: "var(--ys-text)",
+              maxWidth: "28ch",
+            }}
+          >
+            Build something they&apos;ll remember.
+          </p>
+          <div
+            className="flex justify-between items-baseline pt-2"
+            style={{ borderTop: "1px solid var(--ys-border)" }}
+          >
+            <span
+              className="text-[11px] font-bold uppercase tracking-[0.1em]"
+              style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
+            >
+              YS.
+            </span>
+            <span
+              className="text-[9px] uppercase tracking-[0.15em]"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+            >
+              yogeshsahu.xyz
+            </span>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
