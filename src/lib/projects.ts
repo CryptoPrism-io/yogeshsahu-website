@@ -26,6 +26,7 @@ export interface Project {
   featured: boolean;
   href: string;
   githubHref: string;
+  hideGithub?: boolean;
   image?: string;
   gallery?: Gallery;
   reportHref?: string;
@@ -46,6 +47,7 @@ export const projects: Project[] = [
     featured: true,
     href: 'https://cryptoprism.io',
     githubHref: 'https://github.com/CryptoPrism-io/cryptoprism-onchain',
+    hideGithub: true,
     image: '/images/projects/cryptoprism-onchain/02-onchain.webp',
     gallery: {
       layout: 'wide',
@@ -71,6 +73,7 @@ export const projects: Project[] = [
     featured: true,
     href: 'https://cryptoprism.io',
     githubHref: 'https://github.com/CryptoPrism-io/cryptoprism-api',
+    hideGithub: true,
     image: '/images/projects/cryptoprism-api/01-dashboard.webp',
     gallery: {
       layout: 'wide',
@@ -266,6 +269,7 @@ export const projects: Project[] = [
     featured: false,
     href: 'https://cryptoprism.io',
     githubHref: 'https://github.com/CryptoPrism-io/cryptoprism-dashboard',
+    hideGithub: true,
     image: '/images/projects/cryptoprism-landing.webp',
   },
   {

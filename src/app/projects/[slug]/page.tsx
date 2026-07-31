@@ -175,7 +175,7 @@ export default async function ProjectPage({
               Live App
             </a>
           )}
-          {project.githubHref && (
+          {project.githubHref && !project.hideGithub && (
             <a
               href={project.githubHref}
               target="_blank"

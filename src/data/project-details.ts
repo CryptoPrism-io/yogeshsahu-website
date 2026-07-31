@@ -14,6 +14,7 @@ export interface ProjectDetail {
   language: string;
   href: string;
   githubHref: string;
+  hideGithub?: boolean;
   image?: string;
   gallery?: Gallery;
   reportHref?: string;
@@ -35,6 +36,7 @@ export const projectDetails: Record<string, ProjectDetail> = Object.fromEntries(
       language: p.language,
       href: p.href,
       githubHref: p.githubHref,
+      hideGithub: p.hideGithub,
       image: p.image,
       gallery: p.gallery,
       reportHref: p.reportHref,

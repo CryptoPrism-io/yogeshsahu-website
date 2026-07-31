@@ -72,7 +72,7 @@ export default function MenuBar() {
 
       <div className="flex items-center gap-5">
         <a
-          href="mailto:yogesh@cryptoprism.io?subject=Fractional%20CTO%20Diagnostic"
+          href="mailto:yogesh.sahu@cryptoprism.io?subject=Fractional%20CTO%20Diagnostic"
           className="focus-ring hidden items-center gap-2 text-[10px] tracking-wider transition-colors md:flex hover:opacity-90"
           aria-label="Email Yogesh for mandates"
           style={{ fontFamily: "var(--font-mono)", color: "#d8b8a0" }}

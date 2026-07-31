@@ -57,7 +57,7 @@ const COMMANDS: Record<string, string> = {
     "TimesFM Quant        -> Dissertation topper (82/100)",
   ].join("\n"),
   contact: [
-    "Email:    yogesh@cryptoprism.io",
+    "Email:    yogesh.sahu@cryptoprism.io",
     "LinkedIn: linkedin.com/in/yogeshsahu",
     "GitHub:   github.com/CryptoPrism-io",
     "Web:      yogeshsahu.xyz",
