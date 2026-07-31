@@ -59,6 +59,42 @@ const RULE = (delay: number): CSSProperties => ({
 
 const easeOutExpo = (x: number) => (x === 1 ? 1 : 1 - Math.pow(2, -10 * x));
 
+const CTA_PHRASES = ["Let's Talk", "Work With Me", "Deep Dive", "Connect Now"];
+
+function useTypewriter(phrases: string[], typeMs = 70, holdMs = 1400, deleteMs = 35) {
+  const [text, setText] = useState("");
+  const [phraseIdx, setPhraseIdx] = useState(0);
+  const [phase, setPhase] = useState<"typing" | "holding" | "deleting">("typing");
+
+  useEffect(() => {
+    const phrase = phrases[phraseIdx];
+    let timer: ReturnType<typeof setTimeout>;
+
+    if (phase === "typing") {
+      if (text.length < phrase.length) {
+        timer = setTimeout(() => setText(phrase.slice(0, text.length + 1)), typeMs);
+      } else {
+        timer = setTimeout(() => setPhase("holding"), holdMs);
+      }
+    } else if (phase === "holding") {
+      timer = setTimeout(() => setPhase("deleting"), holdMs);
+    } else {
+      if (text.length > 0) {
+        timer = setTimeout(() => setText(phrase.slice(0, text.length - 1)), deleteMs);
+      } else {
+        timer = setTimeout(() => {
+          setPhraseIdx((i) => (i + 1) % phrases.length);
+          setPhase("typing");
+        }, 200);
+      }
+    }
+
+    return () => clearTimeout(timer);
+  }, [text, phraseIdx, phase, phrases, typeMs, holdMs, deleteMs]);
+
+  return text;
+}
+
 function useCountUp(target: number, suffix: string, dur: number, delay: number) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -142,6 +178,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
   const [arrow, setArrow] = useState(0);
   const [ghRepos, setGhRepos] = useState<number | null>(null);
   const [ghStars, setGhStars] = useState<number | null>(null);
+  const ctaText = useTypewriter(CTA_PHRASES);
 
   useEffect(() => {
     fetch("https://api.github.com/users/CryptoPrism-io/repos?per_page=100&sort=updated")
@@ -402,7 +439,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             onMouseEnter={() => setArrow(6)}
             onMouseLeave={() => setArrow(0)}
             className="focus-ring"
-            aria-label="Start a diagnostic"
+            aria-label="Let's talk, work with me, deep dive, or connect now"
             style={{
               display: "flex",
               alignItems: "center",
@@ -418,8 +455,19 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               animation: `ip-rise .7s ${EASE} ${R[9]}s both`,
             }}
           >
-            <span style={{ fontFamily: MONO, fontSize: 13, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase" }}>
-              Start a Diagnostic
+            <span style={{ fontFamily: MONO, fontSize: 13, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", minWidth: 190, textAlign: "left" }}>
+              {ctaText}
+              <span
+                style={{
+                  display: "inline-block",
+                  width: 8,
+                  height: 14,
+                  marginLeft: 3,
+                  verticalAlign: "-2px",
+                  background: "var(--ys-surface)",
+                  animation: "ip-pulse 0.9s step-end infinite",
+                }}
+              />
             </span>
             <span
               style={{

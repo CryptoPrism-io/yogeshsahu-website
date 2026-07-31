@@ -8,39 +8,39 @@ import { rhythmDelays } from "@/lib/motion";
 
 const NAV_ITEMS = [
   {
-    label: "Work",
-    desc: "12 case studies · 3 leadership clusters",
-    icon: "briefcase",
-    type: "link" as const,
-    href: "/work",
-  },
-  {
-    label: "Log",
-    desc: "Architecture notes · Journal · Tags",
-    icon: "bookOpen",
-    type: "link" as const,
-    href: "/log",
-  },
-  {
     label: "Capabilities",
-    desc: "Finance · Technology / AI · Leadership",
+    desc: "Finance · Tech/AI · Leadership",
     icon: "zap",
     type: "window" as const,
     id: "capability-graph",
   },
   {
-    label: "Contact",
-    desc: "About · Work With Me · Book a call",
-    icon: "mail",
-    type: "window" as const,
-    id: "contact",
+    label: "Work",
+    desc: "12 case studies · 3 clusters",
+    icon: "briefcase",
+    type: "link" as const,
+    href: "/work",
   },
   {
     label: "Resources",
-    desc: "Founder + Builder · Investors · Toolkit",
+    desc: "Founder + Builder · Investors",
     icon: "bookOpen",
     type: "link" as const,
     href: "/resources",
+  },
+  {
+    label: "Log",
+    desc: "Notes + reflections · Tagged",
+    icon: "bookOpen",
+    type: "link" as const,
+    href: "/log",
+  },
+  {
+    label: "Contact",
+    desc: "About · Work With Me · Book",
+    icon: "mail",
+    type: "window" as const,
+    id: "contact",
   },
 ];
 
@@ -148,13 +148,12 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                 {/* Right: desc + arrow */}
                 <div className="relative flex shrink-0 items-center gap-3">
                   <span
-                    className="hidden truncate text-right leading-[1.5] xl:block"
+                    className="hidden text-right leading-[1.5] xl:block"
                     style={{
                       fontFamily: "var(--font-mono)",
                       fontSize: "10px",
                       color: "rgba(255,244,233,0.38)",
-                      maxWidth: "180px",
-                      whiteSpace: "nowrap",
+                      maxWidth: "200px",
                     }}
                   >
                     {item.desc}

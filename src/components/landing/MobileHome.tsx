@@ -54,6 +54,43 @@ function useCountUp(target: number, suffix: string, dur: number, delay: number) 
   return ref;
 }
 
+/* ── typewriter CTA ─────────────────────────────────────────────────── */
+const CTA_PHRASES = ["Let's Talk", "Work With Me", "Deep Dive", "Connect Now"];
+
+function useTypewriter(phrases: string[], typeMs = 60, holdMs = 1300, deleteMs = 30) {
+  const [text, setText] = useState("");
+  const [phraseIdx, setPhraseIdx] = useState(0);
+  const [phase, setPhase] = useState<"typing" | "holding" | "deleting">("typing");
+
+  useEffect(() => {
+    const phrase = phrases[phraseIdx];
+    let timer: ReturnType<typeof setTimeout>;
+
+    if (phase === "typing") {
+      if (text.length < phrase.length) {
+        timer = setTimeout(() => setText(phrase.slice(0, text.length + 1)), typeMs);
+      } else {
+        timer = setTimeout(() => setPhase("holding"), holdMs);
+      }
+    } else if (phase === "holding") {
+      timer = setTimeout(() => setPhase("deleting"), holdMs);
+    } else {
+      if (text.length > 0) {
+        timer = setTimeout(() => setText(phrase.slice(0, text.length - 1)), deleteMs);
+      } else {
+        timer = setTimeout(() => {
+          setPhraseIdx((i) => (i + 1) % phrases.length);
+          setPhase("typing");
+        }, 200);
+      }
+    }
+
+    return () => clearTimeout(timer);
+  }, [text, phraseIdx, phase, phrases, typeMs, holdMs, deleteMs]);
+
+  return text;
+}
+
 /* ── live IST clock, ported from the desktop deck ────────────────────── */
 function useClock() {
   const [clock, setClock] = useState("");
@@ -615,6 +652,7 @@ export default function MobileHome() {
   const apps = useCountUp(6, "+", 900, 350);
   const loc = useCountUp(2, "M+", 950, 430);
   const dp = useCountUp(1, "B+", 1000, 510);
+  const ctaText = useTypewriter(CTA_PHRASES);
 
   return (
     <div className="fixed inset-0 overflow-y-auto" style={{ background: "var(--ys-surface)" }}>
@@ -795,9 +833,22 @@ export default function MobileHome() {
           onClick={() => scrollToId("mobile-diagnostic")}
           className="focus-ring flex w-full items-center justify-between px-[22px] py-[19px]"
           style={{ background: "var(--ys-highlight)", color: "#fff8f1", border: "none" }}
-          aria-label="Start a diagnostic"
+          aria-label="Let's talk, work with me, deep dive, or connect now"
         >
-          <span style={mono(13, "0.16em", "#fff8f1")}>Start a Diagnostic</span>
+          <span style={mono(13, "0.16em", "#fff8f1")}>
+            {ctaText}
+            <span
+              style={{
+                display: "inline-block",
+                width: 7,
+                height: 13,
+                marginLeft: 3,
+                verticalAlign: "-2px",
+                background: "#fff8f1",
+                animation: "ip-pulse 0.9s step-end infinite",
+              }}
+            />
+          </span>
           <span style={{ fontSize: 16 }}>→</span>
         </button>
 
