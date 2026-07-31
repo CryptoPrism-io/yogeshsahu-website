@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/lib/projects";
-import { journal } from "@/data/journal";
+import { posts } from "@/data/posts";
 
 export const dynamic = "force-static";
 
@@ -12,8 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${BASE}/`, lastModified: now, changeFrequency: "monthly", priority: 1 },
     { url: `${BASE}/work`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE}/thinking`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE}/journal`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/writing`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/resources`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/investors`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
   ];
@@ -25,12 +24,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const journalRoutes: MetadataRoute.Sitemap = journal.map((entry) => ({
-    url: `${BASE}/journal/${entry.slug}`,
-    lastModified: new Date(entry.date),
+  const postRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${BASE}/writing/${post.slug}`,
+    lastModified: new Date(post.date),
     changeFrequency: "yearly" as const,
     priority: 0.5,
   }));
 
-  return [...staticRoutes, ...projectRoutes, ...journalRoutes];
+  return [...staticRoutes, ...projectRoutes, ...postRoutes];
 }

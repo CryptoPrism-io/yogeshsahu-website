@@ -547,7 +547,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                 <span style={mono(11, "0.15em", "var(--ys-text-soft)")}>Writing & Resources</span>
               </div>
               <a
-                href="/thinking"
+                href="/writing"
                 className="ip-lift"
                 style={{
                   display: "flex",
@@ -558,26 +558,9 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                   textDecoration: "none",
                 }}
               >
-                <span style={mono(10.5, "0.12em", "var(--ys-text)")}>Thinking</span>
+                <span style={mono(10.5, "0.12em", "var(--ys-text)")}>Writing</span>
                 <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", color: "var(--ys-accent-strong)" }}>
-                  12 architecture notes →
-                </span>
-              </a>
-              <a
-                href="/journal"
-                className="ip-lift"
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "baseline",
-                  padding: "11px 0",
-                  borderBottom: "1px solid var(--ys-border)",
-                  textDecoration: "none",
-                }}
-              >
-                <span style={mono(10.5, "0.12em", "var(--ys-text)")}>Journal</span>
-                <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", color: "var(--ys-accent-strong)" }}>
-                  Weekly Friday check-in →
+                  15 posts · tagged →
                 </span>
               </a>
               <a

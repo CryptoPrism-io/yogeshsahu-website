@@ -11,7 +11,6 @@ function escapeXml(unsafe: string): string {
     .replace(/'/g, "&apos;");
 }
 
-// Back-compat feed: /journal/rss.xml now serves the unified writing feed.
 export async function GET() {
   const sorted = [...posts].sort((a, b) => (a.date < b.date ? 1 : -1));
 

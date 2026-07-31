@@ -21,8 +21,7 @@ const mono = (size: number, spacing: string, color: string): CSSProperties => ({
 const NAV_ITEMS: { href: string; label: string; desc: string }[] = [
   { href: "/", label: "Home", desc: "Portfolio · 2026" },
   { href: "/work", label: "Work Hub", desc: "12 case studies" },
-  { href: "/thinking", label: "Thinking", desc: "Architecture notes & logs" },
-  { href: "/journal", label: "Journal", desc: "Weekly Friday check-in" },
+  { href: "/writing", label: "Writing", desc: "Architecture notes · Journal" },
   { href: "/resources", label: "Resources", desc: "Founder + builder hub" },
 ];
 

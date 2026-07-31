@@ -15,18 +15,11 @@ const NAV_ITEMS = [
     href: "/work",
   },
   {
-    label: "Thinking",
-    desc: "Architecture notes · Decision logs",
+    label: "Writing",
+    desc: "Architecture notes · Journal · Tags",
     icon: "bookOpen",
     type: "link" as const,
-    href: "/thinking",
-  },
-  {
-    label: "Journal",
-    desc: "Weekly Friday check-in · Behind the build",
-    icon: "bookOpen",
-    type: "link" as const,
-    href: "/journal",
+    href: "/writing",
   },
   {
     label: "Capabilities",

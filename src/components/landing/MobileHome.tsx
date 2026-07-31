@@ -363,33 +363,18 @@ function SelectedWork() {
           Writing & Resources
         </div>
         <Link
-          href="/thinking"
+          href="/writing"
           className="block border-t px-[22px] py-[14px] active:bg-[var(--ys-surface-strong)]"
           style={{ borderColor: "var(--ys-surface-muted)" }}
         >
           <div className="flex items-baseline justify-between">
             <span className="text-[15px] font-bold" style={{ fontFamily: HEAD, color: "var(--ys-text)", letterSpacing: "-0.01em" }}>
-              Thinking
+              Writing
             </span>
-            <span style={mono(9.5, "0.1em", "var(--ys-accent)")}>12 notes →</span>
+            <span style={mono(9.5, "0.1em", "var(--ys-accent)")}>15 posts →</span>
           </div>
           <p className="mt-1 text-[12.5px]" style={{ fontFamily: BODY, lineHeight: 1.5, color: "var(--ys-text-soft)" }}>
-            Architecture decisions and cost lessons.
-          </p>
-        </Link>
-        <Link
-          href="/journal"
-          className="block border-t px-[22px] py-[14px] active:bg-[var(--ys-surface-strong)]"
-          style={{ borderColor: "var(--ys-surface-muted)" }}
-        >
-          <div className="flex items-baseline justify-between">
-            <span className="text-[15px] font-bold" style={{ fontFamily: HEAD, color: "var(--ys-text)", letterSpacing: "-0.01em" }}>
-              Journal
-            </span>
-            <span style={mono(9.5, "0.1em", "var(--ys-accent)")}>Weekly →</span>
-          </div>
-          <p className="mt-1 text-[12.5px]" style={{ fontFamily: BODY, lineHeight: 1.5, color: "var(--ys-text-soft)" }}>
-            Friday check-in on building, reading, and figuring things out.
+            Architecture notes and weekly reflections, tagged and in one thread.
           </p>
         </Link>
         <Link
@@ -581,18 +566,18 @@ function NavStrip() {
         <span style={label}>Work</span>
         <span style={sub}>12 studies</span>
       </Link>
-      <Link href="/thinking" className={cell} style={{ background: "var(--ys-surface)" }}>
-        <span style={label}>Thinking</span>
-        <span style={sub}>12 notes</span>
-      </Link>
-      <Link href="/journal" className={cell} style={{ background: "var(--ys-surface)" }}>
-        <span style={label}>Journal</span>
-        <span style={sub}>Weekly</span>
+      <Link href="/writing" className={cell} style={{ background: "var(--ys-surface)" }}>
+        <span style={label}>Writing</span>
+        <span style={sub}>15 posts</span>
       </Link>
       <Link href="/resources" className={cell} style={{ background: "var(--ys-surface)" }}>
         <span style={label}>Resources</span>
         <span style={sub}>Hub</span>
       </Link>
+      <button onClick={() => scrollToId("mobile-diagnostic")} className={cell} style={{ background: "var(--ys-surface)" }}>
+        <span style={label}>Work With Me</span>
+        <span style={sub}>Diagnostic</span>
+      </button>
       <button onClick={() => scrollToId("mobile-contact")} className={cell} style={{ background: "var(--ys-surface)" }}>
         <span style={label}>Contact</span>
         <span style={sub}>Book call</span>
