@@ -3,20 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Briefcase, BookOpen, FolderKanban, Handshake, Mail, User, Zap } from "lucide-react";
+import { ArrowRight, Briefcase, BookOpen, Mail, Zap } from "lucide-react";
 import { rhythmDelays } from "@/lib/motion";
 
 const NAV_ITEMS = [
   {
-    label: "Projects",
-    desc: "12 case studies · AI / Fintech / Infrastructure",
-    icon: "folderKanban",
-    type: "window" as const,
-    id: "projects",
-  },
-  {
-    label: "Work Hub",
-    desc: "3 leadership clusters · Architecture & Delivery",
+    label: "Work",
+    desc: "12 case studies · 3 leadership clusters",
     icon: "briefcase",
     type: "link" as const,
     href: "/work",
@@ -43,22 +36,8 @@ const NAV_ITEMS = [
     id: "capability-graph",
   },
   {
-    label: "Work With Me",
-    desc: "Diagnostic sprint · idea → shipped",
-    icon: "handshake",
-    type: "window" as const,
-    id: "diagnostic",
-  },
-  {
-    label: "About",
-    desc: "Founder journey · CTO Profile · Credentials",
-    icon: "user",
-    type: "window" as const,
-    id: "about",
-  },
-  {
     label: "Contact",
-    desc: "Architecture mandates · Book a call",
+    desc: "About · Work With Me · Book a call",
     icon: "mail",
     type: "window" as const,
     id: "contact",
@@ -75,10 +54,7 @@ const NAV_ITEMS = [
 const ICON_MAP: Record<string, React.ElementType> = {
   briefcase: Briefcase,
   bookOpen: BookOpen,
-  folderKanban: FolderKanban,
-  handshake: Handshake,
   mail: Mail,
-  user: User,
   zap: Zap,
 };
 

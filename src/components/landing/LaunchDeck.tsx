@@ -144,7 +144,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
   const [ghStars, setGhStars] = useState<number | null>(null);
 
   useEffect(() => {
-    fetch("https://api.github.com/orgs/CryptoPrism-io/repos?per_page=100&sort=updated")
+    fetch("https://api.github.com/users/CryptoPrism-io/repos?per_page=100&sort=updated")
       .then((r) => r.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -398,7 +398,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
 
           {/* CTA */}
           <button
-            onClick={() => onOpen("diagnostic")}
+            onClick={() => onOpen("contact")}
             onMouseEnter={() => setArrow(6)}
             onMouseLeave={() => setArrow(0)}
             className="focus-ring"
@@ -515,7 +515,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
                 <span style={mono(11, "0.14em", "var(--ys-text-soft)")}>GitHub · CryptoPrism-io</span>
-                <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", color: "#c9ad97" }}>ORG</span>
+                <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", color: "#c9ad97" }}>25 PUB</span>
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
                 <span style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 42, lineHeight: 1, color: "var(--ys-text)", letterSpacing: "-0.025em" }}>
