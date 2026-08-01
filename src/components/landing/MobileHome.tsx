@@ -14,6 +14,7 @@ import {
 } from "react";
 import { featuredProjects } from "@/lib/projects";
 import MobileNav from "@/components/layout/MobileNav";
+import Reveal from "@/components/ui/Reveal";
 
 const MONO = "var(--font-mono)";
 const HEAD = "var(--font-headline)";
@@ -270,8 +271,9 @@ const TRACK: { k: string; v: string; d: string }[] = [
 
 function VenturesSection() {
   return (
-    <section id="mobile-ventures">
-      <SectionHead kicker="Founder · 2× Company" title="Ventures" />
+    <Reveal margin="-40px">
+      <section id="mobile-ventures">
+        <SectionHead kicker="Founder · 2× Company" title="Ventures" />
       <p
         className="px-[22px] pb-2"
         style={{ fontFamily: BODY, fontSize: 15, lineHeight: 1.6, color: "var(--ys-text-soft)" }}
@@ -334,6 +336,7 @@ function VenturesSection() {
         </div>
       ))}
     </section>
+    </Reveal>
   );
 }
 
@@ -341,8 +344,9 @@ function VenturesSection() {
 function SelectedWork() {
   const reel = featuredProjects.slice(0, 3);
   return (
-    <section id="mobile-work">
-      <SectionHead kicker="12 Case Studies · 3 Clusters" title="Selected Work" />
+    <Reveal margin="-40px">
+      <section id="mobile-work">
+        <SectionHead kicker="12 Case Studies · 3 Clusters" title="Selected Work" />
       <p
         className="px-[22px] pb-2"
         style={{ fontFamily: BODY, fontSize: 15, lineHeight: 1.6, color: "var(--ys-text-soft)" }}
@@ -431,6 +435,7 @@ function SelectedWork() {
         </Link>
       </div>
     </section>
+    </Reveal>
   );
 }
 
@@ -455,7 +460,8 @@ const MANDATES: { label: string; body: string; color: string }[] = [
 
 function WorkWithMe() {
   return (
-    <section id="mobile-diagnostic" className="scroll-mt-2">
+    <Reveal margin="-40px">
+      <section id="mobile-diagnostic" className="scroll-mt-2">
       <SectionHead kicker="Paid Entry Offer" title="Work With Me" />
       <div className="px-[22px]">
         <h3
@@ -523,6 +529,7 @@ function WorkWithMe() {
         <span style={{ fontSize: 16 }}>→</span>
       </button>
     </section>
+    </Reveal>
   );
 }
 
@@ -538,7 +545,8 @@ const CONTACT_LINKS: { label: string; content: string; href: string }[] = [
 
 function ContactSection() {
   return (
-    <section id="mobile-contact" className="scroll-mt-2">
+    <Reveal margin="-40px">
+      <section id="mobile-contact" className="scroll-mt-2">
       <SectionHead kicker="Architecture Mandates" title="Contact" />
       {CONTACT_LINKS.map((c) => (
         <a
@@ -589,12 +597,13 @@ function ContactSection() {
         <span style={{ fontFamily: HEAD, fontSize: 18 }}>→</span>
       </a>
     </section>
+    </Reveal>
   );
 }
 
 /* ── utility nav — off-page navigation strip ────────────────────────── */
 function NavStrip() {
-  const cell = "flex flex-col items-center justify-center gap-1 py-[15px] active:bg-[var(--ys-surface-strong)]";
+  const cell = "flex flex-col items-center justify-center gap-1 py-[15px] active:bg-[var(--ys-surface-strong)] active:scale-[0.95] transition-transform duration-75";
   const label: CSSProperties = mono(10.5, "0.14em", "var(--ys-text)");
   const sub: CSSProperties = mono(8, "0.1em", "var(--ys-text-soft)");
   return (

@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import type { Gallery } from "@/lib/projects";
+import Reveal from "@/components/ui/Reveal";
 
 export default function ProjectGallery({
   gallery,
@@ -12,7 +15,8 @@ export default function ProjectGallery({
   const isMobile = gallery.layout === "mobile";
 
   return (
-    <section className="mx-auto max-w-4xl px-5 pb-12 pt-2">
+    <Reveal>
+      <section className="mx-auto max-w-4xl px-5 pb-12 pt-2">
       <p
         className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em]"
         style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
@@ -71,5 +75,6 @@ export default function ProjectGallery({
         ))}
       </div>
     </section>
+    </Reveal>
   );
 }

@@ -1,4 +1,7 @@
+"use client";
+
 import type { LeadershipLens as LensData } from "@/data/case-studies/types";
+import Reveal from "@/components/ui/Reveal";
 
 const SLOTS: { key: keyof LensData; eyebrow: string; label: string }[] = [
   { key: 'call', eyebrow: '01', label: 'The Call' },
@@ -11,9 +14,10 @@ const SLOTS: { key: keyof LensData; eyebrow: string; label: string }[] = [
 
 export default function LeadershipLens({ lens }: { lens: LensData }) {
   return (
-    <section
-      aria-label="Leadership Lens"
-      className="mx-auto mb-12 max-w-4xl rounded-2xl border px-5 py-6 sm:px-7 sm:py-8"
+    <Reveal>
+      <section
+        aria-label="Leadership Lens"
+        className="mx-auto mb-12 max-w-4xl rounded-2xl border px-5 py-6 sm:px-7 sm:py-8"
       style={{
         borderColor: "var(--ys-border)",
         background: "var(--ys-surface-strong)",
@@ -55,5 +59,6 @@ export default function LeadershipLens({ lens }: { lens: LensData }) {
         ))}
       </div>
     </section>
+    </Reveal>
   );
 }

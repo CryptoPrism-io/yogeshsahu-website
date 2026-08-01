@@ -1,3 +1,5 @@
+"use client";
+
 import type {
   CaseStudySection,
   StatBlock,
@@ -8,6 +10,7 @@ import type {
   TagsBlock,
   Tone,
 } from "@/data/case-studies/types";
+import Reveal from "@/components/ui/Reveal";
 
 const TONE_BORDER: Record<Tone | 'light', string> = {
   navy: "var(--ys-text)",
@@ -262,8 +265,9 @@ function TagsBlockView({ block }: { block: TagsBlock }) {
 
 export default function CaseStudyBlocks({ sections }: { sections: CaseStudySection[] }) {
   return (
-    <div className="mx-auto max-w-4xl px-5 pb-16">
-      {sections.map((section, si) => (
+    <Reveal>
+      <div className="mx-auto max-w-4xl px-5 pb-16">
+        {sections.map((section, si) => (
         <section key={si} className="mb-12">
           {(section.number || section.eyebrow) && (
             <p
@@ -301,5 +305,6 @@ export default function CaseStudyBlocks({ sections }: { sections: CaseStudySecti
         </section>
       ))}
     </div>
+    </Reveal>
   );
 }

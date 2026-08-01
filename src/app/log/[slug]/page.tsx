@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import MobileNav from "@/components/layout/MobileNav";
+import ReadingProgress from "@/components/ui/ReadingProgress";
+import StaggeredBody from "@/components/ui/StaggeredBody";
 import { getPost, getAllPostSlugs, posts } from "@/data/posts";
 
 export function generateStaticParams() {
@@ -148,15 +150,7 @@ export default async function LogPostPage({
         </div>
 
         <div className="border-t pt-8" style={{ borderColor: "var(--ys-border)" }}>
-          {post.body.split("\n\n").map((para, i) => (
-            <p
-              key={i}
-              className="mb-5 text-[15.5px] leading-[1.85]"
-              style={{ fontFamily: "var(--font-body)", color: "var(--ys-text)" }}
-            >
-              {para}
-            </p>
-          ))}
+          <StaggeredBody paragraphs={post.body.split("\n\n")} />
         </div>
 
         {/* prev / next */}
