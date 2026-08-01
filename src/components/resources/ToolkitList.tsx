@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { Wrench, ExternalLink, Filter } from "lucide-react";
 import {
@@ -156,7 +157,7 @@ export default function ToolkitList() {
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block rounded-xl border px-5 py-4 transition-all hover:-translate-y-0.5"
+              className="group block rounded-xl border px-5 py-4 transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-16px_rgba(207,79,39,0.25)]"
               style={{
                 background: "var(--ys-surface-strong)",
                 borderColor: "var(--ys-border)",

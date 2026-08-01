@@ -143,6 +143,14 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                   transition={{ duration: 0.22, ease: "easeOut" }}
                 >
                   {item.label}
+                  {/* underline */}
+                  <motion.span
+                    className="absolute -bottom-0.5 left-0 h-[1.5px]"
+                    style={{ background: "var(--ys-accent)", transformOrigin: "left" }}
+                    initial={{ scaleX: 0 }}
+                    variants={{ hovered: { scaleX: 1 } }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                  />
                 </motion.span>
 
                 {/* Right: desc + arrow */}

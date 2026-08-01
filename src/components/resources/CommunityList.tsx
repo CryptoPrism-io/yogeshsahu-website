@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { Users, ExternalLink, Filter } from "lucide-react";
 import {
@@ -186,16 +187,20 @@ function CommunityRow({ item }: { item: CommunityItem }) {
   const colors = TYPE_COLORS[item.type];
   const isExternal = item.url !== "#";
   return (
-    <Link
-      href={item.url}
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noopener noreferrer" : undefined}
-      className="group flex items-start justify-between gap-4 rounded-xl border px-4 py-3 transition-all hover:-translate-y-0.5"
-      style={{
-        background: "var(--ys-surface-strong)",
-        borderColor: "var(--ys-border)",
-      }}
+    <motion.div
+      whileHover={{ y: -2, boxShadow: "0 8px 20px -12px rgba(207,79,39,0.2)" }}
+      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
     >
+      <Link
+        href={item.url}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+        className="group flex items-start justify-between gap-4 rounded-xl border px-4 py-3"
+        style={{
+          background: "var(--ys-surface-strong)",
+          borderColor: "var(--ys-border)",
+        }}
+      >
       <div className="flex-1">
         <div className="mb-1 flex flex-wrap items-center gap-2">
           <h4
@@ -240,5 +245,6 @@ function CommunityRow({ item }: { item: CommunityItem }) {
         style={{ color: "var(--ys-text-soft)" }}
       />
     </Link>
+    </motion.div>
   );
 }

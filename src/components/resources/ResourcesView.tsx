@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Users,
   FileCode,
@@ -199,7 +200,15 @@ export default function FounderHubView() {
       </div>
 
       {/* Tab Content */}
-      {activeTab === "investors" && (
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`${hub}-${activeTab}`}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {activeTab === "investors" && (
         <div className="space-y-6">
           {/* View Toggle */}
           <div className="flex items-center gap-2">
@@ -306,6 +315,8 @@ export default function FounderHubView() {
           </p>
         </div>
       )}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

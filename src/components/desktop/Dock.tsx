@@ -4,7 +4,6 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { type ReactNode, useRef, useState } from "react";
 import type { WindowState } from "@/hooks/useWindowManager";
 import { MOTION_DURATION, MOTION_EASE_QUICK, fadeUp } from "@/lib/motion";
-import { Building2, Globe } from "lucide-react";
 
 interface DockProps {
   windows: WindowState[];
@@ -49,11 +48,32 @@ function LinkedinMark({ size = 16 }: { size?: number }) {
   );
 }
 
+function CryptoMark({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 6v12" />
+      <path d="M9 9h6" />
+      <path d="M9 15h6" />
+    </svg>
+  );
+}
+
+function TrinetryMark({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M12 2 L12 22" />
+      <path d="M16 8 L12 12 L8 8" />
+      <path d="M12 12 L16 16 L8 16 Z" />
+    </svg>
+  );
+}
+
 const SOCIAL_LINKS: { label: string; href: string; icon: ReactNode }[] = [
   { label: "Instagram", href: "https://instagram.com/yoga_ss_", icon: <InstagramMark /> },
   { label: "LinkedIn", href: "https://linkedin.com/in/yogeshsahu-", icon: <LinkedinMark /> },
-  { label: "CryptoPrism", href: "https://cryptoprism.io", icon: <Globe size={16} strokeWidth={1.8} /> },
-  { label: "Trinetry", href: "https://trinetryinfotech.com", icon: <Building2 size={16} strokeWidth={1.8} /> },
+  { label: "CryptoPrism", href: "https://cryptoprism.io", icon: <CryptoMark /> },
+  { label: "Trinetry", href: "https://trinetryinfotech.com", icon: <TrinetryMark /> },
 ];
 
 function DockItem({
