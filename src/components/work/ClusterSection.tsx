@@ -18,6 +18,14 @@ export default function ClusterSection({
 
   return (
     <section ref={ref} className="mt-16">
+      {/* animated divider line — draws left→right on enter */}
+      <motion.div
+        className="mb-8 h-px"
+        style={{ background: "var(--ys-border)", transformOrigin: "left" }}
+        initial={{ scaleX: 0 }}
+        animate={inView ? { scaleX: 1 } : {}}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      />
       <motion.div
         initial={{ opacity: 0, y: 14 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}

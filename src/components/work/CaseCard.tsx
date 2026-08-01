@@ -51,13 +51,19 @@ export default function CaseCard({ project }: { project: Project }) {
         style={{ height: 180, borderBottom: "1px solid #e9d3bf", background: "var(--ys-surface-muted)" }}
       >
         {project.image && (
-          <Image
-            src={project.image}
-            alt={project.name}
-            fill
-            sizes="(min-width: 1024px) 360px, 100vw"
-            className="object-cover"
-          />
+          <motion.div
+            className="h-full w-full"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Image
+              src={project.image}
+              alt={project.name}
+              fill
+              sizes="(min-width: 1024px) 360px, 100vw"
+              className="object-cover"
+            />
+          </motion.div>
         )}
         {(caseStudies[project.id]?.sections?.length ?? 0) > 0 && (
           <span

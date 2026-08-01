@@ -5,6 +5,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { LayoutGrid, BookOpen } from "lucide-react";
 import MobileNav from "@/components/layout/MobileNav";
+import Reveal from "@/components/ui/Reveal";
 import { posts, ALL_TAGS, type PostKind } from "@/data/posts";
 
 type TagFilter = string | "all";
@@ -62,40 +63,46 @@ export default function LogPage() {
       </nav>
 
       <div className="mx-auto max-w-[820px] px-5 pt-24 pb-16">
-        <p
-          className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-accent)" }}
-        >
-          Architecture Notes · Weekly Reflections
-        </p>
-        <h1
-          className="mb-3 font-bold uppercase"
-          style={{
-            fontFamily: "var(--font-headline)",
-            color: "var(--ys-text)",
-            fontSize: "clamp(36px,5.6vw,72px)",
-            lineHeight: 0.92,
-            letterSpacing: "-0.03em",
-          }}
-        >
-          Log
-        </h1>
-        <p
-          className="mb-6 max-w-[60ch] text-[15px] leading-[1.8]"
-          style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
-        >
-          Architecture notes, cost lessons, decision logs, and weekly
-          reflections — all in one thread. Filter by type or tag.
-        </p>
-        <p
-          className="mb-10 max-w-[60ch] text-[13px] leading-[1.6]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-        >
-          {posts.length} posts · Subscribe via{" "}
-          <a href="/log/rss.xml" style={{ color: "var(--ys-accent)", textDecoration: "underline" }}>
-            RSS
-          </a>
-        </p>
+        <Reveal delay={0}>
+          <p
+            className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em]"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ys-accent)" }}
+          >
+            Architecture Notes · Weekly Reflections
+          </p>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <h1
+            className="mb-3 font-bold uppercase"
+            style={{
+              fontFamily: "var(--font-headline)",
+              color: "var(--ys-text)",
+              fontSize: "clamp(36px,5.6vw,72px)",
+              lineHeight: 0.92,
+              letterSpacing: "-0.03em",
+            }}
+          >
+            Log
+          </h1>
+          <p
+            className="mb-6 max-w-[60ch] text-[15px] leading-[1.8]"
+            style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
+          >
+            Architecture notes, cost lessons, decision logs, and weekly
+            reflections — all in one thread. Filter by type or tag.
+          </p>
+        </Reveal>
+        <Reveal delay={0.24}>
+          <p
+            className="mb-10 max-w-[60ch] text-[13px] leading-[1.6]"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+          >
+            {posts.length} posts · Subscribe via{" "}
+            <a href="/log/rss.xml" style={{ color: "var(--ys-accent)", textDecoration: "underline" }}>
+              RSS
+            </a>
+          </p>
+        </Reveal>
 
         {/* kind filter */}
         <div className="mb-4 flex flex-wrap items-center gap-2">
