@@ -380,7 +380,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                   animation: `ip-rise .8s ${EASE} ${R[4]}s both`,
                 }}
               >
-                {["Times of India", "Barclays", "Isha Foundation", "Binance", "Google Cloud"].map((b) => (
+                {["Times of India", "Barclays", "Isha Foundation", "Google Cloud"].map((b) => (
                   <span
                     key={b}
                     style={{
