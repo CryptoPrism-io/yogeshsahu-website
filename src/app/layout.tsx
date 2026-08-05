@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Newsreader, Sora, Work_Sans } from "next/font/google";
 import { LazyMotion, domAnimation } from "framer-motion";
+import Script from "next/script";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -99,6 +100,26 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* Google Analytics 4 */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+                  anonymize_ip: true,
+                  send_page_view: true,
+                });
+              `}
+            </Script>
+          </>
+        )}
         <LazyMotion features={domAnimation}>
           {children}
         </LazyMotion>

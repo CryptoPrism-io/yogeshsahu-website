@@ -14,6 +14,7 @@ type KindFilter = PostKind | "all";
 const KIND_META: Record<PostKind, { label: string; eyebrow: string; color: string }> = {
   thinking: { label: "Thinking", eyebrow: "T", color: "var(--ys-accent)" },
   journal: { label: "Journal", eyebrow: "J", color: "var(--ys-highlight)" },
+  review: { label: "Review", eyebrow: "W", color: "var(--ys-text)" },
 };
 
 export default function LogPage() {
@@ -118,7 +119,7 @@ export default function LogPage() {
           >
             All ({posts.length})
           </button>
-          {(["thinking", "journal"] as PostKind[]).map((kind) => {
+          {(["thinking", "journal", "review"] as PostKind[]).map((kind) => {
             const count = kind === "thinking" ? thinkingCount : journalCount;
             const active = kindFilter === kind;
             return (

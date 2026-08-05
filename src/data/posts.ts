@@ -1,4 +1,6 @@
-export type PostKind = "thinking" | "journal";
+export type PostKind = "thinking" | "journal" | "review";
+
+import { WEEKLY_REVIEWS } from "./weekly-reviews";
 
 export interface Post {
   slug: string;
@@ -320,6 +322,7 @@ The build window was useful. It also produced a pile of small bugs I haven't fix
 export const posts: Post[] = [
   ...THINKING_POSTS.map((p) => ({ ...p, kind: "thinking" as const })),
   ...JOURNAL_POSTS.map((p) => ({ ...p, kind: "journal" as const })),
+  ...WEEKLY_REVIEWS.map((p) => ({ ...p, kind: "review" as const })),
 ].sort((a, b) => (a.date < b.date ? 1 : -1));
 
 export const ALL_TAGS: string[] = Array.from(
