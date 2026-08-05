@@ -807,7 +807,7 @@ export default function MobileHome() {
               className="mt-3 flex flex-wrap gap-2"
               style={{ animation: `ip-fade .8s ease .4s both` }}
             >
-              {["Times of India", "Barclays", "Isha Foundation", "Google Cloud"].map((b) => (
+              {["Times of India", "Barclays", "Isha Foundation"].map((b) => (
                 <span
                   key={b}
                   className="text-[8.5px] uppercase tracking-[0.08em]"
