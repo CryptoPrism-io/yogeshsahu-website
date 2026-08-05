@@ -1,0 +1,113 @@
+# Yogesh Sahu — Full Site Content
+
+> Founder, AI-native builder, and fractional CTO. I build and ship AI-native B2B and B2C products end-to-end — six production-grade apps in six months, not MVPs. Built AI infrastructure for Times of India, Barclays, and Isha Foundation. Co-founded CryptoPrism and Trinetry Infotech.
+
+This file is the full-content version of yogeshsahu.xyz for AI agents and LLM crawlers.
+
+---
+
+## Who I am
+
+- **Name:** Yogesh Sahu
+- **Role:** Founder · AI-Native Builder · CTO
+- **Companies:** CryptoPrism (founder & CTO), Trinetry Infotech Pvt Ltd (managing director)
+- **Experience:** Times of India (Chief Technological Architect — built AI Bharatverse), Barclays (ML Engineer, Fraud Analytics — ML pipelines for credit-card fraud detection), Isha Foundation (shipped Kari & Lost Shrines — 50K+ downloads, 2M+ social reach), University of Strathclyde (MSc FinTech, dissertation topper 82/100 — AML false positives 87% → 59%)
+- **First company:** Gamerz Nation at 22 — 7 franchises, $100K+ revenue in year one
+
+## What I do
+
+- Ship AI-native B2B and B2C products end-to-end — six production-grade apps in six months
+- Act as a hands-on chief solutions architect / fractional CTO for teams moving faster than their systems
+- Focus areas: AI integration, fintech architecture, data pipelines, solution architecture, product engineering, cognitive AI, edtech
+- Offer: 5-day architecture diagnostic (USD 999) → a 90-day execution plan
+
+## Core projects
+
+### CryptoPrism (Founder & CTO)
+Full-stack crypto intelligence platform — on-chain analytics, ML trading signals via TimesFM, and automated spot trading bots processing 1B+ datapoints across 100+ coins. Built a 72+ petabyte data pipeline queryable in plain language via NLP-to-SQL chat.
+
+### Trinetry Infotech (Managing Director)
+Technology consultancy building AI-powered SaaS products (Pratyaksha — AI cognitive journaling, GyanMarg — gamified edtech) and providing fractional CTO consulting. Replacing manual SME workflows with agentic AI.
+
+### Select track record
+- 6+ production-grade apps shipped in 6 months
+- 2M+ lines of code
+- 1B+ datapoints / day
+- 72 PB+ data pipeline
+- 2M social reach (Kari, 2020)
+- $100K+ first-year revenue (Gamerz Nation)
+
+## The Work hub — 20 case studies across 4 clusters
+
+### Cluster A — Fintech Engineering
+Treated $800/mo Glassnode-class market data as a founder build-vs-buy problem — shipped equivalent intelligence at $30/mo with a live execution layer.
+
+- CryptoPrism On-chain Analytics — BigQuery pipeline, 1B+ datapoints/day, 100+ coins
+- CryptoPrism API — FastAPI microservices, p99 <50ms, on Cloud Run
+- TimesFM 100-Coin Trading Bot — ML signals via Google TimesFM, automated Binance execution
+- CryptoPrism News Fetcher — news sentiment pipeline feeding spot trading
+
+### Cluster B — Enterprise Operations
+Owned architecture and rollout of ERP/CRM systems real businesses run on — scope, schema, deployment, sign-off.
+
+- PGG ERP — GST-compliant invoicing (Express + Prisma + PostgreSQL)
+- PGG CRM — lead pipeline + outreach (Express + EJS + Resend + Baileys)
+- Trinetry ERP — AI-native ERP with autonomous agent workflows
+
+### Cluster C — Consumer & AI Products
+Made consumer bets across edtech, cultural AI, civic tech, and gaming — chose the audience, format, and metric.
+
+- GyanMarg — gamified edtech, spaced repetition, 60+ subjects
+- Pratyaksha — 4-agent AI cognitive journaling
+- Kari & Lost Shrines — 2M+ social reach, 50K+ downloads
+- AI Bharatverse — interactive AI history platform
+
+### Cluster D — Backend & Internal Tools
+The invisible infrastructure — no website, but the stack runs on it.
+
+- CryptoPrism DB — 1,000-coin daily OHLCV + 130 indicators
+- Sentiment Backtest Engine — harness that sized trading viability
+- Forex Data Pipeline — OANDA-backed FX data
+- ForexFactory Calendar Scraper — scheduled economic-calendar scraper
+
+## The Log — writing surface
+
+Combines architecture notes, weekly reflections, and auto-generated weekly reviews. Filterable by kind (Thinking / Journal / Review) and tag.
+
+### Notable architecture notes
+- "Why we built a 72 PB pipeline instead of buying Glassnode" — build-vs-buy, control over schema, $30/mo vs $800/mo
+- "The $427/yr cost lesson from BigQuery materialized views" — 97% cost reduction via materialized views
+- "Firebase Auth vs custom JWT" — identity vs authorisation split
+- "The GCP to AWS migration" — firewall, health checks, SSL idle drops
+- "Self-hosting LLMs: when to buy vs run your own" — break-even at ~1,000-1,600 req/day
+- "Workflows that disable themselves" — GitHub Actions 60-day auto-disable trap
+
+### Weekly reviews (auto-generated)
+The site writes its own weekly review every Friday: pulls 7 days of GitHub activity + anonymized journal themes, writes via OpenRouter, commits, deploys. Git = the work, journal = the reflection.
+
+## Resources — two hubs
+
+### For Founders
+- 8,600+ investor directory (searchable, CSV/Excel export)
+- Playbooks: 12-slide pitch deck, weekly team reviews, first engineering hire, founder loneliness, fundraising pre-call checks, and more
+- Decks & Templates (Q3 2026)
+
+### For Builders
+- Engineering toolkit: Cloud Run, FastAPI, BigQuery, PostgreSQL, Redis, GitHub Actions, Puppeteer, Resend
+- Hiring playbooks
+- Community: 10 communities, 8 podcasts, 8 books, 5 conferences
+
+## Contact
+
+- Email: yogesh.sahu@cryptoprism.io
+- LinkedIn: https://linkedin.com/in/yogeshsahu-
+- GitHub: https://github.com/CryptoPrism-io
+- Site: https://yogeshsahu.xyz
+
+## Route map
+
+- https://yogeshsahu.xyz/ — home
+- https://yogeshsahu.xyz/work — case studies
+- https://yogeshsahu.xyz/log — writing + weekly reviews
+- https://yogeshsahu.xyz/resources — founder + builder hub
+- https://yogeshsahu.xyz/sitemap.xml — full sitemap

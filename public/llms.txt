@@ -1,0 +1,41 @@
+# Yogesh Sahu
+
+> Founder, AI-native builder, and fractional CTO. I build and ship AI-native B2B and B2C products end-to-end — six production-grade apps in six months, not MVPs. Built AI infrastructure for Times of India, Barclays, and Isha Foundation. Co-founded two companies: CryptoPrism (crypto intelligence) and Trinetry Infotech (AI-native software + fractional CTO consulting).
+
+This is the machine-readable overview of yogeshsahu.xyz for AI agents and crawlers.
+
+## Key facts
+
+- **Name:** Yogesh Sahu
+- **Role:** Founder · AI-Native Builder · CTO
+- **Companies:** CryptoPrism (founder & CTO), Trinetry Infotech Pvt Ltd (managing director)
+- **Career:** Times of India (Chief Technological Architect), Barclays (ML Engineer, Fraud Analytics), Isha Foundation, MSc FinTech — University of Strathclyde
+- **Focus:** AI integration, fintech architecture, data pipelines, solution architecture, product engineering, cognitive AI, edtech
+- **Stack:** Python, TypeScript/React, FastAPI, Firebase, BigQuery, PostgreSQL, Redis, Binance API, GitHub Actions, Cloud Run
+- **Open to:** Architecture mandates · 5-day diagnostic · fractional CTO
+
+## Site sections
+
+- [Home](https://yogeshsahu.xyz/): Desktop-metaphor identity panel — hero, metrics, career highlights, live GitHub stats, and a dock with Resources/Capability Graph/Contact/Terminal plus socials.
+- [Work](https://yogeshsahu.xyz/work): 20 case studies across 4 leadership clusters — Fintech Engineering, Consumer & AI Products, Enterprise Operations, Backend & Internal Tools.
+- [Log](https://yogeshsahu.xyz/log): Writing surface combining architecture notes, weekly reflections, and auto-generated weekly reviews — filterable by kind and tag.
+- [Resources](https://yogeshsahu.xyz/resources): Two-hub founder + builder resource site — an 8,600+ investor directory, founder playbooks, engineering toolkit, and community.
+
+## Primary routes
+
+- [https://yogeshsahu.xyz/](https://yogeshsahu.xyz/)
+- [https://yogeshsahu.xyz/work](https://yogeshsahu.xyz/work)
+- [https://yogeshsahu.xyz/log](https://yogeshsahu.xyz/log)
+- [https://yogeshsahu.xyz/resources](https://yogeshsahu.xyz/resources)
+- [https://yogeshsahu.xyz/sitemap.xml](https://yogeshsahu.xyz/sitemap.xml)
+
+## Contact
+
+- Email: yogesh.sahu@cryptoprism.io
+- LinkedIn: https://linkedin.com/in/yogeshsahu-
+- GitHub: https://github.com/CryptoPrism-io
+- Site: https://yogeshsahu.xyz
+
+## Full content
+
+For the full site content, see [llms-full.txt](https://yogeshsahu.xyz/llms-full.txt).
