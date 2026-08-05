@@ -57,8 +57,11 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
 
   return (
     <motion.aside
-      className="absolute left-6 top-[58px] z-[0] hidden lg:block xl:left-10 xl:top-[66px]"
-      style={{ width: "min(48vw, 620px)", height: "min(60vh, 540px)" }}
+      className="absolute left-6 top-[58px] z-[0] hidden lg:block xl:left-10 xl:top-[66px] xl:h-[calc(90vh-50px)]"
+      style={{
+        width: "min(48vw, 620px)",
+        height: "calc(90vh - 42px)",
+      }}
     >
       <div className="flex h-full flex-col">
         <motion.p
