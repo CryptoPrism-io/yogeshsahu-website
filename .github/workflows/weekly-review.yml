@@ -22,7 +22,8 @@ jobs:
       - name: Generate weekly review
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODELS: ${{ vars.OPENROUTER_MODELS }}
           SITE_OWNER: CryptoPrism-io
         run: node scripts/weekly-review.mjs
 

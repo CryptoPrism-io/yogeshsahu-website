@@ -3,15 +3,16 @@
  * Weekly Review Generator
  *
  * Pulls the last 7 days of activity from the CryptoPrism-io GitHub account,
- * sends it to Claude to compose a "Week in Review" post, and appends it to
- * src/data/weekly-reviews.ts.
+ * sends it to OpenRouter (cheap model) to compose a "Week in Review" post,
+ * and appends it to src/data/weekly-reviews.ts.
  *
  * Runs weekly from .github/workflows/weekly-review.yml (Friday 8am IST).
  *
  * Env:
- *   GH_TOKEN            — GitHub token (secrets.GITHUB_TOKEN works)
- *   ANTHROPIC_API_KEY   — Claude API key
- *   SITE_OWNER          — default "CryptoPrism-io"
+ *   GH_TOKEN              — GitHub token (secrets.GITHUB_TOKEN works)
+ *   OPENROUTER_API_KEY    — OpenRouter API key
+ *   OPENROUTER_MODELS     — comma-separated free model ids to rotate (default below)
+ *   SITE_OWNER            — default "CryptoPrism-io"
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
@@ -22,10 +23,26 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const REVIEWS_PATH = resolve(__dirname, "../src/data/weekly-reviews.ts");
 const OWNER = process.env.SITE_OWNER ?? "CryptoPrism-io";
 const GH_TOKEN = process.env.GH_TOKEN;
-const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
+const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY;
+const FREE_MODELS = ["openrouter/free", "openrouter/auto", "openrouter/auto-beta"];
+const MODELS = (process.env.OPENROUTER_MODELS ?? FREE_MODELS.join(","))
+  .split(",")
+  .map((m) => m.trim())
+  .filter(Boolean);
 
-if (!GH_TOKEN || !ANTHROPIC_KEY) {
-  console.error("Missing GH_TOKEN or ANTHROPIC_API_KEY");
+function isoWeekOfYear(d = new Date()) {
+  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  const dayNum = date.getUTCDay() || 7;
+  date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  return Math.ceil(((date - yearStart) / 86400000 + 1) / 7);
+}
+
+// Rotate the model each week so usage is spread across the free tier.
+const MODEL = MODELS[(isoWeekOfYear() - 1) % MODELS.length];
+
+if (!GH_TOKEN || !OPENROUTER_KEY) {
+  console.error("Missing GH_TOKEN or OPENROUTER_API_KEY");
   process.exit(1);
 }
 
@@ -111,26 +128,28 @@ Then output a JSON object with these fields (NO markdown, raw JSON only):
   "body": "<the full body text with \\n\\n>"
 }`;
 
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
+  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": ANTHROPIC_KEY,
-      "anthropic-version": "2023-06-01",
+      Authorization: `Bearer ${OPENROUTER_KEY}`,
+      "HTTP-Referer": "https://yogeshsahu.xyz",
+      "X-Title": "weekly-review-bot",
     },
     body: JSON.stringify({
-      model: "claude-sonnet-4-5",
+      model: MODEL,
       max_tokens: 1200,
+      temperature: 0.7,
       messages: [{ role: "user", content: prompt }],
     }),
   });
 
   if (!res.ok) {
     const err = await res.text();
-    throw new Error(`Claude API ${res.status}: ${err}`);
+    throw new Error(`OpenRouter API ${res.status}: ${err}`);
   }
   const data = await res.json();
-  const text = data.content[0].text;
+  const text = data.choices?.[0]?.message?.content ?? "";
   const start = text.indexOf("{");
   const end = text.lastIndexOf("}");
   return JSON.parse(text.slice(start, end + 1));
