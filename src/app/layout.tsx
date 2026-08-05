@@ -56,6 +56,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://yogeshsahu.xyz",
   },
+  other: {
+    'llms-txt': 'https://yogeshsahu.xyz/llms.txt',
+  },
 };
 
 export default function RootLayout({
