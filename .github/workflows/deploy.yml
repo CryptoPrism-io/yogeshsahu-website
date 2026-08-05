@@ -28,6 +28,8 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
+          NEXT_PUBLIC_DF_WEBSITE_ID: ${{ secrets.NEXT_PUBLIC_DF_WEBSITE_ID }}
+          NEXT_PUBLIC_DF_DOMAIN: ${{ secrets.NEXT_PUBLIC_DF_DOMAIN }}
 
       - name: Add CNAME for custom domain
         run: echo "yogeshsahu.xyz" > out/CNAME

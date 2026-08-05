@@ -120,6 +120,16 @@ export default function RootLayout({
             </Script>
           </>
         )}
+        {/* Datafast (Umami-style) cookieless analytics */}
+        {process.env.NEXT_PUBLIC_DF_WEBSITE_ID && process.env.NEXT_PUBLIC_DF_DOMAIN && (
+          <Script
+            id="datafast"
+            strategy="afterInteractive"
+            src="https://datafa.st/js/script.cookieless.js"
+            data-website-id={process.env.NEXT_PUBLIC_DF_WEBSITE_ID}
+            data-domain={process.env.NEXT_PUBLIC_DF_DOMAIN}
+          />
+        )}
         <LazyMotion features={domAnimation}>
           {children}
         </LazyMotion>
