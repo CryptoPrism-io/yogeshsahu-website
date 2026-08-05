@@ -24,6 +24,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           OPENROUTER_MODELS: ${{ vars.OPENROUTER_MODELS }}
+          THEMES_URL: ${{ secrets.THEMES_URL }}
+          THEMES_KEY: ${{ secrets.THEMES_KEY }}
           SITE_OWNER: CryptoPrism-io
         run: node scripts/weekly-review.mjs
 

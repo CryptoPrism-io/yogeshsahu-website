@@ -12,6 +12,8 @@
  *   GH_TOKEN              — GitHub token (secrets.GITHUB_TOKEN works)
  *   OPENROUTER_API_KEY    — OpenRouter API key
  *   OPENROUTER_MODELS     — comma-separated free model ids to rotate (default below)
+ *   THEMES_URL            — Pratyaksha weekly-themes Lambda URL (optional)
+ *   THEMES_KEY            — shared key for THEMES_URL (required if URL set)
  *   SITE_OWNER            — default "CryptoPrism-io"
  */
 
@@ -24,6 +26,8 @@ const REVIEWS_PATH = resolve(__dirname, "../src/data/weekly-reviews.ts");
 const OWNER = process.env.SITE_OWNER ?? "CryptoPrism-io";
 const GH_TOKEN = process.env.GH_TOKEN;
 const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY;
+const THEMES_URL = process.env.THEMES_URL;
+const THEMES_KEY = process.env.THEMES_KEY;
 const FREE_MODELS = ["openrouter/free", "openrouter/auto", "openrouter/auto-beta"];
 const MODELS = (process.env.OPENROUTER_MODELS ?? FREE_MODELS.join(","))
   .split(",")
@@ -99,23 +103,64 @@ async function collectWeekActivity() {
   return activity;
 }
 
-async function composePost(activity) {
+async function collectThemes() {
+  if (!THEMES_URL) {
+    console.log("THEMES_URL not set — skipping journal themes");
+    return null;
+  }
+  if (!THEMES_KEY) {
+    console.warn("THEMES_URL set but THEMES_KEY missing — skipping journal themes");
+    return null;
+  }
+  try {
+    const since = weekAgoISO();
+    const res = await fetch(`${THEMES_URL}?since=${encodeURIComponent(since)}&days=7`, {
+      headers: { "x-themes-key": THEMES_KEY },
+    });
+    if (!res.ok) {
+      console.warn(`Themes endpoint ${res.status} — skipping journal themes`);
+      return null;
+    }
+    const data = await res.json();
+    if (!data?.ok) {
+      console.warn("Themes endpoint returned ok:false — skipping journal themes");
+      return null;
+    }
+    // Empty window is real data (founder may not have journaled this week).
+    if (!data.themes || data.themes.length === 0) {
+      console.log("No journal themes this week — continuing without them");
+      return null;
+    }
+    return { themes: data.themes, mood: data.mood, entryCount: data.entryCount };
+  } catch (e) {
+    console.warn(`Themes fetch failed: ${e.message} — skipping journal themes`);
+    return null;
+  }
+}
+
+async function composePost(activity, themes) {
   const today = new Date();
   const weekNum = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (7 * 24 * 3600 * 1000));
   const dateStr = today.toISOString().slice(0, 10);
   const iso = today.toISOString().split("T")[0];
+
+  const themesSection = themes
+    ? `\nAlso here is the anonymized journal summary from the founder's reflection app for the same week (themes + mood only, no private text):\n\n${JSON.stringify(themes, null, 2)}\n\nIf provided, weave a brief "Reflection" line into the post using the mood/themes. Never invent journal content if absent.`
+    : "";
 
   const prompt = `You are writing a "Week in Review" post for a founder's portfolio site (yogeshsahu.xyz). The voice is candid, technical, and direct — short paragraphs, no hype, first person. This is a public post on a personal site, so keep it professional but human.
 
 Here is the raw GitHub activity from the last 7 days across the ${OWNER} repos:
 
 ${JSON.stringify(activity, null, 2)}
+${themesSection}
 
 Write the post body in plain text with \\n\\n paragraph breaks. Structure it like:
 1. One-paragraph opening: what the week was about in aggregate.
 2. "Shipped" — the merged PRs / notable commits, grouped by repo.
 3. "In progress" — open work.
 4. One-line closing about next week.
+${themes ? "5. Optionally a one-line \"Reflection\" using the journal mood/themes above." : ""}
 
 Then output a JSON object with these fields (NO markdown, raw JSON only):
 {
@@ -169,7 +214,8 @@ async function main() {
   console.log("Collecting activity for", OWNER);
   const activity = await collectWeekActivity();
   console.log(`Found ${activity.length} repos with activity`);
-  const post = await composePost(activity);
+  const themes = await collectThemes();
+  const post = await composePost(activity, themes);
   appendToFile(post);
   console.log("Done.");
 }
