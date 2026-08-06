@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { trackEvent } from "@/lib/analytics";
 import {
   Users,
   FileCode,
@@ -49,6 +50,7 @@ export default function FounderHubView() {
   const [filterKey, setFilterKey] = useState(0);
 
   const handleHubChange = (next: Hub) => {
+    trackEvent("hub_toggle", { hub: next });
     setHub(next);
     setActiveTab(HUB_TABS[next][0]);
     setDashboardFilters(null);
@@ -172,7 +174,10 @@ export default function FounderHubView() {
             return (
               <button
                 key={tab}
-                onClick={() => setActiveTab(tab)}
+                onClick={() => {
+                  trackEvent("nav_click", { destination: `resources:${tab}` });
+                  setActiveTab(tab);
+                }}
                 className={`flex items-center gap-2 border-b-2 py-3 px-4 text-xs font-mono font-semibold transition-all shrink-0 ${
                   isActive
                     ? "border-[var(--ys-accent)] text-[var(--ys-accent-strong)] bg-[rgba(207,79,39,0.06)]"

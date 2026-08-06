@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Wrench, ExternalLink, Filter } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import {
   toolkit,
   TOOLKIT_CATEGORIES,
@@ -155,6 +156,7 @@ export default function ToolkitList() {
             <Link
               key={item.name}
               href={item.url}
+              onClick={() => trackEvent("toolkit_link", { tool: item.name })}
               target="_blank"
               rel="noopener noreferrer"
               className="group block rounded-xl border px-5 py-4 transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-16px_rgba(207,79,39,0.25)]"

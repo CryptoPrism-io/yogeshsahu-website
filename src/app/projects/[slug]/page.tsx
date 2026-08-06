@@ -7,6 +7,8 @@ import ImagePlaceholder from "@/components/ui/ImagePlaceholder";
 import LeadershipLens from "@/components/work/LeadershipLens";
 import CaseStudyBlocks from "@/components/work/CaseStudyBlocks";
 import ProjectGallery from "@/components/work/ProjectGallery";
+import PageEvent from "@/components/ui/PageEvent";
+import TrackClick from "@/components/ui/TrackClick";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.id }));
@@ -71,6 +73,7 @@ export default async function ProjectPage({
 
   return (
     <main className="h-screen overflow-y-auto" style={{ background: "var(--ys-surface)" }}>
+      <PageEvent event="case_study_read" props={{ project: project.id }} />
       <nav
         className="fixed top-4 left-1/2 z-50 -translate-x-1/2 inline-flex items-center gap-4 px-4 py-2"
         style={{
@@ -191,20 +194,22 @@ export default async function ProjectPage({
             </a>
           )}
           {project.reportHref && (
-            <a
-              href={project.reportHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center border px-[26px] text-[12px] uppercase tracking-[0.14em] transition-colors hover:opacity-80"
-              style={{
-                fontFamily: "var(--font-mono)",
-                borderColor: "var(--ys-btn-teal-border)",
-                background: "var(--ys-btn-teal-bg)",
-                color: "var(--ys-highlight)",
-              }}
-            >
-              Deep Dive
-            </a>
+            <TrackClick event="deep_dive_open" props={{ project: project.id }}>
+              <a
+                href={project.reportHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center border px-[26px] text-[12px] uppercase tracking-[0.14em] transition-colors hover:opacity-80"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  borderColor: "var(--ys-btn-teal-border)",
+                  background: "var(--ys-btn-teal-bg)",
+                  color: "var(--ys-highlight)",
+                }}
+              >
+                Deep Dive
+              </a>
+            </TrackClick>
           )}
         </div>
       </header>

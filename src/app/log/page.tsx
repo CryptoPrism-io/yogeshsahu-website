@@ -126,7 +126,10 @@ export default function LogPage() {
             return (
               <button
                 key={kind}
-                onClick={() => setKindFilter(kind)}
+                onClick={() => {
+                  trackEvent("log_filter", { kind });
+                  setKindFilter(kind);
+                }}
                 className="rounded-full border px-3 py-1 text-[10px] font-mono uppercase tracking-[0.1em] transition-colors"
                 style={
                   active
@@ -165,7 +168,10 @@ export default function LogPage() {
             return (
               <button
                 key={tag}
-                onClick={() => setTagFilter(active ? "all" : tag)}
+                onClick={() => {
+                  trackEvent("log_filter", { tag });
+                  setTagFilter(active ? "all" : tag);
+                }}
                 className="rounded border px-2 py-0.5 text-[9px] font-mono uppercase tracking-[0.1em] transition-colors"
                 style={
                   active

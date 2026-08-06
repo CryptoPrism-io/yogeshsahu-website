@@ -7,7 +7,15 @@ type EventName =
   | "contact_click"
   | "nav_click"
   | "journal_read"
-  | "cv_download";
+  | "cv_download"
+  | "case_study_read"
+  | "deep_dive_open"
+  | "playbook_open"
+  | "toolkit_link"
+  | "investor_export"
+  | "hub_toggle"
+  | "log_filter"
+  | "cluster_view";
 
 /**
  * Fire a custom Plausible event. Safe no-op when the tracker isn't loaded

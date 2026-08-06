@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import investorsDataRaw from "@/data/investors.json";
 import { downloadCSV, downloadExcel, type InvestorRecord } from "@/lib/exportUtils";
+import { trackEvent } from "@/lib/analytics";
 import Link from "next/link";
 
 function LinkedInIcon({ size = 12 }: { size?: number }) {
@@ -183,7 +184,7 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             <button
-              onClick={() => downloadCSV(filteredData, `investors-${selectedTypes[0]?.toLowerCase().replace(/[^a-z]/g, '') || 'all'}.csv`)}
+              onClick={() => { trackEvent("investor_export", { format: "csv", count: filteredData.length }); downloadCSV(filteredData, `investors-${selectedTypes[0]?.toLowerCase().replace(/[^a-z]/g, '') || 'all'}.csv`); }}
               className="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-xs font-mono font-semibold transition-all hover:scale-[1.02] shadow-sm"
               style={{ background: "var(--ys-accent)", color: "#ffffff" }}
               id="export-csv-btn"
@@ -191,7 +192,7 @@ export default function InvestorPool({ initialFilters }: { initialFilters?: { ty
               <Download size={14} /> Export CSV ({filteredData.length})
             </button>
             <button
-              onClick={() => downloadExcel(filteredData, `investors-${selectedTypes[0]?.toLowerCase().replace(/[^a-z]/g, '') || 'all'}.xls`)}
+              onClick={() => { trackEvent("investor_export", { format: "excel", count: filteredData.length }); downloadExcel(filteredData, `investors-${selectedTypes[0]?.toLowerCase().replace(/[^a-z]/g, '') || 'all'}.xls`); }}
               className="inline-flex items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-xs font-mono font-semibold transition-all hover:bg-[var(--ys-surface-strong)]"
               style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface)", color: "var(--ys-text)" }}
               id="export-excel-btn"

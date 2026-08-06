@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
 import type { FounderPlaybook } from "@/data/founder-playbooks";
 import { getPlaybook } from "@/data/founder-playbooks";
+import { trackEvent } from "@/lib/analytics";
 
 interface PlaybookCardProps {
   playbook: FounderPlaybook;
@@ -65,7 +66,10 @@ export default function PlaybookCard({
       }}
     >
       <button
-        onClick={() => onOpen(playbook.slug)}
+        onClick={() => {
+          trackEvent("playbook_open", { playbook: playbook.slug });
+          onOpen(playbook.slug);
+        }}
         className="group w-full px-6 py-5 text-left transition-colors hover:bg-[rgba(207,79,39,0.04)]"
       >
         <div className="flex items-start justify-between gap-4">

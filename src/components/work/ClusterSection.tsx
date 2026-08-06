@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import type { ClusterMeta } from "@/data/clusters";
 import type { Project } from "@/lib/projects";
 import CaseCard from "./CaseCard";
+import { trackEvent } from "@/lib/analytics";
 
 export default function ClusterSection({
   cluster,
@@ -15,6 +16,12 @@ export default function ClusterSection({
 }) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  useEffect(() => {
+    if (inView) {
+      trackEvent("cluster_view", { cluster: cluster.id, archetype: cluster.archetype });
+    }
+  }, [inView, cluster.id, cluster.archetype]);
 
   return (
     <section ref={ref} className="mt-16">
