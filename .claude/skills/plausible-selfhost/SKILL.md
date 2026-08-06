@@ -1,6 +1,6 @@
 ---
 name: plausible-selfhost
-description: Deploy and operate Plausible CE (self-hosted analytics) on AWS EC2. Use for standing up a new instance, adding sites, troubleshooting, or extending to more products. Contains the exact commands and every known gotcha so redeploying takes minutes, not an hour.
+description: Deploy and operate Plausible CE (self-hosted analytics) on AWS EC2. Use for standing up a new instance, adding sites, troubleshooting, or extending to more products. Contains the exact commands and every known gotcha so redeploying takes minutes, not an hour. Covers the one-wildcard-covers-all-sites model.
 ---
 
 # Plausible CE Self-Host — Runbook
@@ -11,19 +11,35 @@ description: Deploy and operate Plausible CE (self-hosted analytics) on AWS EC2.
 - Debugging Plausible/ClickHouse/Postgres container issues
 - Scaling the same instance to more products
 
+## THE core insight: one wildcard DNS covers ALL products
+
+Plausible tracking works by the VISITOR's browser loading the tracker script from
+the dashboard host, then passing `data-domain` as a plain label:
+
+```html
+<script defer data-domain="<product-domain>" src="https://plausible.yogeshsahu.xyz/js/script.js"></script>
+```
+
+`data-domain` does NOT need to resolve anywhere. It's just the site identifier
+matching a site created in the Plausible dashboard. Therefore:
+
+- **ONE DNS record (`*.yogeshsahu.xyz` → EC2 EIP) enables analytics on EVERY product.**
+- Firebase `*.web.app` sites need NO DNS at all (they can't have wildcards, and don't need them).
+- Per-product wildcards on other domains (`*.cryptoprism.io`, etc.) are OPTIONAL —
+  only needed if you want separate dashboards per product (`analytics.cryptoprism.io`).
+
 ## Architecture (one instance, many sites)
 
 ```
-EC2 t3.medium (EIP)
+EC2 t3.medium (EIP 52.202.90.162)
 ├── plausible_events_db  (ClickHouse 24.12-alpine) — analytics store, SHARED
 ├── plausible_db          (Postgres 16-alpine)      — metadata, SHARED
 └── plausible             (ghcr.io/plausible/community-edition:v3.2.1)
-    ├── serves dashboard at https://plausible.<domain>
-    └── serves tracker  /js/script.js  for ALL sites
+    ├── dashboard  https://plausible.yogeshsahu.xyz
+    └── tracker    /js/script.js  — served to ALL sites
 ```
 
-One Plausible = all products. Each product adds the script tag with its own
-`data-domain`. No per-product infra.
+One Plausible = all products. Add sites in the dashboard, no per-product infra.
 
 ## Reference facts (current deployment)
 
@@ -35,6 +51,18 @@ One Plausible = all products. Each product adds the script tag with its own
 | Dashboard URL | `https://plausible.yogeshsahu.xyz` |
 | Config dir | `/home/ubuntu/plausible/` on the instance |
 | SSH | `plausible-key.pem` (store securely, never commit) |
+| Tracker host | `https://plausible.yogeshsahu.xyz/js/script.js` |
+
+## The domains (owner's inventory)
+
+| Domain | Zone owner | Wildcard added? | Purpose |
+|--------|-----------|-----------------|---------|
+| `yogeshsahu.xyz` | Namecheap (dyna-ns) | ✅ `*` → EIP | Dashboard host + portfolio |
+| `cryptoprism.io` | registrar TBD | optional | CryptoPrism product(s) |
+| `trinetryinfotech.com` | registrar TBD | optional | Trinetry site |
+| `puneglobalgroup.in` | registrar TBD | optional | PGG site |
+| `ai-becoming.web.app` | Firebase (Google) | not possible / not needed | Pratyaksha |
+| `ai-polymind.web.app` | Firebase (Google) | not possible / not needed | Gyanmarg |
 
 ## Deploy from scratch (fast path, ~10 min)
 
@@ -50,17 +78,18 @@ One Plausible = all products. Each product adds the script tag with its own
 3. `mkdir -p ~/plausible/clickhouse` and place the official compose + 4 ClickHouse configs (see KB doc `docs/plausible-selfhost-aws-runbook.md`).
 4. Create `.env` with the 7 required vars (BASE_URL, SECRET_KEY_BASE, TOTP_VAULT_KEY, HTTP_PORT, HTTPS_PORT, DATABASE_URL, CLICKHOUSE_DATABASE_URL). **DATABASE_URL/CLICKHOUSE_DATABASE_URL must be non-empty** — empty nil crashes boot.
 5. `sudo docker compose up -d` — migrations auto-run on first boot (entrypoint does `createdb && migrate && run`).
-6. Add the A record for the dashboard subdomain FIRST, before relying on HTTPS.
+6. Add the `*.yogeshsahu.xyz` wildcard A record FIRST, before relying on HTTPS (Let's Encrypt needs the domain to resolve).
 
-## Adding a new product/site (5 min)
+## Onboarding a NEW product (5 min, no DNS, no infra)
 
-1. In Plausible dashboard → Add website → enter the product's domain.
+1. In Plausible dashboard → Add website → enter the product's domain
+   (any domain works: custom OR `*.web.app`).
 2. On the product's site, add (only `data-domain` changes):
    ```html
-   <script defer data-domain="product-domain.com" src="https://plausible.<dash-domain>/js/script.js"></script>
+   <script defer data-domain="product-domain.com" src="https://plausible.yogeshsahu.xyz/js/script.js"></script>
    ```
-3. Hard-refresh the product page, check Plausible → Realtime → should show the visit.
-4. No DNS, no deploy, no new container. Done.
+3. Hard-refresh the product page → Plausible Realtime → should show the visit.
+4. Done. No container, no DNS, no redeploy.
 
 ## THE GOTCHAS (these cost an hour each the first time)
 
@@ -83,7 +112,7 @@ One Plausible = all products. Each product adds the script tag with its own
    and Plausible dies. Set both explicitly in `.env`.
 
 5. **Let's Encrypt needs DNS FIRST.** The cert fails with `challenges have failed`
-   if `plausible.<domain>` doesn't resolve to the EIP yet. Add DNS, then
+   if `plausible.yogeshsahu.xyz` doesn't resolve to the EIP yet. Add DNS, then
    `docker compose restart plausible` to retry cert issuance.
 
 6. **SECRET_KEY_BASE must be ≥64 bytes.** Use `openssl rand -base64 48`.
@@ -91,6 +120,10 @@ One Plausible = all products. Each product adds the script tag with its own
 7. **SSH key on Windows.** `Set-Content`/`Out-File` mangles PEM line endings →
    `invalid format`. Write via `[System.IO.File]::WriteAllText` with proper
    LF newlines + 64-char wrapping, then `icacls /inheritance:r` for perms.
+
+8. **Let's Encrypt rate limits.** Adding DNS then repeatedly restarting to force
+   certs can hit the 5-failures/week limit. Verify DNS resolves BEFORE restarting
+   the plausible container, and only retry once it does.
 
 ## Troubleshooting quick reference
 
@@ -101,12 +134,12 @@ One Plausible = all products. Each product adds the script tag with its own
 | `database "plausible_db" does not exist` | no createdb run | CE entrypoint auto-runs; ensure healthchecks pass |
 | `relation "salts" does not exist` | migrations never ran | CE entrypoint runs migrate on boot |
 | `String.starts_with?(nil,"%2F")` | empty DATABASE_URL | set both DB URLs in .env |
-| cert challenges failed | DNS missing | add A record, restart plausible |
+| cert challenges failed | DNS missing | add wildcard A record, restart plausible |
 | Postgres `incompatible with server` | old volume | `down -v` |
 
 ## Verification checklist
 - [ ] `docker compose ps` — all 3 services Up (db + events_db Healthy)
 - [ ] `curl -sI http://127.0.0.1:80/` → 301 (redirect to HTTPS)
 - [ ] `curl -sI https://127.0.0.1:443/ -k` → 302 (redirect to login)
-- [ ] `https://plausible.<domain>` → admin login page, TLS green
+- [ ] `https://plausible.yogeshsahu.xyz` → admin login page, TLS green
 - [ ] Add a test site → paste script on a product → Realtime shows the hit

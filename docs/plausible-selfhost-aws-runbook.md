@@ -260,3 +260,52 @@ Then hard-refresh the site and check the Plausible dashboard **Realtime** — yo
 2. The site `yogeshsahu.xyz` is added to Plausible.
 3. `NEXT_PUBLIC_PLAUSIBLE_HOST` secret set; the portfolio loads `script.js` from the instance.
 4. A hard-refresh shows the visitor in Plausible Realtime.
+
+---
+
+# DEPLOYED REALITY (2026-08-06) — supersedes the Caddy-based parts above
+
+The above reflects the ORIGINAL plan (Caddy + `plausible/analytics:v2.1`). The
+actual working deployment uses the **official Plausible Community Edition v3.2.1**
+compose, which has built-in TLS (no Caddy). The correct reference is
+`.claude/skills/plausible-selfhost/SKILL.md`. Key differences:
+
+- Image: `ghcr.io/plausible/community-edition:v3.2.1` (NOT `plausible/analytics:v2.1`)
+- Built-in Let's Encrypt via `HTTP_PORT`/`HTTPS_PORT` env — no Caddy container
+- Entrypoint auto-runs `createdb && migrate && run` on boot
+- Postgres 16 + ClickHouse 24.12, both with healthchecks
+- Compose + ClickHouse configs come from `github.com/plausible/community-edition`
+
+## Live stack (as deployed)
+
+| Service | Image | Status |
+|---------|-------|--------|
+| `plausible` | `ghcr.io/plausible/community-edition:v3.2.1` | Up |
+| `plausible_db` | `postgres:16-alpine` | Healthy |
+| `plausible_events_db` | `clickhouse/clickhouse-server:24.12-alpine` | Healthy |
+
+Instance: `t3.medium` `i-034f30a4c644521a7` · EIP `52.202.90.162` · us-east-1
+Dashboard: `https://plausible.yogeshsahu.xyz` · SSH key `plausible-key.pem`
+
+## One-wildcard model (how all products get analytics)
+
+The tracker loads from the dashboard host; `data-domain` is only a label:
+
+```html
+<script defer data-domain="<any-product-domain>" src="https://plausible.yogeshsahu.xyz/js/script.js"></script>
+```
+
+So **`*.yogeshsahu.xyz → EIP` enables analytics on every product**. Firebase
+`*.web.app` sites need no DNS at all. Per-product wildcards on other owned domains
+are optional (only for separate dashboards).
+
+## Domain inventory (owner's zones)
+
+| Domain | Wildcard added | Notes |
+|--------|----------------|-------|
+| `yogeshsahu.xyz` | ✅ `*` → 52.202.90.162 | Dashboard host |
+| `cryptoprism.io` | optional | CryptoPrism |
+| `trinetryinfotech.com` | optional | Trinetry |
+| `puneglobalgroup.in` | optional | PGG |
+| `ai-becoming.web.app` / `ai-polymind.web.app` | not needed | Firebase-owned zones |
+
