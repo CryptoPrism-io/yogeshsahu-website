@@ -103,34 +103,13 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* Google Analytics 4 */}
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-              strategy="afterInteractive"
-            />
-            <Script id="ga4" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-                  anonymize_ip: true,
-                  send_page_view: true,
-                });
-              `}
-            </Script>
-          </>
-        )}
-        {/* Datafast (Umami-style) cookieless analytics */}
-        {process.env.NEXT_PUBLIC_DF_WEBSITE_ID && process.env.NEXT_PUBLIC_DF_DOMAIN && (
+        {/* Plausible (self-hosted, cookieless) analytics */}
+        {process.env.NEXT_PUBLIC_PLAUSIBLE_SITE && process.env.NEXT_PUBLIC_PLAUSIBLE_HOST && (
           <Script
-            id="datafast"
+            id="plausible"
             strategy="afterInteractive"
-            src="https://datafa.st/js/script.cookieless.js"
-            data-website-id={process.env.NEXT_PUBLIC_DF_WEBSITE_ID}
-            data-domain={process.env.NEXT_PUBLIC_DF_DOMAIN}
+            src={`${process.env.NEXT_PUBLIC_PLAUSIBLE_HOST}/js/script.js`}
+            data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_SITE}
           />
         )}
         <LazyMotion features={domAnimation}>
