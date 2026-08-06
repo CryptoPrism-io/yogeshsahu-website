@@ -53,23 +53,30 @@ the `src` stays identical. Firebase `*.web.app` needs no DNS.
 |-------|----------|-------|----------|
 | `diagnostic_click` | Diagnostic CTA (desktop, mobile, nav strip) | `source` | **Conversion** |
 | `contact_click` | Contact buttons | `source` | **Conversion** |
+| `investor_export` | Investor CSV/Excel export | `format`, `count` | **Conversion** |
+| `playbook_open` | Playbook accordion expand | `playbook` | **Engagement** |
 | `project_open` | Case card click | `project` (id) | **Engagement** |
 | `dock_open` | Dock app icon open | `app` (id) | **Engagement** |
-| `nav_click` | GlyphPanel nav link | `destination` (href) | **Engagement** |
+| `nav_click` | GlyphPanel nav link + resources tab | `destination` | **Engagement** |
+| `cluster_view` | Work page cluster scroll-into-view | `cluster`, `archetype` | **Engagement** |
+| `case_study_read` | Project detail page open | `project` (id) | **Content** |
+| `deep_dive_open` | "Deep Dive" report click | `project` (id) | **Content** |
 | `journal_read` | Log post click | `post` (slug) | **Content** |
+| `toolkit_link` | Toolkit tool click | `tool` | **Content** |
+| `log_filter` | Log kind/tag filter used | `kind` / `tag` | **Content** |
+| `hub_toggle` | Founders ⇄ Builders hub switch | `hub` | **Engagement** |
 
 ### Categories
-- **Conversion** — money-adjacent actions (diagnostic, contact) -> mark as Goals
+- **Conversion** — money-adjacent actions -> create Goals in DB
 - **Engagement** — product/site interaction (project, dock, nav)
-- **Content** — reading/consuming content (journal)
+- **Content** — reading/consuming content (journal, case study)
 
-## Adding a new event (portfolio)
+### Page-level events (server components)
+Server pages (e.g. project detail) can't call `trackEvent` in onClick. Use:
+- `<PageEvent event="case_study_read" props={{...}} />` — fires once on mount (delayed 400ms so pageview lands first)
+- `<TrackClick event="deep_dive_open" props={{...}}>...</TrackClick>` — wraps a clickable in a client span
 
-1. Add the name to the `EventName` union in `src/lib/analytics.ts`.
-2. Import `trackEvent` in the component.
-3. Call it in the `onClick` (or on interaction) — use snake_case, add a `source` prop where there are multiple triggers.
-4. Define a Goal in Plausible if it's a conversion (see below).
-5. Build + deploy + verify in Realtime.
+Both live in `src/components/ui/`.
 
 ## Onboarding a NEW product/site
 
@@ -102,12 +109,38 @@ the `src` stays identical. Firebase `*.web.app` needs no DNS.
 
 5. **Hard-refresh the product** and check the Plausible dashboard Realtime.
 
-## Defining Goals (conversions)
+## Defining Goals (conversions) — via DB, no dashboard
 
-In the Plausible dashboard -> site -> Goals -> Add goal, create a Goal for each
-**Conversion** event name (`diagnostic_click`, `contact_click`). Goals make these
-show as conversion metrics, not just raw events. Content/engagement events can
-stay as regular events.
+Create a Goal row per conversion event, for every site:
+
+```sql
+INSERT INTO goals (event_name, inserted_at, updated_at, site_id, display_name, scroll_threshold)
+SELECT '<event_name>', now(), now(), id, '<Display Name>', -1 FROM sites
+ON CONFLICT DO NOTHING;
+```
+
+Then restart the plausible container to refresh the goal cache:
+```bash
+cd ~/plausible && sudo docker compose restart plausible
+```
+
+Current goals registered: `diagnostic_click`, `contact_click`, `investor_export`, `playbook_open`.
+
+## API keys (known limitation)
+
+`Plausible.Auth.create_sites_api_key/4` exists but is fiddly to invoke via CLI eval
+(it needs a fully-started app + correct arg order; the 4-arg version takes a
+pre-generated token). Direct DB insert of `plugins_api_tokens` is fragile (token
+must be hashed the exact way Plausible expects). For now, manage sites/goals via
+DB inserts (proven) and treat API-key automation as a future task.
+
+## Adding a new event (portfolio)
+
+1. Add the name to the `EventName` union in `src/lib/analytics.ts`.
+2. Import `trackEvent` in the component (or use `<PageEvent>`/`<TrackClick>` for server pages).
+3. Call it in the `onClick` (or on interaction) — use snake_case, add a `source`/context prop where there are multiple triggers.
+4. If it's a conversion, insert a Goal row via the SQL above.
+5. Build + deploy + verify in Realtime.
 
 ## Verification
 
