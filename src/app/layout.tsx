@@ -108,8 +108,10 @@ export default function RootLayout({
           <Script
             id="plausible"
             strategy="afterInteractive"
-            src={`${process.env.NEXT_PUBLIC_PLAUSIBLE_HOST}/js/script.js`}
+            src={`${process.env.NEXT_PUBLIC_PLAUSIBLE_HOST}/js/script.outbound-links.js`}
             data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_SITE}
+            data-outbound-links
+            data-file-downloads
           />
         )}
         <LazyMotion features={domAnimation}>

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { type CSSProperties, type RefObject, useEffect, useRef, useState } from "react";
 import { rhythmDelays } from "@/lib/motion";
+import { trackEvent } from "@/lib/analytics";
 
 const EASE = "cubic-bezier(.16,.84,.44,1)";
 const MONO = "var(--font-mono)";
@@ -435,7 +436,10 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
 
           {/* CTA */}
           <button
-            onClick={() => onOpen("contact")}
+            onClick={() => {
+              trackEvent("diagnostic_click", { source: "identity_panel" });
+              onOpen("contact");
+            }}
             onMouseEnter={() => setArrow(6)}
             onMouseLeave={() => setArrow(0)}
             className="focus-ring"

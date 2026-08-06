@@ -15,6 +15,7 @@ import {
 import { featuredProjects } from "@/lib/projects";
 import MobileNav from "@/components/layout/MobileNav";
 import Reveal from "@/components/ui/Reveal";
+import { trackEvent } from "@/lib/analytics";
 
 const MONO = "var(--font-mono)";
 const HEAD = "var(--font-headline)";
@@ -521,7 +522,10 @@ function WorkWithMe() {
       </div>
 
       <button
-        onClick={() => scrollToId("mobile-contact")}
+        onClick={() => {
+          trackEvent("contact_click", { source: "work_with_me" });
+          scrollToId("mobile-contact");
+        }}
         className="focus-ring flex w-full items-center justify-between border-t px-[22px] py-[19px]"
         style={{ borderColor: "var(--ys-surface-muted)", background: "var(--ys-highlight)", color: "#fff8f1", border: "none" }}
       >
@@ -620,11 +624,11 @@ function NavStrip() {
         <span style={label}>Resources</span>
         <span style={sub}>Hub</span>
       </Link>
-      <button onClick={() => scrollToId("mobile-diagnostic")} className={cell} style={{ background: "var(--ys-surface)" }}>
+      <button onClick={() => { trackEvent("diagnostic_click", { source: "nav_strip" }); scrollToId("mobile-diagnostic"); }} className={cell} style={{ background: "var(--ys-surface)" }}>
         <span style={label}>Work With Me</span>
         <span style={sub}>Diagnostic</span>
       </button>
-      <button onClick={() => scrollToId("mobile-contact")} className={cell} style={{ background: "var(--ys-surface)" }}>
+      <button onClick={() => { trackEvent("contact_click", { source: "nav_strip" }); scrollToId("mobile-contact"); }} className={cell} style={{ background: "var(--ys-surface)" }}>
         <span style={label}>Contact</span>
         <span style={sub}>Book call</span>
       </button>
@@ -839,7 +843,10 @@ export default function MobileHome() {
         </div>
 
         <button
-          onClick={() => scrollToId("mobile-diagnostic")}
+          onClick={() => {
+            trackEvent("diagnostic_click", { source: "mobile_home" });
+            scrollToId("mobile-diagnostic");
+          }}
           className="focus-ring flex w-full items-center justify-between px-[22px] py-[19px]"
           style={{ background: "var(--ys-highlight)", color: "#fff8f1", border: "none" }}
           aria-label="Let's talk, work with me, deep dive, or connect now"

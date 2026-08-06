@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import type { Project } from "@/lib/projects";
 import { BRAND_SVG_MAP, BrandSvg } from "@/lib/brand-svgs";
 import { caseStudies } from "@/data/case-studies";
+import { trackEvent } from "@/lib/analytics";
 
 const MotionLink = motion(Link);
 const MotionA = motion.a;
@@ -20,6 +21,7 @@ export default function CaseCard({ project }: { project: Project }) {
   return (
     <El
       {...linkProps}
+      onClick={() => trackEvent("project_open", { project: project.id })}
       className="relative flex h-full flex-col overflow-hidden"
       whileHover={{ y: -3, boxShadow: "0 24px 44px -30px rgba(42,23,15,0.5)" }}
       whileTap={{ scale: 0.99 }}

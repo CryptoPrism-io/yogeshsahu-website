@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Briefcase, BookOpen, Mail, Zap } from "lucide-react";
 import { rhythmDelays } from "@/lib/motion";
+import { trackEvent } from "@/lib/analytics";
 
 const NAV_ITEMS = [
   {
@@ -194,6 +195,7 @@ export default function GlyphPanel({ onOpen }: { onOpen: (id: string) => void })
                     href={item.href}
                     style={{ flex: 1, display: "flex", minHeight: 0 }}
                     onMouseEnter={() => setHoveredIndex(i)}
+                    onClick={() => trackEvent("nav_click", { destination: item.href })}
                   >
                     {inner}
                   </Link>

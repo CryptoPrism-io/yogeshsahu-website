@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { LayoutGrid, BookOpen } from "lucide-react";
 import MobileNav from "@/components/layout/MobileNav";
 import Reveal from "@/components/ui/Reveal";
+import { trackEvent } from "@/lib/analytics";
 import { posts, ALL_TAGS, type PostKind } from "@/data/posts";
 
 type TagFilter = string | "all";
@@ -196,6 +197,7 @@ export default function LogPage() {
                     href={`/log/${post.slug}`}
                     style={{ textDecoration: "none", color: "inherit" }}
                     className="block transition-opacity hover:opacity-80"
+                    onClick={() => trackEvent("journal_read", { post: post.slug })}
                   >
                     <article className="border-t pt-6" style={{ borderColor: "var(--ys-border)" }}>
                       <div className="mb-3 flex flex-wrap items-center gap-3">

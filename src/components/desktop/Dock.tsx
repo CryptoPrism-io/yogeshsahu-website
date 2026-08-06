@@ -4,6 +4,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { type ReactNode, useRef, useState } from "react";
 import type { WindowState } from "@/hooks/useWindowManager";
 import { MOTION_DURATION, MOTION_EASE_QUICK, fadeUp } from "@/lib/motion";
+import { trackEvent } from "@/lib/analytics";
 
 interface DockProps {
   windows: WindowState[];
@@ -106,7 +107,14 @@ function DockItem({
   return (
     <motion.button
       ref={ref}
-      onClick={() => (isActive ? onFocus(w.id) : onOpen(w.id))}
+      onClick={() => {
+        if (isActive) {
+          onFocus(w.id);
+        } else {
+          trackEvent("dock_open", { app: w.id });
+          onOpen(w.id);
+        }
+      }}
       onPointerDown={() => setPressed(true)}
       onPointerUp={() => setPressed(false)}
       onPointerLeave={() => setPressed(false)}
