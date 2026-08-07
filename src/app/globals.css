@@ -3,16 +3,16 @@
 @import "tailwindcss";
 
 :root {
-  /* OKLCH design system tokens (design.md) */
-  --color-paper:         oklch(0.97 0.015 75);
-  --color-paper-2:       oklch(0.98 0.010 75);
-  --color-paper-muted:   oklch(0.90 0.020 70);
-  --color-ink:           oklch(0.05 0.010 30);
-  --color-ink-2:         oklch(0.37 0.040 45);
-  --color-rule:          oklch(0.85 0.020 65);
-  --color-accent:        oklch(0.58 0.110 38);
-  --color-accent-strong: oklch(0.50 0.120 36);
-  --color-focus:         oklch(0.58 0.110 38);
+  /* OKLCH design system tokens (design.md) — V4 "Soft Amber" (2026-08-07, WCAG AA verified) */
+  --color-paper:         oklch(0.978 0.011 77);
+  --color-paper-2:       oklch(0.981 0.010 73);
+  --color-paper-muted:   oklch(0.935 0.022 68);
+  --color-ink:           oklch(0.218 0.029 49);
+  --color-ink-2:         oklch(0.398 0.043 54);
+  --color-rule:          oklch(0.861 0.035 65);
+  --color-accent:        oklch(0.577 0.158 39);
+  --color-accent-strong: oklch(0.479 0.146 38);
+  --color-focus:         oklch(0.577 0.158 39);
 
   /* Motion tokens */
   --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);

@@ -10,7 +10,7 @@ export default function ResourcesHub() {
       <header className="space-y-4">
         <p
           className="text-[11px] font-bold uppercase tracking-[0.2em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
+          style={{ fontFamily: "var(--font-mono)", color: "var(--color-ink-2)" }}
         >
           Resources
         </p>

@@ -69,9 +69,9 @@ export default function CommunityList({
           style={
             activeType === "all"
               ? {
-                  background: "var(--color-accent)",
+                  background: "var(--color-accent-strong)",
                   color: "var(--color-paper)",
-                  borderColor: "var(--color-accent)",
+                  borderColor: "var(--color-accent-strong)",
                 }
               : {
                   background: "transparent",

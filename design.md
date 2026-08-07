@@ -16,15 +16,19 @@ atmospheric
 Pages within a family share the family's shape; they vary only in component archetypes.
 
 ## Theme
-- `--color-paper`:        oklch(0.97 0.015 75)
-- `--color-paper-2`:      oklch(0.98 0.010 75)
-- `--color-paper-muted`:  oklch(0.90 0.020 70)
-- `--color-ink`:          oklch(0.05 0.010 30)
-- `--color-ink-2`:        oklch(0.37 0.040 45)
-- `--color-rule`:         oklch(0.85 0.020 65)
-- `--color-accent`:       oklch(0.58 0.110 38)
-- `--color-accent-strong`: oklch(0.50 0.120 36)
-- `--color-focus`:        oklch(0.58 0.110 38)
+- `--color-paper`:        oklch(0.978 0.011 77)   /* #FCF7F0 */
+- `--color-paper-2`:      oklch(0.981 0.010 73)   /* #FDF8F2 */
+- `--color-paper-muted`:  oklch(0.935 0.022 68)   /* #F4E7DA */
+- `--color-ink`:          oklch(0.218 0.029 49)   /* #25160E */
+- `--color-ink-2`:        oklch(0.398 0.043 54)   /* #5A4131 */
+- `--color-rule`:         oklch(0.861 0.035 65)   /* #E2CDBA */
+- `--color-accent`:       oklch(0.577 0.158 39)   /* #C45026 — display/large only */
+- `--color-accent-strong`: oklch(0.479 0.146 38)  /* #9E3611 — small text + button fills */
+- `--color-focus`:        oklch(0.577 0.158 39)
+
+> **Contrast rule (V4 "Soft Amber", 2026-08-07):** small text/labels use `ink-2` or
+> `accent-strong`; `accent` is reserved for display-size text and tints; button
+> fills use `accent-strong` with `paper` text. Verified WCAG AA on every pair.
 
 ## Typography
 - Display: Newsreader, weight 700, style normal (not italic)

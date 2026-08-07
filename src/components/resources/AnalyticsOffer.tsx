@@ -64,7 +64,7 @@ export default function AnalyticsOffer() {
       <section className="space-y-5">
         <p
           className="text-[11px] font-bold uppercase tracking-[0.2em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
+          style={{ fontFamily: "var(--font-mono)", color: "var(--color-ink-2)" }}
         >
           Resources / AI Product Analyst
         </p>
@@ -94,7 +94,7 @@ export default function AnalyticsOffer() {
             href="#design-partner"
             onClick={handlePartnerCta}
             className="inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-mono font-bold transition-transform hover:translate-y-[-1px]"
-            style={{ background: "var(--color-accent)", color: "var(--color-paper)" }}
+            style={{ background: "var(--color-accent-strong)", color: "var(--color-paper)" }}
           >
             Become a design partner
             <ArrowRight size={15} />
@@ -210,7 +210,7 @@ export default function AnalyticsOffer() {
             >
               <p
                 className="text-[11px] font-bold"
-                style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
+                style={{ fontFamily: "var(--font-mono)", color: "var(--color-ink-2)" }}
               >
                 {s.n}
               </p>
@@ -240,7 +240,7 @@ export default function AnalyticsOffer() {
       >
         <p
           className="text-[11px] font-bold uppercase tracking-[0.2em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
+          style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent-strong)" }}
         >
           The offer
         </p>
@@ -268,7 +268,7 @@ export default function AnalyticsOffer() {
             href={MAILTO}
             onClick={handlePartnerCta}
             className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-mono font-bold transition-transform hover:translate-y-[-1px]"
-            style={{ background: "var(--color-accent)", color: "var(--color-paper)" }}
+            style={{ background: "var(--color-accent-strong)", color: "var(--color-paper)" }}
           >
             Try it on my product
             <ArrowRight size={15} />
@@ -288,7 +288,7 @@ export default function AnalyticsOffer() {
           <Target size={14} style={{ color: "var(--color-accent)" }} />
           <p
             className="text-[11px] font-bold uppercase tracking-[0.2em]"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
+            style={{ fontFamily: "var(--font-mono)", color: "var(--color-ink-2)" }}
           >
             Build it yourself
           </p>

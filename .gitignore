@@ -41,3 +41,6 @@ analyst/.env
 analyst/memos/
 analyst/dumps/
 analyst/qa-runs/
+
+# Design mockups (working artifacts until approval)
+mockups/

@@ -44,9 +44,9 @@ export default function ToolkitList() {
             style={
               activeCategory === "all"
                 ? {
-                    background: "var(--color-accent)",
+                    background: "var(--color-accent-strong)",
                     color: "var(--color-paper)",
-                    borderColor: "var(--color-accent)",
+                    borderColor: "var(--color-accent-strong)",
                   }
                 : {
                     background: "transparent",
