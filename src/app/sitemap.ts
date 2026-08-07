@@ -16,12 +16,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/resources`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
   ];
 
-  const projectRoutes: MetadataRoute.Sitemap = projects.map((p) => ({
-    url: p.htmlHref ? `${BASE}${p.htmlHref}` : `${BASE}/projects/${p.id}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: p.htmlHref ? 0.6 : 0.7,
-  }));
+  const projectRoutes: MetadataRoute.Sitemap = projects
+    .filter((p) => !p.internalHref)
+    .map((p) => ({
+      url: p.htmlHref ? `${BASE}${p.htmlHref}` : `${BASE}/projects/${p.id}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: p.htmlHref ? 0.6 : 0.7,
+    }));
 
   const postRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${BASE}/log/${post.slug}`,

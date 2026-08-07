@@ -33,6 +33,8 @@ export interface Project {
   reportHref?: string;
   reports?: { label: string; href: string }[];
   cluster?: ClusterId;
+  /** Link straight to an internal page instead of /projects/[id] (e.g. /resources#analytics). */
+  internalHref?: string;
 }
 
 export const projects: Project[] = [
@@ -231,6 +233,21 @@ export const projects: Project[] = [
         { src: '/images/projects/kari/02-restore-shrines.webp', caption: 'Blazing a trail to restore ravaged shrines — relic collection prompts unlock teleport to the next shrine in the level.' },
       ],
     },
+    cluster: 'C',
+  },
+  {
+    id: 'ai-product-analyst',
+    name: 'AI Product Analyst',
+    description: 'Turning cookieless analytics into evidence-backed product decisions. Live experiment — currently testing with 3 founder products.',
+    stat: '3',
+    statLabel: 'design partners',
+    tags: ['Plausible', 'AI/LLM', 'Analytics'],
+    category: ['ai', 'tools'],
+    language: 'TypeScript',
+    featured: false,
+    href: '',
+    githubHref: '',
+    internalHref: '/resources#analytics',
     cluster: 'C',
   },
   {

@@ -13,10 +13,13 @@ const MotionA = motion.a;
 
 export default function CaseCard({ project }: { project: Project }) {
   const isExternalDoc = Boolean(project.htmlHref);
+  const hasInternalHref = Boolean(project.internalHref);
   const El = isExternalDoc ? MotionA : MotionLink;
   const linkProps = isExternalDoc
     ? { href: project.htmlHref!, target: "_blank" as const, rel: "noopener noreferrer" }
-    : { href: `/projects/${project.id}` };
+    : hasInternalHref
+      ? { href: project.internalHref! }
+      : { href: `/projects/${project.id}` };
 
   return (
     <El

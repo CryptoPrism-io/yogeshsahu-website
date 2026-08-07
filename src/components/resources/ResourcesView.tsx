@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { trackEvent } from "@/lib/analytics";
 import {
@@ -20,16 +20,17 @@ import InvestorDashboard from "./InvestorDashboard";
 import PlaybookList from "./PlaybookList";
 import ToolkitList from "./ToolkitList";
 import CommunityList from "./CommunityList";
+import AnalyticsOffer from "./AnalyticsOffer";
 import type { DashboardFilters } from "./InvestorDashboard";
 import investorsData from "@/data/investors.json";
 
 type Hub = "founders" | "builders";
-type TabType = "investors" | "playbooks" | "decks" | "toolkit" | "community";
+type TabType = "investors" | "playbooks" | "decks" | "toolkit" | "community" | "analytics";
 type InvestorView = "list" | "dashboard";
 
 const HUB_TABS: Record<Hub, TabType[]> = {
-  founders: ["investors", "playbooks", "decks", "community"],
-  builders: ["toolkit", "playbooks", "community"],
+  founders: ["investors", "playbooks", "decks", "analytics", "community"],
+  builders: ["toolkit", "analytics", "playbooks", "community"],
 };
 
 const TAB_META: Record<TabType, { label: string; icon: React.ReactNode }> = {
@@ -38,6 +39,7 @@ const TAB_META: Record<TabType, { label: string; icon: React.ReactNode }> = {
   decks: { label: "Decks & Templates", icon: <FileCode size={15} /> },
   toolkit: { label: "Toolkit", icon: <Wrench size={15} /> },
   community: { label: "Community", icon: <Users2 size={15} /> },
+  analytics: { label: "Analytics", icon: <BarChart3 size={15} /> },
 };
 
 export default function FounderHubView() {
@@ -48,6 +50,14 @@ export default function FounderHubView() {
     null
   );
   const [filterKey, setFilterKey] = useState(0);
+
+  // Deep-link support: /resources#analytics opens the Analytics tab.
+  useEffect(() => {
+    if (window.location.hash === "#analytics") {
+      setHub("founders");
+      setActiveTab("analytics");
+    }
+  }, []);
 
   const handleHubChange = (next: Hub) => {
     trackEvent("hub_toggle", { hub: next });
@@ -283,6 +293,8 @@ export default function FounderHubView() {
       {activeTab === "playbooks" && <PlaybookList audience={hub} />}
 
       {activeTab === "toolkit" && <ToolkitList />}
+
+      {activeTab === "analytics" && <AnalyticsOffer />}
 
       {activeTab === "community" && <CommunityList audience={hub} />}
 

@@ -15,7 +15,9 @@ type EventName =
   | "investor_export"
   | "hub_toggle"
   | "log_filter"
-  | "cluster_view";
+  | "cluster_view"
+  | "analytics_view"
+  | "copy_skill";
 
 /**
  * Fire a custom Plausible event. Safe no-op when the tracker isn't loaded
