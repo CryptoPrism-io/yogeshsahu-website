@@ -63,8 +63,8 @@ export default function AnalyticsOffer() {
       {/* ── 1. OUTCOME ─────────────────────────────────────────── */}
       <section className="space-y-5">
         <p
-          className="text-[10px] font-bold uppercase tracking-[0.2em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-accent)" }}
+          className="text-[11px] font-bold uppercase tracking-[0.2em]"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
         >
           Resources / AI Product Analyst
         </p>
@@ -72,7 +72,7 @@ export default function AnalyticsOffer() {
           className="font-bold uppercase"
           style={{
             fontFamily: "var(--font-headline)",
-            color: "var(--ys-text)",
+            color: "var(--color-ink)",
             fontSize: "clamp(30px, 4.5vw, 56px)",
             lineHeight: 0.95,
             letterSpacing: "-0.02em",
@@ -80,11 +80,11 @@ export default function AnalyticsOffer() {
         >
           Your analytics tell you what happened.
           <br />
-          <span style={{ color: "var(--ys-accent)" }}>This tells you what to do next.</span>
+          <span style={{ color: "var(--color-accent)" }}>This tells you what to do next.</span>
         </h2>
         <p
           className="max-w-[62ch] text-[15px] leading-[1.7]"
-          style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
+          style={{ fontFamily: "var(--font-body)", color: "var(--color-ink-2)" }}
         >
           A lightweight AI product analyst that turns product behaviour into an
           evidence-backed action to take next.
@@ -94,18 +94,18 @@ export default function AnalyticsOffer() {
             href="#design-partner"
             onClick={handlePartnerCta}
             className="inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-mono font-bold transition-transform hover:translate-y-[-1px]"
-            style={{ background: "var(--ys-accent)", color: "var(--ys-surface)" }}
+            style={{ background: "var(--color-accent)", color: "var(--color-paper)" }}
           >
             Become a design partner
             <ArrowRight size={15} />
           </a>
           <a
             href="#builder"
-            className="inline-flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-mono font-semibold transition-all"
+            className="inline-flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-mono font-semibold transition-transform duration-[var(--dur-fast)] ease-[var(--ease-out)] hover:translate-y-[-1px]"
             style={{
-              borderColor: "var(--ys-border)",
-              color: "var(--ys-text-soft)",
-              background: "var(--ys-surface-muted)",
+              borderColor: "var(--color-rule)",
+              color: "var(--color-ink-2)",
+              background: "var(--color-paper-muted)",
             }}
           >
             Build it yourself
@@ -117,8 +117,8 @@ export default function AnalyticsOffer() {
       {/* ── 2. PROOF ───────────────────────────────────────────── */}
       <section className="space-y-4">
         <p
-          className="text-[10px] font-bold uppercase tracking-[0.2em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-highlight)" }}
+          className="text-[11px] font-bold uppercase tracking-[0.2em]"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent-strong)" }}
         >
           What founders actually ask
         </p>
@@ -126,11 +126,11 @@ export default function AnalyticsOffer() {
           {FOUNDER_QUESTIONS.map((q) => (
             <span
               key={q}
-              className="rounded-full border px-4 py-2 text-[12.5px] font-mono"
+              className="rounded-full border px-4 py-2 text-[13px] font-mono"
               style={{
-                borderColor: "var(--ys-border)",
-                color: "var(--ys-text)",
-                background: "var(--ys-surface-muted)",
+                borderColor: "var(--color-rule)",
+                color: "var(--color-ink)",
+                background: "var(--color-paper-muted)",
               }}
             >
               “{q}”
@@ -141,50 +141,50 @@ export default function AnalyticsOffer() {
         <div
           className="relative overflow-hidden rounded-2xl border p-5 md:p-7"
           style={{
-            borderColor: "var(--ys-border)",
+            borderColor: "var(--color-rule)",
             background:
-              "linear-gradient(135deg, var(--ys-surface-strong) 0%, var(--ys-surface-muted) 100%)",
+              "linear-gradient(135deg, var(--color-paper-2) 0%, var(--color-paper-muted) 100%)",
           }}
         >
           <div className="flex items-center gap-2 mb-4">
-            <MessageSquareText size={14} style={{ color: "var(--ys-accent)" }} />
+            <MessageSquareText size={14} style={{ color: "var(--color-accent)" }} />
             <span
-              className="text-[10px] font-bold uppercase tracking-[0.18em]"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+              className="text-[11px] font-bold uppercase tracking-[0.18em]"
+              style={{ fontFamily: "var(--font-mono)", color: "var(--color-ink-2)" }}
             >
               What an answer looks like · illustrative example, not live data
             </span>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-1.5">
-              <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "var(--ys-highlight)" }}>
+              <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "var(--color-accent-strong)" }}>
                 Biggest opportunity
               </p>
-              <p className="text-[13.5px] leading-[1.6]" style={{ color: "var(--ys-text)" }}>
+              <p className="text-[15px] leading-[1.6]" style={{ color: "var(--color-ink)" }}>
                 Mobile conversion is 38% below desktop.
               </p>
             </div>
             <div className="space-y-1.5">
-              <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "var(--ys-highlight)" }}>
+              <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "var(--color-accent-strong)" }}>
                 Recommended experiment
               </p>
-              <p className="text-[13.5px] leading-[1.6]" style={{ color: "var(--ys-text)" }}>
+              <p className="text-[15px] leading-[1.6]" style={{ color: "var(--color-ink)" }}>
                 Move the primary CTA above the comparison table.
               </p>
             </div>
             <div className="space-y-1.5">
-              <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "var(--ys-highlight)" }}>
+              <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "var(--color-accent-strong)" }}>
                 Success metric
               </p>
-              <p className="text-[13.5px] leading-[1.6]" style={{ color: "var(--ys-text)" }}>
+              <p className="text-[15px] leading-[1.6]" style={{ color: "var(--color-ink)" }}>
                 Mobile signup conversion &gt; 4.5%.
               </p>
             </div>
             <div className="space-y-1.5">
-              <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "var(--ys-highlight)" }}>
+              <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: "var(--color-accent-strong)" }}>
                 Confidence
               </p>
-              <p className="text-[13.5px] leading-[1.6]" style={{ color: "var(--ys-text)" }}>
+              <p className="text-[15px] leading-[1.6]" style={{ color: "var(--color-ink)" }}>
                 Medium — hypotheses clearly separated from facts, never causality
                 from correlation.
               </p>
@@ -196,8 +196,8 @@ export default function AnalyticsOffer() {
       {/* ── 3. HOW IT WORKS ────────────────────────────────────── */}
       <section className="space-y-4">
         <p
-          className="text-[10px] font-bold uppercase tracking-[0.2em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-highlight)" }}
+          className="text-[11px] font-bold uppercase tracking-[0.2em]"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent-strong)" }}
         >
           How it works
         </p>
@@ -206,21 +206,21 @@ export default function AnalyticsOffer() {
             <div
               key={s.n}
               className="rounded-2xl border p-5"
-              style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-muted)" }}
+              style={{ borderColor: "var(--color-rule)", background: "var(--color-paper-muted)" }}
             >
               <p
                 className="text-[11px] font-bold"
-                style={{ fontFamily: "var(--font-mono)", color: "var(--ys-accent)" }}
+                style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
               >
                 {s.n}
               </p>
               <p
                 className="mt-1 text-sm font-bold tracking-wide"
-                style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
+                style={{ fontFamily: "var(--font-headline)", color: "var(--color-ink)" }}
               >
                 {s.title}
               </p>
-              <p className="mt-2 text-[13px] leading-[1.6]" style={{ color: "var(--ys-text-soft)" }}>
+              <p className="mt-2 text-[13px] leading-[1.6]" style={{ color: "var(--color-ink-2)" }}>
                 {s.line}
               </p>
             </div>
@@ -233,32 +233,32 @@ export default function AnalyticsOffer() {
         id="design-partner"
         className="scroll-mt-24 rounded-2xl border p-6 md:p-8"
         style={{
-          borderColor: "var(--ys-border)",
+          borderColor: "var(--color-rule)",
           background:
-            "linear-gradient(135deg, rgba(207, 79, 39, 0.08) 0%, var(--ys-surface-muted) 100%)",
+            "linear-gradient(135deg, color-mix(in oklch, var(--color-accent) 8%, transparent) 0%, var(--color-paper-muted) 100%)",
         }}
       >
         <p
-          className="text-[10px] font-bold uppercase tracking-[0.2em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-accent)" }}
+          className="text-[11px] font-bold uppercase tracking-[0.2em]"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
         >
           The offer
         </p>
         <h3
           className="mt-2 text-2xl font-bold uppercase"
-          style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
+          style={{ fontFamily: "var(--font-headline)", color: "var(--color-ink)" }}
         >
           Looking for 3 design partners
         </h3>
         <p
           className="mt-3 max-w-[58ch] text-[14px] leading-[1.7]"
-          style={{ color: "var(--ys-text-soft)" }}
+          style={{ color: "var(--color-ink-2)" }}
         >
           I&apos;ll set this up on your product and run the AI Product Analyst with you for
           3 weeks. No charge while I&apos;m validating it. In return, I want honest feedback
           and to understand the questions you actually want your analytics to answer.
         </p>
-        <ul className="mt-4 space-y-1.5 text-[13px]" style={{ color: "var(--ys-text-soft)" }}>
+        <ul className="mt-4 space-y-1.5 text-[13px]" style={{ color: "var(--color-ink-2)" }}>
           <li>· A 3-week concierge pilot on your product</li>
           <li>· A weekly product memo — what changed, why, and one experiment to run</li>
           <li>· Ask anything, any time — plain language, no dashboard required</li>
@@ -268,16 +268,16 @@ export default function AnalyticsOffer() {
             href={MAILTO}
             onClick={handlePartnerCta}
             className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-mono font-bold transition-transform hover:translate-y-[-1px]"
-            style={{ background: "var(--ys-accent)", color: "var(--ys-surface)" }}
+            style={{ background: "var(--color-accent)", color: "var(--color-paper)" }}
           >
             Try it on my product
             <ArrowRight size={15} />
           </a>
-          <span className="text-[11.5px] font-mono" style={{ color: "var(--ys-text-soft)" }}>
+          <span className="text-[11.5px] font-mono" style={{ color: "var(--color-ink-2)" }}>
             3 spots · 3 weeks · zero cost while validating
           </span>
         </div>
-        <p className="mt-4 text-[11.5px]" style={{ color: "var(--ys-text-soft)" }}>
+        <p className="mt-4 text-[11.5px]" style={{ color: "var(--color-ink-2)" }}>
           Your data stays yours — cookieless tracking, self-hosted, no third-party data.
         </p>
       </section>
@@ -285,23 +285,23 @@ export default function AnalyticsOffer() {
       {/* ── 5. BUILDER — install it yourself ───────────────────── */}
       <section id="builder" className="scroll-mt-24 space-y-4">
         <div className="flex items-center gap-2">
-          <Target size={14} style={{ color: "var(--ys-accent)" }} />
+          <Target size={14} style={{ color: "var(--color-accent)" }} />
           <p
-            className="text-[10px] font-bold uppercase tracking-[0.2em]"
-            style={{ fontFamily: "var(--font-mono)", color: "var(--ys-accent)" }}
+            className="text-[11px] font-bold uppercase tracking-[0.2em]"
+            style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
           >
             Build it yourself
           </p>
         </div>
         <h3
           className="text-2xl font-bold uppercase"
-          style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
+          style={{ fontFamily: "var(--font-headline)", color: "var(--color-ink)" }}
         >
           Want to build it yourself?
         </h3>
         <p
           className="max-w-[62ch] text-[14px] leading-[1.7]"
-          style={{ color: "var(--ys-text-soft)" }}
+          style={{ color: "var(--color-ink-2)" }}
         >
           The complete toolkit — prompt, skill file, and snippets. Works with any AI
           coding agent (Claude, Cursor, Copilot). Paste the full prompt into your
@@ -329,17 +329,17 @@ export default function AnalyticsOffer() {
         <div className="flex flex-wrap items-center gap-4 pt-1">
           <a
             href="/skills/plausible-analytics.zip"
-            className="inline-flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-mono font-semibold transition-all hover:translate-y-[-1px]"
+            className="inline-flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-mono font-semibold transition-transform duration-[var(--dur-fast)] ease-[var(--ease-out)] hover:translate-y-[-1px]"
             style={{
-              borderColor: "var(--ys-border)",
-              color: "var(--ys-text)",
-              background: "var(--ys-surface-muted)",
+              borderColor: "var(--color-rule)",
+              color: "var(--color-ink)",
+              background: "var(--color-paper-muted)",
             }}
           >
             <Download size={15} />
             Download the toolkit (.zip) — README · SKILL.md · snippets
           </a>
-          <span className="text-[11.5px] font-mono" style={{ color: "var(--ys-text-soft)" }}>
+          <span className="text-[11.5px] font-mono" style={{ color: "var(--color-ink-2)" }}>
             Replace YOUR-DOMAIN with your product&apos;s domain.
           </span>
         </div>
@@ -348,10 +348,10 @@ export default function AnalyticsOffer() {
       {/* footer line */}
       <p
         className="pt-2 text-[11.5px] leading-[1.6]"
-        style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+        style={{ fontFamily: "var(--font-mono)", color: "var(--color-ink-2)" }}
       >
         Built on a self-hosted, cookieless stack — no consent banners, no third-party
-        data, no dark patterns. <span style={{ color: "var(--ys-highlight)" }}>Stop reading dashboards. Ask what happened, why it
+        data, no dark patterns. <span style={{ color: "var(--color-accent-strong)" }}>Stop reading dashboards. Ask what happened, why it
         matters, and what to change next.</span>
       </p>
     </div>

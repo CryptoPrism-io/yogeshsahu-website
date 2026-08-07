@@ -40,10 +40,10 @@ export default function InvestorsSection() {
             setDashboardFilters(null);
             setInvestorView("list");
           }}
-          className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-xs font-mono font-semibold transition-all ${
+          className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-xs font-mono font-semibold transition-colors duration-[var(--dur-fast)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
             investorView === "list"
-              ? "border-[var(--ys-accent)] text-[var(--ys-accent-strong)] bg-[rgba(207,79,39,0.06)]"
-              : "border-[var(--ys-border)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)]"
+              ? "border-[var(--color-accent)] text-[var(--color-accent-strong)] bg-[color-mix(in oklch, var(--color-accent) 6%, transparent)]"
+              : "border-[var(--color-rule)] text-[var(--color-ink-2)] hover:text-[var(--color-ink)]"
           }`}
         >
           <List size={14} />
@@ -51,10 +51,10 @@ export default function InvestorsSection() {
         </button>
         <button
           onClick={handleShowDashboard}
-          className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-xs font-mono font-semibold transition-all ${
+          className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-xs font-mono font-semibold transition-colors duration-[var(--dur-fast)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
             investorView === "dashboard"
-              ? "border-[var(--ys-accent)] text-[var(--ys-accent-strong)] bg-[rgba(207,79,39,0.06)]"
-              : "border-[var(--ys-border)] text-[var(--ys-text-soft)] hover:text-[var(--ys-text)]"
+              ? "border-[var(--color-accent)] text-[var(--color-accent-strong)] bg-[color-mix(in oklch, var(--color-accent) 6%, transparent)]"
+              : "border-[var(--color-rule)] text-[var(--color-ink-2)] hover:text-[var(--color-ink)]"
           }`}
         >
           <BarChart3 size={14} />
@@ -62,8 +62,8 @@ export default function InvestorsSection() {
         </button>
         {dashboardFilters && investorView === "list" && (
           <span
-            className="text-[10px] font-mono ml-2"
-            style={{ color: "var(--ys-highlight)" }}
+            className="text-[11px] font-mono ml-2"
+            style={{ color: "var(--color-accent-strong)" }}
           >
             Filtered from dashboard ·{" "}
             <button
@@ -72,7 +72,7 @@ export default function InvestorsSection() {
                 setFilterKey((k) => k + 1);
               }}
               className="underline hover:no-underline"
-              style={{ color: "var(--ys-accent-strong)" }}
+              style={{ color: "var(--color-accent-strong)" }}
             >
               Clear
             </button>

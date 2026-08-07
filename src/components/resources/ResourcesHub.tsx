@@ -9,8 +9,8 @@ export default function ResourcesHub() {
     <div className="space-y-8 pb-12">
       <header className="space-y-4">
         <p
-          className="text-[10px] font-bold uppercase tracking-[0.2em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-accent)" }}
+          className="text-[11px] font-bold uppercase tracking-[0.2em]"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--color-accent)" }}
         >
           Resources
         </p>
@@ -18,7 +18,7 @@ export default function ResourcesHub() {
           className="font-bold uppercase"
           style={{
             fontFamily: "var(--font-headline)",
-            color: "var(--ys-text)",
+            color: "var(--color-ink)",
             fontSize: "clamp(32px, 5vw, 60px)",
             lineHeight: 0.95,
             letterSpacing: "-0.03em",
@@ -30,7 +30,7 @@ export default function ResourcesHub() {
         </h1>
         <p
           className="max-w-[60ch] text-[15px] leading-[1.7]"
-          style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
+          style={{ fontFamily: "var(--font-body)", color: "var(--color-ink-2)" }}
         >
           Free resources for founders and builders — analytics, investors,
           playbooks, engineering tools and more. Free to explore, copy,

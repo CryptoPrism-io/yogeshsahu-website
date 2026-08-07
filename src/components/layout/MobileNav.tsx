@@ -59,7 +59,7 @@ function Burger({ onClick, color }: { onClick: () => void; color: string }) {
 export default function MobileNav({ light }: { light?: boolean }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const iconColor = light ? "#fff8f1" : "var(--ys-text)";
+  const iconColor = light ? "#fff8f1" : "var(--color-ink)";
 
   useEffect(() => {
     setOpen(false);
@@ -133,7 +133,7 @@ export default function MobileNav({ light }: { light?: boolean }) {
                         border: "none",
                         cursor: "pointer",
                         fontSize: 20,
-                        color: "var(--ys-text-soft)",
+                        color: "var(--color-ink-2)",
                         fontFamily: MONO,
                       }}
                     >
@@ -148,7 +148,7 @@ export default function MobileNav({ light }: { light?: boolean }) {
                         fontSize: 28,
                         fontWeight: 700,
                         letterSpacing: "-0.02em",
-                        color: "var(--ys-text)",
+                        color: "var(--color-ink)",
                       }}
                     >
                       YS.
@@ -182,12 +182,12 @@ export default function MobileNav({ light }: { light?: boolean }) {
                               fontSize: 16,
                               lineHeight: 1.2,
                               letterSpacing: "-0.01em",
-                              color: isActive ? "var(--ys-accent-strong)" : "var(--ys-text)",
+                              color: isActive ? "var(--ys-accent-strong)" : "var(--color-ink)",
                             }}
                           >
                             {item.label}
                           </span>
-                          <span style={mono(8.5, "0.1em", "var(--ys-text-soft)")}>{item.desc}</span>
+                          <span style={mono(8.5, "0.1em", "var(--color-ink-2)")}>{item.desc}</span>
                         </Link>
                       );
                     })}
@@ -220,12 +220,12 @@ export default function MobileNav({ light }: { light?: boolean }) {
                             fontSize: 16,
                             lineHeight: 1.2,
                             letterSpacing: "-0.01em",
-                            color: "var(--ys-text)",
+                            color: "var(--color-ink)",
                           }}
                         >
                           {item.label}
                         </span>
-                        <span style={mono(8.5, "0.1em", "var(--ys-text-soft)")}>{item.desc}</span>
+                        <span style={mono(8.5, "0.1em", "var(--color-ink-2)")}>{item.desc}</span>
                       </a>
                     ))}
                   </div>
@@ -233,7 +233,7 @@ export default function MobileNav({ light }: { light?: boolean }) {
                   <div style={{ marginTop: "auto", padding: "12px 12px" }}>
                     <div
                       className="flex items-center gap-2"
-                      style={mono(9, "0.14em", "var(--ys-text-soft)")}
+                      style={mono(9, "0.14em", "var(--color-ink-2)")}
                     >
                       <span
                         style={{

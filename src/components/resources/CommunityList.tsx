@@ -17,7 +17,7 @@ const TYPE_COLORS: Record<
 > = {
   community: {
     bg: "rgba(11, 141, 128, 0.1)",
-    text: "var(--ys-highlight)",
+    text: "var(--color-accent-strong)",
     border: "rgba(11, 141, 128, 0.3)",
   },
   podcast: {
@@ -27,7 +27,7 @@ const TYPE_COLORS: Record<
   },
   book: {
     bg: "rgba(207, 79, 39, 0.1)",
-    text: "var(--ys-accent-strong)",
+    text: "var(--color-accent-strong)",
     border: "rgba(207, 79, 39, 0.3)",
   },
   conference: {
@@ -57,26 +57,26 @@ export default function CommunityList({
       {/* Type filter */}
       <div className="flex flex-wrap items-center gap-2">
         <span
-          className="flex items-center gap-1.5 text-[9px] font-mono uppercase tracking-[0.15em]"
-          style={{ color: "var(--ys-text-soft)" }}
+          className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.15em]"
+          style={{ color: "var(--color-ink-2)" }}
         >
           <Filter size={10} />
           Type
         </span>
         <button
           onClick={() => setActiveType("all")}
-          className="rounded-full border px-3 py-1 text-[10px] font-mono uppercase tracking-[0.1em] transition-colors"
+          className="rounded-full border px-3 py-1 text-[11px] font-mono uppercase tracking-[0.1em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
           style={
             activeType === "all"
               ? {
-                  background: "var(--ys-accent)",
-                  color: "var(--ys-surface)",
-                  borderColor: "var(--ys-accent)",
+                  background: "var(--color-accent)",
+                  color: "var(--color-paper)",
+                  borderColor: "var(--color-accent)",
                 }
               : {
                   background: "transparent",
-                  color: "var(--ys-text-soft)",
-                  borderColor: "var(--ys-border)",
+                  color: "var(--color-ink-2)",
+                  borderColor: "var(--color-rule)",
                 }
           }
         >
@@ -93,18 +93,18 @@ export default function CommunityList({
             <button
               key={type}
               onClick={() => setActiveType(type)}
-              className="rounded-full border px-3 py-1 text-[10px] font-mono uppercase tracking-[0.1em] transition-colors"
+              className="rounded-full border px-3 py-1 text-[11px] font-mono uppercase tracking-[0.1em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
               style={
                 activeType === type
                   ? {
-                      background: "var(--ys-accent)",
-                      color: "var(--ys-surface)",
-                      borderColor: "var(--ys-accent)",
+                      background: "var(--color-accent)",
+                      color: "var(--color-paper)",
+                      borderColor: "var(--color-accent)",
                     }
                   : {
                       background: "transparent",
-                      color: "var(--ys-text-soft)",
-                      borderColor: "var(--ys-border)",
+                      color: "var(--color-ink-2)",
+                      borderColor: "var(--color-rule)",
                     }
               }
             >
@@ -119,21 +119,21 @@ export default function CommunityList({
         <div
           className="flex items-center gap-3 rounded-xl border px-5 py-4"
           style={{
-            borderColor: "var(--ys-border)",
-            background: "var(--ys-surface-strong)",
+            borderColor: "var(--color-rule)",
+            background: "var(--color-paper-2)",
           }}
         >
-          <Users size={18} style={{ color: "var(--ys-accent)" }} />
+          <Users size={18} style={{ color: "var(--color-accent)" }} />
           <div>
             <p
               className="mb-1 text-[10px] font-mono uppercase tracking-[0.15em]"
-              style={{ color: "var(--ys-accent-strong)" }}
+              style={{ color: "var(--color-accent-strong)" }}
             >
               Community & Reading
             </p>
             <p
-              className="text-[13.5px] leading-[1.5]"
-              style={{ color: "var(--ys-text-soft)" }}
+              className="text-[14px] leading-[1.55]"
+              style={{ color: "var(--color-ink-2)" }}
             >
               Communities, podcasts, books, and conferences I actually
               recommend — for founders and builders.
@@ -154,13 +154,13 @@ export default function CommunityList({
                   className="mb-3 text-[11px] font-bold uppercase tracking-[0.15em]"
                   style={{
                     fontFamily: "var(--font-headline)",
-                    color: "var(--ys-text)",
+                    color: "var(--color-ink)",
                   }}
                 >
                   {COMMUNITY_TYPE_LABELS[type]}
                   <span
-                    className="ml-2 text-[9px] font-normal tracking-[0.1em]"
-                    style={{ color: "var(--ys-text-soft)" }}
+                    className="ml-2 text-[11px] font-normal tracking-[0.1em]"
+                    style={{ color: "var(--color-ink-2)" }}
                   >
                     {items.length}
                   </span>
@@ -199,8 +199,8 @@ function CommunityRow({ item }: { item: CommunityItem }) {
         rel={isExternal ? "noopener noreferrer" : undefined}
         className="group flex items-start justify-between gap-4 rounded-xl border px-4 py-3"
         style={{
-          background: "var(--ys-surface-strong)",
-          borderColor: "var(--ys-border)",
+          background: "var(--color-paper-2)",
+          borderColor: "var(--color-rule)",
         }}
       >
       <div className="flex-1">
@@ -209,7 +209,7 @@ function CommunityRow({ item }: { item: CommunityItem }) {
             className="text-[14px] font-bold"
             style={{
               fontFamily: "var(--font-headline)",
-              color: "var(--ys-text)",
+              color: "var(--color-ink)",
               letterSpacing: "-0.01em",
             }}
           >
@@ -227,15 +227,15 @@ function CommunityRow({ item }: { item: CommunityItem }) {
           </span>
         </div>
         <p
-          className="text-[12.5px] leading-[1.5]"
-          style={{ color: "var(--ys-text-soft)" }}
+          className="text-[14px] leading-[1.55]"
+          style={{ color: "var(--color-ink-2)" }}
         >
           {item.oneLiner}
         </p>
         {(item.location || item.price) && (
           <p
-            className="mt-1 text-[9px] font-mono uppercase tracking-[0.1em]"
-            style={{ color: "var(--ys-text-soft)" }}
+            className="mt-1 text-[11px] font-mono uppercase tracking-[0.1em]"
+            style={{ color: "var(--color-ink-2)" }}
           >
             {[item.location, item.price].filter(Boolean).join(" · ")}
           </p>
@@ -244,7 +244,7 @@ function CommunityRow({ item }: { item: CommunityItem }) {
       <ExternalLink
         size={14}
         className="mt-1 shrink-0 opacity-40 transition-opacity group-hover:opacity-80"
-        style={{ color: "var(--ys-text-soft)" }}
+        style={{ color: "var(--color-ink-2)" }}
       />
     </Link>
     </motion.div>

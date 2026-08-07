@@ -21,7 +21,7 @@ export default function AnalyticsPage() {
       <Link
         href="/resources"
         className="inline-flex items-center gap-1.5 text-[11px] font-mono font-semibold uppercase tracking-[0.12em] transition-colors"
-        style={{ color: "var(--ys-text-soft)" }}
+        style={{ color: "var(--color-ink-2)" }}
       >
         <ArrowLeft size={12} />
         Back to Resources

@@ -15,7 +15,7 @@ interface PlaybookCardProps {
 const categoryAccent: Record<string, { bg: string; text: string; border: string }> = {
   operating: {
     bg: "rgba(11, 141, 128, 0.08)",
-    text: "var(--ys-highlight)",
+    text: "var(--color-accent-strong)",
     border: "rgba(11, 141, 128, 0.3)",
   },
   hiring: {
@@ -24,13 +24,13 @@ const categoryAccent: Record<string, { bg: string; text: string; border: string 
     border: "rgba(74, 125, 165, 0.3)",
   },
   fundraising: {
-    bg: "rgba(207, 79, 39, 0.08)",
-    text: "var(--ys-accent-strong)",
+    bg: "color-mix(in oklch, var(--color-accent) 8%, transparent)",
+    text: "var(--color-accent-strong)",
     border: "rgba(207, 79, 39, 0.3)",
   },
   sales: {
     bg: "rgba(168, 79, 45, 0.08)",
-    text: "var(--ys-accent)",
+    text: "var(--color-accent)",
     border: "rgba(168, 79, 45, 0.3)",
   },
   "mental-health": {
@@ -61,8 +61,8 @@ export default function PlaybookCard({
       initial={false}
       className="overflow-hidden rounded-2xl border"
       style={{
-        background: "var(--ys-surface-strong)",
-        borderColor: "var(--ys-border)",
+        background: "var(--color-paper-2)",
+        borderColor: "var(--color-rule)",
       }}
     >
       <button
@@ -76,7 +76,7 @@ export default function PlaybookCard({
           <div className="flex-1">
             <div className="mb-3 flex items-center gap-2">
               <span
-                className="rounded px-2 py-0.5 text-[9px] font-mono uppercase tracking-[0.1em]"
+                className="rounded px-2 py-0.5 text-[11px] font-mono uppercase tracking-[0.1em]"
                 style={{
                   background: accent.bg,
                   color: accent.text,
@@ -86,8 +86,8 @@ export default function PlaybookCard({
                 {categoryLabel[playbook.category]}
               </span>
               <span
-                className="flex items-center gap-1 text-[9px] font-mono uppercase tracking-[0.1em]"
-                style={{ color: "var(--ys-text-soft)" }}
+                className="flex items-center gap-1 text-[11px] font-mono uppercase tracking-[0.1em]"
+                style={{ color: "var(--color-ink-2)" }}
               >
                 <Clock size={10} />
                 {playbook.readingTime} min
@@ -97,7 +97,7 @@ export default function PlaybookCard({
               className="mb-2 font-bold leading-[1.2]"
               style={{
                 fontFamily: "var(--font-headline)",
-                color: "var(--ys-text)",
+                color: "var(--color-ink)",
                 fontSize: 20,
                 letterSpacing: "-0.01em",
               }}
@@ -105,8 +105,8 @@ export default function PlaybookCard({
               {playbook.title}
             </h3>
             <p
-              className="text-[13.5px] leading-[1.6]"
-              style={{ color: "var(--ys-text-soft)" }}
+              className="text-[14px] leading-[1.6]"
+              style={{ color: "var(--color-ink-2)" }}
             >
               {playbook.summary}
             </p>
@@ -114,7 +114,7 @@ export default function PlaybookCard({
           <span
             className="shrink-0 text-lg transition-transform"
             style={{
-              color: isExpanded ? "var(--ys-accent)" : "var(--ys-text-soft)",
+              color: isExpanded ? "var(--color-accent)" : "var(--color-ink-2)",
               transform: isExpanded ? "rotate(45deg)" : "rotate(0deg)",
               transition: "transform 0.2s ease",
             }}
@@ -131,17 +131,17 @@ export default function PlaybookCard({
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           className="border-t px-6 py-5"
-          style={{ borderColor: "var(--ys-border)" }}
+          style={{ borderColor: "var(--color-rule)" }}
         >
           <div
             className="prose prose-sm max-w-none"
-            style={{ color: "var(--ys-text)" }}
+            style={{ color: "var(--color-ink)" }}
           >
             {playbook.body.split("\n\n").map((para, i) => (
               <p
                 key={i}
                 className="mb-3 text-[14px] leading-[1.7]"
-                style={{ color: "var(--ys-text-soft)" }}
+                style={{ color: "var(--color-ink-2)" }}
               >
                 {para}
               </p>

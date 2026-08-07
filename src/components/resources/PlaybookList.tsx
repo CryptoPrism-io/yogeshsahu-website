@@ -30,26 +30,26 @@ export default function PlaybookList() {
       {/* Category filter pills */}
       <div className="flex flex-wrap items-center gap-2">
         <span
-          className="flex items-center gap-1.5 text-[9px] font-mono uppercase tracking-[0.15em]"
-          style={{ color: "var(--ys-text-soft)" }}
+          className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.15em]"
+          style={{ color: "var(--color-ink-2)" }}
         >
           <Filter size={10} />
           Filter
         </span>
         <button
           onClick={() => setActiveCategory("all")}
-          className="rounded-full border px-3 py-1 text-[10px] font-mono uppercase tracking-[0.1em] transition-colors"
+          className="rounded-full border px-3 py-1 text-[11px] font-mono uppercase tracking-[0.1em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
           style={
             activeCategory === "all"
               ? {
-                  background: "var(--ys-accent)",
-                  color: "var(--ys-surface)",
-                  borderColor: "var(--ys-accent)",
+                  background: "var(--color-accent)",
+                  color: "var(--color-paper)",
+                  borderColor: "var(--color-accent)",
                 }
               : {
                   background: "transparent",
-                  color: "var(--ys-text-soft)",
-                  borderColor: "var(--ys-border)",
+                  color: "var(--color-ink-2)",
+                  borderColor: "var(--color-rule)",
                 }
           }
         >
@@ -64,18 +64,18 @@ export default function PlaybookList() {
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className="rounded-full border px-3 py-1 text-[10px] font-mono uppercase tracking-[0.1em] transition-colors"
+              className="rounded-full border px-3 py-1 text-[11px] font-mono uppercase tracking-[0.1em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
               style={
                 activeCategory === cat.id
                   ? {
-                      background: "var(--ys-accent)",
-                      color: "var(--ys-surface)",
-                      borderColor: "var(--ys-accent)",
+                      background: "var(--color-accent)",
+                      color: "var(--color-paper)",
+                      borderColor: "var(--color-accent)",
                     }
                   : {
                       background: "transparent",
-                      color: "var(--ys-text-soft)",
-                      borderColor: "var(--ys-border)",
+                      color: "var(--color-ink-2)",
+                      borderColor: "var(--color-rule)",
                     }
               }
             >
@@ -90,21 +90,21 @@ export default function PlaybookList() {
         <div
           className="flex items-center gap-3 rounded-xl border px-5 py-4"
           style={{
-            borderColor: "var(--ys-border)",
-            background: "var(--ys-surface-strong)",
+            borderColor: "var(--color-rule)",
+            background: "var(--color-paper-2)",
           }}
         >
-          <BookOpen size={18} style={{ color: "var(--ys-accent)" }} />
+          <BookOpen size={18} style={{ color: "var(--color-accent)" }} />
           <div>
             <p
-              className="mb-1 text-[10px] font-mono uppercase tracking-[0.15em]"
-              style={{ color: "var(--ys-accent-strong)" }}
+              className="mb-1 text-[11px] font-mono uppercase tracking-[0.15em]"
+              style={{ color: "var(--color-accent-strong)" }}
             >
               Founder & Builder Playbooks
             </p>
             <p
               className="text-[13.5px] leading-[1.5]"
-              style={{ color: "var(--ys-text-soft)" }}
+              style={{ color: "var(--color-ink-2)" }}
             >
               Operating, fundraising, sales, hiring and mental health — playbooks
               written from the mistakes I actually made. No theory. Just what
@@ -130,11 +130,11 @@ export default function PlaybookList() {
       {filtered.length === 0 && (
         <div
           className="rounded-2xl border border-dashed py-12 text-center"
-          style={{ borderColor: "var(--ys-border)" }}
+          style={{ borderColor: "var(--color-rule)" }}
         >
           <p
             className="text-[12px] font-mono uppercase tracking-[0.15em]"
-            style={{ color: "var(--ys-text-soft)" }}
+            style={{ color: "var(--color-ink-2)" }}
           >
             No playbooks in this category yet
           </p>

@@ -32,26 +32,26 @@ export default function ToolkitList() {
       <div className="space-y-3">
         <div className="flex flex-wrap items-center gap-2">
           <span
-            className="flex items-center gap-1.5 text-[9px] font-mono uppercase tracking-[0.15em]"
-            style={{ color: "var(--ys-text-soft)" }}
+            className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.15em]"
+            style={{ color: "var(--color-ink-2)" }}
           >
             <Filter size={10} />
             Category
           </span>
           <button
             onClick={() => setActiveCategory("all")}
-            className="rounded-full border px-3 py-1 text-[10px] font-mono uppercase tracking-[0.1em] transition-colors"
+            className="rounded-full border px-3 py-1 text-[11px] font-mono uppercase tracking-[0.1em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
             style={
               activeCategory === "all"
                 ? {
-                    background: "var(--ys-accent)",
-                    color: "var(--ys-surface)",
-                    borderColor: "var(--ys-accent)",
+                    background: "var(--color-accent)",
+                    color: "var(--color-paper)",
+                    borderColor: "var(--color-accent)",
                   }
                 : {
                     background: "transparent",
-                    color: "var(--ys-text-soft)",
-                    borderColor: "var(--ys-border)",
+                    color: "var(--color-ink-2)",
+                    borderColor: "var(--color-rule)",
                   }
             }
           >
@@ -64,18 +64,18 @@ export default function ToolkitList() {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className="rounded-full border px-3 py-1 text-[10px] font-mono uppercase tracking-[0.1em] transition-colors"
+                className="rounded-full border px-3 py-1 text-[11px] font-mono uppercase tracking-[0.1em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                 style={
                   activeCategory === cat.id
                     ? {
-                        background: "var(--ys-accent)",
-                        color: "var(--ys-surface)",
-                        borderColor: "var(--ys-accent)",
+                        background: "var(--color-accent)",
+                        color: "var(--color-paper)",
+                        borderColor: "var(--color-accent)",
                       }
                     : {
                         background: "transparent",
-                        color: "var(--ys-text-soft)",
-                        borderColor: "var(--ys-border)",
+                        color: "var(--color-ink-2)",
+                        borderColor: "var(--color-rule)",
                       }
                 }
               >
@@ -87,8 +87,8 @@ export default function ToolkitList() {
 
         <div className="flex flex-wrap items-center gap-2">
           <span
-            className="text-[9px] font-mono uppercase tracking-[0.15em]"
-            style={{ color: "var(--ys-text-soft)" }}
+            className="text-[11px] font-mono uppercase tracking-[0.15em]"
+            style={{ color: "var(--color-ink-2)" }}
           >
             Pricing
           </span>
@@ -97,18 +97,18 @@ export default function ToolkitList() {
               <button
                 key={p}
                 onClick={() => setActivePricing(p)}
-                className="rounded-full border px-3 py-1 text-[10px] font-mono uppercase tracking-[0.1em] transition-colors"
+                className="rounded-full border px-3 py-1 text-[11px] font-mono uppercase tracking-[0.1em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                 style={
                   activePricing === p
                     ? {
-                        background: "var(--ys-text)",
-                        color: "var(--ys-surface)",
-                        borderColor: "var(--ys-text)",
+                        background: "var(--color-ink)",
+                        color: "var(--color-paper)",
+                        borderColor: "var(--color-ink)",
                       }
                     : {
                         background: "transparent",
-                        color: "var(--ys-text-soft)",
-                        borderColor: "var(--ys-border)",
+                        color: "var(--color-ink-2)",
+                        borderColor: "var(--color-rule)",
                       }
                 }
               >
@@ -124,21 +124,21 @@ export default function ToolkitList() {
         <div
           className="flex items-center gap-3 rounded-xl border px-5 py-4"
           style={{
-            borderColor: "var(--ys-border)",
-            background: "var(--ys-surface-strong)",
+            borderColor: "var(--color-rule)",
+            background: "var(--color-paper-2)",
           }}
         >
-          <Wrench size={18} style={{ color: "var(--ys-accent)" }} />
+          <Wrench size={18} style={{ color: "var(--color-accent)" }} />
           <div>
             <p
-              className="mb-1 text-[10px] font-mono uppercase tracking-[0.15em]"
-              style={{ color: "var(--ys-accent-strong)" }}
+              className="mb-1 text-[11px] font-mono uppercase tracking-[0.15em]"
+              style={{ color: "var(--color-accent-strong)" }}
             >
               Founder & Engineer Toolkit
             </p>
             <p
               className="text-[13.5px] leading-[1.5]"
-              style={{ color: "var(--ys-text-soft)" }}
+              style={{ color: "var(--color-ink-2)" }}
             >
               The tools I actually use every day — engineering, design,
               productivity, finance, and AI. Filter by category or pricing.
@@ -159,10 +159,10 @@ export default function ToolkitList() {
               onClick={() => trackEvent("toolkit_link", { tool: item.name })}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block rounded-xl border px-5 py-4 transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-16px_rgba(207,79,39,0.25)]"
+              className="group block rounded-xl border px-5 py-4 transition-[transform,box-shadow] duration-[var(--dur-base)] ease-[var(--ease-out)] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-16px_rgba(207,79,39,0.25)]"
               style={{
-                background: "var(--ys-surface-strong)",
-                borderColor: "var(--ys-border)",
+                background: "var(--color-paper-2)",
+                borderColor: "var(--color-rule)",
               }}
             >
               <div className="mb-2 flex items-start justify-between gap-3">
@@ -170,7 +170,7 @@ export default function ToolkitList() {
                   className="font-bold leading-[1.2]"
                   style={{
                     fontFamily: "var(--font-headline)",
-                    color: "var(--ys-text)",
+                    color: "var(--color-ink)",
                     fontSize: 16,
                     letterSpacing: "-0.01em",
                   }}
@@ -180,18 +180,18 @@ export default function ToolkitList() {
                 <ExternalLink
                   size={14}
                   className="shrink-0 opacity-40 transition-opacity group-hover:opacity-80"
-                  style={{ color: "var(--ys-text-soft)" }}
+                  style={{ color: "var(--color-ink-2)" }}
                 />
               </div>
               <p
                 className="mb-3 text-[12.5px] leading-[1.5]"
-                style={{ color: "var(--ys-text-soft)" }}
+                style={{ color: "var(--color-ink-2)" }}
               >
                 {item.oneLiner}
               </p>
               <div className="flex items-center gap-2">
                 <span
-                  className="rounded px-2 py-0.5 text-[9px] font-mono uppercase tracking-[0.1em]"
+                  className="rounded px-2 py-0.5 text-[11px] font-mono uppercase tracking-[0.1em]"
                   style={{
                     background: pricing.bg,
                     color: pricing.text,
@@ -202,8 +202,8 @@ export default function ToolkitList() {
                 </span>
                 {item.pricingNote && (
                   <span
-                    className="text-[9px] font-mono"
-                    style={{ color: "var(--ys-text-soft)" }}
+                    className="text-[11px] font-mono"
+                    style={{ color: "var(--color-ink-2)" }}
                   >
                     {item.pricingNote}
                   </span>
@@ -217,11 +217,11 @@ export default function ToolkitList() {
       {filtered.length === 0 && (
         <div
           className="rounded-2xl border border-dashed py-12 text-center"
-          style={{ borderColor: "var(--ys-border)" }}
+          style={{ borderColor: "var(--color-rule)" }}
         >
           <p
             className="text-[12px] font-mono uppercase tracking-[0.15em]"
-            style={{ color: "var(--ys-text-soft)" }}
+            style={{ color: "var(--color-ink-2)" }}
           >
             No tools match these filters
           </p>

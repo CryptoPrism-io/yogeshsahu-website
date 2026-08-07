@@ -34,32 +34,32 @@ export default function CopyBox({
   return (
     <div
       className="overflow-hidden rounded-xl border"
-      style={{ borderColor: "var(--ys-border)", background: "var(--ys-surface-muted)" }}
+      style={{ borderColor: "var(--color-rule)", background: "var(--color-paper-muted)" }}
     >
       <div
         className="flex items-center justify-between gap-3 border-b px-4 py-2"
-        style={{ borderColor: "var(--ys-border)" }}
+        style={{ borderColor: "var(--color-rule)" }}
       >
         <span
-          className="text-[10px] font-bold uppercase tracking-[0.18em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
+          className="text-[11px] font-bold uppercase tracking-[0.18em]"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--color-ink-2)" }}
         >
           {label}
         </span>
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[10px] font-mono font-semibold transition-all"
+          className="flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[11px] font-mono font-semibold transition-colors duration-[var(--dur-fast)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
           style={
             copied
               ? {
-                  borderColor: "rgba(11, 141, 128, 0.4)",
-                  color: "var(--ys-highlight)",
-                  background: "rgba(11, 141, 128, 0.1)",
+                  borderColor: "color-mix(in oklch, var(--color-accent) 40%, transparent)",
+                  color: "var(--color-accent-strong)",
+                  background: "color-mix(in oklch, var(--color-accent) 10%, transparent)",
                 }
               : {
-                  borderColor: "var(--ys-border)",
-                  color: "var(--ys-text-soft)",
-                  background: "var(--ys-surface)",
+                  borderColor: "var(--color-rule)",
+                  color: "var(--color-ink-2)",
+                  background: "var(--color-paper)",
                 }
           }
         >
@@ -71,7 +71,7 @@ export default function CopyBox({
         className="overflow-x-auto p-4 text-[12px] leading-[1.7]"
         style={{
           fontFamily: "var(--font-mono)",
-          color: "var(--ys-text)",
+          color: "var(--color-ink)",
           maxHeight: maxHeight ?? undefined,
           overflowY: maxHeight ? "auto" : undefined,
         }}
