@@ -35,3 +35,8 @@ automation/data/profile.master.json
 
 # Logs
 npm-debug.log*
+
+# Concierge analyst — secrets + raw data (friend data never in public repo)
+analyst/.env
+analyst/memos/
+analyst/dumps/

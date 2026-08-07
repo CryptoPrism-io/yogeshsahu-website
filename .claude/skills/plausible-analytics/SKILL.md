@@ -126,13 +126,30 @@ cd ~/plausible && sudo docker compose restart plausible
 
 Current goals registered: `diagnostic_click`, `contact_click`, `investor_export`, `playbook_open`.
 
-## API keys (known limitation)
+## API keys (WORKING — UI flow, verified 2026-08-07)
 
-`Plausible.Auth.create_sites_api_key/4` exists but is fiddly to invoke via CLI eval
-(it needs a fully-started app + correct arg order; the 4-arg version takes a
-pre-generated token). Direct DB insert of `plugins_api_tokens` is fragile (token
-must be hashed the exact way Plausible expects). For now, manage sites/goals via
-DB inserts (proven) and treat API-key automation as a future task.
+Stats API keys ARE creatable in CE via the web UI (no DB surgery needed):
+
+1. Log in to `https://plausible.yogeshsahu.xyz` → avatar → Account settings → **API keys**
+2. Click **New API Key** (it's a `<a>`, not a button) → `/settings/api-keys/new`
+3. Fill the **Name** field (required — blank causes "Name can't be blank")
+4. **Capture the key from the `api_key[key]` input BEFORE submitting** — it is
+   pre-generated server-side and NEVER shown again after creation
+5. Submit → key works immediately
+
+Verify: `POST /api/v2/query` with `Authorization: Bearer <key>`:
+
+```json
+{ "site_id": "yogeshsahu.xyz", "metrics": ["visitors"], "date_range": "7d" }
+```
+
+- Key type is `stats_api` (hidden `api_key[type]` field; the page is already type-specific)
+- Rate limit: 600 req/hour
+- Stats API is a single endpoint: `POST /api/v2/query` — metrics/dimensions/filters
+  in the body. See https://plausible.io/docs/stats-api
+- `analyst/stats.mjs` implements the concierge-analyst data layer (5 raw functions:
+  get_overview, get_top_pages, get_sources, get_events, compare_periods)
+- Old note (obsolete): direct DB insert of `plugins_api_tokens` was fragile — not needed anymore.
 
 ## Adding a new event (portfolio)
 
