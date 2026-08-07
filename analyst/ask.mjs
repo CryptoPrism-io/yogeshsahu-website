@@ -50,7 +50,7 @@ async function llmAnswer(facts, model) {
     },
     body: JSON.stringify({
       model,
-      max_tokens: 800,
+      max_tokens: 1200,
       temperature: 0.4,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
@@ -64,7 +64,9 @@ async function llmAnswer(facts, model) {
   }
   const data = await res.json();
   const text = data.choices?.[0]?.message?.content ?? "";
-  if (!text) throw new Error(`Empty content from ${model}`);
+  if (!text || text.trim().length < 80 || /^User Safety/i.test(text.trim())) {
+    throw new Error(`Degenerate content from ${model}: ${JSON.stringify(text?.slice(0, 60))}`);
+  }
   return text;
 }
 

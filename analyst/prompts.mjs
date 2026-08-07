@@ -17,7 +17,9 @@ Identify:
 
 Separate facts from hypotheses.
 Never invent causality from correlation.
-Quantify every claim when possible.`;
+Quantify every claim when possible.
+Always end your answer with a final line:
+ACTION: <the single highest-value action to take next>`;
 
 export const MEMO_TEMPLATE = `WEEKLY PRODUCT MEMO
 

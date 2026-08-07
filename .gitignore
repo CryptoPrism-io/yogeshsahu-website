@@ -40,3 +40,4 @@ npm-debug.log*
 analyst/.env
 analyst/memos/
 analyst/dumps/
+analyst/qa-runs/
