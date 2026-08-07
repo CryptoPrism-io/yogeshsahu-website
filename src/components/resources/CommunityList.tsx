@@ -38,16 +38,16 @@ const TYPE_COLORS: Record<
 };
 
 export default function CommunityList({
-  audience,
+  audience = "all",
 }: {
-  audience: "founders" | "builders";
+  audience?: "founders" | "builders" | "all";
 }) {
   const [activeType, setActiveType] = useState<CommunityItem["type"] | "all">(
     "all"
   );
 
   const filtered = community.filter((c) => {
-    if (c.audience && c.audience !== audience) return false;
+    if (audience !== "all" && c.audience && c.audience !== audience) return false;
     if (activeType !== "all" && c.type !== activeType) return false;
     return true;
   });
@@ -84,7 +84,9 @@ export default function CommunityList({
         </button>
         {COMMUNITY_TYPE_ORDER.map((type) => {
           const count = community.filter(
-            (c) => c.type === type && (!c.audience || c.audience === audience)
+            (c) =>
+              c.type === type &&
+              (audience === "all" || !c.audience || c.audience === audience)
           ).length;
           if (count === 0) return null;
           return (
@@ -134,7 +136,7 @@ export default function CommunityList({
               style={{ color: "var(--ys-text-soft)" }}
             >
               Communities, podcasts, books, and conferences I actually
-              recommend. Filtered for {audience === "founders" ? "founders" : "builders"}.
+              recommend — for founders and builders.
             </p>
           </div>
         </div>

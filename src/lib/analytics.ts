@@ -13,7 +13,6 @@ type EventName =
   | "playbook_open"
   | "toolkit_link"
   | "investor_export"
-  | "hub_toggle"
   | "log_filter"
   | "cluster_view"
   | "analytics_view"

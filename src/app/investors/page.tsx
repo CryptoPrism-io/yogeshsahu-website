@@ -3,9 +3,9 @@ import RedirectClient from "@/components/layout/RedirectClient";
 export default function InvestorsRedirectPage() {
   return (
     <RedirectClient
-      to="/resources"
+      to="/resources/investors"
       title="Investors moved"
-      body="The investor directory now lives inside Resources — the first tab of the founder hub."
+      body="The investor directory now lives at /resources/investors."
     />
   );
 }

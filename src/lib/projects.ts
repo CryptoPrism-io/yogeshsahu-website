@@ -33,7 +33,7 @@ export interface Project {
   reportHref?: string;
   reports?: { label: string; href: string }[];
   cluster?: ClusterId;
-  /** Link straight to an internal page instead of /projects/[id] (e.g. /resources#analytics). */
+  /** Link straight to an internal page instead of /projects/[id] (e.g. /resources/analytics). */
   internalHref?: string;
 }
 
@@ -238,7 +238,7 @@ export const projects: Project[] = [
   {
     id: 'ai-product-analyst',
     name: 'AI Product Analyst',
-    description: 'Turning cookieless analytics into evidence-backed product decisions. Live experiment — currently testing with 3 founder products.',
+    description: 'Turning cookieless analytics into evidence-backed product decisions. Live experiment — currently testing with founder products.',
     stat: '3',
     statLabel: 'design partners',
     tags: ['Plausible', 'AI/LLM', 'Analytics'],
@@ -247,7 +247,7 @@ export const projects: Project[] = [
     featured: false,
     href: '',
     githubHref: '',
-    internalHref: '/resources#analytics',
+    internalHref: '/resources/analytics',
     cluster: 'C',
   },
   {

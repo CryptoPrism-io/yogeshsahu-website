@@ -16,6 +16,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/resources`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
   ];
 
+  const resourceRoutes: MetadataRoute.Sitemap = [
+    "/resources/analytics",
+    "/resources/investors",
+    "/resources/playbooks",
+    "/resources/decks",
+    "/resources/toolkit",
+    "/resources/community",
+  ].map((path) => ({
+    url: `${BASE}${path}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   const projectRoutes: MetadataRoute.Sitemap = projects
     .filter((p) => !p.internalHref)
     .map((p) => ({
@@ -32,5 +46,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticRoutes, ...projectRoutes, ...postRoutes];
+  return [...staticRoutes, ...resourceRoutes, ...projectRoutes, ...postRoutes];
 }

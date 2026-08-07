@@ -77,14 +77,22 @@ data lives in `analyst/memos/` + `analyst/qa-runs/` (gitignored — never public
 | `playbook_open` | Playbook accordion expand | `playbook` | **Engagement** |
 | `project_open` | Case card click | `project` (id) | **Engagement** |
 | `dock_open` | Dock app icon open | `app` (id) | **Engagement** |
-| `nav_click` | GlyphPanel nav link + resources tab | `destination` | **Engagement** |
+| `nav_click` | GlyphPanel nav link + resources hub card | `destination` (e.g. `resources:analytics`) | **Engagement** |
 | `cluster_view` | Work page cluster scroll-into-view | `cluster`, `archetype` | **Engagement** |
 | `case_study_read` | Project detail page open | `project` (id) | **Content** |
 | `deep_dive_open` | "Deep Dive" report click | `project` (id) | **Content** |
 | `journal_read` | Log post click | `post` (slug) | **Content** |
 | `toolkit_link` | Toolkit tool click | `tool` | **Content** |
 | `log_filter` | Log kind/tag filter used | `kind` / `tag` | **Content** |
-| `hub_toggle` | Founders ⇄ Builders hub switch | `hub` | **Engagement** |
+| `analytics_view` | /resources/analytics page mount | — | **Content** |
+| `copy_skill` | CopyBox copy on the analytics offer | `piece` (tracker/track_event/events/goals/verify/full) | **Engagement** |
+
+### Resources — page-per-resource model (since 2026-08-07)
+Every resource has a REAL URL — pageviews are the primary resource-attention metric:
+`/resources` (hub) → `/resources/{analytics,investors,playbooks,decks,toolkit,community}`.
+Hub card clicks fire `nav_click` with `destination="resources:<tool>"`.
+`hub_toggle` was removed with the old Founder/Builders tab machine (zero callers).
+`/investors` redirects to `/resources/investors`; `/founders` to `/resources`.
 
 ### Categories
 - **Conversion** — money-adjacent actions -> create Goals in DB

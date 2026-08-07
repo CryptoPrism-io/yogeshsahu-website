@@ -628,7 +628,7 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               >
                 <span style={mono(10.5, "0.12em", "var(--ys-text)")}>Resources</span>
                 <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", color: "var(--ys-accent-strong)" }}>
-                  Founder + Builder hub →
+                  Tools, playbooks & resources →
                 </span>
               </a>
             </div>

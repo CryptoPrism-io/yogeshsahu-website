@@ -10,31 +10,16 @@ import {
   type PlaybookCategory,
 } from "@/data/founder-playbooks";
 
-const AUDIENCE_CATEGORIES: Record<
-  "founders" | "builders",
-  PlaybookCategory[]
-> = {
-  founders: ["operating", "fundraising", "sales", "mental-health"],
-  builders: ["hiring", "operating"],
-};
-
-export default function PlaybookList({
-  audience = "founders",
-}: {
-  audience?: "founders" | "builders";
-}) {
+export default function PlaybookList() {
   const [openSlug, setOpenSlug] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<PlaybookCategory | "all">(
     "all"
   );
 
-  const allowed = AUDIENCE_CATEGORIES[audience];
-  const scoped = founderPlaybooks.filter((p) => allowed.includes(p.category));
-
   const filtered =
     activeCategory === "all"
-      ? scoped
-      : scoped.filter((p) => p.category === activeCategory);
+      ? founderPlaybooks
+      : founderPlaybooks.filter((p) => p.category === activeCategory);
 
   const handleToggle = (slug: string) => {
     setOpenSlug((current) => (current === slug ? null : slug));
@@ -68,12 +53,10 @@ export default function PlaybookList({
                 }
           }
         >
-          All ({scoped.length})
+          All ({founderPlaybooks.length})
         </button>
-        {PLAYBOOK_CATEGORIES.filter((cat) =>
-          allowed.includes(cat.id)
-        ).map((cat) => {
-          const count = scoped.filter(
+        {PLAYBOOK_CATEGORIES.map((cat) => {
+          const count = founderPlaybooks.filter(
             (p) => p.category === cat.id
           ).length;
           if (count === 0) return null;
@@ -117,15 +100,15 @@ export default function PlaybookList({
               className="mb-1 text-[10px] font-mono uppercase tracking-[0.15em]"
               style={{ color: "var(--ys-accent-strong)" }}
             >
-              {audience === "founders" ? "Founder Playbooks" : "Builder Playbooks"}
+              Founder & Builder Playbooks
             </p>
             <p
               className="text-[13.5px] leading-[1.5]"
               style={{ color: "var(--ys-text-soft)" }}
             >
-              {audience === "founders"
-                ? "Operating, fundraising, sales, and mental health — playbooks written from the mistakes I actually made. No theory. Just what worked, what didn't, and why."
-                : "Hiring and operating playbooks for engineers and technical founders — how to build teams and run systems without burning out."}
+              Operating, fundraising, sales, hiring and mental health — playbooks
+              written from the mistakes I actually made. No theory. Just what
+              worked, what didn&apos;t, and why.
             </p>
           </div>
         </div>

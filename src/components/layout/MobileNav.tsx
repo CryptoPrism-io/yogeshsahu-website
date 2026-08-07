@@ -22,7 +22,7 @@ const NAV_ITEMS: { href: string; label: string; desc: string }[] = [
   { href: "/", label: "Home", desc: "Portfolio · 2026" },
   { href: "/work", label: "Work Hub", desc: "12 case studies" },
   { href: "/log", label: "Log", desc: "Architecture notes · Journal" },
-  { href: "/resources", label: "Resources", desc: "Founder + builder hub" },
+  { href: "/resources", label: "Resources", desc: "Tools, playbooks & resources" },
 ];
 
 const EXTRA_ITEMS: { href: string; label: string; desc: string; external: boolean }[] = [

@@ -6,9 +6,7 @@ import {
   ArrowRight,
   Download,
   MessageSquareText,
-  Sparkles,
   Target,
-  Zap,
 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import CopyBox from "./CopyBox";
@@ -30,7 +28,7 @@ const MAILTO = `mailto:yogesh.sahu@cryptoprism.io?subject=${encodeURIComponent(
 const FOUNDER_QUESTIONS = [
   "Why aren't people signing up?",
   "Did last week's launch actually work?",
-  "If I change one thing this week, what should it be?",
+  "What's the one thing I should change this week?",
 ];
 
 const STEPS = [
@@ -68,8 +66,7 @@ export default function AnalyticsOffer() {
           className="text-[10px] font-bold uppercase tracking-[0.2em]"
           style={{ fontFamily: "var(--font-mono)", color: "var(--ys-accent)" }}
         >
-          <Sparkles size={12} className="inline mr-1.5" />
-          Offering · AI Product Analyst
+          Resources / AI Product Analyst
         </p>
         <h2
           className="font-bold uppercase"
@@ -89,9 +86,8 @@ export default function AnalyticsOffer() {
           className="max-w-[62ch] text-[15px] leading-[1.7]"
           style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
         >
-          A lightweight AI product analyst for founders. One tracking snippet → ask
-          questions about your product → get a weekly memo with the single
-          highest-value experiment to run next.
+          A lightweight AI product analyst that turns product behaviour into an
+          evidence-backed action to take next.
         </p>
         <div className="flex flex-wrap items-center gap-3 pt-1">
           <a
@@ -100,7 +96,7 @@ export default function AnalyticsOffer() {
             className="inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-mono font-bold transition-transform hover:translate-y-[-1px]"
             style={{ background: "var(--ys-accent)", color: "var(--ys-surface)" }}
           >
-            Try it on my product
+            Become a design partner
             <ArrowRight size={15} />
           </a>
           <a
@@ -112,7 +108,7 @@ export default function AnalyticsOffer() {
               background: "var(--ys-surface-muted)",
             }}
           >
-            Install the toolkit yourself
+            Build it yourself
             <ArrowDown size={15} />
           </a>
         </div>
@@ -156,7 +152,7 @@ export default function AnalyticsOffer() {
               className="text-[10px] font-bold uppercase tracking-[0.18em]"
               style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
             >
-              A real answer · from the live analyst · running on this site&apos;s own data
+              What an answer looks like · illustrative example, not live data
             </span>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
@@ -165,9 +161,7 @@ export default function AnalyticsOffer() {
                 Biggest opportunity
               </p>
               <p className="text-[13.5px] leading-[1.6]" style={{ color: "var(--ys-text)" }}>
-                Instrument conversion events (contact clicks, downloads, project opens)
-                so intent can be told apart from casual visits — today&apos;s data can&apos;t
-                measure who the target audience is.
+                Mobile conversion is 38% below desktop.
               </p>
             </div>
             <div className="space-y-1.5">
@@ -175,8 +169,7 @@ export default function AnalyticsOffer() {
                 Recommended experiment
               </p>
               <p className="text-[13.5px] leading-[1.6]" style={{ color: "var(--ys-text)" }}>
-                Add one prominent homepage CTA to /work and track its click-through
-                rate for 7 days.
+                Move the primary CTA above the comparison table.
               </p>
             </div>
             <div className="space-y-1.5">
@@ -184,7 +177,7 @@ export default function AnalyticsOffer() {
                 Success metric
               </p>
               <p className="text-[13.5px] leading-[1.6]" style={{ color: "var(--ys-text)" }}>
-                CTA click-through rate ≥ 30% of homepage visitors.
+                Mobile signup conversion &gt; 4.5%.
               </p>
             </div>
             <div className="space-y-1.5">
@@ -192,8 +185,8 @@ export default function AnalyticsOffer() {
                 Confidence
               </p>
               <p className="text-[13.5px] leading-[1.6]" style={{ color: "var(--ys-text)" }}>
-                Low — the analyst said so itself. Two visitors aren&apos;t a sample, they&apos;re
-                an anecdote. Measurement first, conclusions later.
+                Medium — hypotheses clearly separated from facts, never causality
+                from correlation.
               </p>
             </div>
           </div>
@@ -263,7 +256,7 @@ export default function AnalyticsOffer() {
         >
           I&apos;ll set this up on your product and run the AI Product Analyst with you for
           3 weeks. No charge while I&apos;m validating it. In return, I want honest feedback
-          and permission to learn from how you use it.
+          and to understand the questions you actually want your analytics to answer.
         </p>
         <ul className="mt-4 space-y-1.5 text-[13px]" style={{ color: "var(--ys-text-soft)" }}>
           <li>· A 3-week concierge pilot on your product</li>
@@ -277,7 +270,7 @@ export default function AnalyticsOffer() {
             className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-mono font-bold transition-transform hover:translate-y-[-1px]"
             style={{ background: "var(--ys-accent)", color: "var(--ys-surface)" }}
           >
-            Become a design partner
+            Try it on my product
             <ArrowRight size={15} />
           </a>
           <span className="text-[11.5px] font-mono" style={{ color: "var(--ys-text-soft)" }}>
