@@ -39,6 +39,26 @@ The tracker loads from `plausible.yogeshsahu.xyz`; `data-domain` is just a label
 So ANY product can track with one script tag — `data-domain` changes per site,
 the `src` stays identical. Firebase `*.web.app` needs no DNS.
 
+## Reusable repo prompt (any repo — fleet OR external SaaS founders)
+`docs/plausible-analytics-repo-prompt.md` is the canonical 5-step instrumenting
+prompt (install tracker → trackEvent helper → events → goals → verify). Use it
+when working in ANOTHER repo (own fleet or a friend's product) — copy it into
+that repo's `.claude/skills/plausible-analytics/SKILL.md` with `<SITE_DOMAIN>` resolved.
+Key rules it enforces: register BEFORE tracker (events dropped otherwise), no
+dummy events, env vars over hardcoded host, CSP must allow the host in
+`script-src` AND `connect-src` (the event POST is cross-origin).
+
+## Onboarding an EXTERNAL SaaS founder (concierge experiment / future customers)
+The same instance serves any founder's product. Flow:
+1. Register their domain (SQL below) + restart container BEFORE they paste anything.
+2. They paste the one script tag (src unchanged, their `data-domain`).
+3. Optional conversion: external signup URL → auto-tracked as outbound; same-domain → `onclick="plausible('signup_click')"`.
+4. Verify 202 (below), then Realtime.
+5. After ~7 days baseline, run the concierge analyst on their site:
+   `analyst/ask.mjs --site <domain>` / `analyst/weekly-memo.mjs --site <domain>` (this repo, `node --env-file=analyst/.env`).
+Friends get NO dashboard access — all interaction through the analyst. Their raw
+data lives in `analyst/memos/` + `analyst/qa-runs/` (gitignored — never public).
+
 ## Event taxonomy (portfolio repo)
 
 ### Standard auto-tracked (zero code)
@@ -108,6 +128,16 @@ Both live in `src/components/ui/`.
    ```
 
 5. **Hard-refresh the product** and check the Plausible dashboard Realtime.
+
+6. **CSP check** (Firebase static sites especially): if a `Content-Security-Policy`
+   header exists in `firebase.json`, allow `https://plausible.yogeshsahu.xyz` in
+   BOTH `script-src` and `connect-src` — the event POST is cross-origin and will
+   be blocked otherwise.
+
+7. **TS typing** for `window.plausible` (if the repo is TypeScript):
+   ```ts
+   declare global { interface Window { plausible?: (e: string, o?: { props?: Record<string, string | number> }) => void } }
+   ```
 
 ## Defining Goals (conversions) — via DB, no dashboard
 
