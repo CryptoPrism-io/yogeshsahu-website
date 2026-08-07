@@ -203,5 +203,13 @@ Verify: `POST /api/v2/query` with `Authorization: Bearer <key>`:
 - **`data-domain` is a label, not a URL** — no DNS needed per product.
 - **Restart needed after DB site insert** — the site cache refreshes on restart.
 - **Windows curl + JSON** — write the body to a file and use `--data-binary @file`
-  (inline single-quote JSON breaks on Windows PowerShell).
+  (inline single-quote JSON breaks on Windows PowerShell; PS 5.1 `Set-Content -Encoding UTF8`
+  adds a BOM that breaks JSON too — use `[System.IO.File]::WriteAllText` with `UTF8Encoding($false)`).
+- **Bot sessions are dropped BY DESIGN** — the tracker ignores `navigator.webdriver`,
+  `_phantom`, `__nightmare`, `Cypress` sessions (and localhost pageviews). You CANNOT
+  verify events with headless Playwright/Puppeteer as-is; verify with a real browser
+  or Realtime, and expect 202s from manual curl POSTs instead.
+- **CE v2 query quirks** — `"24h"` date_range is invalid on CE (use `"day"` or `"7d"`);
+  `event:name` filters can return empty even when the unfiltered breakdown shows the
+  event — prefer the unfiltered `dimensions: ["event:name"]` breakdown for debugging.
 - **Never hardcode the tracker host** — use `NEXT_PUBLIC_PLAUSIBLE_HOST` env.
