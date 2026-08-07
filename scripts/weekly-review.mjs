@@ -138,7 +138,7 @@ async function collectThemes() {
   }
 }
 
-async function composePost(activity, themes) {
+async function composePost(activity, themes, model) {
   const today = new Date();
   const weekNum = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (7 * 24 * 3600 * 1000));
   const dateStr = today.toISOString().slice(0, 10);
@@ -182,7 +182,7 @@ Then output a JSON object with these fields (NO markdown, raw JSON only):
       "X-Title": "weekly-review-bot",
     },
     body: JSON.stringify({
-      model: MODEL,
+      model,
       max_tokens: 1200,
       temperature: 0.7,
       messages: [{ role: "user", content: prompt }],
@@ -194,10 +194,28 @@ Then output a JSON object with these fields (NO markdown, raw JSON only):
     throw new Error(`OpenRouter API ${res.status}: ${err}`);
   }
   const data = await res.json();
+  if (data.error) {
+    throw new Error(`OpenRouter error (${model}): ${data.error.message ?? JSON.stringify(data.error)}`);
+  }
   const text = data.choices?.[0]?.message?.content ?? "";
+  if (!text) {
+    throw new Error(`OpenRouter returned empty content for model ${model}`);
+  }
+
+  const parseJson = (s) => {
+    try {
+      return JSON.parse(s);
+    } catch (e) {
+      throw new Error(
+        `Failed to parse model JSON (${model}): ${e.message}. Response: ${text.slice(0, 200)}`
+      );
+    }
+  };
+
   const start = text.indexOf("{");
   const end = text.lastIndexOf("}");
-  return JSON.parse(text.slice(start, end + 1));
+  if (start !== -1 && end > start) return parseJson(text.slice(start, end + 1));
+  return parseJson(text);
 }
 
 function appendToFile(post) {
@@ -215,9 +233,22 @@ async function main() {
   const activity = await collectWeekActivity();
   console.log(`Found ${activity.length} repos with activity`);
   const themes = await collectThemes();
-  const post = await composePost(activity, themes);
-  appendToFile(post);
-  console.log("Done.");
+
+  const startIdx = MODELS.indexOf(MODEL);
+  const ordered = [...MODELS.slice(startIdx), ...MODELS.slice(0, startIdx)];
+  let lastError;
+  for (const model of ordered) {
+    try {
+      const post = await composePost(activity, themes, model);
+      appendToFile(post);
+      console.log("Done.");
+      return;
+    } catch (e) {
+      lastError = e;
+      console.warn(`Model ${model} failed: ${e.message}`);
+    }
+  }
+  throw lastError ?? new Error("No models available to compose the post");
 }
 
 main().catch((e) => {
