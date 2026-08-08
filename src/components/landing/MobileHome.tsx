@@ -1,5 +1,6 @@
 "use client";
 
+import { CURRENT_MONTH_YEAR } from "@/lib/availability";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -582,7 +583,7 @@ function ContactSection() {
             <div style={mono(9, "0.14em", "var(--ys-text-soft)")}>Current Availability</div>
             <div className="mt-1.5">
               <span className="text-[13px] font-bold" style={{ fontFamily: HEAD, color: "var(--ys-text)" }}>
-                Open for May 2026 architecture mandates
+                Open for {CURRENT_MONTH_YEAR} architecture mandates
               </span>
             </div>
             <p className="mt-1" style={mono(10, "0.02em", "var(--ys-text-soft)")}>

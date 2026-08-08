@@ -1,5 +1,7 @@
 "use client";
 
+import { CURRENT_MONTH_YEAR } from "@/lib/availability";
+
 const MANDATE_TYPES = [
   {
     label: "AI INTEGRATION",
@@ -132,7 +134,7 @@ export default function ContactWindow() {
               className="text-[11px] font-bold"
               style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
             >
-              Open for May 2026 architecture mandates
+              Open for {CURRENT_MONTH_YEAR} architecture mandates
             </span>
           </div>
           <p className="mt-0.5 text-[10px]" style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}>

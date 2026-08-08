@@ -1,5 +1,6 @@
 "use client";
 
+import { CURRENT_MONTH_YEAR } from "@/lib/availability";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 
 interface Line {
@@ -26,7 +27,7 @@ const COMMANDS: Record<string, string> = {
     "Also:     Chief Solutions Architect / Fractional CTO",
     "Focus:    Discovery, architecture, hands-on delivery, client trust",
     "Offer:    Architecture diagnostic -> ongoing leadership",
-    "Status:   Open for May 2026 mandates",
+    "Status:   Open for ${CURRENT_MONTH_YEAR} mandates",
   ].join("\n"),
   skills: [
     "Infrastructure: GCP | PostgreSQL | BigQuery | Redis",
