@@ -85,4 +85,16 @@ Next week, I'll be continuing to refine the data pipelines and website offerings
 
 Reflection: A hopeful outlook on growth and learning this week.`,
   },
+  {
+    slug: "week-32-review",
+    title: "Week 32 — Database updates and site tweaks",
+    date: "2026-08-17",
+    tags: ["Review"],
+    excerpt: "Automated banners, PR merges for CP-020 and CP-018, and a website fix",
+    readTime: 3,
+    body: `The week was mostly about database work and minor site fixes. In CryptoPrism-DB-Monitor, I automated banner date updates for the next week—seven commits, all boilerplate. CryptoPrism-DB-D saw more activity: merged PRs for final promotion recommendations, MVRV validation, and a PIT-safe DMV rebuild. The website repo merged a master branch and fixed a push error. Open work includes one pending pull in CP-DB-D. Next week, I’ll resolve that pull and expand on the DMV validations.
+
+
+Reflection: Gratitude for the progress, even in the small wins, kept the mood hopeful.`,
+  },
 ];
