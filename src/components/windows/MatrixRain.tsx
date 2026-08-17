@@ -11,7 +11,7 @@ const CHARS = "ヲヱンヲエオヤユヨワヰンヴヵヶヷヸヹヺ・ー�
 
 export default function MatrixRain({ onComplete, duration = 5000 }: MatrixRainProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(0);
 
   const init = useCallback(() => {
@@ -54,7 +54,7 @@ export default function MatrixRain({ onComplete, duration = 5000 }: MatrixRainPr
 
       // Check if duration exceeded
       if (Date.now() - startTimeRef.current > duration) {
-        cancelAnimationFrame(animationRef.current!);
+        if (animationRef.current) cancelAnimationFrame(animationRef.current);
         window.removeEventListener("resize", resize);
         onComplete();
         return;
