@@ -1,4 +1,5 @@
 "use client";
+// Terminal with coffee, matrix, weather, and secret commands
 
 import { CURRENT_MONTH_YEAR } from "@/lib/availability";
 import { useEffect, useRef, useState, type FormEvent } from "react";
