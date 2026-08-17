@@ -47,4 +47,42 @@ Open PRs remain in puneglobalgroup-website, pratyaksha, gyanmarg, and cryptopris
 
 Next week we’ll focus on finalizing the Plausible analytics rollout and polishing the landing page interactions.`,
   },
+  {
+    slug: "week-32-review",
+    title: "Week 32 — Data Validation & Infrastructure",
+    date: "2026-08-14",
+    tags: ["Review"],
+    excerpt: "This week's review covers data validation, infrastructure, and website updates for CryptoPrism and personal projects.",
+    readTime: 2,
+    body: `This week was focused on data validation and infrastructure improvements across CryptoPrism, alongside website updates and asset refreshes.
+
+Shipped:
+
+CryptoPrism-DB-D:
+- Merged PRs for MVRV validation on daily data, materializing the latest top-100 DMV serving snapshot, and completing a PIT-safe DMV shadow rebuild.
+- Also merged work on the PIT-safe DMV computation layer and the bounded shadow-rebuild dry-run runner.
+
+CryptoPrism-News-Fetcher:
+- Merged fixes for B0 event data, restoring FE_NEWS_EVENTS freshness and XRP/ripple mapping.
+- Documented 9 pre-existing test failures as technical debt.
+
+yogeshsahu-website:
+- Updated availability mandates to use dynamic dates.
+- Polished the Hallmark design system, migrating to design tokens and refining visual elements.
+- Restructured the resources hub into dedicated pages.
+- Added an AI Product Analyst offering, including a one-pager and design partner CTA.
+- Implemented a reusable repo prompt and skill for product instrumentation.
+
+linkedin-engine-assets:
+- Deployed updated rotation images and carousels with improved readability.
+- Replaced an image with a canvas-design hybrid.
+
+In progress:
+- CryptoPrism-DB-Monitor: Auto-updating banner dates.
+- CryptoPrism-DB-D: One open pull request.
+
+Next week, I'll be continuing to refine the data pipelines and website offerings.
+
+Reflection: A hopeful outlook on growth and learning this week.`,
+  },
 ];
