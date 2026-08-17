@@ -400,7 +400,11 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
               </div>
             </div>
 
-            <div style={{ animation: `ip-rise .9s ${EASE} ${R[2]}s both` }}>
+            <div 
+              style={{ animation: `ip-rise .9s ${EASE} ${R[2]}s both` }}
+              className="group relative cursor-pointer"
+              onClick={() => onOpen("resources")}
+            >
               <div
                 style={{
                   position: "relative",
@@ -408,7 +412,9 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                   height: 200,
                   border: "1px solid #c5c0b8",
                   background: "#e9e7e3",
+                  transition: "all 0.3s cubic-bezier(0.16, 0.84, 0.44, 1)",
                 }}
+                className="group-hover:scale-105 group-hover:border-orange-400 group-hover:shadow-lg"
               >
                 <Image
                   src="/images/profile.jpg"
@@ -422,6 +428,61 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
                 <Corner pos="tr" />
                 <Corner pos="bl" />
                 <Corner pos="br" />
+                
+                {/* Overlay with product links on hover */}
+                <div 
+                  className="absolute inset-0 bg-black bg-opacity-70 flex flex-col items-center justify-center gap-2 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-sm"
+                  style={{ backdropFilter: "blur(2px)" }}
+                >
+                  <span 
+                    className="text-white text-center text-sm font-medium"
+                    style={{ fontFamily: HEAD }}
+                  >
+                    Explore My Work
+                  </span>
+                  <div className="flex flex-col gap-1 w-full">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpen("resources");
+                      }}
+                      className="text-left text-xs text-orange-200 hover:text-white transition-colors w-full truncate"
+                      style={{ fontFamily: MONO }}
+                    >
+                      → Products & Projects
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpen("capability-graph");
+                      }}
+                      className="text-left text-xs text-orange-200 hover:text-white transition-colors w-full truncate"
+                      style={{ fontFamily: MONO }}
+                    >
+                      → Capability Graph
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open("/work", "_blank");
+                      }}
+                      className="text-left text-xs text-orange-200 hover:text-white transition-colors w-full truncate"
+                      style={{ fontFamily: MONO }}
+                    >
+                      → Case Studies
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open("https://github.com/CryptoPrism-io", "_blank");
+                      }}
+                      className="text-left text-xs text-orange-200 hover:text-white transition-colors w-full truncate"
+                      style={{ fontFamily: MONO }}
+                    >
+                      → GitHub Repos
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -271,10 +271,21 @@ body {
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 
+/* Profile hover effect */
+.profile-hover-overlay {
+  transition: all 0.3s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   [style*="ip-rise"], [style*="ip-line"], [style*="ip-draw"], [style*="ip-fade"] {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
+  }
+  
+  .profile-hover-overlay,
+  .group:hover .profile-hover-overlay {
+    transform: none !important;
+    transition: none !important;
   }
 }
