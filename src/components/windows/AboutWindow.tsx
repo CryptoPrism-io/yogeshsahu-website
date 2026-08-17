@@ -1,206 +1,275 @@
 "use client";
 
-import Image from "next/image";
+import { useState } from "react";
 
-const ventures = [
-  {
-    label: "TRINETRY INFOTECH PVT LTD",
-    role: "Managing Director",
-    color: "var(--ys-accent)",
-    body: "Founded technology consultancy building AI-powered SaaS products and providing fractional CTO consulting. Replacing manual SME workflows with agentic AI.",
-    products: ["Pratyaksha — 4-agent AI journaling", "GyanMarg — EdTech platform", "ERP/CRM with agentic AI"],
-  },
-  {
-    label: "CRYPTOPRISM",
-    role: "Founder & CTO",
-    color: "var(--ys-highlight)",
-    body: "Full-stack crypto intelligence platform — on-chain analytics, ML trading signals via TimesFM, and automated spot trading bots processing 1B+ datapoints across 100+ coins.",
-    products: ["On-chain analytics pipeline", "TimesFM 100-coin trading bot", "News sentiment trading signals"],
-  },
+const EASE = "cubic-bezier(.16,.84,.44,1)";
+const MONO = "var(--font-mono)";
+const HEAD = "var(--font-headline)";
+const BODY = "var(--font-body)";
+const SERIF = "var(--font-serif-display)";
+
+const QUICK_FACTS = [
+  { label: "Location", value: "Mumbai, India" },
+  { label: "Timezone", value: "IST (UTC+5:30)" },
+  { label: "Experience", value: "8+ years" },
+  { label: "Focus", value: "AI-Native Products" },
+  { label: "Stack", value: "Next.js · FastAPI · Postgres" },
+  { label: "Availability", value: "Open for mandates" },
 ];
 
-const careerHighlights = [
-  { label: "TIMES OF INDIA", body: "Chief Technological Architect. Built AI Bharatverse — interactive AI platform for Indian history exploration." },
-  { label: "BARCLAYS", body: "ML Engineer, Fraud Analytics. Built ML pipelines for credit card fraud detection at scale.", brandSlug: "barclays" },
-  { label: "ISHA FOUNDATION", body: "Shipped Kari — 50K+ downloads. Mandala Support — 4.2M engagements across 120 countries." },
-  { label: "STRATHCLYDE", body: "MSc FinTech, merit, dissertation topper (82/100). AML false positives 87% → 59%." },
+const PHILOSOPHY = [
+  "I believe in shipping production-grade code, not MVPs.",
+  "Every product should have a clear path to revenue from day one.",
+  "AI is a multiplier, not a replacement for good architecture.",
+  "Performance is a feature—latency kills user trust.",
 ];
 
-const outcomes = [
-  { value: "2", label: "companies founded" },
-  { value: "1B+", label: "datapoints/day" },
-  { value: "100+", label: "coins tracked" },
-  { value: "50K+", label: "game downloads" },
-];
+export default function AboutWindow() {
+  const [activeTab, setActiveTab] = useState<"facts" | "philosophy" | "contact">("facts");
 
-export default function AboutWindow({ hideHeader = false }: { hideHeader?: boolean } = {}) {
   return (
-    <div className="p-6 md:p-8">
-      {!hideHeader && (
-        <div className="mb-7 border-b pb-7" style={{ borderColor: "var(--ys-border)" }}>
-          <div className="flex items-start gap-5">
-            <Image
-              src="/images/profile.jpg"
-              alt="Yogesh Sahu"
-              width={112}
-              height={112}
-              className="h-28 w-28 shrink-0 rounded-2xl object-cover"
-            />
-            <div>
-              <h1 className="mb-3 leading-[0.9] tracking-[-0.04em]">
-                <span
-                  className="block text-[clamp(2.6rem,5.6vw,4.2rem)] font-black italic"
-                  style={{ fontFamily: "var(--font-serif-display)", color: "var(--ys-accent)" }}
-                >
-                  Yogesh
-                </span>
-                <span
-                  className="block text-[clamp(2.3rem,4.8vw,3.8rem)] font-bold uppercase"
-                  style={{ fontFamily: "var(--font-headline)", color: "var(--ys-text)" }}
-                >
-                  Sahu
-                </span>
-              </h1>
-              <p
-                className="text-[10px] font-bold uppercase tracking-[0.22em]"
-                style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-              >
-                FOUNDER | MANAGING DIRECTOR | CTO
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <p
-        className="mb-7 max-w-lg text-[15px] leading-[1.75]"
-        style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
-      >
-        Builder first. I founded two companies, shipped products to market, and operate at the
-        intersection of AI, fintech, and data infrastructure. When I consult, I bring
-        founder-level ownership — not slide decks.
-      </p>
-
-      <div className="mb-7">
-        <p
-          className="mb-4 text-[10px] font-bold uppercase tracking-[0.2em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-accent)" }}
+    <div
+      className="h-full overflow-y-auto p-6"
+      style={{ fontFamily: BODY, background: "var(--ys-surface)" }}
+    >
+      {/* Header */}
+      <div className="mb-6">
+        <h2
+          style={{
+            fontFamily: HEAD,
+            fontWeight: 700,
+            fontSize: 32,
+            color: "var(--ys-text)",
+            marginBottom: 8,
+          }}
         >
-          What I&apos;m Building
+          About Me
+        </h2>
+        <p
+          style={{
+            fontFamily: MONO,
+            fontSize: 12,
+            letterSpacing: "0.1em",
+            color: "var(--ys-text-soft)",
+            textTransform: "uppercase",
+          }}
+        >
+          Founder · AI-Native Builder · CTO
         </p>
-        <div className="flex flex-col gap-4">
-          {ventures.map((v) => (
-            <div
-              key={v.label}
-              className="rounded-lg border-l-2 border p-4"
-              style={{
-                borderColor: "var(--ys-border)",
-                borderLeftColor: v.color,
-                background: "var(--ys-surface-strong)",
-              }}
-            >
-              <div className="mb-1 flex items-center gap-2">
-                <p
-                  className="text-[10px] font-bold uppercase tracking-[0.18em]"
-                  style={{ fontFamily: "var(--font-mono)", color: v.color }}
-                >
-                  {v.label}
-                </p>
-                <span
-                  className="rounded px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-[0.1em]"
+      </div>
+
+      {/* Tabs */}
+      <div className="mb-6 flex gap-2">
+        {(["facts", "philosophy", "contact"] as const).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className="transition-all duration-300"
+            style={{
+              padding: "8px 16px",
+              fontFamily: MONO,
+              fontSize: 11,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              border: "1px solid var(--ys-border)",
+              background: activeTab === tab ? "var(--ys-highlight)" : "transparent",
+              color: activeTab === tab ? "var(--ys-surface)" : "var(--ys-text)",
+              borderRadius: 3,
+              cursor: "pointer",
+            }}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      {/* Content */}
+      <div
+        style={{
+          animation: `fadeIn 0.4s ${EASE}`,
+        }}
+      >
+        {activeTab === "facts" && (
+          <div className="grid grid-cols-2 gap-4">
+            {QUICK_FACTS.map((fact) => (
+              <div
+                key={fact.label}
+                style={{
+                  padding: "16px",
+                  border: "1px solid var(--ys-border)",
+                  borderRadius: 4,
+                  background: "rgba(255,245,235,0.5)",
+                }}
+              >
+                <div
                   style={{
-                    fontFamily: "var(--font-mono)",
-                    background: "rgba(11, 141, 128, 0.12)",
-                    color: "var(--ys-highlight)",
+                    fontFamily: MONO,
+                    fontSize: 9,
+                    letterSpacing: "0.12em",
+                    color: "var(--ys-text-soft)",
+                    textTransform: "uppercase",
+                    marginBottom: 4,
                   }}
                 >
-                  {v.role}
-                </span>
+                  {fact.label}
+                </div>
+                <div
+                  style={{
+                    fontFamily: BODY,
+                    fontSize: 14,
+                    color: "var(--ys-text)",
+                    fontWeight: 500,
+                  }}
+                >
+                  {fact.value}
+                </div>
               </div>
-              <p
-                className="mb-2 text-[14px] leading-[1.75]"
-                style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
-              >
-                {v.body}
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {v.products.map((p) => (
-                  <span
-                    key={p}
-                    className="rounded border px-2 py-0.5 text-[9px]"
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      borderColor: "var(--ys-border)",
-                      color: "var(--ys-text-soft)",
-                    }}
-                  >
-                    {p}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+            ))}
+          </div>
+        )}
 
-      <div className="border-t pt-6" style={{ borderColor: "var(--ys-border)" }}>
-        <p
-          className="mb-4 text-[10px] font-bold uppercase tracking-[0.2em]"
-          style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-        >
-          Career Highlights
-        </p>
-        <div className="mb-7 flex flex-col gap-3">
-          {careerHighlights.map((item) => (
+        {activeTab === "philosophy" && (
+          <div className="space-y-4">
+            {PHILOSOPHY.map((quote, i) => (
+              <div
+                key={i}
+                style={{
+                  padding: "20px",
+                  borderLeft: "3px solid var(--ys-highlight)",
+                  background: "rgba(255,245,235,0.5)",
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: SERIF,
+                    fontStyle: "italic",
+                    fontSize: 16,
+                    lineHeight: 1.6,
+                    color: "var(--ys-text)",
+                    margin: 0,
+                  }}
+                >
+                  "{quote}"
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {activeTab === "contact" && (
+          <div className="space-y-4">
             <div
-              key={item.label}
-              className="rounded-lg border p-4"
               style={{
-                borderColor: "var(--ys-border)",
-                background: "var(--ys-surface-strong)",
+                padding: "20px",
+                border: "1px solid var(--ys-border)",
+                borderRadius: 4,
               }}
             >
-              <p
-                className="mb-1 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em]"
-                style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text)" }}
+              <div
+                style={{
+                  fontFamily: MONO,
+                  fontSize: 10,
+                  letterSpacing: "0.1em",
+                  color: "var(--ys-text-soft)",
+                  textTransform: "uppercase",
+                  marginBottom: 12,
+                }}
               >
-                {item.brandSlug ? (
-                  <img
-                    src={`https://cdn.jsdelivr.net/gh/glincker/thesvg@main/public/icons/${item.brandSlug}/default.svg`}
-                    alt={item.label}
-                    className="h-3.5 w-3.5 object-contain"
-                  />
-                ) : null}
-                {item.label}
-              </p>
-              <p
-                className="text-[14px] leading-[1.75]"
-                style={{ fontFamily: "var(--font-body)", color: "var(--ys-text-soft)" }}
+                Direct Channels
+              </div>
+              <div className="space-y-3">
+                <a
+                  href="mailto:yogesh.sahu@cryptoprism.io"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    fontFamily: BODY,
+                    fontSize: 14,
+                    color: "var(--ys-accent)",
+                    textDecoration: "none",
+                  }}
+                >
+                  <span>✉</span> yogesh.sahu@cryptoprism.io
+                </a>
+                <a
+                  href="https://linkedin.com/in/yogeshsahu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    fontFamily: BODY,
+                    fontSize: 14,
+                    color: "var(--ys-accent)",
+                    textDecoration: "none",
+                  }}
+                >
+                  <span>🔗</span> linkedin.com/in/yogeshsahu
+                </a>
+                <a
+                  href="https://github.com/CryptoPrism-io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    fontFamily: BODY,
+                    fontSize: 14,
+                    color: "var(--ys-accent)",
+                    textDecoration: "none",
+                  }}
+                >
+                  <span>⚡</span> github.com/CryptoPrism-io
+                </a>
+              </div>
+            </div>
+
+            <div
+              style={{
+                padding: "20px",
+                border: "1px solid var(--ys-border)",
+                borderRadius: 4,
+                background: "rgba(255,245,235,0.5)",
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: MONO,
+                  fontSize: 10,
+                  letterSpacing: "0.1em",
+                  color: "var(--ys-text-soft)",
+                  textTransform: "uppercase",
+                  marginBottom: 8,
+                }}
               >
-                {item.body}
+                Response Time
+              </div>
+              <div
+                style={{
+                  fontFamily: HEAD,
+                  fontWeight: 600,
+                  fontSize: 24,
+                  color: "var(--ys-highlight)",
+                }}
+              >
+                24-48 hours
+              </div>
+              <p
+                style={{
+                  fontFamily: BODY,
+                  fontSize: 13,
+                  color: "var(--ys-text-soft)",
+                  marginTop: 8,
+                }}
+              >
+                For urgent matters, mention "URGENT" in the subject line.
               </p>
             </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3 border-t pt-6 sm:grid-cols-4" style={{ borderColor: "var(--ys-border)" }}>
-        {outcomes.map((item) => (
-          <div key={item.label} className="text-center">
-            <p
-              className="text-[1.45rem] font-bold"
-              style={{ fontFamily: "var(--font-headline)", color: "var(--ys-accent)" }}
-            >
-              {item.value}
-            </p>
-            <p
-              className="text-[9px] uppercase tracking-[0.1em]"
-              style={{ fontFamily: "var(--font-mono)", color: "var(--ys-text-soft)" }}
-            >
-              {item.label}
-            </p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

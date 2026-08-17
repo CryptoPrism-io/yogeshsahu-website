@@ -1,9 +1,10 @@
+import AboutWindow from "@/components/windows/AboutWindow";
 import CapabilityGraphWindow from "@/components/windows/CapabilityGraphWindow";
 import EngageWindow from "@/components/windows/EngageWindow";
 import ResourcesWindow from "@/components/windows/ResourcesWindow";
 import TerminalWindow from "@/components/windows/TerminalWindow";
 import { type WindowConfig } from "@/hooks/useWindowManager";
-import { BookOpen, GitBranch, Mail, Terminal } from "lucide-react";
+import { BookOpen, GitBranch, Mail, Terminal, User } from "lucide-react";
 import type { ReactNode } from "react";
 
 export const WINDOW_CONFIGS: WindowConfig[] = [
@@ -39,6 +40,14 @@ export const WINDOW_CONFIGS: WindowConfig[] = [
     defaultPosition: { x: 160, y: 50 },
     defaultSize: { width: 740, height: 560 },
   },
+  {
+    id: "about",
+    title: "About Me",
+    icon: "about",
+    defaultOpen: false,
+    defaultPosition: { x: 180, y: 60 },
+    defaultSize: { width: 800, height: 600 },
+  },
 ];
 
 export const ICON_MAP: Record<string, ReactNode> = {
@@ -46,11 +55,13 @@ export const ICON_MAP: Record<string, ReactNode> = {
   "capability-graph": <GitBranch size={18} strokeWidth={1.5} />,
   contact: <Mail size={18} strokeWidth={1.5} />,
   terminal: <Terminal size={18} strokeWidth={1.5} />,
+  about: <User size={18} strokeWidth={1.5} />,
 };
 
 export const WINDOW_CONTENT: Record<string, (onOpen: (id: string) => void) => ReactNode> = {
   resources: () => <ResourcesWindow />,
   "capability-graph": (onOpen) => <CapabilityGraphWindow onOpen={onOpen} />,
   contact: () => <EngageWindow />,
-  terminal: () => <TerminalWindow />,
+  terminal: (onOpen) => <TerminalWindow onOpen={onOpen} />,
+  about: () => <AboutWindow />,
 };

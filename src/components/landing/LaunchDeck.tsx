@@ -401,87 +401,236 @@ export default function LaunchDeck({ onOpen }: { onOpen: (id: string) => void })
             </div>
 
             <div 
-              style={{ animation: `ip-rise .9s ${EASE} ${R[2]}s both` }}
+              style={{ 
+                animation: `ip-rise .9s ${EASE} ${R[2]}s both`,
+                perspective: "1000px",
+              }}
               className="group relative cursor-pointer"
-              onClick={() => onOpen("resources")}
+              onClick={() => onOpen("about")}
+              title="Click to view full profile"
             >
+              {/* Tooltip with quick facts */}
+              <div
+                className="absolute -left-2 top-0 -translate-x-full z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto"
+                style={{
+                  width: 180,
+                  padding: "16px",
+                  background: "var(--ys-surface)",
+                  border: "1px solid var(--ys-border)",
+                  borderRadius: 4,
+                  boxShadow: "0 12px 32px -8px rgba(42,23,15,0.4)",
+                  transform: "translateX(calc(-100% - 8px)) translateY(0)",
+                  opacity: 0,
+                  transition: `opacity 0.3s ${EASE}, transform 0.3s ${EASE}`,
+                }}
+              >
+                {/* Tooltip content */}
+                <div style={{ marginBottom: 12 }}>
+                  <div 
+                    style={{ 
+                      fontFamily: MONO, 
+                      fontSize: 9, 
+                      letterSpacing: "0.14em", 
+                      color: "var(--ys-text-soft)",
+                      textTransform: "uppercase",
+                      marginBottom: 8,
+                      borderBottom: "1px solid var(--ys-border)",
+                      paddingBottom: 6,
+                    }}
+                  >
+                    Quick Facts
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    <div>
+                      <div style={{ fontFamily: MONO, fontSize: 8, color: "var(--ys-text-soft)", letterSpacing: "0.1em" }}>LOCATION</div>
+                      <div style={{ fontFamily: BODY, fontSize: 12, color: "var(--ys-text)", marginTop: 2 }}>India (IST/UTC+5:30)</div>
+                    </div>
+                    <div>
+                      <div style={{ fontFamily: MONO, fontSize: 8, color: "var(--ys-text-soft)", letterSpacing: "0.1em" }}>ROLE</div>
+                      <div style={{ fontFamily: BODY, fontSize: 12, color: "var(--ys-text)", marginTop: 2 }}>Founder · CTO · AI-Native Builder</div>
+                    </div>
+                    <div>
+                      <div style={{ fontFamily: MONO, fontSize: 8, color: "var(--ys-text-soft)", letterSpacing: "0.1em" }}>STATUS</div>
+                      <div style={{ fontFamily: BODY, fontSize: 12, color: "var(--ys-highlight)", marginTop: 2, display: "flex", alignItems: "center", gap: 6 }}>
+                        <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--ys-highlight)", display: "inline-block" }} />
+                        Open to Work
+                      </div>
+                    </div>
+                    <div>
+                      <div style={{ fontFamily: MONO, fontSize: 8, color: "var(--ys-text-soft)", letterSpacing: "0.1em" }}>RESPONSE TIME</div>
+                      <div style={{ fontFamily: BODY, fontSize: 12, color: "var(--ys-text)", marginTop: 2 }}>~2 hours</div>
+                    </div>
+                  </div>
+                </div>
+                <div 
+                  style={{ 
+                    fontFamily: MONO, 
+                    fontSize: 8, 
+                    color: "var(--ys-accent-strong)",
+                    letterSpacing: "0.1em",
+                    textAlign: "center",
+                    paddingTop: 8,
+                    borderTop: "1px dashed var(--ys-border)",
+                  }}
+                >
+                  Click for full profile →
+                </div>
+                {/* Arrow pointer */}
+                <div 
+                  style={{
+                    position: "absolute",
+                    right: -6,
+                    top: 24,
+                    width: 10,
+                    height: 10,
+                    background: "var(--ys-surface)",
+                    borderTop: "1px solid var(--ys-border)",
+                    borderRight: "1px solid var(--ys-border)",
+                    transform: "rotate(45deg)",
+                  }}
+                />
+              </div>
+
+              {/* Business Card Container with Flip */}
               <div
                 style={{
                   position: "relative",
                   width: 200,
                   height: 200,
-                  border: "1px solid #c5c0b8",
-                  background: "#e9e7e3",
-                  transition: "all 0.3s cubic-bezier(0.16, 0.84, 0.44, 1)",
+                  transformStyle: "preserve-3d",
+                  transition: `transform 0.6s ${EASE}`,
                 }}
-                className="group-hover:scale-105 group-hover:border-orange-400 group-hover:shadow-lg"
+                className="group-hover:[transform:rotateY(180deg)]"
               >
-                <Image
-                  src="/images/profile.jpg"
-                  alt="Yogesh Sahu"
-                  fill
-                  sizes="200px"
-                  style={{ objectFit: "cover", filter: "grayscale(1) contrast(1.02)" }}
-                  priority
-                />
-                <Corner pos="tl" />
-                <Corner pos="tr" />
-                <Corner pos="bl" />
-                <Corner pos="br" />
-                
-                {/* Overlay with product links on hover */}
-                <div 
-                  className="absolute inset-0 bg-black bg-opacity-70 flex flex-col items-center justify-center gap-2 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-sm"
-                  style={{ backdropFilter: "blur(2px)" }}
+                {/* Front side - Photo */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    backfaceVisibility: "hidden",
+                    border: "1px solid #c5c0b8",
+                    background: "#e9e7e3",
+                    transition: "all 0.3s cubic-bezier(0.16, 0.84, 0.44, 1)",
+                  }}
+                  className="group-hover:border-orange-400 group-hover:shadow-lg"
                 >
-                  <span 
-                    className="text-white text-center text-sm font-medium"
-                    style={{ fontFamily: HEAD }}
+                  <Image
+                    src="/images/profile.jpg"
+                    alt="Yogesh Sahu"
+                    fill
+                    sizes="200px"
+                    style={{ objectFit: "cover", filter: "grayscale(1) contrast(1.02)" }}
+                    priority
+                  />
+                  <Corner pos="tl" />
+                  <Corner pos="tr" />
+                  <Corner pos="bl" />
+                  <Corner pos="br" />
+                  
+                  {/* Overlay on hover */}
+                  <div 
+                    className="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-sm"
+                    style={{ 
+                      background: "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 100%)",
+                    }}
                   >
-                    Explore My Work
-                  </span>
-                  <div className="flex flex-col gap-1 w-full">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onOpen("resources");
-                      }}
-                      className="text-left text-xs text-orange-200 hover:text-white transition-colors w-full truncate"
-                      style={{ fontFamily: MONO }}
+                    <span 
+                      className="text-white text-center text-sm font-medium"
+                      style={{ fontFamily: HEAD }}
                     >
-                      → Products & Projects
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onOpen("capability-graph");
-                      }}
-                      className="text-left text-xs text-orange-200 hover:text-white transition-colors w-full truncate"
-                      style={{ fontFamily: MONO }}
-                    >
-                      → Capability Graph
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.open("/work", "_blank");
-                      }}
-                      className="text-left text-xs text-orange-200 hover:text-white transition-colors w-full truncate"
-                      style={{ fontFamily: MONO }}
-                    >
-                      → Case Studies
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.open("https://github.com/CryptoPrism-io", "_blank");
-                      }}
-                      className="text-left text-xs text-orange-200 hover:text-white transition-colors w-full truncate"
-                      style={{ fontFamily: MONO }}
-                    >
-                      → GitHub Repos
-                    </button>
+                      View Profile
+                    </span>
                   </div>
+                </div>
+
+                {/* Back side - Business Card Info */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    backfaceVisibility: "hidden",
+                    transform: "rotateY(180deg)",
+                    background: "var(--ys-surface)",
+                    border: "1px solid var(--ys-border)",
+                    borderRadius: 4,
+                    padding: "20px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    boxShadow: "0 12px 32px -8px rgba(42,23,15,0.3)",
+                  }}
+                >
+                  {/* Card header */}
+                  <div>
+                    <div 
+                      style={{ 
+                        fontFamily: HEAD, 
+                        fontSize: 18, 
+                        fontWeight: 700,
+                        color: "var(--ys-text)",
+                        letterSpacing: "-0.02em",
+                        marginBottom: 4,
+                      }}
+                    >
+                      YOGESH SAHU
+                    </div>
+                    <div 
+                      style={{ 
+                        fontFamily: MONO, 
+                        fontSize: 8, 
+                        letterSpacing: "0.12em",
+                        color: "var(--ys-text-soft)",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Founder · CTO · AI-Native Builder
+                    </div>
+                  </div>
+
+                  {/* Card middle */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <div style={{ width: 20, height: 1, background: "var(--ys-accent)" }} />
+                      <span style={{ fontFamily: MONO, fontSize: 8, color: "var(--ys-accent)" }}>6+ Production Apps</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <div style={{ width: 20, height: 1, background: "var(--ys-highlight)" }} />
+                      <span style={{ fontFamily: MONO, fontSize: 8, color: "var(--ys-highlight)" }}>Open to Collaborate</span>
+                    </div>
+                  </div>
+
+                  {/* Card footer */}
+                  <div>
+                    <div 
+                      style={{ 
+                        fontFamily: MONO, 
+                        fontSize: 7, 
+                        letterSpacing: "0.1em",
+                        color: "var(--ys-text-soft)",
+                        textTransform: "uppercase",
+                        marginBottom: 8,
+                      }}
+                    >
+                      Preferred Contact
+                    </div>
+                    <div 
+                      style={{ 
+                        fontFamily: MONO, 
+                        fontSize: 9, 
+                        letterSpacing: "0.08em",
+                        color: "var(--ys-text)",
+                        wordBreak: "break-all",
+                      }}
+                    >
+                      yogesh@coffeeandcode.local
+                    </div>
+                  </div>
+
+                  {/* Corner accents for back */}
+                  <Corner pos="tl" size={5} w={1} />
+                  <Corner pos="tr" size={5} w={1} />
+                  <Corner pos="bl" size={5} w={1} />
+                  <Corner pos="br" size={5} w={1} />
                 </div>
               </div>
             </div>
