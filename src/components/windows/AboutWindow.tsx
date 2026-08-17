@@ -24,7 +24,11 @@ const PHILOSOPHY = [
   "Performance is a feature—latency kills user trust.",
 ];
 
-export default function AboutWindow() {
+interface AboutWindowProps {
+  hideHeader?: boolean;
+}
+
+export default function AboutWindow({ hideHeader }: AboutWindowProps = {}) {
   const [activeTab, setActiveTab] = useState<"facts" | "philosophy" | "contact">("facts");
 
   return (
@@ -33,30 +37,32 @@ export default function AboutWindow() {
       style={{ fontFamily: BODY, background: "var(--ys-surface)" }}
     >
       {/* Header */}
-      <div className="mb-6">
-        <h2
-          style={{
-            fontFamily: HEAD,
-            fontWeight: 700,
-            fontSize: 32,
-            color: "var(--ys-text)",
-            marginBottom: 8,
-          }}
-        >
-          About Me
-        </h2>
-        <p
-          style={{
-            fontFamily: MONO,
-            fontSize: 12,
-            letterSpacing: "0.1em",
-            color: "var(--ys-text-soft)",
-            textTransform: "uppercase",
-          }}
-        >
-          Founder · AI-Native Builder · CTO
-        </p>
-      </div>
+      {!hideHeader && (
+        <div className="mb-6">
+          <h2
+            style={{
+              fontFamily: HEAD,
+              fontWeight: 700,
+              fontSize: 32,
+              color: "var(--ys-text)",
+              marginBottom: 8,
+            }}
+          >
+            About Me
+          </h2>
+          <p
+            style={{
+              fontFamily: MONO,
+              fontSize: 12,
+              letterSpacing: "0.1em",
+              color: "var(--ys-text-soft)",
+              textTransform: "uppercase",
+            }}
+          >
+            Founder · AI-Native Builder · CTO
+          </p>
+        </div>
+      )}
 
       {/* Tabs */}
       <div className="mb-6 flex gap-2">
