@@ -40,12 +40,12 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "chore(reviews): add weekly review"
-            git push origin master
+            echo "Pushing commit $(git rev-parse HEAD) to origin master..."
+            git push origin HEAD:master
+            PUSH_EXIT=$?
+            if [ $PUSH_EXIT -ne 0 ]; then
+              echo "::error::Git push failed with exit code $PUSH_EXIT"
+              exit $PUSH_EXIT
+            fi
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
-
-      - name: Trigger deployment
-        if: steps.commit.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh workflow run deploy.yml --ref master
