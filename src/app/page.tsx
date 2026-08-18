@@ -9,6 +9,7 @@ import { WINDOW_CONFIGS, ICON_MAP, WINDOW_CONTENT } from "@/data/window-configs"
 import GlyphPanel from "@/components/landing/GlyphPanel";
 import LaunchDeck from "@/components/landing/LaunchDeck";
 import MobileHome from "@/components/landing/MobileHome";
+import TopNav from "@/components/layout/TopNav";
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -49,6 +50,8 @@ export default function Home() {
         <rect width="100%" height="100%" filter="url(#grain)" />
       </svg>
 
+      <TopNav onOpenWindow={openWindow} activeWindow={topZIndex > 0 ? openWindows.find(w => w.zIndex === topZIndex)?.id : null} />
+      
       <main id="main-content" className="absolute top-0 left-0 right-0 bottom-0 overflow-hidden">
         <LaunchDeck onOpen={openWindow} />
         <GlyphPanel onOpen={openWindow} />

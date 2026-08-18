@@ -245,6 +245,7 @@ function DockLink({ href, label, icon }: { href: string; label: string; icon: Re
 
 export default function Dock({ windows, iconMap, onOpen, onFocus }: DockProps) {
   const mouseX = useMotionValue(Infinity);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   return (
     <motion.nav
@@ -254,12 +255,13 @@ export default function Dock({ windows, iconMap, onOpen, onFocus }: DockProps) {
       initial="initial"
       animate="animate"
     >
-      {/* Idle 25% → wakes to full opacity on hover */}
+      {/* Idle 55% → wakes to full opacity on hover (was 25%, now more discoverable) */}
       <motion.div
-        initial={{ opacity: 0.25 }}
-        animate={{ opacity: 0.25 }}
-        whileHover={{ opacity: 1 }}
+        initial={{ opacity: 0.55, y: 0 }}
+        animate={{ opacity: hasInteracted ? 0.55 : 0.7, y: 0 }}
+        whileHover={{ opacity: 1, y: -4 }}
         transition={{ duration: 0.32, ease: MOTION_EASE_QUICK }}
+        onMouseEnter={() => setHasInteracted(true)}
       >
         <motion.div
           className="flex items-end gap-1 rounded-2xl border px-3 py-2"

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Briefcase, BookOpen, Mail, Zap } from "lucide-react";
+import { ArrowRight, Briefcase, BookOpen, Mail, Terminal, Zap } from "lucide-react";
 import { rhythmDelays } from "@/lib/motion";
 import { trackEvent } from "@/lib/analytics";
 
@@ -16,32 +16,18 @@ const NAV_ITEMS = [
     id: "capability-graph",
   },
   {
+    label: "Terminal",
+    desc: "Command interface · Quick access",
+    icon: "terminal",
+    type: "window" as const,
+    id: "terminal",
+  },
+  {
     label: "Work",
     desc: "12 case studies · 3 clusters",
     icon: "briefcase",
     type: "link" as const,
     href: "/work",
-  },
-  {
-    label: "Resources",
-    desc: "Founder + Builder · Investors",
-    icon: "bookOpen",
-    type: "link" as const,
-    href: "/resources",
-  },
-  {
-    label: "Log",
-    desc: "Notes + reflections · Tagged",
-    icon: "bookOpen",
-    type: "link" as const,
-    href: "/log",
-  },
-  {
-    label: "Contact",
-    desc: "About · Work With Me · Book",
-    icon: "mail",
-    type: "window" as const,
-    id: "contact",
   },
 ];
 
@@ -49,6 +35,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   briefcase: Briefcase,
   bookOpen: BookOpen,
   mail: Mail,
+  terminal: Terminal,
   zap: Zap,
 };
 

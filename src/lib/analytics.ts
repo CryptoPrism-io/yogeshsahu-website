@@ -6,6 +6,7 @@ type EventName =
   | "dock_open"
   | "contact_click"
   | "nav_click"
+  | "topnav_click"
   | "journal_read"
   | "cv_download"
   | "case_study_read"
