@@ -24,6 +24,7 @@ export default function TopNav({ onOpenWindow, activeWindow }: TopNavProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,7 +55,7 @@ export default function TopNav({ onOpenWindow, activeWindow }: TopNavProps) {
   return (
     <AnimatePresence>
       <motion.header
-        className="fixed top-0 left-0 right-0 z-[var(--z-header)] hidden lg:block"
+        className="fixed top-0 left-0 right-0 z-[var(--z-header)] hidden lg:flex justify-center"
         initial={{ y: -100, opacity: 0 }}
         animate={{ 
           y: isVisible ? 0 : -100, 
@@ -64,9 +65,11 @@ export default function TopNav({ onOpenWindow, activeWindow }: TopNavProps) {
           duration: 0.4, 
           ease: [0.16, 0.84, 0.44, 1]
         }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         <motion.nav
-          className="mx-auto mt-4 flex max-w-fit items-center gap-1 rounded-full border px-2 py-1.5"
+          className="mx-auto mt-4 flex items-center rounded-full border px-2 py-1.5 cursor-pointer"
           animate={{
             background: isScrolled 
               ? "rgba(34, 18, 11, 0.92)" 
@@ -81,10 +84,11 @@ export default function TopNav({ onOpenWindow, activeWindow }: TopNavProps) {
           }}
           transition={{ duration: 0.3 }}
         >
-          {/* Logo mark */}
+          {/* Logo mark - always visible */}
           <Link 
             href="/"
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors hover:bg-white/5"
+            onClick={() => trackEvent("topnav_click", { destination: "home" })}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors hover:bg-white/5 shrink-0"
           >
             <span 
               className="text-sm font-bold tracking-tight"
@@ -97,114 +101,112 @@ export default function TopNav({ onOpenWindow, activeWindow }: TopNavProps) {
             </span>
           </Link>
 
-          {/* Divider */}
-          <span 
-            className="mx-1 h-4 w-px"
-            style={{ background: "rgba(215, 189, 168, 0.15)" }}
-          />
+          {/* Expandable nav items container */}
+          <motion.div
+            className="flex items-center overflow-hidden"
+            initial={false}
+            animate={{
+              width: isHovered ? "auto" : 0,
+              opacity: isHovered ? 1 : 0,
+            }}
+            transition={{
+              width: { duration: 0.4, ease: [0.16, 0.84, 0.44, 1] },
+              opacity: { duration: 0.25, delay: isHovered ? 0.1 : 0 },
+            }}
+          >
+            {/* Divider */}
+            <motion.span 
+              className="mx-1 h-4 w-px shrink-0"
+              style={{ background: "rgba(215, 189, 168, 0.15)" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isHovered ? 1 : 0 }}
+              transition={{ duration: 0.2, delay: isHovered ? 0.15 : 0 }}
+            />
 
-          {/* Nav items */}
-          {NAV_ITEMS.map((item) => {
-            const Icon = item.icon;
-            const isActive = item.type === "window" 
-              ? activeWindow === item.windowId 
-              : false;
+            {/* Nav items */}
+            <div className="flex items-center">
+              {NAV_ITEMS.map((item, index) => {
+                const Icon = item.icon;
+                const isActive = item.type === "window" 
+                  ? activeWindow === item.windowId 
+                  : false;
 
-            if (item.type === "link") {
-              return (
-                <Link
-                  key={item.id}
-                  href={item.href}
-                  onClick={() => handleNavClick(item)}
-                  className="group relative flex items-center gap-2 rounded-full px-3.5 py-2 transition-all duration-200"
-                  style={{
-                    background: isActive ? "rgba(169, 61, 29, 0.25)" : "transparent",
-                  }}
-                >
+                return (
                   <motion.div
-                    className="flex items-center gap-2"
-                    whileHover={{ y: -1 }}
-                    transition={{ duration: 0.2 }}
+                    key={item.id}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ 
+                      opacity: isHovered ? 1 : 0, 
+                      x: isHovered ? 0 : -10 
+                    }}
+                    transition={{ 
+                      duration: 0.3, 
+                      delay: isHovered ? 0.15 + index * 0.05 : 0,
+                      ease: [0.16, 0.84, 0.44, 1]
+                    }}
                   >
-                    <Icon 
-                      size={14} 
-                      strokeWidth={1.5}
-                      className="text-[rgba(230,201,179,0.7)] group-hover:text-[rgba(255,244,233,0.95)] transition-colors"
-                    />
-                    <span 
-                      className="text-xs font-medium tracking-wide"
-                      style={{ 
-                        fontFamily: "var(--font-mono)",
-                        color: isActive 
-                          ? "rgba(255, 244, 233, 0.95)" 
-                          : "rgba(230, 201, 179, 0.75)",
-                      }}
-                    >
-                      {item.label}
-                    </span>
+                    {item.type === "link" ? (
+                      <Link
+                        href={item.href}
+                        onClick={() => handleNavClick(item)}
+                        className="group relative flex items-center gap-2 rounded-full px-3 py-2 transition-all duration-200 hover:bg-white/5"
+                      >
+                        <Icon 
+                          size={14} 
+                          strokeWidth={1.5}
+                          className="text-[rgba(230,201,179,0.7)] group-hover:text-[rgba(255,244,233,0.95)] transition-colors"
+                        />
+                        <span 
+                          className="text-xs font-medium tracking-wide whitespace-nowrap"
+                          style={{ 
+                            fontFamily: "var(--font-mono)",
+                            color: isActive 
+                              ? "rgba(255, 244, 233, 0.95)" 
+                              : "rgba(230, 201, 179, 0.75)",
+                          }}
+                        >
+                          {item.label}
+                        </span>
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={() => handleNavClick(item)}
+                        className="group relative flex items-center gap-2 rounded-full px-3 py-2 transition-all duration-200 hover:bg-white/5"
+                      >
+                        <Icon 
+                          size={14} 
+                          strokeWidth={1.5}
+                          className="text-[rgba(230,201,179,0.7)] group-hover:text-[rgba(255,244,233,0.95)] transition-colors"
+                        />
+                        <span 
+                          className="text-xs font-medium tracking-wide whitespace-nowrap"
+                          style={{ 
+                            fontFamily: "var(--font-mono)",
+                            color: isActive 
+                              ? "rgba(255, 244, 233, 0.95)" 
+                              : "rgba(230, 201, 179, 0.75)",
+                          }}
+                        >
+                          {item.label}
+                        </span>
+                        {/* Active indicator dot */}
+                        {isActive && (
+                          <motion.span
+                            layoutId="navActiveIndicator"
+                            className="absolute -bottom-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full"
+                            style={{ background: "var(--ys-accent)" }}
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ duration: 0.2 }}
+                          />
+                        )}
+                      </button>
+                    )}
                   </motion.div>
-                  
-                  {/* Hover indicator */}
-                  <motion.span
-                    className="absolute inset-x-2 bottom-1 h-px rounded-full"
-                    style={{ 
-                      background: "var(--ys-accent)",
-                      opacity: 0 
-                    }}
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.15 }}
-                  />
-                </Link>
-              );
-            }
-
-            // Window items
-            return (
-              <button
-                key={item.id}
-                onClick={() => handleNavClick(item)}
-                className="group relative flex items-center gap-2 rounded-full px-3.5 py-2 transition-all duration-200"
-                style={{
-                  background: isActive ? "rgba(169, 61, 29, 0.25)" : "transparent",
-                }}
-              >
-                <motion.div
-                  className="flex items-center gap-2"
-                  whileHover={{ y: -1 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Icon 
-                    size={14} 
-                    strokeWidth={1.5}
-                    className="text-[rgba(230,201,179,0.7)] group-hover:text-[rgba(255,244,233,0.95)] transition-colors"
-                  />
-                  <span 
-                    className="text-xs font-medium tracking-wide"
-                    style={{ 
-                      fontFamily: "var(--font-mono)",
-                      color: isActive 
-                        ? "rgba(255, 244, 233, 0.95)" 
-                        : "rgba(230, 201, 179, 0.75)",
-                    }}
-                  >
-                    {item.label}
-                  </span>
-                </motion.div>
-                
-                {/* Active indicator dot */}
-                {isActive && (
-                  <motion.span
-                    layoutId="navActiveIndicator"
-                    className="absolute -bottom-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full"
-                    style={{ background: "var(--ys-accent)" }}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.2 }}
-                  />
-                )}
-              </button>
-            );
-          })}
+                );
+              })}
+            </div>
+          </motion.div>
         </motion.nav>
       </motion.header>
     </AnimatePresence>
