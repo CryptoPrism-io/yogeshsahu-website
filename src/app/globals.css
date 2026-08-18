@@ -27,6 +27,7 @@
   /* Z-index named scale */
   --z-base:    1;
   --z-window:  100;
+  --z-header:  150;
   --z-menu:    200;
   --z-dock:    300;
   --z-modal:   400;
