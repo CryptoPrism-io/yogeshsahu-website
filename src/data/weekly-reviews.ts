@@ -97,4 +97,38 @@ Reflection: A hopeful outlook on growth and learning this week.`,
 
 Reflection: Gratitude for the progress, even in the small wins, kept the mood hopeful.`,
   },
+  {
+    slug: "week-33-review",
+    title: "Week 33 — Site Updates and Docs",
+    date: "2026-08-21",
+    tags: ["Review"],
+    excerpt: "This week's review includes website redesigns, automated updates, and documentation merges.",
+    readTime: 1,
+    body: `This week was focused on incremental improvements and documentation. The DB Monitor saw automated updates, while the website received significant visual and functional enhancements. Some critical documentation work was also merged.
+
+Shipped:
+
+CryptoPrism-DB-Monitor:
+Seven commits were purely automated banner date updates.
+
+_yogeshsahu-website_:
+Redesigned the Resources page with a bento grid.
+Updated the TopNav with collapse and hover expansion.
+Fixed a CSS variable for TopNav z-index.
+Removed a WebkitBackdropFilter from Framer Motion.
+Added a null initial value to an animation ref.
+Integrated hideHeader prop for AboutWindow.
+Triggered a redeploy.
+Added profile enhancements and terminal commander integration.
+Made the profile section interactive with product links on hover.
+
+CryptoPrism-DB-D:
+Merged a PR for the final promotion recommendation.
+Documented the final promotion recommendation decision.
+
+In progress:
+pratyaksha: One open pull request.
+
+Next week, I'll be focusing on the open PR for pratyaksha.`,
+  },
 ];
