@@ -131,4 +131,32 @@ pratyaksha: One open pull request.
 
 Next week, I'll be focusing on the open PR for pratyaksha.`,
   },
+  {
+    slug: "week-34-review",
+    title: "Week 34 — Website Tweaks and Maintenance",
+    date: "2026-08-28",
+    tags: ["Review"],
+    excerpt: "This week involved website updates and routine maintenance across our projects.",
+    readTime: 1,
+    body: `This past week was focused on website updates and minor maintenance. We pushed changes to both the main marketing site and the technical documentation site, along with some routine updates to our monitoring tools.
+
+Shipped:
+
+CryptoPrism-DB-Monitor:
+- Automated banner date updates.
+
+cryptoprism-tech-website:
+- Synced local Plausible analytics skill with remote master.
+
+cpio-website:
+- Fixed homepage CTAs to route to the product app.
+- Reverted a previous change that routed CTAs directly to the product app.
+- Merged a feature to route marketing CTAs to the product app.
+- Refined the desktop homepage hierarchy and proof.
+
+In progress:
+No open pull requests this week.
+
+Next week, we'll be looking at further website optimizations.`,
+  },
 ];
