@@ -159,4 +159,29 @@ No open pull requests this week.
 
 Next week, we'll be looking at further website optimizations.`,
   },
+  {
+    slug: "week-35-review",
+    title: "Week 35 — Maintenance and Upkeep",
+    date: "2026-09-04",
+    tags: ["Review"],
+    excerpt: "A look at the past week's GitHub activity, focused on maintenance and automated tasks.",
+    readTime: 1,
+    body: `This past week was largely about maintenance and ensuring core services are running. No major feature development, mostly keeping the lights on. Automated tasks continue to execute as expected, and I've updated some expiry dates on a few internal tools.
+
+**Shipped**
+
+*   **CryptoPrism-DB-Monitor**: 8 commits, updating banner expiry dates across the next few years.
+*   **CryptoPrism-News-Fetcher**: 3 commits, continuing automated hourly news fetches.
+*   **CryptoPrism-QA-System**: 1 commit, a minor keep-alive.
+*   **CryptoPrism-DB-H**: 1 commit, a minor keep-alive.
+*   **CryptoPrism-DB-Backtest**: 1 commit, a minor keep-alive.
+*   **ForexFactory-Calendar-Scraper**: 1 commit, a minor keep-alive.
+*   **yogeshsahu-website**: 1 commit, adding this weekly review.
+
+**In progress**
+
+*   **puneglobalgroup-website**: 1 open pull request. Still waiting on final review for that.
+
+Next week, I'll be looking at some performance tuning for the database monitor.`,
+  },
 ];
