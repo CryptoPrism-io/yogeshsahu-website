@@ -184,4 +184,29 @@ Next week, we'll be looking at further website optimizations.`,
 
 Next week, I'll be looking at some performance tuning for the database monitor.`,
   },
+  {
+    slug: "week-36-review",
+    title: "Week 36 — Maintenance and Infrastructure Deployment",
+    date: "2026-09-11",
+    tags: ["Review"],
+    excerpt: "This week saw automated maintenance for our monitoring and news fetching systems, alongside a significant infrastructure deployment for our outreach CRM.",
+    readTime: 1,
+    body: `This week was focused on maintaining background processes and deploying a key piece of infrastructure. Automation updates and a significant infrastructure deployment were the main activities.
+
+Shipped:
+
+CryptoPrism-DB-Monitor:
+Seven commits, all automated updates to the banner date. This ensures our monitoring system reflects current operational parameters.
+
+CryptoPrism-News-Fetcher:
+Five commits, all automated hourly news fetches. Keeping the news pipeline running consistently is critical for timely data ingestion.
+
+puneglobalgroup-website:
+One merged pull request: "Deploy Outreach CRM to private AWS runtime." This is a foundational step for our customer outreach capabilities, moving it to a dedicated AWS environment.
+
+In progress:
+No open pull requests across the repositories.
+
+Next week, we'll be focusing on enhancing data processing pipelines.`,
+  },
 ];
