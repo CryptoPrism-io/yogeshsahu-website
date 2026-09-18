@@ -209,4 +209,29 @@ No open pull requests across the repositories.
 
 Next week, we'll be focusing on enhancing data processing pipelines.`,
   },
+  {
+    slug: "week-37-review",
+    title: "Week 37 — Keeping the data pipeline current",
+    date: "2026-09-18",
+    tags: ["Review"],
+    excerpt: "This week was mostly routine maintenance: daily banner updates and scheduled news ingestion across the CryptoPrism repositories.",
+    readTime: 1,
+    body: `This week was mostly routine maintenance across CryptoPrism. The repositories stayed current through scheduled automation: daily updates to the database monitor banner and several automated news-fetch runs.
+
+Shipped
+
+CryptoPrism-DB-Monitor
+Seven automated commits updated the banner date for Sep 12 through Sep 18, 2026.
+
+CryptoPrism-News-Fetcher
+Five automated hourly news-fetch runs completed between Sep 11 and Sep 17.
+
+There were no merged pull requests this week.
+
+In progress
+
+There are no open pull requests or other active work represented in this week's activity. The focus remains on keeping the existing scheduled jobs running reliably.
+
+Next week, I’ll continue monitoring the automated pipeline and address anything that needs attention.`,
+  },
 ];
