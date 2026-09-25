@@ -234,4 +234,26 @@ There are no open pull requests or other active work represented in this week's 
 
 Next week, I’ll continue monitoring the automated pipeline and address anything that needs attention.`,
   },
+  {
+    slug: "week-38-review",
+    title: "Week 38 — Pipeline Maintenance",
+    date: "2026-09-25",
+    tags: ["Review"],
+    excerpt: "This week's CryptoPrism review covers automated pipeline maintenance and data fetching.",
+    readTime: 1,
+    body: `This past week focused on maintaining and automating core data pipelines for CryptoPrism. The bulk of the activity involved ensuring our monitoring and news fetching systems ran smoothly and were up-to-date.
+
+Shipped:
+
+CryptoPrism-DB-Monitor:
+Automated banner date updates across seven commits. This ensures our internal monitoring tools reflect current operational statuses.
+
+CryptoPrism-News-Fetcher:
+Five commits for automated hourly news fetches. These updates confirm the continuous ingestion of relevant market information.
+
+In progress:
+No open pull requests this week.
+
+Next week, we'll be looking at performance optimizations.`,
+  },
 ];
