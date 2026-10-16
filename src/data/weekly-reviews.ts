@@ -271,4 +271,29 @@ No open PRs or pending work this week.
 
 Next week I’ll keep the automation pipeline stable and begin integrating additional data sources.`,
   },
+  {
+    slug: "week-41-review",
+    title: "Week 41 — Moving two apps off Firebase and onto AWS",
+    date: "2026-10-16",
+    tags: ["Review"],
+    excerpt: "A quiet commit week on the surface, but two merged PRs moved pratyaksha and Polymind fully onto AWS.",
+    readTime: 2,
+    body: `Week 41 was mostly an infrastructure week. The commit counts look quiet — a lot of them are bot-generated — but the real work happened in two merged PRs that moved two products off Firebase and onto AWS. Everything else ran itself, which is honestly the point of the automation.
+
+Shipped
+
+pratyaksha — Merged PR #25: frontend hosting moved from Firebase to S3 + CloudFront. Same content, faster edge delivery, and one less vendor to manage.
+
+gyanmarg — Merged PR #28: Polymind user data moved to DynamoDB and hosting to CloudFront. This closes out the storage side of the AWS migration for that app.
+
+CryptoPrism-DB-Monitor — 7 automated commits keeping the banner dates current. Boring by design.
+
+CryptoPrism-News-Fetcher — 5 automated hourly fetches through the week. The pipeline did its job without me touching it.
+
+In progress
+
+No open PRs right now. The follow-up work from this week is unglamorous: verifying CloudFront cache behavior on the migrated frontends, tightening IAM policies for the new DynamoDB access patterns, and comparing the first AWS bill against what Firebase was charging us. I want real numbers before I call the migration done.
+
+Next week: finish the migration cleanup, kill the Firebase billing, and write up what the move actually cost in time versus what it saves.`,
+  },
 ];
