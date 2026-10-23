@@ -296,4 +296,29 @@ No open PRs right now. The follow-up work from this week is unglamorous: verifyi
 
 Next week: finish the migration cleanup, kill the Firebase billing, and write up what the move actually cost in time versus what it saves.`,
   },
+  {
+    slug: "week-42-review",
+    title: "Week 42 — Reliability and QA fixes",
+    date: "2026-10-23",
+    tags: ["Review"],
+    excerpt: "This week I focused on making backfills, QA checks, and scheduled workflows more dependable across CryptoPrism.",
+    readTime: 2,
+    body: `This week was mostly about reliability across the CryptoPrism repos: fixing data backfills and QA checks, keeping scheduled workflows active, and resolving a dependency issue in backtesting. The news fetcher and DB monitor also continued their automated updates.
+
+Shipped
+
+CryptoPrism-DB-D: Merged fixes to backfill all coins and add Supertrend, Aroon, and Bollinger Bands, with atomic writes and safer defaults. I also added a monthly workflow keep-alive and enabled Claude workflows to post reviews and replies.
+
+CryptoPrism-QA-System: Updated checks for the current RDS schema and made errors fail the run. Fixed stale imports and the SSL connection to RDS, and corrected the DMV score range to -100..100.
+
+CryptoPrism-DB-Backtest: Pinned Plotly below version 6 to keep it compatible with vectorbt 0.28.1.
+
+CryptoPrism-DB-Monitor and CryptoPrism-News-Fetcher: Automated banner-date updates and hourly news-fetch runs continued through the week. I also refreshed READMEs across the repos.
+
+In progress
+
+There are four open PRs in CryptoPrism-DB-D and one in CryptoPrism-QA-System. The activity data doesn’t include their details, so I’ll review and move those forward next.
+
+Next week, I’ll focus on closing the remaining open PRs and checking that the updated workflows run cleanly.`,
+  },
 ];
