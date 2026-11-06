@@ -342,4 +342,27 @@ No open pull requests across these repositories.
 
 Next week, I’ll keep the data pipelines running and look for opportunities to improve them.`,
   },
+  {
+    slug: "week-44-review",
+    title: "Week 44 — Faster pages, leaner backfills",
+    date: "2026-11-06",
+    tags: ["Review"],
+    excerpt: "This week I reduced product-page image weight and tightened memory use in database backfills, alongside routine data-pipeline maintenance.",
+    readTime: 1,
+    body: `This week was mostly about making existing systems more efficient. I cut image weight on the Pune Global Group site and changed database backfills to run within bounded memory. The news fetcher and database monitor also kept ticking along with routine automated updates.
+
+Shipped
+
+puneglobalgroup-website — Merged responsive WebP images, lazy-loaded carousel slides, and a click-to-enlarge viewer. Product-page image weight went from 112MB to 0.9MB.
+
+CryptoPrism-DB-D — Merged bounded-memory execution for ratios, metrics, and core backfills.
+
+CryptoPrism-DB-Monitor and CryptoPrism-News-Fetcher — Automated banner-date updates and news-fetch runs continued through the week.
+
+In progress
+
+puneglobalgroup-website has three open pull requests. The activity available this week doesn’t include their titles, so I can’t say more about their scope yet.
+
+Next week, I’ll keep working through the open website changes and watch how the backfill changes behave in practice.`,
+  },
 ];
