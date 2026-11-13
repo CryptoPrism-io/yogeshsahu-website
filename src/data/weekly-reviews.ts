@@ -365,4 +365,27 @@ puneglobalgroup-website has three open pull requests. The activity available thi
 
 Next week, I’ll keep working through the open website changes and watch how the backfill changes behave in practice.`,
   },
+  {
+    slug: "week-45-review",
+    title: "Week 45 — Website polish and steady automation",
+    date: "2026-11-13",
+    tags: ["Review"],
+    excerpt: "This week I merged three website improvements and kept the news-fetch and database-monitor automations running.",
+    readTime: 1,
+    body: `This week was mostly about keeping CryptoPrism’s automated systems ticking over while making a few focused improvements to the Pune Global Group website. The recurring fetch and banner updates continued; the main shipped work was in site usability, cleanup, and discoverability.
+
+Shipped
+
+puneglobalgroup-website: Merged three PRs. I improved carousel controls and made auto-rotation calmer, added structured data and other SEO/AEO updates, and cleaned up the sales path and design.
+
+CryptoPrism-News-Fetcher: Five automated hourly news-fetch runs completed.
+
+CryptoPrism-DB-Monitor: The banner date was updated daily from Nov 7 through Nov 13.
+
+In progress
+
+There’s one open PR in CryptoPrism-News-Fetcher and one in CryptoPrism-DB-D. The activity data doesn’t include details on either change, so I’ll leave the specifics for when they’re ready to merge.
+
+Next week, I’ll review those open changes and keep tightening the site and automation.`,
+  },
 ];
