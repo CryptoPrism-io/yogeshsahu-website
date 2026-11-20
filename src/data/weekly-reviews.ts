@@ -388,4 +388,27 @@ There’s one open PR in CryptoPrism-News-Fetcher and one in CryptoPrism-DB-D. T
 
 Next week, I’ll review those open changes and keep tightening the site and automation.`,
   },
+  {
+    slug: "week-46-review",
+    title: "Week 46 — Pipeline upkeep and an indicator fix",
+    date: "2026-11-20",
+    tags: ["Review"],
+    excerpt: "This week was mostly routine pipeline upkeep, plus a fix to keep indicator values within range.",
+    readTime: 1,
+    body: `This week was mostly maintenance across CryptoPrism: the news fetcher kept running, the database monitor updated its banner daily, and one indicator-range fix was merged. There were no major feature changes in the activity log.
+
+Shipped
+
+CryptoPrism-DB-D: Merged a fix to keep indicator values in range.
+
+CryptoPrism-News-Fetcher: Five automated hourly news-fetch commits landed.
+
+CryptoPrism-DB-Monitor: Seven automated banner-date updates landed.
+
+In progress
+
+pratyaksha has one open pull request. The activity log doesn’t include details on its scope.
+
+Next week, I’ll keep the pipeline reliable and review the open work.`,
+  },
 ];
